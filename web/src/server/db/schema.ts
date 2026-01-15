@@ -1,5 +1,9 @@
 import { index, primaryKey, mysqlTable as table } from 'drizzle-orm/mysql-core';
 
+export const admins = table('admins', (d) => ({
+  userId: d.varchar('user_id', { length: 256 }).notNull().unique(),
+}));
+
 export const recipes = table('recipes', (d) => ({
   id: d.bigint('id', { mode: 'number', unsigned: true }).primaryKey().autoincrement(),
   userId: d.varchar('user_id', { length: 256 }).notNull(),

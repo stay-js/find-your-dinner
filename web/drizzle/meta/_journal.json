@@ -36,6 +36,13 @@
       "when": 1768490433748,
       "tag": "0004_seed_categories_table",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "5",
+      "when": 1768508617760,
+      "tag": "0005_create_admins_table",
+      "breakpoints": true
     }
   ]
 }
