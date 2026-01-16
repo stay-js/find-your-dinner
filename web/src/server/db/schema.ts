@@ -32,10 +32,15 @@ export const recipeData = table(
   (t) => [index('idx_recipe_data_recipe_id').on(t.recipeId)],
 );
 
+export const units = table('units', (d) => ({
+  id: d.bigint('id', { mode: 'number', unsigned: true }).primaryKey().autoincrement(),
+  name: d.varchar('name', { length: 64 }).notNull(),
+  abbreviation: d.varchar('abbreviation', { length: 16 }).notNull(),
+}));
+
 export const ingredients = table('ingredients', (d) => ({
   id: d.bigint('id', { mode: 'number', unsigned: true }).primaryKey().autoincrement(),
   name: d.varchar('name', { length: 256 }).notNull(),
-  unit: d.varchar('unit', { length: 64 }).notNull(),
 }));
 
 export const ingredientRecipeData = table(
@@ -48,8 +53,12 @@ export const ingredientRecipeData = table(
     ingredientId: d
       .bigint('ingredient_id', { mode: 'number', unsigned: true })
       .notNull()
-      .references(() => ingredients.id, { onDelete: 'cascade', onUpdate: 'cascade' }),
+      .references(() => ingredients.id, { onDelete: 'restrict', onUpdate: 'restrict' }),
     quantity: d.float('quantity', { unsigned: true }).notNull(),
+    unitId: d
+      .bigint('unit_id', { mode: 'number', unsigned: true })
+      .notNull()
+      .references(() => units.id, { onDelete: 'restrict', onUpdate: 'restrict' }),
   }),
   (t) => [primaryKey({ columns: [t.recipeDataId, t.ingredientId] })],
 );

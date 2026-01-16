@@ -1,8 +1,8 @@
 {
   "version": "5",
   "dialect": "mysql",
-  "id": "e1c3c75d-b954-47c0-b69b-35c8057d92ad",
-  "prevId": "a90310f5-9c81-4fcb-a511-e0b56b1d0cfe",
+  "id": "24f3540b-c834-45a0-a69d-ba66fa3045e0",
+  "prevId": "e1c3c75d-b954-47c0-b69b-35c8057d92ad",
   "tables": {
     "admins": {
       "name": "admins",
@@ -126,6 +126,13 @@
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
+        },
+        "unit_id": {
+          "name": "unit_id",
+          "type": "bigint unsigned",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
         }
       },
       "indexes": {},
@@ -145,8 +152,17 @@
           "tableTo": "ingredients",
           "columnsFrom": ["ingredient_id"],
           "columnsTo": ["id"],
-          "onDelete": "cascade",
-          "onUpdate": "cascade"
+          "onDelete": "restrict",
+          "onUpdate": "restrict"
+        },
+        "ingredient_recipe_data_unit_id_units_id_fk": {
+          "name": "ingredient_recipe_data_unit_id_units_id_fk",
+          "tableFrom": "ingredient_recipe_data",
+          "tableTo": "units",
+          "columnsFrom": ["unit_id"],
+          "columnsTo": ["id"],
+          "onDelete": "restrict",
+          "onUpdate": "restrict"
         }
       },
       "compositePrimaryKeys": {
@@ -171,13 +187,6 @@
         "name": {
           "name": "name",
           "type": "varchar(256)",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "unit": {
-          "name": "unit",
-          "type": "varchar(64)",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
@@ -392,6 +401,42 @@
         "saved_recipes_user_id_recipe_id_pk": {
           "name": "saved_recipes_user_id_recipe_id_pk",
           "columns": ["user_id", "recipe_id"]
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraint": {}
+    },
+    "units": {
+      "name": "units",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "bigint unsigned",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(64)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "abbreviation": {
+          "name": "abbreviation",
+          "type": "varchar(16)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {
+        "units_id": {
+          "name": "units_id",
+          "columns": ["id"]
         }
       },
       "uniqueConstraints": {},

@@ -50,6 +50,13 @@
       "when": 1768513305399,
       "tag": "0006_remove_unnecessary_timestamps",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "5",
+      "when": 1768570426839,
+      "tag": "0007_create_units_table",
+      "breakpoints": true
     }
   ]
 }
