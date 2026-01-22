@@ -7,7 +7,6 @@ import { ThemeProvider } from 'next-themes';
 import { GeistSans } from 'geist/font/sans';
 
 import { Toaster } from '~/components/ui/sonner';
-import { Header } from '~/components/header';
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -34,14 +33,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             enableColorScheme
             disableTransitionOnChange
           >
-            <div className="grid grid-cols-1 grid-rows-[1fr_auto] gap-6">
-              <div className="min-h-screen">
-                <Header />
-                {children}
-              </div>
-
-              {/* <Footer /> */}
-            </div>
+            {children}
 
             <Toaster />
           </ThemeProvider>
