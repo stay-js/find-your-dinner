@@ -15,6 +15,7 @@ export function DashboardSidebar(props: React.ComponentProps<typeof Sidebar>) {
         {
           title: 'Recepteim',
           icon: Notebook,
+          isActive: true,
           items: [
             {
               title: 'Recepteim kezelése',
