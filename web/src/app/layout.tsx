@@ -6,6 +6,7 @@ import { shadcn } from '@clerk/themes';
 import { ThemeProvider } from 'next-themes';
 import { GeistSans } from 'geist/font/sans';
 
+import { ReactQueryProvider } from '~/app/react-query-provider';
 import { Toaster } from '~/components/ui/sonner';
 
 export const viewport: Viewport = {
@@ -26,17 +27,19 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     >
       <html lang="hu" className={`${GeistSans.variable} scroll-smooth`} suppressHydrationWarning>
         <body className="overflow-x-hidden antialiased">
-          <ThemeProvider
-            storageKey="theme"
-            defaultTheme="dark"
-            attribute="class"
-            enableColorScheme
-            disableTransitionOnChange
-          >
-            {children}
+          <ReactQueryProvider>
+            <ThemeProvider
+              storageKey="theme"
+              defaultTheme="system"
+              attribute="class"
+              enableColorScheme
+              disableTransitionOnChange
+            >
+              {children}
 
-            <Toaster />
-          </ThemeProvider>
+              <Toaster />
+            </ThemeProvider>
+          </ReactQueryProvider>
         </body>
       </html>
     </ClerkProvider>
