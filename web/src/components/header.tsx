@@ -19,7 +19,7 @@ export function Header() {
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button size="icon" variant="ghost">
-              <UserAvatar />
+              <UserAvatar className="size-7" />
             </Button>
           </DropdownMenuTrigger>
 

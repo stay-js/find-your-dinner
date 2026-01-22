@@ -3,13 +3,14 @@
 import { useUser } from '@clerk/nextjs';
 
 import { Avatar, AvatarFallback, AvatarImage } from '~/components/ui/avatar';
+import { cn } from '~/lib/utils';
 
-export function UserAvatar() {
+export function UserAvatar({ className }: { className?: string }) {
   const { user } = useUser();
   if (!user) return null;
 
   return (
-    <Avatar className="size-6 rounded-full">
+    <Avatar className={cn('size-6 rounded-full', className)}>
       <AvatarImage src={user.imageUrl} alt={user.fullName ?? ''} />
 
       <AvatarFallback className="rounded-full">
