@@ -17,7 +17,14 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <ClerkProvider appearance={{ baseTheme: shadcn }}>
+    <ClerkProvider
+      appearance={{
+        baseTheme: shadcn,
+        elements: {
+          modalBackdrop: 'bg-black/30',
+        },
+      }}
+    >
       <html lang="hu" className={`${GeistSans.variable} scroll-smooth`} suppressHydrationWarning>
         <body className="overflow-x-hidden antialiased">
           <ThemeProvider
