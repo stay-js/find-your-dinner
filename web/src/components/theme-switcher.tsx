@@ -1,7 +1,6 @@
 'use client';
 
 import { useTheme } from 'next-themes';
-import { useEffect, useState } from 'react';
 import { Moon, Monitor, Sun } from 'lucide-react';
 
 import {
@@ -12,7 +11,8 @@ import {
   SelectLabel,
   SelectTrigger,
   SelectValue,
-} from './ui/select';
+} from '~/components/ui/select';
+import { useMounted } from '~/hooks/use-mounted';
 
 const themes = [
   { name: 'Világos', value: 'light', icon: Sun },
@@ -21,11 +21,8 @@ const themes = [
 ];
 
 export function ThemeSwitcher() {
-  const [mounted, setMounted] = useState(false);
-
+  const mounted = useMounted();
   const { theme, setTheme } = useTheme();
-
-  useEffect(() => setMounted(true), []);
 
   if (!mounted) return <div />;
 
