@@ -22,11 +22,11 @@ export function DashboardSidebar(props: React.ComponentProps<typeof Sidebar>) {
           items: [
             {
               title: 'Receptek jóváhagyása',
-              url: '/dashboard/admin/recipies/approve',
+              url: '/dashboard/admin/recipes/approve',
             },
             {
               title: 'Receptek kezelése',
-              url: '/dashboard/admin/recipies/manage',
+              url: '/dashboard/admin/recipes/manage',
             },
           ],
         },
