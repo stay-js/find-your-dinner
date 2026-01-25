@@ -11,7 +11,7 @@ export function Header() {
     <header className="flex items-center justify-between gap-4 border-b p-4">
       <Link href="/">
         <Button variant="link" className="p-0 text-base font-semibold">
-          Recept Tinder
+          Find Your Dinner.
         </Button>
       </Link>
 

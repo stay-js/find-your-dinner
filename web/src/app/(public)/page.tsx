@@ -3,8 +3,8 @@ import { createMetadata } from '~/lib/create-metadata';
 
 export const metadata = createMetadata({
   path: '/',
-  title: 'Főoldal - Recept Tinder',
-  description: 'Üdvözöljük a Recept Tinder alkalmazásban!',
+  title: 'Főoldal - Find Your Dinner.',
+  description: 'Üdvözöljük a Find Your Dinner. alkalmazásban!',
 });
 
 export default async function LandingPage() {

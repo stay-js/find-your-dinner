@@ -23,10 +23,10 @@ export function createMetadata({
 
     keywords: [''].join(', '),
 
-    title: absoluteTitle ?? `${title} - Recept Tinder`,
+    title: absoluteTitle ?? `${title} - Find Your Dinner.`,
     description,
 
-    applicationName: 'Recept Tinder',
+    applicationName: 'Find Your Dinner.',
 
     robots: noIndex
       ? {
@@ -51,15 +51,15 @@ export function createMetadata({
     openGraph: {
       type: 'website',
       url: `url${path}`,
-      title: absoluteTitle ?? `${title} - Recept Tinder`,
+      title: absoluteTitle ?? `${title} - Find Your Dinner.`,
       description,
-      siteName: 'Recept Tinder',
+      siteName: 'Find Your Dinner.',
       locale: 'hu-HU',
     },
 
     twitter: {
       card: 'summary',
-      title: absoluteTitle ?? `${title} - Recept Tinder`,
+      title: absoluteTitle ?? `${title} - Find Your Dinner.`,
       description,
     },
 

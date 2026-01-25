@@ -2,8 +2,8 @@ import { createMetadata } from '~/lib/create-metadata';
 
 export const metadata = createMetadata({
   path: '/dashboard',
-  title: 'Recepteim - Recept Tinder',
-  description: 'Recepteim - Recept Tinder',
+  title: 'Recepteim - Find Your Dinner.',
+  description: 'Recepteim - Find Your Dinner.',
 });
 
 export default async function DashboardPage() {

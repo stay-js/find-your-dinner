@@ -1,1 +1,1 @@
-# Recept Tinder - Dokumentáció
+# Find Your Dinner. – Dokumentáció
