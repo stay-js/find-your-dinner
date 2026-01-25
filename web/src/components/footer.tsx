@@ -80,7 +80,7 @@ export function Footer() {
                     icon: Globe,
                   },
                   {
-                    title: 'Recept beküldése',
+                    title: 'Recept létrehozása',
                     href: '/dashboard/recipes/create',
                     icon: UtensilsCrossed,
                   },
