@@ -21,8 +21,8 @@ export function Footer() {
               </p>
             </div>
 
-            <div className="flex flex-col gap-2">
-              <label htmlFor="theme" className="text-muted-foreground text-xs font-medium">
+            <div className="flex flex-col gap-1">
+              <label htmlFor="theme" className="text-muted-foreground w-fit font-medium">
                 Megjelenés
               </label>
 
