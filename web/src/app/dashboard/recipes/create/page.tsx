@@ -7,7 +7,7 @@ export const metadata = createMetadata({
   noIndex: true,
 });
 
-export default async function DashboardPage() {
+export default async function CreatePage() {
   return (
     <div>
       <h1>Recept létrehozása</h1>
