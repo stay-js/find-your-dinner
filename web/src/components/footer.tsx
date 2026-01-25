@@ -72,11 +72,13 @@ export function Footer() {
                   {
                     title: 'GitHub',
                     href: 'https://github.com/stay-js/find-your-dinner',
+                    external: true,
                     icon: Github,
                   },
                   {
                     title: 'znagy.hu',
                     href: 'https://znagy.hu',
+                    external: true,
                     icon: Globe,
                   },
                   {
@@ -88,8 +90,10 @@ export function Footer() {
                   <Link
                     key={item.href}
                     href={item.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    {...(item.external && {
+                      target: '_blank',
+                      rel: 'noopener noreferrer',
+                    })}
                     className="text-muted-foreground hover:text-foreground flex items-center gap-2 underline-offset-4 transition-colors hover:underline"
                   >
                     <item.icon className="size-4" />
