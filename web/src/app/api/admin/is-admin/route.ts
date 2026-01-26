@@ -1,18 +1,16 @@
 import { NextResponse } from 'next/server';
 import { auth } from '@clerk/nextjs/server';
-import { eq } from 'drizzle-orm';
 
-import { db } from '~/server/db';
-import { admins } from '~/server/db/schema';
+import { checkIsAdmin } from '~/server/utils/check-is-admin';
 
 export async function GET() {
-  const { userId } = await auth();
+  const { isAuthenticated, userId } = await auth();
 
-  if (!userId) {
+  if (!isAuthenticated) {
     return NextResponse.json({ isAdmin: false, error: 'UNAUTHORIZED' }, { status: 401 });
   }
 
-  const isAdmin = await db.query.admins.findFirst({ where: eq(admins.userId, userId) });
+  const isAdmin = await checkIsAdmin(userId);
 
-  return NextResponse.json({ isAdmin: !!isAdmin });
+  return NextResponse.json({ isAdmin });
 }

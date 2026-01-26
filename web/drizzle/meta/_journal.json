@@ -57,6 +57,13 @@
       "when": 1768570426839,
       "tag": "0007_create_units_table",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "5",
+      "when": 1769413441726,
+      "tag": "0008_seed_admins_table",
+      "breakpoints": true
     }
   ]
 }
