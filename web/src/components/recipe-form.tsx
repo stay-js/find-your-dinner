@@ -13,6 +13,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card';
 import { Badge } from '~/components/ui/badge';
 import { Separator } from '~/components/ui/separator';
 import { FieldError } from '~/components/ui/field';
+import { Skeleton } from '~/components/ui/skeleton';
 import { FormInput, FormTextarea, FormSelect } from '~/components/form';
 import { categoriesSchema, ingredientsSchema, unitsSchema } from '~/lib/zod-schemas';
 import { isIntegerString, isPositiveIntegerString } from '~/lib/zod-helpers';
@@ -245,7 +246,19 @@ export function RecipeForm() {
               render={({ field, fieldState }) => (
                 <div className="flex flex-col gap-4">
                   <div className="flex flex-wrap gap-2">
-                    {isCategoriesLoading && <p>TODO: Skeleton</p>}
+                    {isCategoriesLoading &&
+                      new Array(10)
+                        .fill(null)
+                        .map((_, index) => (
+                          <Skeleton
+                            key={index}
+                            className={cn(
+                              'h-8 w-16 rounded-full',
+                              index % 2 === 0 && 'w-24',
+                              index % 3 === 0 && 'w-18',
+                            )}
+                          />
+                        ))}
 
                     {categories?.map((category) => {
                       const isSelected = field.value.includes(category.id);
