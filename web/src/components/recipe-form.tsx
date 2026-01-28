@@ -176,7 +176,7 @@ export function RecipeForm() {
           </CardHeader>
 
           <CardContent>
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+            <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
               <FormInput
                 name="prepTimeMinutes"
                 control={control}
@@ -294,11 +294,10 @@ export function RecipeForm() {
                 {index > 0 && <Separator />}
 
                 <div className="flex items-start gap-3 pt-2">
-                  <div className="grid w-full grid-cols-1 gap-3 lg:grid-cols-[1fr_100px_140px]">
+                  <div className="flex w-full flex-col gap-3">
                     <FormSelect
                       control={control}
                       name={`ingredients.${index}.ingredientId`}
-                      errorPosition={isMobile ? 'top' : 'bottom'}
                       label="Hozzávaló neve"
                       placeholder="Válassz hozzávalót"
                       disabled={isIngredientsLoading}
@@ -317,7 +316,6 @@ export function RecipeForm() {
                     <FormInput
                       name={`ingredients.${index}.quantity`}
                       control={control}
-                      errorPosition={isMobile ? 'top' : 'bottom'}
                       label="Mennyiség"
                       placeholder="250"
                     />
@@ -325,7 +323,6 @@ export function RecipeForm() {
                     <FormSelect
                       control={control}
                       name={`ingredients.${index}.unitId`}
-                      errorPosition={isMobile ? 'top' : 'bottom'}
                       label="Mértékegység"
                       placeholder="Válassz mértékegységet"
                       disabled={isUnitsLoading}
