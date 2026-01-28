@@ -20,6 +20,9 @@ type FormInputProps<TFieldValues extends FieldValues, TName extends FieldPath<TF
   placeholder?: string;
   type?: React.HTMLInputTypeAttribute;
   errorPosition?: 'top' | 'bottom';
+  min?: number;
+  max?: number;
+  step?: number;
 } & (PathValue<TFieldValues, TName> extends InputValue
   ? {}
   : { _error: 'Field value must match input value type' });
@@ -32,6 +35,9 @@ export function FormInput<TFieldValues extends FieldValues, TName extends FieldP
   placeholder,
   type = 'text',
   errorPosition = 'top',
+  min,
+  max,
+  step,
 }: FormInputProps<TFieldValues, TName>) {
   return (
     <FieldGroup>
@@ -55,6 +61,9 @@ export function FormInput<TFieldValues extends FieldValues, TName extends FieldP
               value={field.value ?? ''}
               placeholder={placeholder}
               aria-invalid={fieldState.invalid}
+              min={min}
+              max={max}
+              step={step}
             />
 
             {fieldState.invalid && errorPosition === 'bottom' && (

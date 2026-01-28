@@ -1,5 +1,6 @@
 'use client';
 
+import { Fragment } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { Controller, useFieldArray, useForm, type SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -182,6 +183,8 @@ export function RecipeForm() {
                 control={control}
                 errorPosition={isMobile ? 'top' : 'bottom'}
                 type="number"
+                min={0}
+                step={1}
                 label={
                   <>
                     <Clock className="size-4" />
@@ -196,6 +199,8 @@ export function RecipeForm() {
                 control={control}
                 errorPosition={isMobile ? 'top' : 'bottom'}
                 type="number"
+                min={0}
+                step={1}
                 label={
                   <>
                     <Clock className="size-4" />
@@ -210,6 +215,8 @@ export function RecipeForm() {
                 control={control}
                 errorPosition={isMobile ? 'top' : 'bottom'}
                 type="number"
+                min={0}
+                step={1}
                 label={
                   <>
                     <Users className="size-4" />
@@ -288,12 +295,15 @@ export function RecipeForm() {
             </Button>
           </CardHeader>
 
-          <CardContent className="flex flex-col gap-4">
+          <CardContent className="flex flex-col gap-6">
             {addedIngredients.map((field, index) => (
-              <div key={field.id} className="flex flex-col gap-3">
+              <Fragment key={field.id}>
                 {index > 0 && <Separator />}
 
-                <div className="flex items-start gap-3 pt-2">
+                <div
+                  key={field.id}
+                  className="bg-background/30 flex items-start gap-4 rounded-lg border p-6"
+                >
                   <div className="flex w-full flex-col gap-3">
                     <FormSelect
                       control={control}
@@ -317,6 +327,9 @@ export function RecipeForm() {
                       name={`ingredients.${index}.quantity`}
                       control={control}
                       label="Mennyiség"
+                      type="number"
+                      min={0}
+                      step={1}
                       placeholder="250"
                     />
 
@@ -350,7 +363,7 @@ export function RecipeForm() {
                     <Trash2 className="size-4" />
                   </Button>
                 </div>
-              </div>
+              </Fragment>
             ))}
           </CardContent>
         </Card>
