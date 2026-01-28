@@ -18,6 +18,7 @@ type FormTextareaProps<TFieldValues extends FieldValues, TName extends FieldPath
   label: string;
   placeholder?: string;
   className?: string;
+  errorPosition?: 'top' | 'bottom';
 } & (PathValue<TFieldValues, TName> extends TextareaValue
   ? {}
   : { _error: 'Field value must match input value type' });
@@ -32,6 +33,7 @@ export function FormTextarea<
   label,
   placeholder,
   className,
+  errorPosition = 'top',
 }: FormTextareaProps<TFieldValues, TName>) {
   return (
     <FieldGroup>
@@ -42,7 +44,9 @@ export function FormTextarea<
           <Field data-invalid={fieldState.invalid}>
             <div className="flex flex-wrap justify-between gap-x-4 gap-y-2">
               <FieldLabel htmlFor={name}>{label}</FieldLabel>
-              {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+              {fieldState.invalid && errorPosition === 'top' && (
+                <FieldError errors={[fieldState.error]} />
+              )}
             </div>
 
             <Textarea
@@ -54,6 +58,10 @@ export function FormTextarea<
               placeholder={placeholder}
               aria-invalid={fieldState.invalid}
             />
+
+            {fieldState.invalid && errorPosition === 'bottom' && (
+              <FieldError errors={[fieldState.error]} />
+            )}
           </Field>
         )}
       />

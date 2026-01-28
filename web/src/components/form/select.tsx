@@ -18,6 +18,7 @@ type FormSelectProps<TFieldValues extends FieldValues, TName extends FieldPath<T
   label: string;
   placeholder?: string;
   children?: React.ReactNode;
+  errorPosition?: 'top' | 'bottom';
 } & (PathValue<TFieldValues, TName> extends SelectValue
   ? {}
   : { _error: 'Field value must match select value type' });
@@ -25,7 +26,15 @@ type FormSelectProps<TFieldValues extends FieldValues, TName extends FieldPath<T
 export function FormSelect<
   TFieldValues extends FieldValues,
   TName extends FieldPath<TFieldValues>,
->({ name, control, disabled, label, placeholder, children }: FormSelectProps<TFieldValues, TName>) {
+>({
+  name,
+  control,
+  disabled,
+  label,
+  placeholder,
+  children,
+  errorPosition = 'top',
+}: FormSelectProps<TFieldValues, TName>) {
   return (
     <FieldGroup>
       <Controller
@@ -35,7 +44,9 @@ export function FormSelect<
           <Field data-invalid={fieldState.invalid}>
             <div className="flex flex-wrap justify-between gap-x-4 gap-y-2">
               <FieldLabel htmlFor={name}>{label}</FieldLabel>
-              {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+              {fieldState.invalid && errorPosition === 'top' && (
+                <FieldError errors={[fieldState.error]} />
+              )}
             </div>
 
             <Select
@@ -50,6 +61,10 @@ export function FormSelect<
               </SelectTrigger>
               <SelectContent>{children}</SelectContent>
             </Select>
+
+            {fieldState.invalid && errorPosition === 'bottom' && (
+              <FieldError errors={[fieldState.error]} />
+            )}
           </Field>
         )}
       />

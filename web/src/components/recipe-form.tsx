@@ -179,6 +179,7 @@ export function RecipeForm() {
               <FormInput
                 name="prepTimeMinutes"
                 control={control}
+                errorPosition={isMobile ? 'top' : 'bottom'}
                 type="number"
                 label={
                   <>
@@ -192,6 +193,7 @@ export function RecipeForm() {
               <FormInput
                 name="cookTimeMinutes"
                 control={control}
+                errorPosition={isMobile ? 'top' : 'bottom'}
                 type="number"
                 label={
                   <>
@@ -205,6 +207,7 @@ export function RecipeForm() {
               <FormInput
                 name="servings"
                 control={control}
+                errorPosition={isMobile ? 'top' : 'bottom'}
                 type="number"
                 label={
                   <>
@@ -291,6 +294,7 @@ export function RecipeForm() {
                     <FormSelect
                       control={control}
                       name={`ingredients.${index}.ingredientId`}
+                      errorPosition={isMobile ? 'top' : 'bottom'}
                       label="Hozzávaló neve"
                       placeholder="Válassz hozzávalót"
                       disabled={isIngredientsLoading}
@@ -309,6 +313,7 @@ export function RecipeForm() {
                     <FormInput
                       name={`ingredients.${index}.quantity`}
                       control={control}
+                      errorPosition={isMobile ? 'top' : 'bottom'}
                       label="Mennyiség"
                       placeholder="250"
                     />
@@ -316,6 +321,7 @@ export function RecipeForm() {
                     <FormSelect
                       control={control}
                       name={`ingredients.${index}.unitId`}
+                      errorPosition={isMobile ? 'top' : 'bottom'}
                       label="Mértékegység"
                       placeholder="Válassz mértékegységet"
                       disabled={isUnitsLoading}

@@ -19,6 +19,7 @@ type FormInputProps<TFieldValues extends FieldValues, TName extends FieldPath<TF
   label: React.ReactNode;
   placeholder?: string;
   type?: React.HTMLInputTypeAttribute;
+  errorPosition?: 'top' | 'bottom';
 } & (PathValue<TFieldValues, TName> extends InputValue
   ? {}
   : { _error: 'Field value must match input value type' });
@@ -30,6 +31,7 @@ export function FormInput<TFieldValues extends FieldValues, TName extends FieldP
   label,
   placeholder,
   type = 'text',
+  errorPosition = 'top',
 }: FormInputProps<TFieldValues, TName>) {
   return (
     <FieldGroup>
@@ -40,7 +42,9 @@ export function FormInput<TFieldValues extends FieldValues, TName extends FieldP
           <Field data-invalid={fieldState.invalid}>
             <div className="flex flex-wrap justify-between gap-x-4 gap-y-2">
               <FieldLabel htmlFor={name}>{label}</FieldLabel>
-              {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+              {fieldState.invalid && errorPosition === 'top' && (
+                <FieldError errors={[fieldState.error]} />
+              )}
             </div>
 
             <Input
@@ -52,6 +56,10 @@ export function FormInput<TFieldValues extends FieldValues, TName extends FieldP
               placeholder={placeholder}
               aria-invalid={fieldState.invalid}
             />
+
+            {fieldState.invalid && errorPosition === 'bottom' && (
+              <FieldError errors={[fieldState.error]} />
+            )}
           </Field>
         )}
       />
