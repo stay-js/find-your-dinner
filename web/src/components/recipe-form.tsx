@@ -1,12 +1,14 @@
 'use client';
 
 import { Fragment } from 'react';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { Controller, useFieldArray, useForm, type SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { Clock, Users, Plus, Trash2, Upload, ChefHat, X } from 'lucide-react';
+import { toast } from 'sonner';
 
+import type { CreateRecipeSchema } from '~/app/api/recipes/create';
 import { Button } from '~/components/ui/button';
 import { SelectGroup, SelectItem, SelectLabel } from '~/components/ui/select';
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card';
@@ -17,7 +19,7 @@ import { Skeleton } from '~/components/ui/skeleton';
 import { FormInput, FormTextarea, FormSelect } from '~/components/form';
 import { categoriesSchema, ingredientsSchema, unitsSchema } from '~/lib/zod-schemas';
 import { isIntegerString, isPositiveIntegerString } from '~/lib/zod-helpers';
-import { apiGet } from '~/lib/api-get';
+import { get, post } from '~/lib/api-utils';
 import { useIsMobile } from '~/hooks/use-mobile';
 import { cn } from '~/lib/utils';
 
@@ -28,7 +30,9 @@ const formSchema = z.object({
     .trim()
     .min(1, { error: 'Add meg a recept nevét!' })
     .max(512, { error: 'A recept neve legfeljebb 512 karakter lehet!' }),
-  previewImageUrl: z.url({ error: 'Adj meg egy érvényes URL-t!' }).trim(),
+  previewImageUrl: z.url({ error: 'Adj meg egy érvényes URL-t!' }).trim().max(2048, {
+    error: 'Az URL hossza legfeljebb 2048 karakter lehet!',
+  }),
   description: z.string().trim().min(1, { error: 'Add meg a recept leírását!' }),
   instructions: z.string().trim().min(1, { error: 'Add meg az elkészítési utasításokat!' }),
   prepTimeMinutes: z
@@ -43,7 +47,7 @@ const formSchema = z.object({
     .string()
     .trim()
     .refine(isIntegerString, { error: 'Az adagok száma csak pozitív egész szám lehet!' }),
-  categories: z.array(z.number().int().positive()).refine((val) => val.length > 0, {
+  categories: z.array(z.number().int().positive()).min(1, {
     error: 'Válassz legalább egy kategóriát!',
   }),
   ingredients: z
@@ -63,7 +67,7 @@ const formSchema = z.object({
           .refine(isPositiveIntegerString, { error: 'Válassz mértékegységet!' }),
       }),
     )
-    .refine((val) => val.length > 0, { error: 'Adj hozzá legalább egy hozzávalót!' }),
+    .min(1, { error: 'Adj hozzá legalább egy hozzávalót!' }),
 });
 
 type FormSchema = z.infer<typeof formSchema>;
@@ -86,22 +90,43 @@ export function RecipeForm({ defaultValues }: { defaultValues: FormSchema }) {
 
   const { data: categories, isLoading: isCategoriesLoading } = useQuery({
     queryKey: ['categories'],
-    queryFn: async () => apiGet('/api/categories', categoriesSchema),
+    queryFn: async () => get('/api/categories', categoriesSchema),
   });
 
   const { data: ingredients, isLoading: isIngredientsLoading } = useQuery({
     queryKey: ['ingredients'],
-    queryFn: async () => apiGet('/api/ingredients', ingredientsSchema),
+    queryFn: async () => get('/api/ingredients', ingredientsSchema),
   });
 
   const { data: units, isLoading: isUnitsLoading } = useQuery({
     queryKey: ['units'],
-    queryFn: async () => apiGet('/api/units', unitsSchema),
+    queryFn: async () => get('/api/units', unitsSchema),
+  });
+
+  const { mutateAsync: createRecipe } = useMutation({
+    mutationFn: (data: CreateRecipeSchema) => post('/api/recipes', data),
   });
 
   const onSubmit: SubmitHandler<FormSchema> = (data) => {
-    console.log(data);
     reset(defaultValues);
+
+    const parsedData = {
+      ...data,
+      prepTimeMinutes: Number(data.prepTimeMinutes),
+      cookTimeMinutes: Number(data.cookTimeMinutes),
+      servings: Number(data.servings),
+      ingredients: data.ingredients.map((ingredient) => ({
+        ingredientId: Number(ingredient.ingredientId),
+        quantity: Number(ingredient.quantity),
+        unitId: Number(ingredient.unitId),
+      })),
+    } satisfies CreateRecipeSchema;
+
+    toast.promise(createRecipe(parsedData), {
+      loading: 'Recept létrehozása...',
+      success: 'A recept sikeresen létrehozva!',
+      error: 'Hiba történt a recept létrehozása során!',
+    });
   };
 
   return (
@@ -152,7 +177,12 @@ export function RecipeForm({ defaultValues }: { defaultValues: FormSchema }) {
                 placeholder="https://example.com/image.jpg"
               />
 
-              <Button type="button" variant="outline" size="icon">
+              <Button
+                type="button"
+                variant="outline"
+                size="icon"
+                onClick={() => toast.error('TODO image upload')}
+              >
                 <Upload className="size-4" />
                 <span className="sr-only">Kép feltöltése</span>
               </Button>
