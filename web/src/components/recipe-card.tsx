@@ -134,7 +134,10 @@ export function RecipeCard({
 
         {pageType === 'edit' && (
           <>
-            <Button variant="outline">Szerkesztés</Button>
+            <Button variant="outline">
+              <Link href={`/dashboard/recipes/edit/${recipeId}`}>Szerkesztés</Link>
+            </Button>
+
             <Button asChild>
               <Link href={`/recipes/${recipeId}`}>Megtekintés</Link>
             </Button>
