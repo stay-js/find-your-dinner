@@ -14,6 +14,8 @@ export function createMetadata({
   noIndex?: boolean;
 }): Metadata {
   return {
+    metadataBase: new URL('https://find-your-dinner.znagy.hu'),
+
     authors: [
       { name: 'Zétény Nagy', url: 'https://znagy.hu' },
       { name: 'Panna Polyák' },
@@ -50,17 +52,27 @@ export function createMetadata({
 
     openGraph: {
       type: 'website',
-      url: `url${path}`,
+      url: `https://find-your-dinner.znagy.hu${path}`,
       title: absoluteTitle ?? `${title} - Find Your Dinner.`,
       description,
       siteName: 'Find Your Dinner.',
       locale: 'hu-HU',
+      images: [
+        {
+          url: '/logo.png',
+          width: 1024,
+          height: 1024,
+          alt: 'Find Your Dinner.',
+          type: 'image/png',
+        },
+      ],
     },
 
     twitter: {
       card: 'summary',
       title: absoluteTitle ?? `${title} - Find Your Dinner.`,
       description,
+      images: ['/logo.png'],
     },
 
     icons: {
