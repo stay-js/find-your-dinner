@@ -71,7 +71,7 @@ export default async function ManagePage() {
 
       <div className="mx-auto grid max-w-5xl grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
         {sampleRecipes.map((recipe) => (
-          <RecipeCard key={recipe.recipeId} showIsVerified pageType="edit" {...recipe} />
+          <RecipeCard key={recipe.recipeId} showIsVerified pageType="manage" {...recipe} />
         ))}
       </div>
     </div>

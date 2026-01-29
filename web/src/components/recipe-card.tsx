@@ -31,7 +31,7 @@ export type RecipeCardProps = {
 
   showIsSaved?: boolean;
   showIsVerified?: boolean;
-  pageType: 'tinder' | 'final' | 'edit' | 'search';
+  pageType: 'tinder' | 'final' | 'manage' | 'search';
 };
 
 export function RecipeCard({
@@ -114,7 +114,7 @@ export function RecipeCard({
       <CardFooter
         className={cn(
           'grid grid-cols-1 gap-2 border-t',
-          ['edit', 'tinder'].includes(pageType) && 'sm:grid-cols-2',
+          ['manage', 'tinder'].includes(pageType) && 'sm:grid-cols-2',
         )}
       >
         {pageType === 'search' && (
@@ -132,7 +132,7 @@ export function RecipeCard({
           </>
         )}
 
-        {pageType === 'edit' && (
+        {pageType === 'manage' && (
           <>
             <Button variant="outline">
               <Link href={`/dashboard/recipes/edit/${recipeId}`}>Szerkesztés</Link>
