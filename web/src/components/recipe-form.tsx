@@ -34,11 +34,11 @@ const formSchema = z.object({
   prepTimeMinutes: z
     .string()
     .trim()
-    .refine(isIntegerString, { error: 'Az elkészítési idő csak pozitív egész szám lehet!' }),
+    .refine(isIntegerString, { error: 'Az előkészítési idő csak pozitív egész szám lehet!' }),
   cookTimeMinutes: z
     .string()
     .trim()
-    .refine(isIntegerString, { error: 'A főzési idő csak pozitív egész szám lehet!' }),
+    .refine(isIntegerString, { error: 'A főzési/sütési idő csak pozitív egész szám lehet!' }),
   servings: z
     .string()
     .trim()
@@ -177,7 +177,7 @@ export function RecipeForm({ defaultValues }: { defaultValues: FormSchema }) {
                 label={
                   <>
                     <Clock className="size-4" />
-                    <span>Elkészítési idő (perc)</span>
+                    <span>Előkészítési idő (perc)</span>
                   </>
                 }
                 placeholder="15"
@@ -193,7 +193,7 @@ export function RecipeForm({ defaultValues }: { defaultValues: FormSchema }) {
                 label={
                   <>
                     <Clock className="size-4" />
-                    <span>Főzési idő (perc)</span>
+                    <span>Főzési/Sütési idő (perc)</span>
                   </>
                 }
                 placeholder="30"
