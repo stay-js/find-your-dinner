@@ -15,23 +15,17 @@ import { Button } from '~/components/ui/button';
 import type { Recipe } from '~/lib/zod-schemas';
 import { cn } from '~/lib/utils';
 
-export type RecipeCardProps = {
-  recipe: Recipe;
-
-  isSaved?: boolean;
-  showIsSaved?: boolean;
-  showIsVerified?: boolean;
-  pageType: 'tinder' | 'final' | 'manage' | 'search';
-};
-
 export function RecipeCard({
-  recipe,
-
-  isSaved = false,
-  showIsSaved = true,
-  showIsVerified = false,
   pageType,
-}: RecipeCardProps) {
+  recipe,
+  isSaved = false,
+  showIsVerified = false,
+}: {
+  pageType: 'tinder' | 'final' | 'manage' | 'search';
+  recipe: Recipe;
+  isSaved: boolean;
+  showIsVerified?: boolean;
+}) {
   return (
     <Card className="w-full max-w-sm gap-6 overflow-hidden pt-0">
       <div className="relative aspect-4/3 w-full overflow-hidden">
@@ -42,19 +36,17 @@ export function RecipeCard({
           className="w-full object-cover transition-transform duration-300 hover:scale-105"
         />
 
-        {showIsSaved && (
-          <Button
-            variant="ghost"
-            size="icon"
-            className="bg-background/80 absolute top-3 right-3 backdrop-blur-sm"
-          >
-            <Bookmark className={cn('size-5', isSaved && 'fill-current')} />
+        <Button
+          variant="ghost"
+          size="icon"
+          className="bg-background/80 absolute top-3 right-3 backdrop-blur-sm"
+        >
+          <Bookmark className={cn('size-5', isSaved && 'fill-current')} />
 
-            <span className="sr-only">
-              {isSaved ? 'Törlés a mentett receptek közül' : 'Recept mentése'}
-            </span>
-          </Button>
-        )}
+          <span className="sr-only">
+            {isSaved ? 'Törlés a mentett receptek közül' : 'Recept mentése'}
+          </span>
+        </Button>
 
         {showIsVerified && recipe.recipeData.verified && (
           <Badge className="absolute top-3 left-3 bg-emerald-600 hover:bg-emerald-600">

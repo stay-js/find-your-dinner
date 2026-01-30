@@ -24,10 +24,10 @@ export function Recipes() {
       {recipes?.map((recipe) => (
         <RecipeCard
           key={recipe.recipe.id}
-          showIsVerified
           pageType="manage"
           recipe={recipe}
-          isSaved={savedRecipes?.some((saved) => saved.recipeId === recipe.recipe.id)}
+          isSaved={savedRecipes?.some((saved) => saved.recipeId === recipe.recipe.id) ?? false}
+          showIsVerified
         />
       ))}
     </div>
