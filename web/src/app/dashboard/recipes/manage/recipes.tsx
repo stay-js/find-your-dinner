@@ -9,7 +9,7 @@ import { recipesSchema } from '~/lib/zod-schemas';
 export function Recipes() {
   const { data: recipes, isLoading } = useQuery({
     queryKey: ['user-recipes'],
-    queryFn: async () => await get('/api/current-user/recipes', recipesSchema),
+    queryFn: () => get('/api/current-user/recipes', recipesSchema),
   });
 
   return (

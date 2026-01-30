@@ -90,17 +90,17 @@ export function RecipeForm({ defaultValues }: { defaultValues: FormSchema }) {
 
   const { data: categories, isLoading: isCategoriesLoading } = useQuery({
     queryKey: ['categories'],
-    queryFn: async () => get('/api/categories', categoriesSchema),
+    queryFn: () => get('/api/categories', categoriesSchema),
   });
 
   const { data: ingredients, isLoading: isIngredientsLoading } = useQuery({
     queryKey: ['ingredients'],
-    queryFn: async () => get('/api/ingredients', ingredientsSchema),
+    queryFn: () => get('/api/ingredients', ingredientsSchema),
   });
 
   const { data: units, isLoading: isUnitsLoading } = useQuery({
     queryKey: ['units'],
-    queryFn: async () => get('/api/units', unitsSchema),
+    queryFn: () => get('/api/units', unitsSchema),
   });
 
   const { mutateAsync: createRecipe } = useMutation({
