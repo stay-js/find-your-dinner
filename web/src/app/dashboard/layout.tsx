@@ -1,6 +1,5 @@
 import Link from 'next/link';
-import { redirect } from 'next/navigation';
-import { currentUser } from '@clerk/nextjs/server';
+import { auth } from '@clerk/nextjs/server';
 
 import { Button } from '~/components/ui/button';
 import { Separator } from '~/components/ui/separator';
@@ -9,8 +8,8 @@ import { DashboardSidebar } from '~/components/dashboard-sidebar';
 import { Footer } from '~/components/footer';
 
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
-  const user = await currentUser();
-  if (!user) redirect('/');
+  const { isAuthenticated, redirectToSignIn } = await auth();
+  if (!isAuthenticated) redirectToSignIn();
 
   return (
     <SidebarProvider>
