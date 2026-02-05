@@ -14,7 +14,7 @@ export const metadata = createMetadata({
 
 export default async function ManagePage() {
   return (
-    <div className="container flex flex-col gap-4 px-0">
+    <div className="container flex h-full flex-col gap-4 px-0">
       <div className="flex justify-between gap-4 max-sm:flex-col">
         <h1 className="text-foreground text-2xl font-semibold">Recepteim kezelése</h1>
 

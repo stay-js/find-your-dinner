@@ -3,6 +3,8 @@
 import { useQuery } from '@tanstack/react-query';
 
 import { useSidebar } from '~/components/ui/sidebar';
+import { Button } from '~/components/ui/button';
+import { NoContent } from '~/components/no-content';
 import { RecipeCard } from '~/components/recipe-card';
 import { RecipeCardSkeleton } from '~/components/recipe-card-skeleton';
 import { recipesSchema } from '~/lib/zod-schemas';
@@ -18,17 +20,27 @@ export function Recipes() {
   });
 
   return (
-    <div
-      className={cn(
-        'grid grid-cols-1 gap-6',
-        isSidebarOpen ? 'lg:grid-cols-2 xl:grid-cols-3' : 'sm:grid-cols-2 lg:grid-cols-3',
+    <>
+      {!isLoading && recipes?.length === 0 && (
+        <NoContent
+          title="Nincs megjeleníthető recept"
+          description="Úgy tűnik, még nem hoztál létre egyetlen receptet sem. Az alábbi gombra kattintva megteheted."
+          create={<Button>Recept létrehozása</Button>}
+        />
       )}
-    >
-      {isLoading && new Array(3).fill(null).map((_, i) => <RecipeCardSkeleton key={i} />)}
 
-      {recipes?.map((recipe) => (
-        <RecipeCard key={recipe.recipe.id} pageType="manage" recipe={recipe} showIsVerified />
-      ))}
-    </div>
+      <div
+        className={cn(
+          'grid grid-cols-1 gap-6',
+          isSidebarOpen ? 'lg:grid-cols-2 xl:grid-cols-3' : 'sm:grid-cols-2 lg:grid-cols-3',
+        )}
+      >
+        {isLoading && new Array(3).fill(null).map((_, i) => <RecipeCardSkeleton key={i} />)}
+
+        {recipes?.map((recipe) => (
+          <RecipeCard key={recipe.recipe.id} pageType="manage" recipe={recipe} showIsVerified />
+        ))}
+      </div>
+    </>
   );
 }
