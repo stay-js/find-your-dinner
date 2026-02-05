@@ -1,9 +1,11 @@
 'use client';
 
-import { notFound } from 'next/navigation';
 import Image from 'next/image';
+import Link from 'next/link';
+import { notFound } from 'next/navigation';
 import { useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { toast } from 'sonner';
 import { Clock, Users, ChefHat, AlertTriangle, CheckCircle, Pencil } from 'lucide-react';
 
 import { Badge } from '~/components/ui/badge';
@@ -13,11 +15,12 @@ import { Checkbox } from '~/components/ui/checkbox';
 import { useSidebar } from '~/components/ui/sidebar';
 import { Skeleton } from '~/components/ui/skeleton';
 import { recipeSchema } from '~/lib/zod-schemas';
-import { GET } from '~/lib/api-utils';
+import { GET, POST } from '~/lib/api-utils';
 import { cn } from '~/lib/utils';
-import Link from 'next/link';
 
 export function Recipe({ recipeId }: { recipeId: string }) {
+  const utils = useQueryClient();
+
   const { open: isSidebarOpen } = useSidebar();
 
   const [checkedIngredients, setCheckedIngredients] = useState<Set<number>>(new Set());
@@ -25,6 +28,14 @@ export function Recipe({ recipeId }: { recipeId: string }) {
   const { data: recipe, isLoading } = useQuery({
     queryKey: ['recipe', recipeId],
     queryFn: () => GET(`/api/recipes/latest/${recipeId}`, recipeSchema),
+  });
+
+  const { mutate: approveRecipeData, isPending: isApproving } = useMutation({
+    mutationFn: (recipeDataId: number) => POST(`/api/admin/recipe-data/approve/${recipeDataId}`),
+    onError: () => {
+      toast.error('Hiba történt a recept jóváhagyása során. Kérlek, próbáld újra később.');
+    },
+    onSuccess: () => utils.invalidateQueries({ queryKey: ['recipe', recipeId] }),
   });
 
   const toggleIngredient = (ingredientId: number) => {
@@ -50,14 +61,12 @@ export function Recipe({ recipeId }: { recipeId: string }) {
             isSidebarOpen ? 'xl:grid-cols-[3fr_1fr]' : 'lg:grid-cols-[3fr_1fr]',
           )}
         >
-          <div>
+          <div className="flex flex-col gap-6">
             <Skeleton className="h-96 w-full" />
 
-            <div className="flex flex-col gap-4 pt-8">
-              <Skeleton className="h-12 w-3/4" />
-              <Skeleton className="h-6 w-1/2" />
-              <Skeleton className="h-32 w-full" />
-            </div>
+            <Skeleton className="h-12 w-3/4" />
+            <Skeleton className="h-6 w-1/2" />
+            <Skeleton className="h-32 w-full" />
           </div>
 
           <Skeleton className="h-96 w-full" />
@@ -91,7 +100,11 @@ export function Recipe({ recipeId }: { recipeId: string }) {
               </div>
             </div>
 
-            <Button size="sm">
+            <Button
+              size="sm"
+              disabled={isApproving}
+              onClick={() => approveRecipeData(recipeData.id)}
+            >
               <CheckCircle className="size-4" />
               <span>Recept jóváhagyása</span>
             </Button>
