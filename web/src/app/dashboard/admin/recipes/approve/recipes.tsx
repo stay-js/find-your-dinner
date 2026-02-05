@@ -13,8 +13,8 @@ export function Recipes() {
   const { open: isSidebarOpen } = useSidebar();
 
   const { data: recipes, isLoading } = useQuery({
-    queryKey: ['recipes-to-approve'],
-    queryFn: () => GET('/api/admin/recipes/to-approve', recipesSchema),
+    queryKey: ['recipe-data-to-approve'],
+    queryFn: () => GET('/api/admin/recipe-data/to-approve', recipesSchema),
   });
 
   return (
