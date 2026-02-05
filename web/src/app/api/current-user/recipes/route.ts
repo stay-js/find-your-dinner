@@ -30,21 +30,29 @@ export async function GET() {
           .innerJoin(categories, eq(categories.id, categoryRecipe.categoryId))
           .where(eq(categoryRecipe.recipeId, recipe.id)),
 
-        db
-          .select()
-          .from(recipeData)
-          .where(eq(recipeData.recipeId, recipe.id))
-          .orderBy(desc(recipeData.createdAt))
-          .limit(1),
+        db.query.recipeData.findFirst({
+          where: eq(recipeData.recipeId, recipe.id),
+          orderBy: desc(recipeData.createdAt),
+        }),
       ]);
 
-      if (data.length === 0 || !data[0]) {
-        throw new Error(`No recipe data found for recipe ID: ${recipe.id}`);
+      if (!data) {
+        return NextResponse.json(
+          {
+            error: 'RECIPE_DATA_NOT_FOUND',
+            details: {
+              recipeId: recipe.id,
+            },
+          },
+          {
+            status: 404,
+          },
+        );
       }
 
       return {
         recipe,
-        recipeData: data[0],
+        recipeData: data,
         categories: categoryRecords,
       };
     }),

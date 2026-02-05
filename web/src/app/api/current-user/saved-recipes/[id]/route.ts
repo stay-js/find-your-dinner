@@ -5,10 +5,7 @@ import { z } from 'zod';
 
 import { db } from '~/server/db';
 import { savedRecipes } from '~/server/db/schema';
-
-const deleteSavedRecipeParamsSchema = z.object({
-  id: z.coerce.number().int().positive(),
-});
+import { idParamSchema } from '~/lib/zod-schemas';
 
 export async function DELETE(_: Request, { params }: { params: Promise<{ id: string }> }) {
   const { isAuthenticated, userId } = await auth();
@@ -17,7 +14,7 @@ export async function DELETE(_: Request, { params }: { params: Promise<{ id: str
     return NextResponse.json({ error: 'UNAUTHORIZED' }, { status: 401 });
   }
 
-  const result = deleteSavedRecipeParamsSchema.safeParse(await params);
+  const result = idParamSchema.safeParse(await params);
 
   if (!result.success) {
     return NextResponse.json(

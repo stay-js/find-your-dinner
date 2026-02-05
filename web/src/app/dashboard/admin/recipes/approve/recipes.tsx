@@ -13,8 +13,8 @@ export function Recipes() {
   const { open: isSidebarOpen } = useSidebar();
 
   const { data: recipes, isLoading } = useQuery({
-    queryKey: ['recipes-to-approve'],
-    queryFn: () => GET('/api/admin/recipes/to-approve', recipesSchema),
+    queryKey: ['recipe-data-to-approve'],
+    queryFn: () => GET('/api/admin/recipe-data/to-approve', recipesSchema),
   });
 
   return (
@@ -27,7 +27,7 @@ export function Recipes() {
       {isLoading && new Array(3).fill(null).map((_, i) => <RecipeCardSkeleton key={i} />)}
 
       {recipes?.map((recipe) => (
-        <RecipeCard key={recipe.recipe.id} pageType="search" recipe={recipe} showIsVerified />
+        <RecipeCard key={recipe.recipe.id} pageType="admin" recipe={recipe} showIsVerified />
       ))}
     </div>
   );

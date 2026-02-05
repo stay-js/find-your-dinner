@@ -12,11 +12,11 @@ export async function GET<T>(url: string, schema: ZodType<T>) {
   return schema.parse(json);
 }
 
-export async function POST(url: string, body: unknown) {
+export async function POST(url: string, body?: unknown) {
   const res = await fetch(url, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(body),
+    body: body ? JSON.stringify(body) : undefined,
   });
 
   if (!res.ok) {
