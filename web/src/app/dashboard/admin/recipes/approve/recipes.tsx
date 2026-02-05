@@ -27,7 +27,7 @@ export function Recipes() {
       {isLoading && new Array(3).fill(null).map((_, i) => <RecipeCardSkeleton key={i} />)}
 
       {recipes?.map((recipe) => (
-        <RecipeCard key={recipe.recipe.id} pageType="search" recipe={recipe} showIsVerified />
+        <RecipeCard key={recipe.recipe.id} pageType="admin" recipe={recipe} showIsVerified />
       ))}
     </div>
   );

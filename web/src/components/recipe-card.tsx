@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Clock, Users, Bookmark, CheckCircle2 } from 'lucide-react';
+import { useEffect, useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { Clock, Users, Bookmark, CheckCircle2 } from 'lucide-react';
 import { toast } from 'sonner';
 
 import {
@@ -24,7 +24,7 @@ export function RecipeCard({
   recipe,
   showIsVerified = false,
 }: {
-  pageType: 'tinder' | 'final' | 'manage' | 'search';
+  pageType: 'tinder' | 'final' | 'manage' | 'search' | 'admin';
   recipe: RecipeWithoutIngredients;
   showIsVerified?: boolean;
 }) {
@@ -137,6 +137,12 @@ export function RecipeCard({
           ['manage', 'tinder'].includes(pageType) && 'sm:grid-cols-2',
         )}
       >
+        {pageType === 'admin' && (
+          <Button asChild>
+            <Link href={`/dashboard/admin/recipes/view/${recipe.recipe.id}`}>Megtekintés</Link>
+          </Button>
+        )}
+
         {pageType === 'search' && (
           <Button asChild>
             <Link href={`/recipes/${recipe.recipe.id}`}>Megtekintés</Link>
