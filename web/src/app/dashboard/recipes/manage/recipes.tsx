@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useQuery } from '@tanstack/react-query';
 
 import { useSidebar } from '~/components/ui/sidebar';
@@ -21,11 +22,15 @@ export function Recipes() {
 
   return (
     <>
-      {!isLoading && recipes?.length === 0 && (
+      {!isLoading && (!recipes || recipes?.length === 0) && (
         <NoContent
           title="Nincs megjeleníthető recept"
           description="Úgy tűnik, még nem hoztál létre egyetlen receptet sem. Az alábbi gombra kattintva megteheted."
-          create={<Button>Recept létrehozása</Button>}
+          create={
+            <Button asChild>
+              <Link href="/dashboard/recipes/create">Recept létrehozása</Link>
+            </Button>
+          }
         />
       )}
 
