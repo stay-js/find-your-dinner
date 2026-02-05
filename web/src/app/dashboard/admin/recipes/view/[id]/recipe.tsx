@@ -122,7 +122,7 @@ export function Recipe({ recipeId }: { recipeId: string }) {
           />
         </div>
 
-        <div className="flex flex-col gap-1">
+        <div className="flex flex-col gap-2">
           <div className="flex items-center justify-between gap-4">
             <h1 className="text-3xl font-bold tracking-tight">{recipeData.title}</h1>
 
@@ -182,7 +182,7 @@ export function Recipe({ recipeId }: { recipeId: string }) {
             <CardTitle>Áttekintés</CardTitle>
           </CardHeader>
 
-          <CardContent className="flex flex-col gap-2">
+          <CardContent className="flex flex-col gap-2 text-sm">
             <div className="flex justify-between gap-2">
               <span className="text-muted-foreground">Elkészítési idő</span>
               <span className="font-medium">
