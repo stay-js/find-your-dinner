@@ -32,7 +32,17 @@ export async function GET() {
       });
 
       if (!recipe) {
-        throw new Error(`No recipe found for recipe data ID: ${recipeData.id}`);
+        return NextResponse.json(
+          {
+            error: 'RECIPE_NOT_FOUND',
+            details: {
+              recipeId: recipeData.recipeId,
+            },
+          },
+          {
+            status: 404,
+          },
+        );
       }
 
       const categoryRecords = await db
