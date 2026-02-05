@@ -124,7 +124,7 @@ export function Recipe({ recipeId }: { recipeId: string }) {
 
         <div className="flex flex-col gap-2">
           <div className="flex items-center justify-between gap-4">
-            <h1 className="text-3xl font-bold tracking-tight">{recipeData.title}</h1>
+            <h1 className="text-2xl font-bold tracking-tight">{recipeData.title}</h1>
 
             <Button variant="outline" size="sm" asChild>
               <Link href={`/dashboard/admin/recipes/edit/${recipeId}`}>
@@ -134,7 +134,7 @@ export function Recipe({ recipeId }: { recipeId: string }) {
             </Button>
           </div>
 
-          <p className="text-muted-foreground text-lg">{recipeData.description}</p>
+          <p className="text-muted-foreground">{recipeData.description}</p>
         </div>
 
         <div className="flex flex-wrap gap-2">
@@ -184,7 +184,7 @@ export function Recipe({ recipeId }: { recipeId: string }) {
 
           <CardContent className="flex flex-col gap-2 text-sm">
             <div className="flex justify-between gap-2">
-              <span className="text-muted-foreground">Elkészítési idő</span>
+              <span className="text-muted-foreground">Teljes elkészítési idő</span>
               <span className="font-medium">
                 {recipeData.prepTimeMinutes + recipeData.cookTimeMinutes} perc
               </span>
@@ -193,7 +193,7 @@ export function Recipe({ recipeId }: { recipeId: string }) {
             <div className="flex justify-between gap-2">
               <span className="text-muted-foreground">Létrehozás dátuma</span>
               <span className="font-medium">
-                {new Date(recipeData.createdAt).toLocaleDateString('hu-HU')}
+                {new Date(recipe.recipe.createdAt).toLocaleDateString('hu-HU')}
               </span>
             </div>
 
@@ -205,8 +205,10 @@ export function Recipe({ recipeId }: { recipeId: string }) {
             </div>
 
             <div className="flex justify-between gap-2">
-              <span className="text-muted-foreground">Készítő</span>
-              <span className="font-medium">{recipe.recipe.userId}</span>
+              <span className="text-muted-foreground">Feltöltötte</span>
+              <span className="font-medium">
+                {recipe.owner.firstName} {recipe.owner.lastName}
+              </span>
             </div>
           </CardContent>
         </Card>

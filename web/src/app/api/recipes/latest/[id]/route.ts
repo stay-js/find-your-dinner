@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { auth } from '@clerk/nextjs/server';
+import { auth, clerkClient } from '@clerk/nextjs/server';
 import { desc, eq } from 'drizzle-orm';
 
 import { db } from '~/server/db';
@@ -45,7 +45,9 @@ export async function GET(_: Request, { params }: { params: Promise<{ id: string
     return NextResponse.json({ error: 'FORBIDDEN' }, { status: 403 });
   }
 
-  const [data, categoryRecords] = await Promise.all([
+  const clerk = await clerkClient();
+
+  const [data, categoryRecords, owner] = await Promise.all([
     db.query.recipeData.findFirst({
       where: eq(recipeData.recipeId, recipe.id),
       orderBy: desc(recipeData.createdAt),
@@ -59,6 +61,8 @@ export async function GET(_: Request, { params }: { params: Promise<{ id: string
       .from(categoryRecipe)
       .innerJoin(categories, eq(categories.id, categoryRecipe.categoryId))
       .where(eq(categoryRecipe.recipeId, recipe.id)),
+
+    clerk.users.getUser(recipe.userId),
   ]);
 
   if (!data) {
@@ -81,5 +85,10 @@ export async function GET(_: Request, { params }: { params: Promise<{ id: string
     recipeData: data,
     categories: categoryRecords,
     ingredients: ingredientRecords,
+    owner: {
+      id: owner.id,
+      firstName: owner.firstName,
+      lastName: owner.lastName,
+    },
   });
 }

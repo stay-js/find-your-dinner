@@ -73,6 +73,11 @@ export const recipeSchema = recipeWithoutIngredientSchema.extend({
       }),
     }),
   ),
+  owner: z.object({
+    id: z.string().min(1),
+    firstName: z.string().nullable(),
+    lastName: z.string().nullable(),
+  }),
 });
 
 export type Recipe = z.infer<typeof recipeSchema>;
