@@ -28,7 +28,7 @@ export const unitsSchema = z.array(
   }),
 );
 
-export const recipeSchema = z.object({
+export const recipeWithoutIngredientSchema = z.object({
   recipe: z.object({
     id: z.number().int().positive(),
     userId: z.string().min(1),
@@ -56,9 +56,28 @@ export const recipeSchema = z.object({
   ),
 });
 
+export type RecipeWithoutIngredients = z.infer<typeof recipeWithoutIngredientSchema>;
+
+export const recipeSchema = recipeWithoutIngredientSchema.extend({
+  ingredients: z.array(
+    z.object({
+      ingredient: z.object({
+        id: z.number().int().positive(),
+        name: z.string().min(1).max(256),
+      }),
+      quantity: z.number().positive(),
+      unit: z.object({
+        id: z.number().int().positive(),
+        name: z.string().min(1).max(64),
+        abbreviation: z.string().min(1).max(16),
+      }),
+    }),
+  ),
+});
+
 export type Recipe = z.infer<typeof recipeSchema>;
 
-export const recipesSchema = z.array(recipeSchema);
+export const recipesSchema = z.array(recipeWithoutIngredientSchema);
 
 export type Recipes = z.infer<typeof recipesSchema>;
 

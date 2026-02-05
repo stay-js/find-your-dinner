@@ -15,7 +15,7 @@ import {
 } from '~/components/ui/card';
 import { Badge } from '~/components/ui/badge';
 import { Button } from '~/components/ui/button';
-import { type Recipe, savedRecipesSchema } from '~/lib/zod-schemas';
+import { type RecipeWithoutIngredients, savedRecipesSchema } from '~/lib/zod-schemas';
 import { GET, POST, DELETE } from '~/lib/api-utils';
 import { cn } from '~/lib/utils';
 
@@ -25,7 +25,7 @@ export function RecipeCard({
   showIsVerified = false,
 }: {
   pageType: 'tinder' | 'final' | 'manage' | 'search';
-  recipe: Recipe;
+  recipe: RecipeWithoutIngredients;
   showIsVerified?: boolean;
 }) {
   const [displayIsSaved, setDisplayIsSaved] = useState(false);

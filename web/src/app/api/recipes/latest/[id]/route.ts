@@ -3,7 +3,15 @@ import { auth } from '@clerk/nextjs/server';
 import { desc, eq } from 'drizzle-orm';
 
 import { db } from '~/server/db';
-import { categories, categoryRecipe, recipeData, recipes } from '~/server/db/schema';
+import {
+  categories,
+  categoryRecipe,
+  ingredientRecipeData,
+  ingredients,
+  recipeData,
+  recipes,
+  units,
+} from '~/server/db/schema';
 import { checkIsAdmin } from '~/server/utils/check-is-admin';
 import { idParamSchema } from '~/lib/zod-schemas';
 
@@ -37,7 +45,12 @@ export async function GET(_: Request, { params }: { params: Promise<{ id: string
     return NextResponse.json({ error: 'FORBIDDEN' }, { status: 403 });
   }
 
-  const [categoryRecords, data] = await Promise.all([
+  const [data, categoryRecords] = await Promise.all([
+    db.query.recipeData.findFirst({
+      where: eq(recipeData.recipeId, recipe.id),
+      orderBy: desc(recipeData.createdAt),
+    }),
+
     db
       .select({
         id: categories.id,
@@ -46,20 +59,27 @@ export async function GET(_: Request, { params }: { params: Promise<{ id: string
       .from(categoryRecipe)
       .innerJoin(categories, eq(categories.id, categoryRecipe.categoryId))
       .where(eq(categoryRecipe.recipeId, recipe.id)),
-
-    db.query.recipeData.findFirst({
-      where: eq(recipeData.recipeId, recipe.id),
-      orderBy: desc(recipeData.createdAt),
-    }),
   ]);
 
   if (!data) {
     return NextResponse.json({ error: 'RECIPE_DATA_NOT_FOUND' }, { status: 404 });
   }
 
+  const ingredientRecords = await db
+    .select({
+      ingredient: ingredients,
+      quantity: ingredientRecipeData.quantity,
+      unit: units,
+    })
+    .from(ingredientRecipeData)
+    .innerJoin(ingredients, eq(ingredients.id, ingredientRecipeData.ingredientId))
+    .innerJoin(units, eq(units.id, ingredientRecipeData.unitId))
+    .where(eq(ingredientRecipeData.recipeDataId, data.id));
+
   return NextResponse.json({
     recipe,
     recipeData: data,
     categories: categoryRecords,
+    ingredients: ingredientRecords,
   });
 }
