@@ -157,7 +157,9 @@ export function Recipe({ recipeId }: { recipeId: string }) {
           <div className="flex items-center gap-2">
             <ChefHat className="text-muted-foreground size-5" />
 
-            <div className="text-sm font-medium">Főzés: {recipeData.cookTimeMinutes} perc</div>
+            <div className="text-sm font-medium">
+              Főzés/Sütés: {recipeData.cookTimeMinutes} perc
+            </div>
           </div>
 
           <div className="flex items-center gap-2">

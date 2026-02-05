@@ -225,7 +225,7 @@ export function RecipeForm({ defaultValues }: { defaultValues: FormSchema }) {
                 step={1}
                 label={
                   <>
-                    <Clock className="size-4" />
+                    <ChefHat className="size-4" />
                     <span>Főzési/Sütési idő (perc)</span>
                   </>
                 }
