@@ -15,6 +15,7 @@ import { Skeleton } from '~/components/ui/skeleton';
 import { recipeSchema } from '~/lib/zod-schemas';
 import { GET } from '~/lib/api-utils';
 import { cn } from '~/lib/utils';
+import Link from 'next/link';
 
 export function Recipe({ recipeId }: { recipeId: string }) {
   const { open: isSidebarOpen } = useSidebar();
@@ -112,9 +113,11 @@ export function Recipe({ recipeId }: { recipeId: string }) {
           <div className="flex items-center justify-between gap-4">
             <h1 className="text-3xl font-bold tracking-tight">{recipeData.title}</h1>
 
-            <Button variant="outline" size="sm">
-              <Pencil className="size-4" />
-              <span>Szerkesztés</span>
+            <Button variant="outline" size="sm" asChild>
+              <Link href={`/dashboard/admin/recipes/edit/${recipeId}`}>
+                <Pencil className="size-4" />
+                <span>Szerkesztés</span>
+              </Link>
             </Button>
           </div>
 
