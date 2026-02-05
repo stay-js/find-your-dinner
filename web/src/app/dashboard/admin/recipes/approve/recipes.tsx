@@ -1,6 +1,7 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
+import { CheckCircle } from 'lucide-react';
 
 import { useSidebar } from '~/components/ui/sidebar';
 import { RecipeCard } from '~/components/recipe-card';
@@ -16,6 +17,16 @@ export function Recipes() {
     queryKey: ['recipe-data-to-approve'],
     queryFn: () => GET('/api/admin/recipe-data/to-approve', recipesSchema),
   });
+
+  if (!isLoading && (!recipes || recipes.length === 0)) {
+    return (
+      <div className="flex items-center justify-center gap-2 rounded-lg border py-8">
+        <CheckCircle className="text-muted-foreground size-5" />
+
+        <p className="text-center text-sm">Jelenleg nincs jóváhagyásra váró recept.</p>
+      </div>
+    );
+  }
 
   return (
     <div
