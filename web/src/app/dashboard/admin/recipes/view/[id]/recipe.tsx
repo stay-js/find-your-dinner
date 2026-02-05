@@ -4,13 +4,14 @@ import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { Clock, Users, ChefHat } from 'lucide-react';
+import { Clock, Users, ChefHat, AlertTriangle, CheckCircle, Pencil } from 'lucide-react';
 
-import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card';
 import { Badge } from '~/components/ui/badge';
-import { Skeleton } from '~/components/ui/skeleton';
+import { Button } from '~/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card';
 import { Checkbox } from '~/components/ui/checkbox';
 import { useSidebar } from '~/components/ui/sidebar';
+import { Skeleton } from '~/components/ui/skeleton';
 import { recipeSchema } from '~/lib/zod-schemas';
 import { GET } from '~/lib/api-utils';
 import { cn } from '~/lib/utils';
@@ -76,6 +77,26 @@ export function Recipe({ recipeId }: { recipeId: string }) {
       )}
     >
       <div className="flex flex-col gap-6">
+        {!recipeData.verified && (
+          <div className="bg-accent/30 flex items-center justify-between gap-4 rounded-lg border px-4 py-3">
+            <div className="flex items-center gap-3">
+              <AlertTriangle className="text-accent-foreground size-5" />
+
+              <div className="text-sm">
+                <p className="font-medium">Ez a recept még nincs jóváhagyva</p>
+                <p className="text-muted-foreground">
+                  Amíg nem kerül jóváhagyásra, nem jelenik meg a nyilvános felületeken.
+                </p>
+              </div>
+            </div>
+
+            <Button size="sm">
+              <CheckCircle className="size-4" />
+              <span>Recept jóváhagyása</span>
+            </Button>
+          </div>
+        )}
+
         <div className="aspect-video w-full overflow-hidden rounded-lg">
           <Image
             src={recipeData.previewImageUrl}
@@ -88,7 +109,15 @@ export function Recipe({ recipeId }: { recipeId: string }) {
         </div>
 
         <div className="flex flex-col gap-1">
-          <h1 className="text-4xl font-bold tracking-tight">{recipeData.title}</h1>
+          <div className="flex items-center justify-between gap-4">
+            <h1 className="text-3xl font-bold tracking-tight">{recipeData.title}</h1>
+
+            <Button variant="outline" size="sm">
+              <Pencil className="size-4" />
+              <span>Szerkesztés</span>
+            </Button>
+          </div>
+
           <p className="text-muted-foreground text-lg">{recipeData.description}</p>
         </div>
 
