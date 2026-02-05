@@ -182,7 +182,7 @@ export function Recipe({ recipeId }: { recipeId: string }) {
               <label
                 htmlFor={`ingredient-${item.ingredient.id}`}
                 className={cn(
-                  'cursor-pointer text-sm',
+                  'cursor-pointer text-sm select-none',
                   checkedIngredients.has(item.ingredient.id) &&
                     'text-muted-foreground line-through',
                 )}
