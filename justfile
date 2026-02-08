@@ -12,13 +12,13 @@ runner := if `command -v pnpm` != "" { "pnpm" } else { "npm" }
 start-db:
     docker compose up -d
 
-# Stops above mentioned containers
+# Stops database containers
 [working-directory: 'db']
 [group('db')]
 stop-db:
     docker compose down
 
-# Creates .env file for the database
+# Creates database configuration (.env file)
 [working-directory: 'db']
 [group('db')]
 setup-db:
@@ -30,7 +30,7 @@ setup-db:
         cp .env.example .env
     fi
 
-# Installs dependencies and creates .env file for web application
+# Installs dependencies and creates web app configuration (.env file)
 [group('web')]
 [working-directory: 'web']
 setup-web:
@@ -55,15 +55,14 @@ setup-web:
 start-web:
     -{{runner}} run dev
 
-# Runs database migrations
+# Runs pending database migrations
 [group('migrate')]
 [working-directory: 'web']
 migrate:
     {{runner}} run db:migrate
 
-# Clears the database and runs migrations
+# Resets database and runs all migrations
 [group('migrate')]
 [working-directory: 'web']
 migrate-fresh:
     {{runner}} run db:migrate:fresh
-    
