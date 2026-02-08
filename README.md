@@ -10,10 +10,7 @@ Itt megtalálod az alkalmazás különböző komponenseinek leírását, telepí
 
 ## Justfile
 
-[Just](https://github.com/casey/just)
+[Just](https://github.com/casey/just) telepítése után:
 
-```bash
-just --list
-```
-
-Alapértelmezett recept futtatása: `just` vagy `just default`
+- Elérhető receptek listázása: `just --list`
+- Alapértelmezett recept futtatása: `just` vagy `just default`
