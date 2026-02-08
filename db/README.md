@@ -1,32 +1,37 @@
 # Adatbázis
 
-## Előkészületek
-
-- `.env.example` fájlban találhatóak a szükséges környezeti változók. Amennyiben nem az alapértelmezett értékekre van szükség, ezt a fájlt le kell másolni és átnevezni `.env`-re, majd felülírni a szükséges értékeket.
-
 ## Futtatás
 
 ```bash
-bash start.sh
+just start-db
 ```
 
 ### Első indítás esetén
 
-- `Drizzle` migrációk lefuttatása:
+- Előkészületek:
 
 ```bash
-cd ../web
-# projekt futtatásához szükséges előészületek után:
-pnpm db:migrate
+just setup-db
+```
 
-# amennyiben nincs pnpm telepítve
-# npm run db:migrate
+- Ezt követően, környezeti változók felülírása (amennyiben szükséges) a `.env` fájlban.
+
+- Container indítása:
+
+```bash
+just start-db
+```
+
+- Migrációk futtatása:
+
+```bash
+just migrate
 ```
 
 ## Leállítás
 
 ```bash
-docker compose down
+just stop-db
 ```
 
 ## MySQL elérése

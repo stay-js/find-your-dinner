@@ -7,3 +7,13 @@ Itt megtalálod az alkalmazás különböző komponenseinek leírását, telepí
 
 - [Adatbázis dokumentációja](db/README.md)
 - [Full-stack web app dokumentációja](web/README.md)
+
+## Justfile
+
+[Just](https://github.com/casey/just)
+
+```bash
+just --list
+```
+
+Alapértelmezett recept futtatása: `just` vagy `just default`
