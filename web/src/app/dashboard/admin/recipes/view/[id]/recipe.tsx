@@ -122,7 +122,7 @@ export function Recipe({ recipeId }: { recipeId: string }) {
   return (
     <div
       className={cn(
-        'container grid gap-8',
+        'container grid gap-6',
         isSidebarOpen ? 'xl:grid-cols-[3fr_1fr]' : 'lg:grid-cols-[3fr_1fr]',
       )}
     >
