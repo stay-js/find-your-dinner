@@ -3,10 +3,10 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { useState } from 'react';
+import { useId, useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { toast } from 'sonner';
 import { Clock, Users, ChefHat, AlertTriangle, CheckCircle, Pencil } from 'lucide-react';
+import { toast } from 'sonner';
 
 import { Badge } from '~/components/ui/badge';
 import { Button } from '~/components/ui/button';
@@ -78,6 +78,46 @@ export function Recipe({ recipeId }: { recipeId: string }) {
   if (!recipe) notFound();
 
   const { recipeData, categories, ingredients } = recipe;
+
+  function IngredientsCard({ className }: { className?: string }) {
+    return (
+      <Card className={cn('h-fit', className)}>
+        <CardHeader>
+          <CardTitle>Hozzávalók</CardTitle>
+        </CardHeader>
+
+        <CardContent className="flex flex-col gap-2">
+          {ingredients.map((item) => {
+            const id = useId();
+
+            return (
+              <div key={item.ingredient.id} className="flex items-center gap-3">
+                <Checkbox
+                  id={id}
+                  checked={checkedIngredients.has(item.ingredient.id)}
+                  onCheckedChange={() => toggleIngredient(item.ingredient.id)}
+                />
+
+                <label
+                  htmlFor={id}
+                  className={cn(
+                    'cursor-pointer text-sm select-none',
+                    checkedIngredients.has(item.ingredient.id) &&
+                      'text-muted-foreground line-through',
+                  )}
+                >
+                  <span className="font-medium">
+                    {item.quantity} {item.unit.abbreviation}
+                  </span>{' '}
+                  <span>{item.ingredient.name}</span>
+                </label>
+              </div>
+            );
+          })}
+        </CardContent>
+      </Card>
+    );
+  }
 
   return (
     <div
@@ -169,6 +209,8 @@ export function Recipe({ recipeId }: { recipeId: string }) {
           </div>
         </div>
 
+        <IngredientsCard className={cn(isSidebarOpen ? 'xl:hidden' : 'lg:hidden')} />
+
         <Card>
           <CardHeader>
             <CardTitle>Elkészítés</CardTitle>
@@ -214,37 +256,9 @@ export function Recipe({ recipeId }: { recipeId: string }) {
         </Card>
       </div>
 
-      <Card className="sticky top-20 h-fit">
-        <CardHeader>
-          <CardTitle>Hozzávalók</CardTitle>
-        </CardHeader>
-
-        <CardContent className="flex flex-col gap-2">
-          {ingredients.map((item) => (
-            <div key={item.ingredient.id} className="flex items-center gap-3">
-              <Checkbox
-                id={`ingredient-${item.ingredient.id}`}
-                checked={checkedIngredients.has(item.ingredient.id)}
-                onCheckedChange={() => toggleIngredient(item.ingredient.id)}
-              />
-
-              <label
-                htmlFor={`ingredient-${item.ingredient.id}`}
-                className={cn(
-                  'cursor-pointer text-sm select-none',
-                  checkedIngredients.has(item.ingredient.id) &&
-                    'text-muted-foreground line-through',
-                )}
-              >
-                <span className="font-medium">
-                  {item.quantity} {item.unit.abbreviation}
-                </span>{' '}
-                <span>{item.ingredient.name}</span>
-              </label>
-            </div>
-          ))}
-        </CardContent>
-      </Card>
+      <IngredientsCard
+        className={cn('sticky top-20', isSidebarOpen ? 'max-xl:hidden' : 'max-lg:hidden')}
+      />
     </div>
   );
 }
