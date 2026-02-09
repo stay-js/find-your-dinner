@@ -11,7 +11,7 @@ export function Title({
   description,
 }: {
   type: 'admin' | 'public';
-  isOwner: boolean;
+  isOwner?: boolean;
   recipeId: number;
   title: string;
   description: string;
