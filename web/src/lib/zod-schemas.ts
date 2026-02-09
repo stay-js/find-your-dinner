@@ -93,3 +93,25 @@ export const savedRecipesSchema = z.array(
     createdAt: z.coerce.date(),
   }),
 );
+
+export const createRecipeSchema = z.object({
+  title: z.string().trim().min(1).max(512),
+  previewImageUrl: z.url().trim().max(2048),
+  description: z.string().trim().min(1),
+  instructions: z.string().trim().min(1),
+  prepTimeMinutes: z.number().int().positive(),
+  cookTimeMinutes: z.number().int().positive(),
+  servings: z.number().int().positive(),
+  categories: z.array(z.number().int().positive()).min(1),
+  ingredients: z
+    .array(
+      z.object({
+        ingredientId: z.number().int().positive(),
+        quantity: z.number().int().positive(),
+        unitId: z.number().int().positive(),
+      }),
+    )
+    .min(1),
+});
+
+export type CreateRecipeSchema = z.infer<typeof createRecipeSchema>;

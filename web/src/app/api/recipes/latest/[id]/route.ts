@@ -1,18 +1,13 @@
 import { NextResponse } from 'next/server';
-import { auth, clerkClient } from '@clerk/nextjs/server';
+import { auth } from '@clerk/nextjs/server';
 import { desc, eq } from 'drizzle-orm';
 
 import { db } from '~/server/db';
-import {
-  categories,
-  categoryRecipe,
-  ingredientRecipeData,
-  ingredients,
-  recipeData,
-  recipes,
-  units,
-} from '~/server/db/schema';
+import { recipeData, recipes } from '~/server/db/schema';
 import { checkIsAdmin } from '~/server/utils/check-is-admin';
+import { getIngredientsForRecipe } from '~/server/utils/get-ingredients-for-recipe';
+import { getCategoriesForRecipe } from '~/server/utils/get-categories-for-recipe';
+import { getOwnerForRecipe } from '~/server/utils/get-owner-for-recipe';
 import { idParamSchema } from '~/lib/zod-schemas';
 
 export async function GET(_: Request, { params }: { params: Promise<{ id: string }> }) {
@@ -45,50 +40,27 @@ export async function GET(_: Request, { params }: { params: Promise<{ id: string
     return NextResponse.json({ error: 'FORBIDDEN' }, { status: 403 });
   }
 
-  const clerk = await clerkClient();
-
-  const [data, categoryRecords, owner] = await Promise.all([
+  const [recipeDataRecord, categories, owner] = await Promise.all([
     db.query.recipeData.findFirst({
       where: eq(recipeData.recipeId, recipe.id),
       orderBy: desc(recipeData.createdAt),
     }),
 
-    db
-      .select({
-        id: categories.id,
-        name: categories.name,
-      })
-      .from(categoryRecipe)
-      .innerJoin(categories, eq(categories.id, categoryRecipe.categoryId))
-      .where(eq(categoryRecipe.recipeId, recipe.id)),
-
-    clerk.users.getUser(recipe.userId),
+    getCategoriesForRecipe(recipe.id),
+    getOwnerForRecipe(recipe.userId),
   ]);
 
-  if (!data) {
+  if (!recipeDataRecord) {
     return NextResponse.json({ error: 'RECIPE_DATA_NOT_FOUND' }, { status: 404 });
   }
 
-  const ingredientRecords = await db
-    .select({
-      ingredient: ingredients,
-      quantity: ingredientRecipeData.quantity,
-      unit: units,
-    })
-    .from(ingredientRecipeData)
-    .innerJoin(ingredients, eq(ingredients.id, ingredientRecipeData.ingredientId))
-    .innerJoin(units, eq(units.id, ingredientRecipeData.unitId))
-    .where(eq(ingredientRecipeData.recipeDataId, data.id));
+  const ingredients = await getIngredientsForRecipe(recipeDataRecord.id);
 
   return NextResponse.json({
     recipe,
-    recipeData: data,
-    categories: categoryRecords,
-    ingredients: ingredientRecords,
-    owner: {
-      id: owner.id,
-      firstName: owner.firstName,
-      lastName: owner.lastName,
-    },
+    recipeData: recipeDataRecord,
+    categories,
+    ingredients,
+    owner,
   });
 }

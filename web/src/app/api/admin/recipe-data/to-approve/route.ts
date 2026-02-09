@@ -3,8 +3,9 @@ import { auth } from '@clerk/nextjs/server';
 import { desc, eq } from 'drizzle-orm';
 
 import { db } from '~/server/db';
-import { categories, categoryRecipe, recipeData, recipes } from '~/server/db/schema';
+import { recipeData, recipes } from '~/server/db/schema';
 import { checkIsAdmin } from '~/server/utils/check-is-admin';
+import { getCategoriesForRecipe } from '~/server/utils/get-categories-for-recipe';
 
 export async function GET() {
   const { isAuthenticated, userId } = await auth();
@@ -45,19 +46,12 @@ export async function GET() {
         );
       }
 
-      const categoryRecords = await db
-        .select({
-          id: categories.id,
-          name: categories.name,
-        })
-        .from(categoryRecipe)
-        .innerJoin(categories, eq(categories.id, categoryRecipe.categoryId))
-        .where(eq(categoryRecipe.recipeId, recipe.id));
+      const categories = await getCategoriesForRecipe(recipe.id);
 
       return {
         recipe,
         recipeData,
-        categories: categoryRecords,
+        categories,
       };
     }),
   );

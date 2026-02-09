@@ -9,7 +9,6 @@ import { z } from 'zod';
 import { Clock, Users, Plus, Trash2, Upload, ChefHat, X } from 'lucide-react';
 import { toast } from 'sonner';
 
-import type { CreateRecipeSchema } from '~/app/api/recipes/create';
 import { Button } from '~/components/ui/button';
 import { SelectGroup, SelectItem, SelectLabel } from '~/components/ui/select';
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card';
@@ -18,7 +17,12 @@ import { Separator } from '~/components/ui/separator';
 import { FieldError } from '~/components/ui/field';
 import { Skeleton } from '~/components/ui/skeleton';
 import { FormInput, FormTextarea, FormSelect } from '~/components/form';
-import { categoriesSchema, ingredientsSchema, unitsSchema } from '~/lib/zod-schemas';
+import {
+  categoriesSchema,
+  ingredientsSchema,
+  unitsSchema,
+  type CreateRecipeSchema,
+} from '~/lib/zod-schemas';
 import { isIntegerString, isPositiveIntegerString } from '~/lib/zod-helpers';
 import { GET, POST } from '~/lib/api-utils';
 import { useIsMobile } from '~/hooks/use-mobile';

@@ -3,7 +3,8 @@ import { auth } from '@clerk/nextjs/server';
 import { desc, eq } from 'drizzle-orm';
 
 import { db } from '~/server/db';
-import { categories, categoryRecipe, recipeData, recipes } from '~/server/db/schema';
+import { recipeData, recipes } from '~/server/db/schema';
+import { getCategoriesForRecipe } from '~/server/utils/get-categories-for-recipe';
 
 export async function GET() {
   const { isAuthenticated, userId } = await auth();
@@ -20,15 +21,8 @@ export async function GET() {
 
   const result = await Promise.all(
     recipeRecords.map(async (recipe) => {
-      const [categoryRecords, data] = await Promise.all([
-        db
-          .select({
-            id: categories.id,
-            name: categories.name,
-          })
-          .from(categoryRecipe)
-          .innerJoin(categories, eq(categories.id, categoryRecipe.categoryId))
-          .where(eq(categoryRecipe.recipeId, recipe.id)),
+      const [categories, recipeDataRecord] = await Promise.all([
+        getCategoriesForRecipe(recipe.id),
 
         db.query.recipeData.findFirst({
           where: eq(recipeData.recipeId, recipe.id),
@@ -36,7 +30,7 @@ export async function GET() {
         }),
       ]);
 
-      if (!data) {
+      if (!recipeDataRecord) {
         return NextResponse.json(
           {
             error: 'RECIPE_DATA_NOT_FOUND',
@@ -52,8 +46,8 @@ export async function GET() {
 
       return {
         recipe,
-        recipeData: data,
-        categories: categoryRecords,
+        recipeData: recipeDataRecord,
+        categories,
       };
     }),
   );
