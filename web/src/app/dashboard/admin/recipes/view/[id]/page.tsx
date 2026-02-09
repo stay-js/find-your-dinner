@@ -50,41 +50,43 @@ export default async function ViewPage({ params }: { params: Promise<{ id: strin
   const ingredients = await getIngredientsForRecipe(recipeData.id);
 
   return (
-    <div className="container grid gap-6 xl:grid-cols-[3fr_1fr]">
-      <div className="flex flex-col gap-6">
-        {!recipeData.verified && <Approve recipeDataId={recipeData.id} />}
+    <div className="@container">
+      <div className="container grid gap-6 @5xl:grid-cols-[3fr_1fr]">
+        <div className="flex flex-col gap-6">
+          {!recipeData.verified && <Approve recipeDataId={recipeData.id} />}
 
-        <PreviewImage previewImageUrl={recipeData.previewImageUrl} title={recipeData.title} />
+          <PreviewImage previewImageUrl={recipeData.previewImageUrl} title={recipeData.title} />
 
-        <Title
-          type="admin"
-          recipeId={recipe.id}
-          title={recipeData.title}
-          description={recipeData.description}
-        />
+          <Title
+            type="admin"
+            recipeId={recipe.id}
+            title={recipeData.title}
+            description={recipeData.description}
+          />
 
-        <Categories categories={categories} />
+          <Categories categories={categories} />
 
-        <Stats
-          prepTimeMinutes={recipeData.prepTimeMinutes}
-          cookTimeMinutes={recipeData.cookTimeMinutes}
-          servings={recipeData.servings}
-        />
+          <Stats
+            prepTimeMinutes={recipeData.prepTimeMinutes}
+            cookTimeMinutes={recipeData.cookTimeMinutes}
+            servings={recipeData.servings}
+          />
 
-        <Ingredients className="xl:hidden" ingredients={ingredients} />
+          <Ingredients className="@5xl:hidden" ingredients={ingredients} />
 
-        <Instructions instructions={recipeData.instructions} />
+          <Instructions instructions={recipeData.instructions} />
 
-        <Overview
-          prepTimeMinutes={recipeData.prepTimeMinutes}
-          cookTimeMinutes={recipeData.cookTimeMinutes}
-          createdAt={recipeData.createdAt!}
-          updatedAt={recipeData.updatedAt!}
-          owner={owner}
-        />
+          <Overview
+            prepTimeMinutes={recipeData.prepTimeMinutes}
+            cookTimeMinutes={recipeData.cookTimeMinutes}
+            createdAt={recipeData.createdAt!}
+            updatedAt={recipeData.updatedAt!}
+            owner={owner}
+          />
+        </div>
+
+        <Ingredients className="sticky top-22 @max-5xl:hidden" ingredients={ingredients} />
       </div>
-
-      <Ingredients className="sticky top-22 max-xl:hidden" ingredients={ingredients} />
     </div>
   );
 }
