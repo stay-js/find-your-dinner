@@ -30,22 +30,28 @@ export default async function RecipePage({ params }: { params: Promise<{ id: str
 
   const { id } = result.data;
 
-  const recipe = await db.query.recipes.findFirst({ where: eq(recipes.id, id) });
-  if (!recipe) notFound();
+  const recipeRecords = await db
+    .select({
+      recipe: recipes,
+      recipeData: recipeDataTable,
+    })
+    .from(recipes)
+    .innerJoin(
+      recipeDataTable,
+      and(eq(recipeDataTable.recipeId, recipes.id), eq(recipeDataTable.verified, true)),
+    )
+    .where(eq(recipes.id, id))
+    .orderBy(desc(recipes.createdAt));
 
-  const recipeData = await db.query.recipeData.findFirst({
-    where: and(eq(recipeDataTable.recipeId, recipe.id), eq(recipeDataTable.verified, true)),
-    orderBy: desc(recipeDataTable.createdAt),
-  });
+  if (!recipeRecords?.[0]) notFound();
 
-  if (!recipeData) notFound();
+  const { recipe, recipeData } = recipeRecords[0];
 
-  const [categories, author] = await Promise.all([
+  const [categories, ingredients, author] = await Promise.all([
     getRecipeCategories(recipe.id),
+    getRecipeIngredients(recipeData.id),
     getRecipeAuthor(recipe.userId),
   ]);
-
-  const ingredients = await getRecipeIngredients(recipeData.id);
 
   return (
     <div className="container grid gap-6 py-8 lg:grid-cols-[3fr_1fr]">

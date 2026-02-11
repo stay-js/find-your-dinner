@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { auth } from '@clerk/nextjs/server';
-import { desc, eq } from 'drizzle-orm';
+import { and, desc, eq } from 'drizzle-orm';
 
 import { db } from '~/server/db';
 import { recipeData, recipes } from '~/server/db/schema';
@@ -20,32 +20,17 @@ export async function GET() {
     return NextResponse.json({ error: 'FORBIDDEN' }, { status: 403 });
   }
 
-  const recipeDataRecords = await db
-    .select()
-    .from(recipeData)
-    .where(eq(recipeData.verified, false))
+  const recipeRecords = await db
+    .select({
+      recipe: recipes,
+      recipeData,
+    })
+    .from(recipes)
+    .innerJoin(recipeData, and(eq(recipeData.recipeId, recipes.id), eq(recipeData.verified, false)))
     .orderBy(desc(recipeData.createdAt));
 
   const result = await Promise.all(
-    recipeDataRecords.map(async (recipeData) => {
-      const recipe = await db.query.recipes.findFirst({
-        where: eq(recipes.id, recipeData.recipeId),
-      });
-
-      if (!recipe) {
-        return NextResponse.json(
-          {
-            error: 'RECIPE_NOT_FOUND',
-            details: {
-              recipeId: recipeData.recipeId,
-            },
-          },
-          {
-            status: 404,
-          },
-        );
-      }
-
+    recipeRecords.map(async ({ recipe, recipeData }) => {
       const categories = await getRecipeCategories(recipe.id);
 
       return {

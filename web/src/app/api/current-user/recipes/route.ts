@@ -14,39 +14,22 @@ export async function GET() {
   }
 
   const recipeRecords = await db
-    .select()
+    .select({
+      recipe: recipes,
+      recipeData,
+    })
     .from(recipes)
+    .innerJoin(recipeData, eq(recipeData.recipeId, recipes.id))
     .where(eq(recipes.userId, userId))
     .orderBy(desc(recipes.createdAt));
 
   const result = await Promise.all(
-    recipeRecords.map(async (recipe) => {
-      const [categories, recipeDataRecord] = await Promise.all([
-        getRecipeCategories(recipe.id),
-
-        db.query.recipeData.findFirst({
-          where: eq(recipeData.recipeId, recipe.id),
-          orderBy: desc(recipeData.createdAt),
-        }),
-      ]);
-
-      if (!recipeDataRecord) {
-        return NextResponse.json(
-          {
-            error: 'RECIPE_DATA_NOT_FOUND',
-            details: {
-              recipeId: recipe.id,
-            },
-          },
-          {
-            status: 404,
-          },
-        );
-      }
+    recipeRecords.map(async ({ recipe, recipeData }) => {
+      const categories = await getRecipeCategories(recipe.id);
 
       return {
         recipe,
-        recipeData: recipeDataRecord,
+        recipeData,
         categories,
       };
     }),

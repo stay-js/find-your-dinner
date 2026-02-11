@@ -22,31 +22,31 @@ export async function GET(_: NextRequest, { params }: { params: Promise<{ id: st
 
   const { id } = result.data;
 
-  const recipe = await db.query.recipes.findFirst({ where: eq(recipes.id, id) });
+  const recipeRecords = await db
+    .select({
+      recipe: recipes,
+      recipeData,
+    })
+    .from(recipes)
+    .innerJoin(recipeData, and(eq(recipeData.recipeId, recipes.id), eq(recipeData.verified, true)))
+    .where(eq(recipes.id, id))
+    .orderBy(desc(recipes.createdAt));
 
-  if (!recipe) {
+  if (!recipeRecords?.[0]) {
     return NextResponse.json({ error: 'RECIPE_NOT_FOUND' }, { status: 404 });
   }
 
-  const recipeDataRecord = await db.query.recipeData.findFirst({
-    where: and(eq(recipeData.recipeId, recipe.id), eq(recipeData.verified, true)),
-    orderBy: desc(recipeData.createdAt),
-  });
+  const recipeRecord = recipeRecords[0];
 
-  if (!recipeDataRecord) {
-    return NextResponse.json({ error: 'NO_VERIFIED_RECIPE_DATA' }, { status: 404 });
-  }
-
-  const [categories, author] = await Promise.all([
-    getRecipeCategories(recipe.id),
-    getRecipeAuthor(recipe.userId),
+  const [categories, ingredients, author] = await Promise.all([
+    getRecipeCategories(recipeRecord.recipe.id),
+    getRecipeIngredients(recipeRecord.recipeData.id),
+    getRecipeAuthor(recipeRecord.recipe.userId),
   ]);
 
-  const ingredients = await getRecipeIngredients(recipeDataRecord.id);
-
   return NextResponse.json({
-    recipe,
-    recipeData: recipeDataRecord,
+    recipe: recipeRecord.recipe,
+    recipeData: recipeRecord.recipeData,
     categories,
     ingredients,
     author,
