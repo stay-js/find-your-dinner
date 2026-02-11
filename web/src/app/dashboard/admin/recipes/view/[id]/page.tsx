@@ -1,14 +1,7 @@
 import { notFound } from 'next/navigation';
 import { auth } from '@clerk/nextjs/server';
-import { desc, eq } from 'drizzle-orm';
 
-import { db } from '~/server/db';
-import { recipeData as recipeDataTable, recipes } from '~/server/db/schema';
-import {
-  getRecipeAuthor,
-  getRecipeCategories,
-  getRecipeIngredients,
-} from '~/server/utils/recipe-helpers';
+import { getRecipe } from '~/server/utils/get-recipe';
 import {
   Categories,
   Ingredients,
@@ -37,25 +30,7 @@ export default async function ViewPage({ params }: { params: Promise<{ id: strin
 
   const { id } = result.data;
 
-  const recipeRecords = await db
-    .select({
-      recipe: recipes,
-      recipeData: recipeDataTable,
-    })
-    .from(recipes)
-    .innerJoin(recipeDataTable, eq(recipeDataTable.recipeId, recipes.id))
-    .where(eq(recipes.id, id))
-    .orderBy(desc(recipes.createdAt));
-
-  if (!recipeRecords?.[0]) notFound();
-
-  const { recipe, recipeData } = recipeRecords[0];
-
-  const [categories, ingredients, author] = await Promise.all([
-    getRecipeCategories(recipe.id),
-    getRecipeIngredients(recipeData.id),
-    getRecipeAuthor(recipe.userId),
-  ]);
+  const { recipe, recipeData, categories, ingredients, author } = await getRecipe(id, true);
 
   return (
     <div className="@container">

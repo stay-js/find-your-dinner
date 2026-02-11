@@ -1,15 +1,8 @@
-import { and, desc, eq } from 'drizzle-orm';
 import { auth } from '@clerk/nextjs/server';
 import { notFound } from 'next/navigation';
 
-import { db } from '~/server/db';
-import { recipeData as recipeDataTable, recipes } from '~/server/db/schema';
+import { getRecipe } from '~/server/utils/get-recipe';
 import { checkIsAdmin } from '~/server/utils/check-is-admin';
-import {
-  getRecipeAuthor,
-  getRecipeCategories,
-  getRecipeIngredients,
-} from '~/server/utils/recipe-helpers';
 import {
   Categories,
   Ingredients,
@@ -30,28 +23,7 @@ export default async function RecipePage({ params }: { params: Promise<{ id: str
 
   const { id } = result.data;
 
-  const recipeRecords = await db
-    .select({
-      recipe: recipes,
-      recipeData: recipeDataTable,
-    })
-    .from(recipes)
-    .innerJoin(
-      recipeDataTable,
-      and(eq(recipeDataTable.recipeId, recipes.id), eq(recipeDataTable.verified, true)),
-    )
-    .where(eq(recipes.id, id))
-    .orderBy(desc(recipes.createdAt));
-
-  if (!recipeRecords?.[0]) notFound();
-
-  const { recipe, recipeData } = recipeRecords[0];
-
-  const [categories, ingredients, author] = await Promise.all([
-    getRecipeCategories(recipe.id),
-    getRecipeIngredients(recipeData.id),
-    getRecipeAuthor(recipe.userId),
-  ]);
+  const { recipe, recipeData, categories, ingredients, author } = await getRecipe(id);
 
   return (
     <div className="container grid gap-6 py-8 lg:grid-cols-[3fr_1fr]">

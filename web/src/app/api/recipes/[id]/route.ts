@@ -1,13 +1,6 @@
 import { type NextRequest, NextResponse } from 'next/server';
-import { and, desc, eq } from 'drizzle-orm';
 
-import { db } from '~/server/db';
-import { recipeData, recipes } from '~/server/db/schema';
-import {
-  getRecipeAuthor,
-  getRecipeCategories,
-  getRecipeIngredients,
-} from '~/server/utils/recipe-helpers';
+import { getRecipe } from '~/server/utils/get-recipe';
 import { idParamSchema } from '~/lib/zod-schemas';
 
 export async function GET(_: NextRequest, { params }: { params: Promise<{ id: string }> }) {
@@ -22,33 +15,7 @@ export async function GET(_: NextRequest, { params }: { params: Promise<{ id: st
 
   const { id } = result.data;
 
-  const recipeRecords = await db
-    .select({
-      recipe: recipes,
-      recipeData,
-    })
-    .from(recipes)
-    .innerJoin(recipeData, and(eq(recipeData.recipeId, recipes.id), eq(recipeData.verified, true)))
-    .where(eq(recipes.id, id))
-    .orderBy(desc(recipes.createdAt));
+  const recipe = await getRecipe(id);
 
-  if (!recipeRecords?.[0]) {
-    return NextResponse.json({ error: 'RECIPE_NOT_FOUND' }, { status: 404 });
-  }
-
-  const recipeRecord = recipeRecords[0];
-
-  const [categories, ingredients, author] = await Promise.all([
-    getRecipeCategories(recipeRecord.recipe.id),
-    getRecipeIngredients(recipeRecord.recipeData.id),
-    getRecipeAuthor(recipeRecord.recipe.userId),
-  ]);
-
-  return NextResponse.json({
-    recipe: recipeRecord.recipe,
-    recipeData: recipeRecord.recipeData,
-    categories,
-    ingredients,
-    author,
-  });
+  return NextResponse.json(recipe);
 }
