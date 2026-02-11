@@ -1,6 +1,6 @@
 import { type NextRequest, NextResponse } from 'next/server';
 import { auth } from '@clerk/nextjs/server';
-import { desc, eq } from 'drizzle-orm';
+import { desc, eq, and } from 'drizzle-orm';
 import { z } from 'zod';
 
 import { db } from '~/server/db';
@@ -33,41 +33,22 @@ export async function GET(request: NextRequest) {
     .select({
       savedAt: savedRecipes.createdAt,
       recipe: recipes,
+      recipeData,
     })
     .from(savedRecipes)
     .innerJoin(recipes, eq(savedRecipes.recipeId, recipes.id))
+    .innerJoin(recipeData, and(eq(recipeData.recipeId, recipes.id), eq(recipeData.verified, true)))
     .where(eq(savedRecipes.userId, userId))
     .orderBy(desc(savedRecipes.createdAt));
 
   const result = await Promise.all(
-    recipeRecords.map(async ({ savedAt, recipe }) => {
-      const [categories, recipeDataRecord] = await Promise.all([
-        getRecipeCategories(recipe.id),
-
-        db.query.recipeData.findFirst({
-          where: eq(recipeData.recipeId, recipe.id),
-          orderBy: desc(recipeData.createdAt),
-        }),
-      ]);
-
-      if (!recipeDataRecord) {
-        return NextResponse.json(
-          {
-            error: 'RECIPE_DATA_NOT_FOUND',
-            details: {
-              recipeId: recipe.id,
-            },
-          },
-          {
-            status: 404,
-          },
-        );
-      }
+    recipeRecords.map(async ({ savedAt, recipe, recipeData }) => {
+      const categories = await getRecipeCategories(recipe.id);
 
       return {
         savedAt,
         recipe,
-        recipeData: recipeDataRecord,
+        recipeData,
         categories,
       };
     }),
