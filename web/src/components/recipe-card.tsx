@@ -160,7 +160,7 @@ export function RecipeCard({
 
         {pageType === 'manage' && (
           <>
-            <Button variant="outline">
+            <Button variant="outline" asChild>
               <Link href={`/dashboard/recipes/edit/${recipe.recipe.id}`}>Szerkesztés</Link>
             </Button>
 
