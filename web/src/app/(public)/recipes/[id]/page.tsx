@@ -63,6 +63,7 @@ export default async function RecipePage({ params }: { params: Promise<{ id: str
         <Categories categories={categories} />
 
         <Stats
+          recipeId={recipe.id}
           prepTimeMinutes={recipeData.prepTimeMinutes}
           cookTimeMinutes={recipeData.cookTimeMinutes}
           servings={recipeData.servings}

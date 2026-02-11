@@ -73,6 +73,7 @@ export default async function ViewPage({ params }: { params: Promise<{ id: strin
           <Categories categories={categories} />
 
           <Stats
+            recipeId={recipe.id}
             prepTimeMinutes={recipeData.prepTimeMinutes}
             cookTimeMinutes={recipeData.cookTimeMinutes}
             servings={recipeData.servings}
