@@ -36,7 +36,8 @@ export async function GET(request: NextRequest) {
     })
     .from(savedRecipes)
     .innerJoin(recipes, eq(savedRecipes.recipeId, recipes.id))
-    .where(eq(savedRecipes.userId, userId));
+    .where(eq(savedRecipes.userId, userId))
+    .orderBy(desc(savedRecipes.createdAt));
 
   const result = await Promise.all(
     recipeRecords.map(async ({ savedAt, recipe }) => {

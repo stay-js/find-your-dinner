@@ -58,6 +58,16 @@ export const recipeWithoutIngredientSchema = z.object({
 
 export type RecipeWithoutIngredients = z.infer<typeof recipeWithoutIngredientSchema>;
 
+export const savedRecipeSchema = recipeWithoutIngredientSchema.extend({
+  savedAt: z.coerce.date(),
+});
+
+export type SavedRecipe = z.infer<typeof savedRecipeSchema>;
+
+export const savedRecipesSchema = z.array(savedRecipeSchema);
+
+export type SavedRecipes = z.infer<typeof savedRecipesSchema>;
+
 export const recipeSchema = recipeWithoutIngredientSchema.extend({
   ingredients: z.array(
     z.object({
@@ -86,7 +96,7 @@ export const recipesSchema = z.array(recipeWithoutIngredientSchema);
 
 export type Recipes = z.infer<typeof recipesSchema>;
 
-export const savedRecipesSchema = z.array(
+export const savedRecipeIdsSchema = z.array(
   z.object({
     savedAt: z.coerce.date(),
     recipeId: z.number().int().positive(),

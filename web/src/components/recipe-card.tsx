@@ -15,7 +15,7 @@ import {
 } from '~/components/ui/card';
 import { Badge } from '~/components/ui/badge';
 import { Button } from '~/components/ui/button';
-import { type RecipeWithoutIngredients, savedRecipesSchema } from '~/lib/zod-schemas';
+import { type RecipeWithoutIngredients, savedRecipeIdsSchema } from '~/lib/zod-schemas';
 import { GET, POST, DELETE } from '~/lib/api-utils';
 import { cn } from '~/lib/utils';
 
@@ -33,8 +33,8 @@ export function RecipeCard({
   const utils = useQueryClient();
 
   const { data: savedRecipes } = useQuery({
-    queryKey: ['current-user-saved-recipes'],
-    queryFn: () => GET('/api/current-user/saved-recipes', savedRecipesSchema),
+    queryKey: ['current-user-saved-recipe-ids'],
+    queryFn: () => GET('/api/current-user/saved-recipes', savedRecipeIdsSchema),
   });
 
   const { mutate: saveRecipe, isPending: isSavePending } = useMutation({
