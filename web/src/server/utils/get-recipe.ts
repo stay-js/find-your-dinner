@@ -1,10 +1,10 @@
-import { type NextRequest, NextResponse } from 'next/server';
 import { notFound } from 'next/navigation';
-import { and, desc, eq, not } from 'drizzle-orm';
+import { and, desc, eq } from 'drizzle-orm';
 
 import { db } from '~/server/db';
 import { recipeData, recipes } from '~/server/db/schema';
 import {
+  getHasVerifiedVersion,
   getRecipeAuthor,
   getRecipeCategories,
   getRecipeIngredients,
@@ -29,10 +29,11 @@ export async function getRecipe(id: number, allowUnverified: boolean = false) {
 
   const recipeRecord = recipeRecords[0];
 
-  const [categories, ingredients, author] = await Promise.all([
+  const [categories, ingredients, author, hasVerifiedVersion] = await Promise.all([
     getRecipeCategories(recipeRecord.recipe.id),
     getRecipeIngredients(recipeRecord.recipeData.id),
     getRecipeAuthor(recipeRecord.recipe.userId),
+    allowUnverified ? getHasVerifiedVersion(recipeRecord.recipe.id) : true,
   ]);
 
   return {
@@ -41,5 +42,6 @@ export async function getRecipe(id: number, allowUnverified: boolean = false) {
     categories,
     ingredients,
     author,
+    hasVerifiedVersion,
   };
 }

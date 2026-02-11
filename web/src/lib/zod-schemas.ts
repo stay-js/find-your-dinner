@@ -54,6 +54,7 @@ export const recipeWithoutIngredientSchema = z.object({
       name: z.string().min(1).max(128),
     }),
   ),
+  hasVerifiedVersion: z.boolean(),
 });
 
 export type RecipeWithoutIngredients = z.infer<typeof recipeWithoutIngredientSchema>;

@@ -5,7 +5,7 @@ import { z } from 'zod';
 
 import { db } from '~/server/db';
 import { recipes, recipeData, savedRecipes } from '~/server/db/schema';
-import { getRecipeCategories } from '~/server/utils/recipe-helpers';
+import { getRecipeCategories, getHasVerifiedVersion } from '~/server/utils/recipe-helpers';
 
 export async function GET(request: NextRequest) {
   const { isAuthenticated, userId } = await auth();
@@ -50,6 +50,7 @@ export async function GET(request: NextRequest) {
         recipe,
         recipeData,
         categories,
+        hasVerifiedVersion: true,
       };
     }),
   );

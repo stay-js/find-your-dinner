@@ -5,7 +5,7 @@ import { and, desc, eq } from 'drizzle-orm';
 import { db } from '~/server/db';
 import { recipeData, recipes } from '~/server/db/schema';
 import { checkIsAdmin } from '~/server/utils/check-is-admin';
-import { getRecipeCategories } from '~/server/utils/recipe-helpers';
+import { getHasVerifiedVersion, getRecipeCategories } from '~/server/utils/recipe-helpers';
 
 export async function GET() {
   const { isAuthenticated, userId } = await auth();
@@ -31,12 +31,16 @@ export async function GET() {
 
   const result = await Promise.all(
     recipeRecords.map(async ({ recipe, recipeData }) => {
-      const categories = await getRecipeCategories(recipe.id);
+      const [categories, hasVerifiedVersion] = await Promise.all([
+        getRecipeCategories(recipe.id),
+        getHasVerifiedVersion(recipe.id),
+      ]);
 
       return {
         recipe,
         recipeData,
         categories,
+        hasVerifiedVersion,
       };
     }),
   );
