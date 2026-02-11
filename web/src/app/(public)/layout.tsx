@@ -3,11 +3,11 @@ import { Footer } from '~/components/footer';
 
 export default function PublicLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="grid grid-cols-1 grid-rows-[1fr_auto] gap-6">
-      <div className="min-h-screen">
+    <div className="grid min-h-screen grid-cols-1 grid-rows-[1fr_auto] gap-6">
+      <div className="h-full min-h-[75vh]">
         <Header />
 
-        <div className="py-8">{children}</div>
+        <main className="py-8">{children}</main>
       </div>
 
       <Footer />

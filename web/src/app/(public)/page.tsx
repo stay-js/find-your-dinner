@@ -8,8 +8,8 @@ export const metadata = createMetadata({
 
 export default async function LandingPage() {
   return (
-    <main className="p-4">
-      <h1>Főoldal</h1>
-    </main>
+    <div className="container">
+      <h1 className="text-2xl font-semibold">Find Your Dinner.</h1>
+    </div>
   );
 }
