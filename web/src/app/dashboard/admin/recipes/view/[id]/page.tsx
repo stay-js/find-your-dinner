@@ -1,4 +1,5 @@
 import { notFound } from 'next/navigation';
+import { auth } from '@clerk/nextjs/server';
 import { desc, eq } from 'drizzle-orm';
 
 import { db } from '~/server/db';
@@ -29,6 +30,8 @@ export const metadata = createMetadata({
 });
 
 export default async function ViewPage({ params }: { params: Promise<{ id: string }> }) {
+  const { userId } = await auth();
+
   const result = idParamSchema.safeParse(await params);
   if (!result.success) notFound();
 
@@ -60,7 +63,8 @@ export default async function ViewPage({ params }: { params: Promise<{ id: strin
           <PreviewImage previewImageUrl={recipeData.previewImageUrl} title={recipeData.title} />
 
           <Title
-            type="admin"
+            isAdmin={true}
+            isAuthor={userId === recipe.userId}
             recipeId={recipe.id}
             title={recipeData.title}
             description={recipeData.description}

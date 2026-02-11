@@ -4,14 +4,14 @@ import { Pencil } from 'lucide-react';
 import { Button } from '~/components/ui/button';
 
 export function Title({
-  type,
+  isAdmin,
   isAuthor,
   recipeId,
   title,
   description,
 }: {
-  type: 'admin' | 'public';
-  isAuthor?: boolean;
+  isAdmin: boolean;
+  isAuthor: boolean;
   recipeId: number;
   title: string;
   description: string;
@@ -21,7 +21,7 @@ export function Title({
       <div className="flex items-center justify-between gap-4">
         <h1 className="text-2xl font-bold tracking-tight">{title}</h1>
 
-        {(isAuthor || type === 'admin') && (
+        {(isAdmin || isAuthor) && (
           <Button variant="outline" size="sm" asChild>
             <Link
               href={

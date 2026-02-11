@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 
 import { db } from '~/server/db';
 import { recipeData as recipeDataTable, recipes } from '~/server/db/schema';
+import { checkIsAdmin } from '~/server/utils/check-is-admin';
 import {
   getRecipeAuthor,
   getRecipeCategories,
@@ -21,6 +22,9 @@ import {
 import { idParamSchema } from '~/lib/zod-schemas';
 
 export default async function RecipePage({ params }: { params: Promise<{ id: string }> }) {
+  const { userId } = await auth();
+  const isAdmin = await checkIsAdmin(userId);
+
   const result = idParamSchema.safeParse(await params);
   if (!result.success) notFound();
 
@@ -43,15 +47,13 @@ export default async function RecipePage({ params }: { params: Promise<{ id: str
 
   const ingredients = await getRecipeIngredients(recipeData.id);
 
-  const { userId } = await auth();
-
   return (
     <div className="container grid gap-6 py-8 lg:grid-cols-[3fr_1fr]">
       <div className="flex flex-col gap-6">
         <PreviewImage previewImageUrl={recipeData.previewImageUrl} title={recipeData.title} />
 
         <Title
-          type="public"
+          isAdmin={isAdmin}
           isAuthor={userId === recipe.userId}
           recipeId={recipe.id}
           title={recipeData.title}
