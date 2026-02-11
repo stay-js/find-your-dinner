@@ -1,19 +1,17 @@
-'use client';
-
 import { ShieldCheck, Notebook, Globe } from 'lucide-react';
 
-import { useIsAdmin } from '~/hooks/use-is-admin';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarRail } from '~/components/ui/sidebar';
 import { SidebarUser } from './sidebar-user';
 import { SidebarNavigation } from './sidebar-navigation';
 
-export function DashboardSidebar(props: React.ComponentProps<typeof Sidebar>) {
-  const { isAdmin } = useIsAdmin();
-
-  const adminNavItems = [
+export function DashboardSidebar({
+  isAdmin,
+  ...props
+}: { isAdmin: boolean } & React.ComponentProps<typeof Sidebar>) {
+  const navItems = [
     {
       label: 'Admin',
-      visible: true,
+      visible: isAdmin,
       items: [
         {
           title: 'Receptek kezelése',
@@ -32,9 +30,6 @@ export function DashboardSidebar(props: React.ComponentProps<typeof Sidebar>) {
         },
       ],
     },
-  ];
-
-  const publicNavItems = [
     {
       label: 'Receptek',
       visible: true,
@@ -68,8 +63,6 @@ export function DashboardSidebar(props: React.ComponentProps<typeof Sidebar>) {
       ],
     },
   ];
-
-  const navItems = isAdmin ? adminNavItems.concat(publicNavItems) : publicNavItems;
 
   return (
     <Sidebar collapsible="offcanvas" {...props}>
