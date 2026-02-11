@@ -95,7 +95,8 @@ export function RecipeCard({
       <CardFooter
         className={cn(
           'mt-auto grid grid-cols-1 gap-2 border-t',
-          ['manage', 'tinder'].includes(pageType) && 'sm:grid-cols-2',
+          (pageType === 'tinder' || (pageType === 'manage' && recipe.recipeData.verified)) &&
+            'sm:grid-cols-2',
         )}
       >
         {pageType === 'admin' && (
@@ -120,15 +121,15 @@ export function RecipeCard({
         )}
 
         {pageType === 'manage' && (
-          <>
-            <Button variant="outline" asChild>
-              <Link href={`/dashboard/recipes/edit/${recipe.recipe.id}`}>Szerkesztés</Link>
-            </Button>
+          <Button variant="outline" asChild>
+            <Link href={`/dashboard/recipes/edit/${recipe.recipe.id}`}>Szerkesztés</Link>
+          </Button>
+        )}
 
-            <Button asChild>
-              <Link href={`/recipes/${recipe.recipe.id}`}>Megtekintés</Link>
-            </Button>
-          </>
+        {pageType === 'manage' && recipe.recipeData.verified && (
+          <Button asChild>
+            <Link href={`/recipes/${recipe.recipe.id}`}>Megtekintés</Link>
+          </Button>
         )}
       </CardFooter>
     </Card>
