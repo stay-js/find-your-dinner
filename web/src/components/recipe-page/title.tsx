@@ -5,13 +5,13 @@ import { Button } from '~/components/ui/button';
 
 export function Title({
   type,
-  isOwner,
+  isAuthor,
   recipeId,
   title,
   description,
 }: {
   type: 'admin' | 'public';
-  isOwner?: boolean;
+  isAuthor?: boolean;
   recipeId: number;
   title: string;
   description: string;
@@ -21,11 +21,11 @@ export function Title({
       <div className="flex items-center justify-between gap-4">
         <h1 className="text-2xl font-bold tracking-tight">{title}</h1>
 
-        {(isOwner || type === 'admin') && (
+        {(isAuthor || type === 'admin') && (
           <Button variant="outline" size="sm" asChild>
             <Link
               href={
-                isOwner
+                isAuthor
                   ? `/dashboard/recipes/edit/${recipeId}`
                   : `/dashboard/admin/recipes/edit/${recipeId}`
               }

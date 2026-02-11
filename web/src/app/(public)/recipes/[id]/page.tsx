@@ -4,9 +4,11 @@ import { notFound } from 'next/navigation';
 
 import { db } from '~/server/db';
 import { recipeData as recipeDataTable, recipes } from '~/server/db/schema';
-import { getCategoriesForRecipe } from '~/server/utils/get-categories-for-recipe';
-import { getIngredientsForRecipe } from '~/server/utils/get-ingredients-for-recipe';
-import { getOwnerForRecipe } from '~/server/utils/get-owner-for-recipe';
+import {
+  getRecipeAuthor,
+  getRecipeCategories,
+  getRecipeIngredients,
+} from '~/server/utils/recipe-helpers';
 import {
   Categories,
   Ingredients,
@@ -34,12 +36,12 @@ export default async function RecipePage({ params }: { params: Promise<{ id: str
 
   if (!recipeData) notFound();
 
-  const [categories, owner] = await Promise.all([
-    getCategoriesForRecipe(recipe.id),
-    getOwnerForRecipe(recipe.userId),
+  const [categories, author] = await Promise.all([
+    getRecipeCategories(recipe.id),
+    getRecipeAuthor(recipe.userId),
   ]);
 
-  const ingredients = await getIngredientsForRecipe(recipeData.id);
+  const ingredients = await getRecipeIngredients(recipeData.id);
 
   const { userId } = await auth();
 
@@ -50,7 +52,7 @@ export default async function RecipePage({ params }: { params: Promise<{ id: str
 
         <Title
           type="public"
-          isOwner={userId === recipe.userId}
+          isAuthor={userId === recipe.userId}
           recipeId={recipe.id}
           title={recipeData.title}
           description={recipeData.description}
@@ -73,7 +75,7 @@ export default async function RecipePage({ params }: { params: Promise<{ id: str
           cookTimeMinutes={recipeData.cookTimeMinutes}
           createdAt={recipeData.createdAt!}
           updatedAt={recipeData.updatedAt!}
-          owner={owner}
+          author={author}
         />
       </div>
 

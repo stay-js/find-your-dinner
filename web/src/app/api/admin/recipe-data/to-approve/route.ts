@@ -5,7 +5,7 @@ import { desc, eq } from 'drizzle-orm';
 import { db } from '~/server/db';
 import { recipeData, recipes } from '~/server/db/schema';
 import { checkIsAdmin } from '~/server/utils/check-is-admin';
-import { getCategoriesForRecipe } from '~/server/utils/get-categories-for-recipe';
+import { getRecipeCategories } from '~/server/utils/recipe-helpers';
 
 export async function GET() {
   const { isAuthenticated, userId } = await auth();
@@ -46,7 +46,7 @@ export async function GET() {
         );
       }
 
-      const categories = await getCategoriesForRecipe(recipe.id);
+      const categories = await getRecipeCategories(recipe.id);
 
       return {
         recipe,

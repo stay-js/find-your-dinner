@@ -3,7 +3,7 @@ import { and, desc, eq } from 'drizzle-orm';
 import { db } from '~/server/db';
 import { categories, categoryRecipe } from '~/server/db/schema';
 
-export function getCategoriesForRecipe(recipeId: number) {
+export function getRecipeCategories(recipeId: number) {
   return db
     .select({
       id: categories.id,

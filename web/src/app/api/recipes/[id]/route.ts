@@ -3,9 +3,11 @@ import { and, desc, eq } from 'drizzle-orm';
 
 import { db } from '~/server/db';
 import { recipeData, recipes } from '~/server/db/schema';
-import { getIngredientsForRecipe } from '~/server/utils/get-ingredients-for-recipe';
-import { getCategoriesForRecipe } from '~/server/utils/get-categories-for-recipe';
-import { getOwnerForRecipe } from '~/server/utils/get-owner-for-recipe';
+import {
+  getRecipeAuthor,
+  getRecipeCategories,
+  getRecipeIngredients,
+} from '~/server/utils/recipe-helpers';
 import { idParamSchema } from '~/lib/zod-schemas';
 
 export async function GET(_: NextRequest, { params }: { params: Promise<{ id: string }> }) {
@@ -35,18 +37,18 @@ export async function GET(_: NextRequest, { params }: { params: Promise<{ id: st
     return NextResponse.json({ error: 'NO_VERIFIED_RECIPE_DATA' }, { status: 404 });
   }
 
-  const [categories, owner] = await Promise.all([
-    getCategoriesForRecipe(recipe.id),
-    getOwnerForRecipe(recipe.userId),
+  const [categories, author] = await Promise.all([
+    getRecipeCategories(recipe.id),
+    getRecipeAuthor(recipe.userId),
   ]);
 
-  const ingredients = await getIngredientsForRecipe(recipeDataRecord.id);
+  const ingredients = await getRecipeIngredients(recipeDataRecord.id);
 
   return NextResponse.json({
     recipe,
     recipeData: recipeDataRecord,
     categories,
     ingredients,
-    owner,
+    author,
   });
 }

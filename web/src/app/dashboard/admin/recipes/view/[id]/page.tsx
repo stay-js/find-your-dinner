@@ -3,9 +3,11 @@ import { desc, eq } from 'drizzle-orm';
 
 import { db } from '~/server/db';
 import { recipeData as recipeDataTable, recipes } from '~/server/db/schema';
-import { getCategoriesForRecipe } from '~/server/utils/get-categories-for-recipe';
-import { getOwnerForRecipe } from '~/server/utils/get-owner-for-recipe';
-import { getIngredientsForRecipe } from '~/server/utils/get-ingredients-for-recipe';
+import {
+  getRecipeAuthor,
+  getRecipeCategories,
+  getRecipeIngredients,
+} from '~/server/utils/recipe-helpers';
 import {
   Categories,
   Ingredients,
@@ -42,12 +44,12 @@ export default async function ViewPage({ params }: { params: Promise<{ id: strin
 
   if (!recipeData) notFound();
 
-  const [categories, owner] = await Promise.all([
-    getCategoriesForRecipe(recipe.id),
-    getOwnerForRecipe(recipe.userId),
+  const [categories, author] = await Promise.all([
+    getRecipeCategories(recipe.id),
+    getRecipeAuthor(recipe.userId),
   ]);
 
-  const ingredients = await getIngredientsForRecipe(recipeData.id);
+  const ingredients = await getRecipeIngredients(recipeData.id);
 
   return (
     <div className="@container">
@@ -81,7 +83,7 @@ export default async function ViewPage({ params }: { params: Promise<{ id: strin
             cookTimeMinutes={recipeData.cookTimeMinutes}
             createdAt={recipeData.createdAt!}
             updatedAt={recipeData.updatedAt!}
-            owner={owner}
+            author={author}
           />
         </div>
 

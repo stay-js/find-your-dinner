@@ -5,7 +5,7 @@ import { z } from 'zod';
 
 import { db } from '~/server/db';
 import { recipes, recipeData, savedRecipes } from '~/server/db/schema';
-import { getCategoriesForRecipe } from '~/server/utils/get-categories-for-recipe';
+import { getRecipeCategories } from '~/server/utils/recipe-helpers';
 
 export async function GET(request: NextRequest) {
   const { isAuthenticated, userId } = await auth();
@@ -41,7 +41,7 @@ export async function GET(request: NextRequest) {
   const result = await Promise.all(
     recipeRecords.map(async ({ savedAt, recipe }) => {
       const [categories, recipeDataRecord] = await Promise.all([
-        getCategoriesForRecipe(recipe.id),
+        getRecipeCategories(recipe.id),
 
         db.query.recipeData.findFirst({
           where: eq(recipeData.recipeId, recipe.id),

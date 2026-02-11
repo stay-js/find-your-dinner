@@ -5,13 +5,13 @@ export function Overview({
   cookTimeMinutes,
   createdAt,
   updatedAt,
-  owner,
+  author,
 }: {
   prepTimeMinutes: number;
   cookTimeMinutes: number;
   createdAt: Date;
   updatedAt: Date;
-  owner: {
+  author: {
     id: string;
     firstName: string | null;
     lastName: string | null;
@@ -42,7 +42,7 @@ export function Overview({
         <div className="flex justify-between gap-2">
           <span className="text-muted-foreground">Feltöltötte</span>
           <span className="font-medium">
-            {owner ? `${owner.firstName ?? ''} ${owner.lastName ?? ''}` : 'Ismeretlen'}
+            {author ? `${author.firstName ?? ''} ${author.lastName ?? ''}` : 'Ismeretlen'}
           </span>
         </div>
       </CardContent>

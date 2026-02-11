@@ -5,9 +5,11 @@ import { desc, eq } from 'drizzle-orm';
 import { db } from '~/server/db';
 import { recipeData, recipes } from '~/server/db/schema';
 import { checkIsAdmin } from '~/server/utils/check-is-admin';
-import { getIngredientsForRecipe } from '~/server/utils/get-ingredients-for-recipe';
-import { getCategoriesForRecipe } from '~/server/utils/get-categories-for-recipe';
-import { getOwnerForRecipe } from '~/server/utils/get-owner-for-recipe';
+import {
+  getRecipeAuthor,
+  getRecipeCategories,
+  getRecipeIngredients,
+} from '~/server/utils/recipe-helpers';
 import { idParamSchema } from '~/lib/zod-schemas';
 
 export async function GET(_: NextRequest, { params }: { params: Promise<{ id: string }> }) {
@@ -40,27 +42,27 @@ export async function GET(_: NextRequest, { params }: { params: Promise<{ id: st
     return NextResponse.json({ error: 'FORBIDDEN' }, { status: 403 });
   }
 
-  const [recipeDataRecord, categories, owner] = await Promise.all([
+  const [recipeDataRecord, categories, author] = await Promise.all([
     db.query.recipeData.findFirst({
       where: eq(recipeData.recipeId, recipe.id),
       orderBy: desc(recipeData.createdAt),
     }),
 
-    getCategoriesForRecipe(recipe.id),
-    getOwnerForRecipe(recipe.userId),
+    getRecipeCategories(recipe.id),
+    getRecipeAuthor(recipe.userId),
   ]);
 
   if (!recipeDataRecord) {
     return NextResponse.json({ error: 'RECIPE_DATA_NOT_FOUND' }, { status: 404 });
   }
 
-  const ingredients = await getIngredientsForRecipe(recipeDataRecord.id);
+  const ingredients = await getRecipeIngredients(recipeDataRecord.id);
 
   return NextResponse.json({
     recipe,
     recipeData: recipeDataRecord,
     categories,
     ingredients,
-    owner,
+    author,
   });
 }

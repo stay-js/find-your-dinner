@@ -1,6 +1,6 @@
 import { clerkClient } from '@clerk/nextjs/server';
 
-export async function getOwnerForRecipe(userId: string) {
+export async function getRecipeAuthor(userId: string) {
   const clerk = await clerkClient();
 
   const user = await clerk.users.getUser(userId);

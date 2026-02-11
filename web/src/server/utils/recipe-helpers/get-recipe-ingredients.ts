@@ -3,7 +3,7 @@ import { eq } from 'drizzle-orm';
 import { db } from '~/server/db';
 import { ingredientRecipeData, ingredients, units } from '~/server/db/schema';
 
-export function getIngredientsForRecipe(recipeDataId: number) {
+export function getRecipeIngredients(recipeDataId: number) {
   return db
     .select({
       ingredient: ingredients,

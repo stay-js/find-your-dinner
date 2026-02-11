@@ -4,7 +4,7 @@ import { desc, eq } from 'drizzle-orm';
 
 import { db } from '~/server/db';
 import { recipeData, recipes } from '~/server/db/schema';
-import { getCategoriesForRecipe } from '~/server/utils/get-categories-for-recipe';
+import { getRecipeCategories } from '~/server/utils/recipe-helpers';
 
 export async function GET() {
   const { isAuthenticated, userId } = await auth();
@@ -22,7 +22,7 @@ export async function GET() {
   const result = await Promise.all(
     recipeRecords.map(async (recipe) => {
       const [categories, recipeDataRecord] = await Promise.all([
-        getCategoriesForRecipe(recipe.id),
+        getRecipeCategories(recipe.id),
 
         db.query.recipeData.findFirst({
           where: eq(recipeData.recipeId, recipe.id),
