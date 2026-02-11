@@ -126,7 +126,7 @@ export function RecipeCard({
           </Button>
         )}
 
-        {pageType === 'manage' && recipe.recipeData.verified && (
+        {pageType === 'manage' && recipe.hasVerifiedVersion && (
           <Button asChild>
             <Link href={`/recipes/${recipe.recipe.id}`}>Megtekintés</Link>
           </Button>
