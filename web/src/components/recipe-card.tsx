@@ -1,9 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { Clock, Users, Bookmark, CheckCircle2 } from 'lucide-react';
-import { toast } from 'sonner';
 
 import {
   Card,
@@ -15,8 +13,8 @@ import {
 } from '~/components/ui/card';
 import { Badge } from '~/components/ui/badge';
 import { Button } from '~/components/ui/button';
-import { type RecipeWithoutIngredients, savedRecipeIdsSchema } from '~/lib/zod-schemas';
-import { GET, POST, DELETE } from '~/lib/api-utils';
+import { useSaving } from '~/hooks/use-saving';
+import { type RecipeWithoutIngredients } from '~/lib/zod-schemas';
 import { cn } from '~/lib/utils';
 
 export function RecipeCard({
@@ -30,34 +28,14 @@ export function RecipeCard({
 }) {
   const [displayIsSaved, setDisplayIsSaved] = useState(false);
 
-  const utils = useQueryClient();
-
-  const { data: savedRecipes } = useQuery({
-    queryKey: ['current-user-saved-recipe-ids'],
-    queryFn: () => GET('/api/current-user/saved-recipes', savedRecipeIdsSchema),
-  });
-
-  const { mutate: saveRecipe, isPending: isSavePending } = useMutation({
-    mutationFn: (recipeId: number) => POST('/api/current-user/saved-recipes', { recipeId }),
-    onMutate: () => setDisplayIsSaved(true),
-    onSettled: () => utils.invalidateQueries({ queryKey: ['current-user-saved-recipes'] }),
-    onError: () => toast.error('Hiba történt a recept mentése során. Kérlek, próbáld újra később!'),
-  });
-
-  const { mutate: unsaveRecipe, isPending: isUnsavePending } = useMutation({
-    mutationFn: (recipeId: number) => DELETE(`/api/current-user/saved-recipes/${recipeId}`),
-    onMutate: () => setDisplayIsSaved(false),
-    onSettled: () => utils.invalidateQueries({ queryKey: ['current-user-saved-recipes'] }),
-    onError: () =>
-      toast.error('Hiba történt a mentett recept eltávolítása során. Kérlek, próbáld újra később!'),
-  });
+  const { savedRecipes, saveRecipe, unsaveRecipe, isPending } = useSaving();
 
   const isSaved = savedRecipes?.some((saved) => saved.recipeId === recipe.recipe.id) ?? false;
 
   useEffect(() => setDisplayIsSaved(isSaved), [isSaved]);
 
   const handleSaveToggle = () => {
-    if (isSavePending || isUnsavePending) return;
+    if (isPending) return;
 
     if (isSaved) {
       unsaveRecipe(recipe.recipe.id);
@@ -80,7 +58,7 @@ export function RecipeCard({
           variant="ghost"
           size="icon"
           className="bg-background/80 absolute top-3 right-3 backdrop-blur-sm"
-          disabled={isSavePending || isUnsavePending}
+          disabled={isPending}
           onClick={handleSaveToggle}
         >
           <Bookmark className={cn('size-5', displayIsSaved && 'fill-current')} />
