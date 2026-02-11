@@ -43,7 +43,7 @@ export function SavedRecipes() {
         {isLoading && new Array(3).fill(null).map((_, i) => <RecipeCardSkeleton key={i} />)}
 
         {savedRecipes?.map((recipe) => (
-          <RecipeCard key={recipe.recipe.id} pageType="search" recipe={recipe} />
+          <RecipeCard key={recipe.recipe.id} pageType="saved" recipe={recipe} />
         ))}
       </div>
     </>

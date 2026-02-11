@@ -21,7 +21,7 @@ export function RecipeCard({
   recipe,
   showIsVerified = false,
 }: {
-  pageType: 'tinder' | 'final' | 'manage' | 'search' | 'admin';
+  pageType: 'tinder' | 'final' | 'manage' | 'search' | 'saved' | 'admin';
   recipe: RecipeWithoutIngredients;
   showIsVerified?: boolean;
 }) {
@@ -111,6 +111,12 @@ export function RecipeCard({
           </Button>
         )}
 
+        {pageType === 'saved' && (
+          <Button asChild>
+            <Link href={`/dashboard/recipes/view/${recipe.recipe.id}`}>Megtekintés</Link>
+          </Button>
+        )}
+
         {pageType === 'final' && <Button>Ezt választom</Button>}
 
         {pageType === 'tinder' && (
@@ -128,7 +134,7 @@ export function RecipeCard({
 
         {pageType === 'manage' && recipe.hasVerifiedVersion && (
           <Button asChild>
-            <Link href={`/recipes/${recipe.recipe.id}`}>Megtekintés</Link>
+            <Link href={`/dashboard/recipes/view/${recipe.recipe.id}`}>Megtekintés</Link>
           </Button>
         )}
       </CardFooter>

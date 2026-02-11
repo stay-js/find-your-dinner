@@ -7,7 +7,7 @@ export default function PublicLayout({ children }: { children: React.ReactNode }
       <div className="min-h-screen">
         <Header />
 
-        {children}
+        <div className="py-8">{children}</div>
       </div>
 
       <Footer />
