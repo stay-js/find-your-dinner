@@ -1,10 +1,9 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import { Bookmark, ChefHat, Clock, Users } from 'lucide-react';
 
 import { Button } from '~/components/ui/button';
-import { useSaving } from '~/hooks/use-saving';
+import { useSaveState } from '~/hooks/use-save-state';
 import { cn } from '~/lib/utils';
 
 export function Stats({
@@ -18,23 +17,7 @@ export function Stats({
   servings: number;
   recipeId: number;
 }) {
-  const [displayIsSaved, setDisplayIsSaved] = useState(false);
-
-  const { savedRecipes, saveRecipe, unsaveRecipe, isPending } = useSaving();
-
-  const isSaved = savedRecipes?.some((saved) => saved.recipeId === recipeId) ?? false;
-
-  useEffect(() => setDisplayIsSaved(isSaved), [isSaved]);
-
-  const handleSaveToggle = () => {
-    if (isPending) return;
-
-    if (isSaved) {
-      unsaveRecipe(recipeId);
-    } else {
-      saveRecipe(recipeId);
-    }
-  };
+  const { isSaved, handleSaveToggle, isPending } = useSaveState(recipeId);
 
   return (
     <div className="flex justify-between gap-6 max-sm:flex-col">
@@ -59,10 +42,10 @@ export function Stats({
       </div>
 
       <Button size="icon-sm" variant="outline" onClick={handleSaveToggle} disabled={isPending}>
-        <Bookmark className={cn('size-4', displayIsSaved && 'fill-current')} />
+        <Bookmark className={cn('size-4', isSaved && 'fill-current')} />
 
         <span className="sr-only">
-          {displayIsSaved ? 'Törlés a mentett receptek közül' : 'Recept mentése'}
+          {isSaved ? 'Törlés a mentett receptek közül' : 'Recept mentése'}
         </span>
       </Button>
     </div>

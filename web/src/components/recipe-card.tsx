@@ -1,6 +1,5 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
 import { Clock, Users, Bookmark, CheckCircle2 } from 'lucide-react';
 
 import {
@@ -13,7 +12,7 @@ import {
 } from '~/components/ui/card';
 import { Badge } from '~/components/ui/badge';
 import { Button } from '~/components/ui/button';
-import { useSaving } from '~/hooks/use-saving';
+import { useSaveState } from '~/hooks/use-save-state';
 import { type RecipeWithoutIngredients } from '~/lib/zod-schemas';
 import { cn } from '~/lib/utils';
 
@@ -26,23 +25,7 @@ export function RecipeCard({
   recipe: RecipeWithoutIngredients;
   showIsVerified?: boolean;
 }) {
-  const [displayIsSaved, setDisplayIsSaved] = useState(false);
-
-  const { savedRecipes, saveRecipe, unsaveRecipe, isPending } = useSaving();
-
-  const isSaved = savedRecipes?.some((saved) => saved.recipeId === recipe.recipe.id) ?? false;
-
-  useEffect(() => setDisplayIsSaved(isSaved), [isSaved]);
-
-  const handleSaveToggle = () => {
-    if (isPending) return;
-
-    if (isSaved) {
-      unsaveRecipe(recipe.recipe.id);
-    } else {
-      saveRecipe(recipe.recipe.id);
-    }
-  };
+  const { isSaved, handleSaveToggle, isPending } = useSaveState(recipe.recipe.id);
 
   return (
     <Card className="w-full gap-6 overflow-hidden pt-0">
@@ -61,10 +44,10 @@ export function RecipeCard({
           disabled={isPending}
           onClick={handleSaveToggle}
         >
-          <Bookmark className={cn('size-5', displayIsSaved && 'fill-current')} />
+          <Bookmark className={cn('size-5', isSaved && 'fill-current')} />
 
           <span className="sr-only">
-            {displayIsSaved ? 'Törlés a mentett receptek közül' : 'Recept mentése'}
+            {isSaved ? 'Törlés a mentett receptek közül' : 'Recept mentése'}
           </span>
         </Button>
 
