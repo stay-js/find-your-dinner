@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+import { type NextRequest, NextResponse } from 'next/server';
 import { auth } from '@clerk/nextjs/server';
 import { desc, eq } from 'drizzle-orm';
 
@@ -10,7 +10,7 @@ import { getCategoriesForRecipe } from '~/server/utils/get-categories-for-recipe
 import { getOwnerForRecipe } from '~/server/utils/get-owner-for-recipe';
 import { idParamSchema } from '~/lib/zod-schemas';
 
-export async function GET(_: Request, { params }: { params: Promise<{ id: string }> }) {
+export async function GET(_: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const { isAuthenticated, userId } = await auth();
 
   if (!isAuthenticated) {

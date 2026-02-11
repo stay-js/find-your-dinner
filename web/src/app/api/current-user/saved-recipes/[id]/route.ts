@@ -1,13 +1,12 @@
-import { NextResponse } from 'next/server';
+import { type NextRequest, NextResponse } from 'next/server';
 import { auth } from '@clerk/nextjs/server';
 import { eq, and } from 'drizzle-orm';
-import { z } from 'zod';
 
 import { db } from '~/server/db';
 import { savedRecipes } from '~/server/db/schema';
 import { idParamSchema } from '~/lib/zod-schemas';
 
-export async function DELETE(_: Request, { params }: { params: Promise<{ id: string }> }) {
+export async function DELETE(_: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const { isAuthenticated, userId } = await auth();
 
   if (!isAuthenticated) {

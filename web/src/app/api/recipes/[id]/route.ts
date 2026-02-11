@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+import { type NextRequest, NextResponse } from 'next/server';
 import { and, desc, eq } from 'drizzle-orm';
 
 import { db } from '~/server/db';
@@ -8,7 +8,7 @@ import { getCategoriesForRecipe } from '~/server/utils/get-categories-for-recipe
 import { getOwnerForRecipe } from '~/server/utils/get-owner-for-recipe';
 import { idParamSchema } from '~/lib/zod-schemas';
 
-export async function GET(_: Request, { params }: { params: Promise<{ id: string }> }) {
+export async function GET(_: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const result = idParamSchema.safeParse(await params);
 
   if (!result.success) {

@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+import { type NextRequest, NextResponse } from 'next/server';
 import { auth } from '@clerk/nextjs/server';
 import { eq } from 'drizzle-orm';
 
@@ -7,7 +7,7 @@ import { recipeData } from '~/server/db/schema';
 import { checkIsAdmin } from '~/server/utils/check-is-admin';
 import { idParamSchema } from '~/lib/zod-schemas';
 
-export async function POST(_: Request, { params }: { params: Promise<{ id: string }> }) {
+export async function POST(_: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const { isAuthenticated, userId } = await auth();
 
   if (!isAuthenticated) {

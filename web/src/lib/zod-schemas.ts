@@ -88,9 +88,8 @@ export type Recipes = z.infer<typeof recipesSchema>;
 
 export const savedRecipesSchema = z.array(
   z.object({
+    savedAt: z.coerce.date(),
     recipeId: z.number().int().positive(),
-    userId: z.string().min(1),
-    createdAt: z.coerce.date(),
   }),
 );
 
