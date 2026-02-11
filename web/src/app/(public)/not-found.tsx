@@ -1,6 +1,4 @@
-import { Footer } from '~/components/footer';
 import { createMetadata } from '~/lib/create-metadata';
-import { NotFound } from '~/components/not-found';
 
 export const metadata = createMetadata({
   path: '/404',
@@ -9,11 +7,8 @@ export const metadata = createMetadata({
   noIndex: true,
 });
 
+import { NotFound } from '~/components/not-found';
+
 export default function NotFoundPage() {
-  return (
-    <div className="grid grid-cols-1 grid-rows-[1fr_auto] gap-6">
-      <NotFound />
-      <Footer />
-    </div>
-  );
+  return <NotFound />;
 }
