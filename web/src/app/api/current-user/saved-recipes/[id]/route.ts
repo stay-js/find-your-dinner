@@ -22,11 +22,11 @@ export async function DELETE(_: NextRequest, { params }: { params: Promise<{ id:
     );
   }
 
-  const { id: recipeId } = result.data;
+  const { id } = result.data;
 
   await db
     .delete(savedRecipes)
-    .where(and(eq(savedRecipes.userId, userId), eq(savedRecipes.recipeId, recipeId)));
+    .where(and(eq(savedRecipes.userId, userId), eq(savedRecipes.recipeId, id)));
 
   return new Response(null, { status: 204 });
 }

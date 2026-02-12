@@ -1,11 +1,11 @@
 import { type NextRequest, NextResponse } from 'next/server';
 import { auth } from '@clerk/nextjs/server';
-import { desc, eq, and } from 'drizzle-orm';
+import { desc, eq, and, exists } from 'drizzle-orm';
 import { z } from 'zod';
 
 import { db } from '~/server/db';
 import { recipes, recipeData, savedRecipes } from '~/server/db/schema';
-import { getRecipeCategories, getHasVerifiedVersion } from '~/server/utils/recipe-helpers';
+import { getRecipeCategories } from '~/server/utils/recipe-helpers';
 
 export async function GET(request: NextRequest) {
   const { isAuthenticated, userId } = await auth();
@@ -33,22 +33,37 @@ export async function GET(request: NextRequest) {
     .select({
       savedAt: savedRecipes.createdAt,
       recipe: recipes,
-      recipeData,
     })
     .from(savedRecipes)
     .innerJoin(recipes, eq(savedRecipes.recipeId, recipes.id))
-    .innerJoin(recipeData, and(eq(recipeData.recipeId, recipes.id), eq(recipeData.verified, true)))
-    .where(eq(savedRecipes.userId, userId))
+    .where(
+      and(
+        eq(savedRecipes.userId, userId),
+        exists(
+          db
+            .select()
+            .from(recipeData)
+            .where(and(eq(recipeData.recipeId, recipes.id), eq(recipeData.verified, true))),
+        ),
+      ),
+    )
     .orderBy(desc(savedRecipes.createdAt));
 
   const result = await Promise.all(
-    recipeRecords.map(async ({ savedAt, recipe, recipeData }) => {
-      const categories = await getRecipeCategories(recipe.id);
+    recipeRecords.map(async ({ savedAt, recipe }) => {
+      const [recipeDataRecord, categories] = await Promise.all([
+        db.query.recipeData.findFirst({
+          where: and(eq(recipeData.recipeId, recipe.id), eq(recipeData.verified, true)),
+          orderBy: desc(recipeData.createdAt),
+        }),
+
+        getRecipeCategories(recipe.id),
+      ]);
 
       return {
         savedAt,
         recipe,
-        recipeData,
+        recipeData: recipeDataRecord,
         categories,
         hasVerifiedVersion: true,
       };
