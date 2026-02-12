@@ -7,7 +7,7 @@ import { createMetadata } from '~/lib/create-metadata';
 export const metadata = createMetadata({
   path: '/forbidden',
   title: '403',
-  description: 'Nem vagy jogosult a tartalom megtekintésére',
+  description: 'Nem vagy jogosult a tartalom megtekintésére - Find Your Dinner.',
   noIndex: true,
 });
 

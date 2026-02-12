@@ -16,9 +16,9 @@ import { createMetadata } from '~/lib/create-metadata';
 import { Approve } from './approve';
 
 export const metadata = createMetadata({
-  path: '/dashboard/admin/view',
+  path: '/dashboard/admin/recipes/view',
   title: 'Recept megtekintése - Admin',
-  description: 'Recept megtekintése - Admin',
+  description: 'Recept megtekintése - Admin - Find Your Dinner.',
   noIndex: true,
 });
 

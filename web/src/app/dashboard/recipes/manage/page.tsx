@@ -7,7 +7,7 @@ import { Recipes } from './recipes';
 
 export const metadata = createMetadata({
   path: '/dashboard/recipes/manage',
-  title: 'Recepteim kezelése - Find Your Dinner.',
+  title: 'Recepteim kezelése',
   description: 'Recepteim kezelése - Find Your Dinner.',
   noIndex: true,
 });

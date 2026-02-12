@@ -2,7 +2,7 @@ import { createMetadata } from '~/lib/create-metadata';
 
 export const metadata = createMetadata({
   path: '/dashboard',
-  title: 'Recepteim - Find Your Dinner.',
+  title: 'Recepteim',
   description: 'Recepteim - Find Your Dinner.',
 });
 

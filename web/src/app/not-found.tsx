@@ -5,7 +5,7 @@ import { NotFound } from '~/components/not-found';
 export const metadata = createMetadata({
   path: '/404',
   title: '404',
-  description: 'A keresett tartalom nem található',
+  description: 'A keresett tartalom nem található - Find Your Dinner.',
   noIndex: true,
 });
 

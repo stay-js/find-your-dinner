@@ -3,7 +3,7 @@ import { RecipeForm } from '~/components/recipe-form';
 
 export const metadata = createMetadata({
   path: '/dashboard/recipes/create',
-  title: 'Recept létrehozása - Find Your Dinner.',
+  title: 'Recept létrehozása',
   description: 'Recept létrehozása - Find Your Dinner.',
   noIndex: true,
 });

@@ -2,7 +2,7 @@ import { createMetadata } from '~/lib/create-metadata';
 
 export const metadata = createMetadata({
   path: '/',
-  title: 'Főoldal - Find Your Dinner.',
+  title: 'Főoldal',
   description: 'Üdvözöljük a Find Your Dinner. alkalmazásban!',
 });
 
