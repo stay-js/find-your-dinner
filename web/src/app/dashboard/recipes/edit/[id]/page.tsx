@@ -26,7 +26,6 @@ export default async function EditPage({ params }: { params: Promise<{ id: strin
   if (author.id !== userId) notFound();
 
   const defaultValues = {
-    recipeId: recipe.id,
     title: recipeData.title,
     previewImageUrl: recipeData.previewImageUrl,
     description: recipeData.description,
@@ -42,5 +41,5 @@ export default async function EditPage({ params }: { params: Promise<{ id: strin
     })),
   };
 
-  return <RecipeForm defaultValues={defaultValues} />;
+  return <RecipeForm defaultValues={defaultValues} recipeId={recipe.id} />;
 }
