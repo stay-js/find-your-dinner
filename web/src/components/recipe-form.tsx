@@ -24,12 +24,11 @@ import {
   type CreateRecipeSchema,
 } from '~/lib/zod-schemas';
 import { isIntegerString, isPositiveIntegerString } from '~/lib/zod-helpers';
-import { GET, POST } from '~/lib/api-utils';
+import { GET, POST, PUT } from '~/lib/api-utils';
 import { useIsMobile } from '~/hooks/use-mobile';
 import { cn } from '~/lib/utils';
 
 const formSchema = z.object({
-  recipeId: z.number().int().positive().optional(),
   title: z
     .string()
     .trim()
@@ -77,11 +76,17 @@ const formSchema = z.object({
 
 type FormSchema = z.infer<typeof formSchema>;
 
-export function RecipeForm({ defaultValues }: { defaultValues: FormSchema }) {
+export function RecipeForm({
+  defaultValues,
+  recipeId,
+}: {
+  defaultValues: FormSchema;
+  recipeId?: number;
+}) {
   const router = useRouter();
   const isMobile = useIsMobile();
 
-  const isEdit = !!defaultValues.recipeId;
+  const isEdit = !!recipeId;
 
   const { handleSubmit, control, reset } = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
@@ -114,6 +119,11 @@ export function RecipeForm({ defaultValues }: { defaultValues: FormSchema }) {
     onSuccess: () => router.push('/dashboard/recipes/manage'),
   });
 
+  const { mutateAsync: updateRecipe } = useMutation({
+    mutationFn: (data: CreateRecipeSchema) => PUT(`/api/recipes/${recipeId}`, data),
+    onSuccess: () => router.push('/dashboard/recipes/manage'),
+  });
+
   const onSubmit: SubmitHandler<FormSchema> = (data) => {
     reset(defaultValues);
 
@@ -129,10 +139,10 @@ export function RecipeForm({ defaultValues }: { defaultValues: FormSchema }) {
       })),
     } satisfies CreateRecipeSchema;
 
-    toast.promise(createRecipe(parsedData), {
-      loading: 'Recept létrehozása...',
-      success: 'A recept sikeresen létrehozva!',
-      error: 'Hiba történt a recept létrehozása során!',
+    toast.promise(isEdit ? updateRecipe(parsedData) : createRecipe(parsedData), {
+      loading: `Recept ${isEdit ? 'szerkesztése' : 'létrehozása'}...`,
+      success: `A recept sikeresen ${isEdit ? 'szerkesztve' : 'létrehozva'}!`,
+      error: `Hiba történt a recept ${isEdit ? 'szerkesztése' : 'létrehozása'} során!`,
     });
   };
 
