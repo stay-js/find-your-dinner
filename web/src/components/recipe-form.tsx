@@ -21,7 +21,7 @@ import {
   categoriesSchema,
   ingredientsSchema,
   unitsSchema,
-  type CreateRecipeSchema,
+  type CreateUpdateRecipeSchema,
 } from '~/lib/zod-schemas';
 import { isIntegerString, isPositiveIntegerString } from '~/lib/zod-helpers';
 import { GET, POST, PUT } from '~/lib/api-utils';
@@ -115,12 +115,12 @@ export function RecipeForm({
   });
 
   const { mutateAsync: createRecipe } = useMutation({
-    mutationFn: (data: CreateRecipeSchema) => POST('/api/recipes', data),
+    mutationFn: (data: CreateUpdateRecipeSchema) => POST('/api/recipes', data),
     onSuccess: () => router.push('/dashboard/recipes/manage'),
   });
 
   const { mutateAsync: updateRecipe } = useMutation({
-    mutationFn: (data: CreateRecipeSchema) => PUT(`/api/recipes/${recipeId}`, data),
+    mutationFn: (data: CreateUpdateRecipeSchema) => PUT(`/api/recipes/${recipeId}`, data),
     onSuccess: () => router.push('/dashboard/recipes/manage'),
   });
 
@@ -137,7 +137,7 @@ export function RecipeForm({
         quantity: Number(ingredient.quantity),
         unitId: Number(ingredient.unitId),
       })),
-    } satisfies CreateRecipeSchema;
+    } satisfies CreateUpdateRecipeSchema;
 
     toast.promise(isEdit ? updateRecipe(parsedData) : createRecipe(parsedData), {
       loading: `Recept ${isEdit ? 'szerkesztése' : 'létrehozása'}...`,

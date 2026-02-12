@@ -104,7 +104,7 @@ export const savedRecipeIdsSchema = z.array(
   }),
 );
 
-export const createRecipeSchema = z.object({
+export const createUpdateRecipeSchema = z.object({
   title: z.string().trim().min(1).max(512),
   previewImageUrl: z.url().trim().max(2048),
   description: z.string().trim().min(1),
@@ -124,4 +124,4 @@ export const createRecipeSchema = z.object({
     .min(1),
 });
 
-export type CreateRecipeSchema = z.infer<typeof createRecipeSchema>;
+export type CreateUpdateRecipeSchema = z.infer<typeof createUpdateRecipeSchema>;

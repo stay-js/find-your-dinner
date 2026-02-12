@@ -8,7 +8,7 @@ import { recipes, categoryRecipe, recipeData, ingredientRecipeData } from '~/ser
 import { getRecipe } from '~/server/utils/get-recipe';
 import { checkIsAdmin } from '~/server/utils/check-is-admin';
 import { idParamSchema } from '~/lib/zod-schemas';
-import { createRecipeSchema } from '~/lib/zod-schemas';
+import { createUpdateRecipeSchema } from '~/lib/zod-schemas';
 
 export async function GET(_: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const result = idParamSchema.safeParse(await params);
@@ -55,7 +55,7 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
   }
 
   const body = await request.json();
-  const bodyResult = createRecipeSchema.safeParse(body);
+  const bodyResult = createUpdateRecipeSchema.safeParse(body);
 
   if (!bodyResult.success) {
     return NextResponse.json(

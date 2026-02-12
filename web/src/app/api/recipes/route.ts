@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from 'next/server';
 
 import { db } from '~/server/db';
 import { recipes, categoryRecipe, recipeData, ingredientRecipeData } from '~/server/db/schema';
-import { createRecipeSchema } from '~/lib/zod-schemas';
+import { createUpdateRecipeSchema } from '~/lib/zod-schemas';
 
 export async function POST(request: NextRequest) {
   const { isAuthenticated, userId } = await auth();
@@ -13,7 +13,7 @@ export async function POST(request: NextRequest) {
   }
 
   const body = await request.json();
-  const result = createRecipeSchema.safeParse(body);
+  const result = createUpdateRecipeSchema.safeParse(body);
 
   if (!result.success) {
     return NextResponse.json(
