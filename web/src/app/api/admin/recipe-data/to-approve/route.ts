@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { auth } from '@clerk/nextjs/server';
-import { and, desc, eq } from 'drizzle-orm';
+import { and, desc, eq, exists } from 'drizzle-orm';
 
 import { db } from '~/server/db';
 import { recipeData, recipes } from '~/server/db/schema';
@@ -21,24 +21,33 @@ export async function GET() {
   }
 
   const recipeRecords = await db
-    .select({
-      recipe: recipes,
-      recipeData,
-    })
+    .select({ recipe: recipes })
     .from(recipes)
-    .innerJoin(recipeData, and(eq(recipeData.recipeId, recipes.id), eq(recipeData.verified, false)))
-    .orderBy(desc(recipeData.createdAt));
+    .where(
+      exists(
+        db
+          .select()
+          .from(recipeData)
+          .where(and(eq(recipeData.recipeId, recipes.id), eq(recipeData.verified, false))),
+      ),
+    )
+    .orderBy(desc(recipes.createdAt));
 
   const result = await Promise.all(
-    recipeRecords.map(async ({ recipe, recipeData }) => {
-      const [categories, hasVerifiedVersion] = await Promise.all([
+    recipeRecords.map(async ({ recipe }) => {
+      const [recipeDataRecord, categories, hasVerifiedVersion] = await Promise.all([
+        db.query.recipeData.findFirst({
+          where: and(eq(recipeData.recipeId, recipe.id), eq(recipeData.verified, false)),
+          orderBy: desc(recipeData.createdAt),
+        }),
+
         getRecipeCategories(recipe.id),
         getHasVerifiedVersion(recipe.id),
       ]);
 
       return {
         recipe,
-        recipeData,
+        recipeData: recipeDataRecord,
         categories,
         hasVerifiedVersion,
       };
