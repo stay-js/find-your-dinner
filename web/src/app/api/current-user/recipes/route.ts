@@ -14,25 +14,26 @@ export async function GET() {
   }
 
   const recipeRecords = await db
-    .select({
-      recipe: recipes,
-      recipeData,
-    })
+    .select()
     .from(recipes)
-    .innerJoin(recipeData, eq(recipeData.recipeId, recipes.id))
     .where(eq(recipes.userId, userId))
     .orderBy(desc(recipes.createdAt));
 
   const result = await Promise.all(
-    recipeRecords.map(async ({ recipe, recipeData }) => {
-      const [categories, hasVerifiedVersion] = await Promise.all([
+    recipeRecords.map(async (recipe) => {
+      const [recipeDataRecord, categories, hasVerifiedVersion] = await Promise.all([
+        db.query.recipeData.findFirst({
+          where: eq(recipeData.recipeId, recipe.id),
+          orderBy: desc(recipeData.createdAt),
+        }),
+
         getRecipeCategories(recipe.id),
         getHasVerifiedVersion(recipe.id),
       ]);
 
       return {
         recipe,
-        recipeData,
+        recipeData: recipeDataRecord,
         categories,
         hasVerifiedVersion,
       };
