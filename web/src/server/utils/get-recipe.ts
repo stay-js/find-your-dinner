@@ -11,34 +11,30 @@ import {
 } from '~/server/utils/recipe-helpers';
 
 export async function getRecipe(id: number, allowUnverified: boolean = false) {
-  const joinClause = allowUnverified
-    ? eq(recipeData.recipeId, recipes.id)
-    : and(eq(recipeData.recipeId, recipes.id), eq(recipeData.verified, true));
+  const whereClause = allowUnverified
+    ? eq(recipeData.recipeId, id)
+    : and(eq(recipeData.recipeId, id), eq(recipeData.verified, true));
 
-  const recipeRecords = await db
-    .select({
-      recipe: recipes,
-      recipeData,
-    })
-    .from(recipes)
-    .innerJoin(recipeData, joinClause)
-    .where(eq(recipes.id, id))
-    .orderBy(desc(recipes.createdAt));
+  const [recipe, recipeDataRecord] = await Promise.all([
+    db.query.recipes.findFirst({ where: eq(recipes.id, id) }),
+    db.query.recipeData.findFirst({
+      where: whereClause,
+      orderBy: desc(recipeData.createdAt),
+    }),
+  ]);
 
-  if (!recipeRecords?.[0]) notFound();
-
-  const recipeRecord = recipeRecords[0];
+  if (!recipe || !recipeDataRecord) notFound();
 
   const [categories, ingredients, author, hasVerifiedVersion] = await Promise.all([
-    getRecipeCategories(recipeRecord.recipe.id),
-    getRecipeIngredients(recipeRecord.recipeData.id),
-    getRecipeAuthor(recipeRecord.recipe.userId),
-    allowUnverified ? getHasVerifiedVersion(recipeRecord.recipe.id) : true,
+    getRecipeCategories(recipe.id),
+    getRecipeIngredients(recipeDataRecord.id),
+    getRecipeAuthor(recipe.userId),
+    allowUnverified ? getHasVerifiedVersion(recipe.id) : true,
   ]);
 
   return {
-    recipe: recipeRecord.recipe,
-    recipeData: recipeRecord.recipeData,
+    recipe,
+    recipeData: recipeDataRecord,
     categories,
     ingredients,
     author,
