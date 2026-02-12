@@ -26,6 +26,20 @@ export async function POST(url: string, body?: unknown) {
   return null;
 }
 
+export async function PUT(url: string, body?: unknown) {
+  const res = await fetch(url, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: body ? JSON.stringify(body) : undefined,
+  });
+
+  if (!res.ok) {
+    throw new Error(`API PUT request to ${url} failed with status ${res.status}`);
+  }
+
+  return null;
+}
+
 export async function DELETE(url: string) {
   const res = await fetch(url, { method: 'DELETE' });
 
