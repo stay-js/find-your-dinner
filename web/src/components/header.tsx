@@ -9,7 +9,7 @@ import { SignedIn, SignedOut, SignInButton, SignUpButton } from '@clerk/nextjs';
 
 export function Header() {
   return (
-    <header className="flex items-center justify-between gap-4 border-b p-4">
+    <header className="bg-background sticky top-0 z-10 flex h-16 items-center justify-between gap-4 border-b px-4">
       <Link href="/" className="flex items-center gap-2">
         <Logo size={36} />
 

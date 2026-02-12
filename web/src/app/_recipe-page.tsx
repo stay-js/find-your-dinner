@@ -60,7 +60,7 @@ export async function RecipePage({ params }: { params: Promise<{ id: string }> }
         />
       </div>
 
-      <Ingredients className="sticky top-6 max-lg:hidden" ingredients={ingredients} />
+      <Ingredients className="sticky top-22 max-lg:hidden" ingredients={ingredients} />
     </div>
   );
 }
