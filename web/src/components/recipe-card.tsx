@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import Link from 'next/link';
 import { Clock, Users, Bookmark, CheckCircle2 } from 'lucide-react';
 
@@ -12,6 +11,7 @@ import {
 } from '~/components/ui/card';
 import { Badge } from '~/components/ui/badge';
 import { Button } from '~/components/ui/button';
+import { SafeImage } from '~/components/safe-image';
 import { useSaveState } from '~/hooks/use-save-state';
 import { type RecipeWithoutIngredients } from '~/lib/zod-schemas';
 import { cn } from '~/lib/utils';
@@ -30,8 +30,8 @@ export function RecipeCard({
   return (
     <Card className="w-full gap-6 overflow-hidden pt-0">
       <div className="relative aspect-4/3 w-full overflow-hidden">
-        <Image
-          src={recipe.recipeData.previewImageUrl || '/placeholder.svg'}
+        <SafeImage
+          src={recipe.recipeData.previewImageUrl || '/placeholder.png'}
           alt={recipe.recipeData.title}
           fill
           className="w-full object-cover transition-transform duration-300 hover:scale-105"

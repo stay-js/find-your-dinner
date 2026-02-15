@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import { SafeImage } from '~/components/safe-image';
 
 export function PreviewImage({
   previewImageUrl,
@@ -9,13 +9,13 @@ export function PreviewImage({
 }) {
   return (
     <div className="aspect-video w-full overflow-hidden rounded-lg">
-      <Image
+      <SafeImage
         src={previewImageUrl}
         alt={title}
         className="size-full object-cover"
         width={1920}
         height={1080}
-        priority
+        preload
       />
     </div>
   );
