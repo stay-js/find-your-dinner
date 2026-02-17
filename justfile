@@ -1,27 +1,40 @@
-# Runs setup-db, start-db, setup-web, migrate and start-web recipes in sequence
-default: setup-db start-db setup-web migrate start-web
-
-# Runs start-web recipe
-dev: start-web
-
 runner := if `command -v pnpm` != "" { "pnpm" } else { "npm" }
 
-# Starts MySQL and PHPMyAdmin Docker containers
+# Runs db-setup, db-start, web-setup, migrate and web-dev recipes in sequence
+default: db-setup db-start web-setup migrate web-dev
+
+# Runs web-dev recipe
+[group('shortcuts')]
+dev: web-dev
+
+# Runs web-start recipe
+[group('shortcuts')]
+start: web-start
+
+# Runs web-build recipe
+[group('shortcuts')]
+build: web-build
+
+#Runs web-preview recipe
+[group('shortcuts')]
+preview: web-preview
+
+# Starts database containers using docker compose
 [group('db')]
 [working-directory: 'db']
-start-db:
+db-start:
     docker compose up -d
 
 # Stops database containers
 [working-directory: 'db']
 [group('db')]
-stop-db:
+db-stop:
     docker compose down
 
 # Creates database configuration (.env file)
 [working-directory: 'db']
 [group('db')]
-setup-db:
+db-setup:
     #!/bin/bash
     if [ -f ".env" ]; then
         echo ".env file already exists. Skipping..."
@@ -33,7 +46,7 @@ setup-db:
 # Installs dependencies and creates web app configuration (.env file)
 [group('web')]
 [working-directory: 'web']
-setup-web:
+web-setup:
     #!/bin/bash
     if [ -d "node_modules" ]; then
         echo "node_modules already exists. Skipping dependency installation..."
@@ -52,8 +65,26 @@ setup-web:
 # Starts the development web server
 [group('web')]
 [working-directory: 'web']
-start-web:
+web-dev:
     -{{runner}} run dev
+
+# Builds web project
+[group('web')]
+[working-directory: 'web']
+web-build:
+    {{runner}} run build
+
+# Starts the production web server
+[group('web')]
+[working-directory: 'web']
+web-start:
+    {{runner}} run start
+
+# Builds web project and starts the production web server
+[group('web')]
+[working-directory: 'web']
+web-preview:
+    {{runner}} run preview
 
 # Runs pending database migrations
 [group('migrate')]
