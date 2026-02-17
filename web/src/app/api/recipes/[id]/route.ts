@@ -68,12 +68,12 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
 
   try {
     await db.transaction(async (tx) => {
-      const recipeDataInsert = await tx
+      const insertResult = await tx
         .insert(recipeData)
         .values({ recipeId: recipe.id, ...data })
-        .$returningId();
+        .returning({ id: recipeData.id });
 
-      const recipeDataId = recipeDataInsert[0]?.id;
+      const recipeDataId = insertResult.at(0)?.id;
       if (!recipeDataId) throw new Error('Failed to retrieve inserted recipe data ID');
 
       await tx.delete(categoryRecipe).where(eq(categoryRecipe.recipeId, recipe.id));
