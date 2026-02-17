@@ -34,17 +34,19 @@ just migrate
 just stop-db
 ```
 
-## MySQL elérése
+## Postgres elérése
 
 - Host: `localhost`
-- Port: `3306`
-- Felhasználónév: a `.env` fájlban megadott `MYSQL_USER` érték
-- Jelszó: a `.env` fájlban megadott `MYSQL_PASSWORD` érték
-- Adatbázis: a `.env` fájlban megadott `MYSQL_DATABASE` érték
+- Port: `5432`
+- Felhasználónév: a `.env` fájlban megadott `POSTGRES_USER` érték
+- Jelszó: a `.env` fájlban megadott `POSTGRES_PASSWORD` érték
+- Adatbázis: a `.env` fájlban megadott `POSTGRES_DB` érték
 
-## PHPMyAdmin elérése
+## CloudBeaver elérése
 
-- URL: <http://localhost:8080>
-- Szerver: üresen hagyható, amennyiben az `.env` fájlban meg van adva a `PMA_HOST` érték
-- Felhasználónév: a `.env` fájlban megadott `MYSQL_USER` érték
-- Jelszó: a `.env` fájlban megadott `MYSQL_PASSWORD` érték
+- URL: <http://cb.localhost>
+- Host: `postgres`
+- Port: `5432`
+- Adatbázis: a `.env` fájlban megadott `POSTGRES_DB` érték
+- Felhasználónév: a `.env` fájlban megadott `POSTGRES_USER` érték
+- Jelszó: a `.env` fájlban megadott `POSTGRES_PASSWORD` érték

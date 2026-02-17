@@ -1,0 +1,3 @@
+http://cb.localhost {
+	reverse_proxy cloudbeaver:8978
+}
