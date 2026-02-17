@@ -1,82 +1,40 @@
 {
   "version": "7",
-  "dialect": "mysql",
+  "dialect": "postgresql",
   "entries": [
     {
       "idx": 0,
-      "version": "5",
-      "when": 1768487421445,
+      "version": "7",
+      "when": 1771365929511,
       "tag": "0000_init",
       "breakpoints": true
     },
     {
       "idx": 1,
-      "version": "5",
-      "when": 1768488908387,
-      "tag": "0001_create_categories_table",
+      "version": "7",
+      "when": 1771365943014,
+      "tag": "0001_seed_categories_table",
       "breakpoints": true
     },
     {
       "idx": 2,
-      "version": "5",
-      "when": 1768489043107,
-      "tag": "0002_create_category_recipe_table",
+      "version": "7",
+      "when": 1771365952090,
+      "tag": "0002_seed_units_table",
       "breakpoints": true
     },
     {
       "idx": 3,
-      "version": "5",
-      "when": 1768489265233,
-      "tag": "0003_alter_recipe_data_table_add_preview_image",
+      "version": "7",
+      "when": 1771365956303,
+      "tag": "0003_seed_ingredients_table",
       "breakpoints": true
     },
     {
       "idx": 4,
-      "version": "5",
-      "when": 1768490433748,
-      "tag": "0004_seed_categories_table",
-      "breakpoints": true
-    },
-    {
-      "idx": 5,
-      "version": "5",
-      "when": 1768508617760,
-      "tag": "0005_create_admins_table",
-      "breakpoints": true
-    },
-    {
-      "idx": 6,
-      "version": "5",
-      "when": 1768513305399,
-      "tag": "0006_remove_unnecessary_timestamps",
-      "breakpoints": true
-    },
-    {
-      "idx": 7,
-      "version": "5",
-      "when": 1768570426839,
-      "tag": "0007_create_units_table",
-      "breakpoints": true
-    },
-    {
-      "idx": 8,
-      "version": "5",
-      "when": 1769413441726,
-      "tag": "0008_seed_admins_table",
-      "breakpoints": true
-    },
-    {
-      "idx": 9,
-      "version": "5",
-      "when": 1769423825047,
-      "tag": "0009_seed_units_table",
-      "breakpoints": true
-    },
-    {
-      "idx": 10,
-      "version": "5",
-      "when": 1769423910835,
-      "tag": "0010_seed_ingredients_table",
+      "version": "7",
+      "when": 1771365961517,
+      "tag": "0004_seed_admins_table",
       "breakpoints": true
     }
   ]

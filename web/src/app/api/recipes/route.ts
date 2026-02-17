@@ -26,17 +26,20 @@ export async function POST(request: NextRequest) {
 
   try {
     await db.transaction(async (tx) => {
-      const recipeInsert = await tx.insert(recipes).values({ userId }).$returningId();
+      const recipeInsertResult = await tx
+        .insert(recipes)
+        .values({ userId })
+        .returning({ id: recipes.id });
 
-      const recipeId = recipeInsert[0]?.id;
+      const recipeId = recipeInsertResult.at(0)?.id;
       if (!recipeId) throw new Error('Failed to retrieve inserted recipe ID');
 
-      const recipeDataInsert = await tx
+      const recipeDataInsertResult = await tx
         .insert(recipeData)
         .values({ recipeId, ...data })
-        .$returningId();
+        .returning({ id: recipeData.id });
 
-      const recipeDataId = recipeDataInsert[0]?.id;
+      const recipeDataId = recipeDataInsertResult.at(0)?.id;
       if (!recipeDataId) throw new Error('Failed to retrieve inserted recipe data ID');
 
       await tx

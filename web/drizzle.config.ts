@@ -3,7 +3,7 @@ import { env } from '~/env';
 
 const config = {
   schema: './src/server/db/schema.ts',
-  dialect: 'mysql',
+  dialect: 'postgresql',
   dbCredentials: {
     url: env.DATABASE_URL,
   },

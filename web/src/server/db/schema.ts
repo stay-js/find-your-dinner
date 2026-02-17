@@ -1,62 +1,61 @@
-import { index, primaryKey, mysqlTable as table } from 'drizzle-orm/mysql-core';
+import { pgTable as table, index, primaryKey } from 'drizzle-orm/pg-core';
 
 export const admins = table('admins', (d) => ({
   userId: d.varchar('user_id', { length: 256 }).notNull().unique(),
 }));
 
 export const recipes = table('recipes', (d) => ({
-  id: d.bigint('id', { mode: 'number', unsigned: true }).primaryKey().autoincrement(),
+  id: d.bigserial('id', { mode: 'number' }).primaryKey(),
   userId: d.varchar('user_id', { length: 256 }).notNull(),
   createdAt: d.timestamp('created_at').defaultNow(),
 }));
 
-export const recipeData = table(
-  'recipe_data',
-  (d) => ({
-    id: d.bigint('id', { mode: 'number', unsigned: true }).primaryKey().autoincrement(),
-    recipeId: d
-      .bigint('recipe_id', { mode: 'number', unsigned: true })
-      .notNull()
-      .references(() => recipes.id, { onDelete: 'cascade', onUpdate: 'cascade' }),
-    title: d.varchar('title', { length: 512 }).notNull(),
-    previewImageUrl: d.varchar('preview_image_url', { length: 2048 }).notNull(),
-    description: d.text('description').notNull(),
-    instructions: d.text('instructions').notNull(),
-    prepTimeMinutes: d.int('prep_time_minutes', { unsigned: true }).notNull(),
-    cookTimeMinutes: d.int('cook_time_minutes', { unsigned: true }).notNull(),
-    servings: d.int('servings', { unsigned: true }).notNull(),
-    verified: d.boolean('verified').default(false).notNull(),
-    createdAt: d.timestamp('created_at').defaultNow(),
-    updatedAt: d.timestamp('updated_at').defaultNow().onUpdateNow(),
-  }),
-  (t) => [index('idx_recipe_data_recipe_id').on(t.recipeId)],
-);
+export const recipeData = table('recipe_data', (d) => ({
+  id: d.bigserial('id', { mode: 'number' }).primaryKey(),
+  recipeId: d
+    .bigserial('recipe_id', { mode: 'number' })
+    .notNull()
+    .references(() => recipes.id, { onDelete: 'cascade', onUpdate: 'cascade' }),
+  title: d.varchar('title', { length: 512 }).notNull(),
+  previewImageUrl: d.varchar('preview_image_url', { length: 2048 }).notNull(),
+  description: d.text('description').notNull(),
+  instructions: d.text('instructions').notNull(),
+  prepTimeMinutes: d.integer('prep_time_minutes').notNull(),
+  cookTimeMinutes: d.integer('cook_time_minutes').notNull(),
+  servings: d.integer('servings').notNull(),
+  verified: d.boolean('verified').default(false).notNull(),
+  createdAt: d.timestamp('created_at').defaultNow(),
+  updatedAt: d
+    .timestamp('updated_at')
+    .defaultNow()
+    .$onUpdate(() => new Date()),
+}));
 
 export const units = table('units', (d) => ({
-  id: d.bigint('id', { mode: 'number', unsigned: true }).primaryKey().autoincrement(),
-  name: d.varchar('name', { length: 64 }).notNull(),
+  id: d.bigserial('id', { mode: 'number' }).primaryKey(),
+  name: d.varchar('name', { length: 64 }).notNull().unique(),
   abbreviation: d.varchar('abbreviation', { length: 16 }).notNull(),
 }));
 
 export const ingredients = table('ingredients', (d) => ({
-  id: d.bigint('id', { mode: 'number', unsigned: true }).primaryKey().autoincrement(),
-  name: d.varchar('name', { length: 256 }).notNull(),
+  id: d.bigserial('id', { mode: 'number' }).primaryKey(),
+  name: d.varchar('name', { length: 256 }).notNull().unique(),
 }));
 
 export const ingredientRecipeData = table(
   'ingredient_recipe_data',
   (d) => ({
     recipeDataId: d
-      .bigint('recipe_data_id', { mode: 'number', unsigned: true })
+      .bigserial('recipe_data_id', { mode: 'number' })
       .notNull()
       .references(() => recipeData.id, { onDelete: 'cascade', onUpdate: 'cascade' }),
     ingredientId: d
-      .bigint('ingredient_id', { mode: 'number', unsigned: true })
+      .bigserial('ingredient_id', { mode: 'number' })
       .notNull()
       .references(() => ingredients.id, { onDelete: 'restrict', onUpdate: 'restrict' }),
-    quantity: d.float('quantity', { unsigned: true }).notNull(),
+    quantity: d.doublePrecision('quantity').notNull(),
     unitId: d
-      .bigint('unit_id', { mode: 'number', unsigned: true })
+      .bigserial('unit_id', { mode: 'number' })
       .notNull()
       .references(() => units.id, { onDelete: 'restrict', onUpdate: 'restrict' }),
   }),
@@ -64,19 +63,19 @@ export const ingredientRecipeData = table(
 );
 
 export const categories = table('categories', (d) => ({
-  id: d.bigint('id', { mode: 'number', unsigned: true }).primaryKey().autoincrement(),
-  name: d.varchar('name', { length: 128 }).notNull(),
+  id: d.bigserial('id', { mode: 'number' }).primaryKey(),
+  name: d.varchar('name', { length: 128 }).notNull().unique(),
 }));
 
 export const categoryRecipe = table(
   'category_recipe',
   (d) => ({
     recipeId: d
-      .bigint('recipe_id', { mode: 'number', unsigned: true })
+      .bigserial('recipe_id', { mode: 'number' })
       .notNull()
       .references(() => recipes.id, { onDelete: 'cascade', onUpdate: 'cascade' }),
     categoryId: d
-      .bigint('category_id', { mode: 'number', unsigned: true })
+      .bigserial('category_id', { mode: 'number' })
       .notNull()
       .references(() => categories.id, { onDelete: 'restrict', onUpdate: 'restrict' }),
   }),
@@ -88,7 +87,7 @@ export const savedRecipes = table(
   (d) => ({
     userId: d.varchar('user_id', { length: 256 }).notNull(),
     recipeId: d
-      .bigint('recipe_id', { mode: 'number', unsigned: true })
+      .bigserial('recipe_id', { mode: 'number' })
       .notNull()
       .references(() => recipes.id, { onDelete: 'cascade', onUpdate: 'cascade' }),
     createdAt: d.timestamp('created_at').defaultNow(),

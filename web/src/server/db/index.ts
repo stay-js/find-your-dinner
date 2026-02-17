@@ -1,12 +1,12 @@
-import { drizzle } from 'drizzle-orm/mysql2';
-import { createPool, type Pool } from 'mysql2/promise';
+import { drizzle } from 'drizzle-orm/node-postgres';
+import { Pool, type Pool as PgPool } from 'pg';
 
 import * as schema from '~/server/db/schema';
 import { env } from '~/env';
 
-const globalForDb = globalThis as unknown as { conn: Pool | undefined };
+const globalForDb = globalThis as unknown as { conn: PgPool | undefined };
 
-const conn = globalForDb.conn ?? createPool({ uri: env.DATABASE_URL });
+const conn = globalForDb.conn ?? new Pool({ connectionString: env.DATABASE_URL });
 if (env.NODE_ENV !== 'production') globalForDb.conn = conn;
 
-export const db = drizzle(conn, { schema, mode: 'default' });
+export const db = drizzle(conn, { schema });
