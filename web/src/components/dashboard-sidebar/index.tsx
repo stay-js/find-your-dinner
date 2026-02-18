@@ -19,7 +19,7 @@ export function DashboardSidebar({ isAdmin, ...props }: DashboardSidebarProps) {
           items: [
             {
               title: 'Receptek jóváhagyása',
-              url: '/dashboard/admin/recipes/approve',
+              url: '/dashboard/admin/recipes/awaiting-verification',
             },
             {
               title: 'Receptek kezelése',

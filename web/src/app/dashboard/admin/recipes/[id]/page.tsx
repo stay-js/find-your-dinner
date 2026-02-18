@@ -17,7 +17,7 @@ import { getRecipe } from '~/server/utils/get-recipe';
 import { Approve } from './approve';
 
 export const metadata = createMetadata({
-  path: '/dashboard/admin/recipes/view',
+  path: '/dashboard/admin/recipes/[id]',
 
   description: 'Recept megtekintése - Admin - Find Your Dinner.',
   title: 'Recept megtekintése - Admin',

@@ -99,7 +99,7 @@ export function RecipeCard({ pageType, recipe, showIsVerified = false }: RecipeC
       >
         {pageType === 'admin' && (
           <Button asChild>
-            <Link href={`/dashboard/admin/recipes/view/${recipe.recipe.id}`}>Megtekintés</Link>
+            <Link href={`/dashboard/admin/recipes/${recipe.recipe.id}`}>Megtekintés</Link>
           </Button>
         )}
 
@@ -111,7 +111,7 @@ export function RecipeCard({ pageType, recipe, showIsVerified = false }: RecipeC
 
         {pageType === 'saved' && (
           <Button asChild>
-            <Link href={`/dashboard/recipes/view/${recipe.recipe.id}`}>Megtekintés</Link>
+            <Link href={`/dashboard/recipes/${recipe.recipe.id}`}>Megtekintés</Link>
           </Button>
         )}
 
@@ -126,13 +126,13 @@ export function RecipeCard({ pageType, recipe, showIsVerified = false }: RecipeC
 
         {pageType === 'manage' && (
           <Button asChild variant="outline">
-            <Link href={`/dashboard/recipes/edit/${recipe.recipe.id}`}>Szerkesztés</Link>
+            <Link href={`/dashboard/recipes/${recipe.recipe.id}/edit`}>Szerkesztés</Link>
           </Button>
         )}
 
         {pageType === 'manage' && recipe.hasVerifiedVersion && (
           <Button asChild>
-            <Link href={`/dashboard/recipes/view/${recipe.recipe.id}`}>Megtekintés</Link>
+            <Link href={`/dashboard/recipes/${recipe.recipe.id}`}>Megtekintés</Link>
           </Button>
         )}
       </CardFooter>

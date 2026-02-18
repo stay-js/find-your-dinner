@@ -32,8 +32,8 @@ export function Title({
             <Link
               href={
                 isAuthor
-                  ? `/dashboard/recipes/edit/${recipeId}`
-                  : `/dashboard/admin/recipes/edit/${recipeId}`
+                  ? `/dashboard/recipes/${recipeId}/edit`
+                  : `/dashboard/admin/recipes/${recipeId}/edit`
               }
             >
               <Pencil className="size-4" />
