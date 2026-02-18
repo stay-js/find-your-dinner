@@ -10,19 +10,19 @@ import { Button } from '~/components/ui/button';
 import { useSidebar } from '~/components/ui/sidebar';
 import { GET } from '~/lib/api-utils';
 import { cn } from '~/lib/utils';
-import { recipesSchema } from '~/lib/zod';
+import { paginatedRecipesSchema } from '~/lib/zod';
 
 export function Recipes() {
   const { open: isSidebarOpen } = useSidebar();
 
   const { data: recipes, isLoading } = useQuery({
-    queryFn: () => GET('/api/user/recipes', recipesSchema),
+    queryFn: () => GET('/api/user/recipes', paginatedRecipesSchema),
     queryKey: ['currentUser', 'recipes'],
   });
 
   return (
     <>
-      {!isLoading && (!recipes || recipes?.length === 0) && (
+      {!isLoading && (!recipes || recipes?.data?.length === 0) && (
         <NoContent
           create={
             <Button asChild>
@@ -42,7 +42,7 @@ export function Recipes() {
       >
         {isLoading && new Array(3).fill(null).map((_, i) => <RecipeCardSkeleton key={i} />)}
 
-        {recipes?.map((recipe) => (
+        {recipes?.data?.map((recipe) => (
           <RecipeCard key={recipe.recipe.id} pageType="manage" recipe={recipe} showIsVerified />
         ))}
       </div>

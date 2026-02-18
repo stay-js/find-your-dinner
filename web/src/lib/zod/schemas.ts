@@ -1,5 +1,7 @@
 import { z } from 'zod';
 
+import { createPaginatedSchema } from './helpers';
+
 export const idParamSchema = z.object({
   id: z.coerce.number().int().positive(),
 });
@@ -97,6 +99,9 @@ export type Recipe = z.infer<typeof recipeSchema>;
 
 export const recipesSchema = z.array(recipeSchema);
 export type Recipes = z.infer<typeof recipesSchema>;
+
+export const paginatedRecipesSchema = createPaginatedSchema(recipeSchema);
+export type PaginatedRecipes = z.infer<typeof paginatedRecipesSchema>;
 
 export const savedRecipeSchema = recipeSchema.extend({
   savedAt: z.coerce.date(),
