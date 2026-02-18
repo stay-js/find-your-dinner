@@ -46,7 +46,9 @@ export function Overview({
         <div className="flex justify-between gap-2">
           <span className="text-muted-foreground">Feltöltötte</span>
           <span className="font-medium">
-            {author ? `${author.firstName ?? ''} ${author.lastName ?? ''}` : 'Ismeretlen'}
+            {author?.firstName && author.lastName
+              ? `${author.firstName} ${author.lastName}`
+              : 'Ismeretlen'}
           </span>
         </div>
       </CardContent>
