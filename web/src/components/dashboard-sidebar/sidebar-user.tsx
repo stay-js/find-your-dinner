@@ -12,11 +12,11 @@ export function SidebarUser() {
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <SidebarMenuButton
-              size="lg"
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+              size="lg"
             >
               <User />
-              <ChevronsUpDown size={16} className="ml-auto" />
+              <ChevronsUpDown className="ml-auto" size={16} />
             </SidebarMenuButton>
           </DropdownMenuTrigger>
 

@@ -3,8 +3,10 @@ import { createMetadata } from '~/lib/create-metadata';
 
 export const metadata = createMetadata({
   path: '/dashboard/recipes/edit',
-  title: 'Recept szerkesztése',
+
   description: 'Recept szerkesztése - Find Your Dinner.',
+  title: 'Recept szerkesztése',
+
   noIndex: true,
 });
 

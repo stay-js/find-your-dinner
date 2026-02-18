@@ -1,8 +1,9 @@
-import { ShieldCheck, Notebook, Globe } from 'lucide-react';
+import { Globe, Notebook, ShieldCheck } from 'lucide-react';
 
 import { Sidebar, SidebarContent, SidebarFooter, SidebarRail } from '~/components/ui/sidebar';
-import { SidebarUser } from './sidebar-user';
+
 import { SidebarNavigation } from './sidebar-navigation';
+import { SidebarUser } from './sidebar-user';
 
 export function DashboardSidebar({
   isAdmin,
@@ -10,11 +11,8 @@ export function DashboardSidebar({
 }: { isAdmin: boolean } & React.ComponentProps<typeof Sidebar>) {
   const navItems = [
     {
-      label: 'Admin',
-      visible: isAdmin,
       items: [
         {
-          title: 'Receptek kezelése',
           icon: ShieldCheck,
           isActive: true,
           items: [
@@ -27,15 +25,15 @@ export function DashboardSidebar({
               url: '/dashboard/admin/recipes/manage',
             },
           ],
+          title: 'Receptek kezelése',
         },
       ],
+      label: 'Admin',
+      visible: isAdmin,
     },
     {
-      label: 'Receptek',
-      visible: true,
       items: [
         {
-          title: 'Recepteim',
           icon: Notebook,
           isActive: true,
           items: [
@@ -48,9 +46,9 @@ export function DashboardSidebar({
               url: '/dashboard/recipes/manage',
             },
           ],
+          title: 'Recepteim',
         },
         {
-          title: 'Felfedezés',
           icon: Globe,
           isActive: true,
           items: [
@@ -59,8 +57,11 @@ export function DashboardSidebar({
               url: '/dashboard/recipes/saved',
             },
           ],
+          title: 'Felfedezés',
         },
       ],
+      label: 'Receptek',
+      visible: true,
     },
   ];
 
@@ -70,7 +71,7 @@ export function DashboardSidebar({
         {navItems
           .filter((group) => group.visible)
           .map((group) => (
-            <SidebarNavigation key={group.label} items={group.items} label={group.label} />
+            <SidebarNavigation items={group.items} key={group.label} label={group.label} />
           ))}
       </SidebarContent>
 

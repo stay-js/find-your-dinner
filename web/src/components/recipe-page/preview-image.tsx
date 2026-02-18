@@ -10,12 +10,12 @@ export function PreviewImage({
   return (
     <div className="aspect-video w-full overflow-hidden rounded-lg">
       <SafeImage
-        src={previewImageUrl}
         alt={title}
         className="size-full object-cover"
-        width={1920}
         height={1080}
         preload
+        src={previewImageUrl}
+        width={1920}
       />
     </div>
   );

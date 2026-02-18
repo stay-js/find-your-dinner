@@ -7,17 +7,21 @@ import { useSaveState } from '~/hooks/use-save-state';
 import { cn } from '~/lib/utils';
 
 export function Stats({
-  prepTimeMinutes,
-  cookTimeMinutes,
-  servings,
   recipeId,
+
+  cookTimeMinutes,
+  prepTimeMinutes,
+
+  servings,
 }: {
-  prepTimeMinutes: number;
-  cookTimeMinutes: number;
-  servings: number;
   recipeId: number;
+
+  cookTimeMinutes: number;
+  prepTimeMinutes: number;
+
+  servings: number;
 }) {
-  const { isSaved, handleSaveToggle, isPending } = useSaveState(recipeId);
+  const { handleSaveToggle, isPending, isSaved } = useSaveState(recipeId);
 
   return (
     <div className="flex justify-between gap-6 max-sm:flex-col">
@@ -41,7 +45,7 @@ export function Stats({
         </div>
       </div>
 
-      <Button size="icon-sm" variant="outline" onClick={handleSaveToggle} disabled={isPending}>
+      <Button disabled={isPending} onClick={handleSaveToggle} size="icon-sm" variant="outline">
         <Bookmark className={cn('size-4', isSaved && 'fill-current')} />
 
         <span className="sr-only">

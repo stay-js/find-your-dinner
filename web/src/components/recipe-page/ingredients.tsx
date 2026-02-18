@@ -13,46 +13,11 @@ type Ingredient = {
   };
   quantity: number;
   unit: {
+    abbreviation: string;
     id: number;
     name: string;
-    abbreviation: string;
   };
 };
-
-function Ingredient({
-  item,
-  checked,
-  toggleIngredient,
-}: {
-  item: Ingredient;
-  checked: boolean;
-  toggleIngredient: (id: number) => void;
-}) {
-  const id = useId();
-
-  return (
-    <div key={item.ingredient.id} className="flex items-center gap-3">
-      <Checkbox
-        id={id}
-        checked={checked}
-        onCheckedChange={() => toggleIngredient(item.ingredient.id)}
-      />
-
-      <label
-        htmlFor={id}
-        className={cn(
-          'cursor-pointer text-sm select-none',
-          checked && 'text-muted-foreground line-through',
-        )}
-      >
-        <span className="font-medium">
-          {item.quantity} {item.unit.abbreviation}
-        </span>{' '}
-        <span>{item.ingredient.name}</span>
-      </label>
-    </div>
-  );
-}
 
 export function Ingredients({
   className,
@@ -86,13 +51,48 @@ export function Ingredients({
       <CardContent className="flex flex-col gap-2">
         {ingredients.map((item) => (
           <Ingredient
-            key={item.ingredient.id}
-            item={item}
             checked={checkedIngredients.has(item.ingredient.id)}
+            item={item}
+            key={item.ingredient.id}
             toggleIngredient={toggleIngredient}
           />
         ))}
       </CardContent>
     </Card>
+  );
+}
+
+function Ingredient({
+  checked,
+  item,
+  toggleIngredient,
+}: {
+  checked: boolean;
+  item: Ingredient;
+  toggleIngredient: (id: number) => void;
+}) {
+  const id = useId();
+
+  return (
+    <div className="flex items-center gap-3" key={item.ingredient.id}>
+      <Checkbox
+        checked={checked}
+        id={id}
+        onCheckedChange={() => toggleIngredient(item.ingredient.id)}
+      />
+
+      <label
+        className={cn(
+          'cursor-pointer text-sm select-none',
+          checked && 'text-muted-foreground line-through',
+        )}
+        htmlFor={id}
+      >
+        <span className="font-medium">
+          {item.quantity} {item.unit.abbreviation}
+        </span>{' '}
+        <span>{item.ingredient.name}</span>
+      </label>
+    </div>
   );
 }

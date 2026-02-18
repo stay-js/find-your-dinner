@@ -2,8 +2,9 @@ import { createMetadata } from '~/lib/create-metadata';
 
 export const metadata = createMetadata({
   path: '/',
-  title: 'Főoldal',
+
   description: 'Üdvözöljük a Find Your Dinner. alkalmazásban!',
+  title: 'Főoldal',
 });
 
 export default async function LandingPage() {

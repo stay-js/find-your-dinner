@@ -1,10 +1,10 @@
-import { redirect } from 'next/navigation';
 import { auth } from '@clerk/nextjs/server';
+import { redirect } from 'next/navigation';
 
 import { checkIsAdmin } from '~/server/utils/check-is-admin';
 
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
-  const { isAuthenticated, userId, redirectToSignIn } = await auth();
+  const { isAuthenticated, redirectToSignIn, userId } = await auth();
   if (!isAuthenticated) redirectToSignIn();
 
   const isAdmin = await checkIsAdmin(userId);

@@ -1,7 +1,7 @@
 import { useSaving } from '~/hooks/use-saving';
 
 export function useSaveState(recipeId: number) {
-  const { savedRecipes, saveRecipe, unsaveRecipe, isPending } = useSaving();
+  const { isPending, savedRecipes, saveRecipe, unsaveRecipe } = useSaving();
 
   const isSaved = savedRecipes?.some((saved) => saved.recipeId === recipeId) ?? false;
 
@@ -15,5 +15,5 @@ export function useSaveState(recipeId: number) {
     }
   }
 
-  return { isSaved, handleSaveToggle, isPending };
+  return { handleSaveToggle, isPending, isSaved };
 }

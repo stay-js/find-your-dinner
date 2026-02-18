@@ -1,6 +1,6 @@
+import Fuse from 'fuse.js';
 import { useState } from 'react';
 import { useDebounceValue } from 'usehooks-ts';
-import Fuse from 'fuse.js';
 
 export function useFilter<T>(items: T[] | undefined = [], keys: string[]) {
   const [query, setQuery] = useState('');
@@ -12,5 +12,5 @@ export function useFilter<T>(items: T[] | undefined = [], keys: string[]) {
 
   const isFiltering = query !== debouncedQuery;
 
-  return { query, setQuery, filteredItems, isFiltering };
+  return { filteredItems, isFiltering, query, setQuery };
 }

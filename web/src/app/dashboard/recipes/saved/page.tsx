@@ -1,10 +1,13 @@
 import { createMetadata } from '~/lib/create-metadata';
+
 import { SavedRecipes } from './saved-recipes';
 
 export const metadata = createMetadata({
   path: '/dashboard/recipes/saved',
-  title: 'Mentett receptek',
+
   description: 'Mentett receptek - Find Your Dinner.',
+  title: 'Mentett receptek',
+
   noIndex: true,
 });
 

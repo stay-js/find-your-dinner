@@ -1,9 +1,9 @@
-import { type NextRequest, NextResponse } from 'next/server';
 import { auth } from '@clerk/nextjs/server';
+import { type NextRequest, NextResponse } from 'next/server';
 
-import { getRecipe } from '~/server/utils/get-recipe';
-import { checkIsAdmin } from '~/server/utils/check-is-admin';
 import { idParamSchema } from '~/lib/zod-schemas';
+import { checkIsAdmin } from '~/server/utils/check-is-admin';
+import { getRecipe } from '~/server/utils/get-recipe';
 
 export async function GET(_: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const { isAuthenticated, userId } = await auth();
@@ -16,7 +16,7 @@ export async function GET(_: NextRequest, { params }: { params: Promise<{ id: st
 
   if (!result.success) {
     return NextResponse.json(
-      { error: 'INVALID_RECIPE_ID', details: result.error },
+      { details: result.error, error: 'INVALID_RECIPE_ID' },
       { status: 400 },
     );
   }

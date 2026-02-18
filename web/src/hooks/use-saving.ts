@@ -1,8 +1,8 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
 
+import { DELETE, GET, POST } from '~/lib/api-utils';
 import { savedRecipeIdsSchema } from '~/lib/zod-schemas';
-import { GET, POST, DELETE } from '~/lib/api-utils';
 
 export function useSaving() {
   const utils = useQueryClient();
@@ -13,29 +13,29 @@ export function useSaving() {
   }
 
   const { data: savedRecipes } = useQuery({
-    queryKey: ['current-user-saved-recipe-ids'],
     queryFn: () => GET('/api/current-user/saved-recipes', savedRecipeIdsSchema),
+    queryKey: ['current-user-saved-recipe-ids'],
   });
 
-  const { mutate: saveRecipe, isPending: isSavePending } = useMutation({
+  const { isPending: isSavePending, mutate: saveRecipe } = useMutation({
     mutationFn: (recipeId: number) => POST('/api/current-user/saved-recipes', { recipeId }),
-    onSettled: () => invalidate(),
     onError: () => {
       toast.error('Hiba történt a recept mentése során. Kérlek, próbáld újra később!');
     },
+    onSettled: () => invalidate(),
   });
 
-  const { mutate: unsaveRecipe, isPending: isUnsavePending } = useMutation({
+  const { isPending: isUnsavePending, mutate: unsaveRecipe } = useMutation({
     mutationFn: (recipeId: number) => DELETE(`/api/current-user/saved-recipes/${recipeId}`),
-    onSettled: () => invalidate(),
     onError: () => {
       toast.error('Hiba történt a mentett recept eltávolítása során. Kérlek, próbáld újra később!');
     },
+    onSettled: () => invalidate(),
   });
 
   return {
-    savedRecipes,
     isPending: isSavePending || isUnsavePending,
+    savedRecipes,
     saveRecipe,
     unsaveRecipe,
   };

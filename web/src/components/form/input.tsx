@@ -1,7 +1,7 @@
 import React from 'react';
 import {
-  Controller,
   type Control,
+  Controller,
   type FieldPath,
   type FieldValues,
   type PathValue,
@@ -10,40 +10,45 @@ import {
 import { Field, FieldError, FieldGroup, FieldLabel } from '~/components/ui/field';
 import { Input } from '~/components/ui/input';
 
-type InputValue = React.InputHTMLAttributes<HTMLInputElement>['value'] | null;
+type FormInputProps<
+  TFieldValues extends FieldValues,
+  TName extends FieldPath<TFieldValues>,
+> = (PathValue<TFieldValues, TName> extends InputValue
+  ? {} // eslint-disable-line @typescript-eslint/no-empty-object-type
+  : { _error: 'Field value must match input value type' }) & {
+  errorPosition?: 'bottom' | 'top';
 
-type FormInputProps<TFieldValues extends FieldValues, TName extends FieldPath<TFieldValues>> = {
-  name: TName;
   control: Control<TFieldValues>;
+  name: TName;
+
   disabled?: boolean;
   label: React.ReactNode;
-  placeholder?: string;
-  type?: React.HTMLInputTypeAttribute;
-  errorPosition?: 'top' | 'bottom';
-  min?: number;
   max?: number;
+  min?: number;
+  placeholder?: string;
   step?: number;
-} & (PathValue<TFieldValues, TName> extends InputValue
-  ? {} // eslint-disable-line @typescript-eslint/no-empty-object-type
-  : { _error: 'Field value must match input value type' });
+  type?: React.HTMLInputTypeAttribute;
+};
+
+type InputValue = null | React.InputHTMLAttributes<HTMLInputElement>['value'];
 
 export function FormInput<TFieldValues extends FieldValues, TName extends FieldPath<TFieldValues>>({
-  name,
   control,
   disabled,
-  label,
-  placeholder,
-  type = 'text',
   errorPosition = 'top',
-  min,
+  label,
   max,
+  min,
+  name,
+  placeholder,
   step,
+  type = 'text',
 }: FormInputProps<TFieldValues, TName>) {
   return (
     <FieldGroup>
       <Controller
-        name={name}
         control={control}
+        name={name}
         render={({ field, fieldState }) => (
           <Field data-invalid={fieldState.invalid}>
             <div className="flex flex-wrap justify-between gap-x-4 gap-y-2">
@@ -55,15 +60,15 @@ export function FormInput<TFieldValues extends FieldValues, TName extends FieldP
 
             <Input
               {...field}
-              id={name}
-              type={type}
-              disabled={disabled}
-              value={field.value ?? ''}
-              placeholder={placeholder}
               aria-invalid={fieldState.invalid}
-              min={min}
+              disabled={disabled}
+              id={name}
               max={max}
+              min={min}
+              placeholder={placeholder}
               step={step}
+              type={type}
+              value={field.value ?? ''}
             />
 
             {fieldState.invalid && errorPosition === 'bottom' && (

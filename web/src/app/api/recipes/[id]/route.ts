@@ -1,21 +1,21 @@
+import { auth } from '@clerk/nextjs/server';
+import { eq } from 'drizzle-orm';
 import { notFound } from 'next/navigation';
 import { type NextRequest, NextResponse } from 'next/server';
-import { eq } from 'drizzle-orm';
-import { auth } from '@clerk/nextjs/server';
 
-import { db } from '~/server/db';
-import { recipes, categoryRecipe, recipeData, ingredientRecipeData } from '~/server/db/schema';
-import { getRecipe } from '~/server/utils/get-recipe';
-import { checkIsAdmin } from '~/server/utils/check-is-admin';
 import { idParamSchema } from '~/lib/zod-schemas';
 import { createUpdateRecipeSchema } from '~/lib/zod-schemas';
+import { db } from '~/server/db';
+import { categoryRecipe, ingredientRecipeData, recipeData, recipes } from '~/server/db/schema';
+import { checkIsAdmin } from '~/server/utils/check-is-admin';
+import { getRecipe } from '~/server/utils/get-recipe';
 
 export async function GET(_: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const result = idParamSchema.safeParse(await params);
 
   if (!result.success) {
     return NextResponse.json(
-      { error: 'INVALID_RECIPE_ID', details: result.error },
+      { details: result.error, error: 'INVALID_RECIPE_ID' },
       { status: 400 },
     );
   }
@@ -38,7 +38,7 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
 
   if (!result.success) {
     return NextResponse.json(
-      { error: 'INVALID_RECIPE_ID', details: result.error },
+      { details: result.error, error: 'INVALID_RECIPE_ID' },
       { status: 400 },
     );
   }
@@ -59,7 +59,7 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
 
   if (!bodyResult.success) {
     return NextResponse.json(
-      { error: 'INVALID_REQUEST_BODY', details: bodyResult.error },
+      { details: bodyResult.error, error: 'INVALID_REQUEST_BODY' },
       { status: 400 },
     );
   }
@@ -80,7 +80,7 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
 
       await tx
         .insert(categoryRecipe)
-        .values(categories.map((categoryId) => ({ recipeId: recipe.id, categoryId })));
+        .values(categories.map((categoryId) => ({ categoryId, recipeId: recipe.id })));
 
       await tx
         .insert(ingredientRecipeData)
@@ -90,7 +90,7 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
     return new NextResponse(null, { status: 204 });
   } catch (err) {
     return NextResponse.json(
-      { error: 'FAILED_TO_UPDATE_RECIPE', details: String(err) },
+      { details: String(err), error: 'FAILED_TO_UPDATE_RECIPE' },
       { status: 500 },
     );
   }

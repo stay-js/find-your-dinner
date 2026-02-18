@@ -4,19 +4,19 @@ export function Logo({ size = 36 }: { size?: number }) {
   return (
     <div className="select-none">
       <Image
-        src="/logo_black.png"
         alt="Logo"
-        width={size}
-        height={size}
         className="block dark:hidden"
+        height={size}
+        src="/logo_black.png"
+        width={size}
       />
 
       <Image
-        src="/logo_white.png"
         alt="Logo"
-        width={size}
-        height={size}
         className="hidden dark:block"
+        height={size}
+        src="/logo_white.png"
+        width={size}
       />
     </div>
   );

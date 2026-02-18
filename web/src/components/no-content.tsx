@@ -11,12 +11,12 @@ import {
 
 export function NoContent({
   create,
-  title,
   description,
+  title,
 }: {
   create: React.ReactNode;
-  title: React.ReactNode;
   description: React.ReactNode;
+  title: React.ReactNode;
 }) {
   return (
     <div className="grid h-full place-content-center">

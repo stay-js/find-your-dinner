@@ -4,12 +4,12 @@ import Image, { type ImageProps } from 'next/image';
 import { useState } from 'react';
 
 type SafeImageProps = ImageProps & {
-  fallbackSrc?: string;
   alt: string;
+  fallbackSrc?: string;
 };
 
-export function SafeImage({ fallbackSrc = '/placeholder.png', alt, ...props }: SafeImageProps) {
+export function SafeImage({ alt, fallbackSrc = '/placeholder.png', ...props }: SafeImageProps) {
   const [imgSrc, setImgSrc] = useState(props.src || fallbackSrc);
 
-  return <Image {...props} src={imgSrc} alt={alt} onError={() => setImgSrc(fallbackSrc)} />;
+  return <Image {...props} alt={alt} onError={() => setImgSrc(fallbackSrc)} src={imgSrc} />;
 }

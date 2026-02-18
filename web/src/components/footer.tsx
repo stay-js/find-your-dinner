@@ -1,9 +1,9 @@
+import { Github, Globe, UtensilsCrossed } from 'lucide-react';
 import Link from 'next/link';
-import { UtensilsCrossed, Github, Globe } from 'lucide-react';
 
-import { Separator } from '~/components/ui/separator';
-import { ThemeSwitcher } from '~/components/theme-switcher';
 import { Logo } from '~/components/logo';
+import { ThemeSwitcher } from '~/components/theme-switcher';
+import { Separator } from '~/components/ui/separator';
 
 export function Footer() {
   return (
@@ -24,7 +24,7 @@ export function Footer() {
             </div>
 
             <div className="flex flex-col gap-1">
-              <label htmlFor="theme" className="text-muted-foreground w-fit font-medium">
+              <label className="text-muted-foreground w-fit font-medium" htmlFor="theme">
                 Megjelenés
               </label>
 
@@ -39,26 +39,26 @@ export function Footer() {
               <div className="flex flex-col gap-2">
                 {[
                   {
-                    title: 'Felfedezés',
                     href: '/#felfedezes',
+                    title: 'Felfedezés',
                   },
                   {
-                    title: 'Összes Recept',
                     href: '/receptek',
+                    title: 'Összes Recept',
                   },
                   {
-                    title: 'Kategóriák',
                     href: '/kategoriak',
+                    title: 'Kategóriák',
                   },
                   {
-                    title: 'Mentett Receptek',
                     href: '/dashboard/recipes/saved',
+                    title: 'Mentett Receptek',
                   },
                 ].map((item) => (
                   <Link
-                    key={item.href}
-                    href={item.href}
                     className="text-muted-foreground hover:text-foreground underline-offset-4 transition-colors hover:underline"
+                    href={item.href}
+                    key={item.href}
                   >
                     {item.title}
                   </Link>
@@ -72,29 +72,29 @@ export function Footer() {
               <div className="flex flex-col gap-2">
                 {[
                   {
-                    title: 'GitHub',
+                    external: true,
                     href: 'https://github.com/stay-js/find-your-dinner',
-                    external: true,
                     icon: Github,
+                    title: 'GitHub',
                   },
                   {
-                    title: 'znagy.hu',
-                    href: 'https://znagy.hu',
                     external: true,
+                    href: 'https://znagy.hu',
                     icon: Globe,
+                    title: 'znagy.hu',
                   },
                   {
-                    title: 'Recept létrehozása',
                     href: '/dashboard/recipes/create',
                     icon: UtensilsCrossed,
+                    title: 'Recept létrehozása',
                   },
                 ].map((item) => (
                   <Link
-                    key={item.href}
                     href={item.href}
+                    key={item.href}
                     {...(item.external && {
-                      target: '_blank',
                       rel: 'noopener noreferrer',
+                      target: '_blank',
                     })}
                     className="text-muted-foreground hover:text-foreground flex items-center gap-2 underline-offset-4 transition-colors hover:underline"
                   >
@@ -113,8 +113,8 @@ export function Footer() {
           <p>&copy; 2026 - Find Your Dinner. Minden jog fenntartva.</p>
 
           <Link
-            href="/adatkezelesi-tajekoztato"
             className="text-muted-foreground hover:text-foreground underline-offset-4 transition-colors hover:underline"
+            href="/adatkezelesi-tajekoztato"
           >
             Adatkezelési tájékoztató
           </Link>

@@ -1,36 +1,36 @@
 'use client';
 
-import Link from 'next/link';
 import { useQuery } from '@tanstack/react-query';
+import Link from 'next/link';
 
-import { useSidebar } from '~/components/ui/sidebar';
-import { Button } from '~/components/ui/button';
 import { NoContent } from '~/components/no-content';
 import { RecipeCard } from '~/components/recipe-card';
 import { RecipeCardSkeleton } from '~/components/recipe-card-skeleton';
-import { savedRecipesSchema } from '~/lib/zod-schemas';
+import { Button } from '~/components/ui/button';
+import { useSidebar } from '~/components/ui/sidebar';
 import { GET } from '~/lib/api-utils';
 import { cn } from '~/lib/utils';
+import { savedRecipesSchema } from '~/lib/zod-schemas';
 
 export function SavedRecipes() {
   const { open: isSidebarOpen } = useSidebar();
 
   const { data: savedRecipes, isLoading } = useQuery({
-    queryKey: ['current-user-saved-recipes'],
     queryFn: () => GET('/api/current-user/saved-recipes?include=recipe', savedRecipesSchema),
+    queryKey: ['current-user-saved-recipes'],
   });
 
   return (
     <>
       {!isLoading && (!savedRecipes || savedRecipes?.length === 0) && (
         <NoContent
-          title="Nincs megjeleníthető recept"
-          description="Úgy tűnik, még nem mentettél el egyetlen receptet sem. Receptek felfedezéséhez kattints a lenti gombra."
           create={
             <Button asChild>
               <Link href="/">Tovább a receptekhez</Link>
             </Button>
           }
+          description="Úgy tűnik, még nem mentettél el egyetlen receptet sem. Receptek felfedezéséhez kattints a lenti gombra."
+          title="Nincs megjeleníthető recept"
         />
       )}
 

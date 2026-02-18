@@ -1,20 +1,24 @@
-import Link from 'next/link';
 import { Pencil } from 'lucide-react';
+import Link from 'next/link';
 
 import { Button } from '~/components/ui/button';
 
 export function Title({
+  recipeId,
+
+  description,
+  title,
+
   isAdmin,
   isAuthor,
-  recipeId,
-  title,
-  description,
 }: {
+  recipeId: number;
+
+  description: string;
+  title: string;
+
   isAdmin: boolean;
   isAuthor: boolean;
-  recipeId: number;
-  title: string;
-  description: string;
 }) {
   return (
     <div className="flex flex-col gap-2">
@@ -22,7 +26,7 @@ export function Title({
         <h1 className="text-2xl font-bold tracking-tight">{title}</h1>
 
         {(isAdmin || isAuthor) && (
-          <Button variant="outline" size="sm" asChild>
+          <Button asChild size="sm" variant="outline">
             <Link
               href={
                 isAuthor

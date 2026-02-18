@@ -3,19 +3,19 @@
 import { useQuery } from '@tanstack/react-query';
 import { CheckCircle } from 'lucide-react';
 
-import { useSidebar } from '~/components/ui/sidebar';
 import { RecipeCard } from '~/components/recipe-card';
 import { RecipeCardSkeleton } from '~/components/recipe-card-skeleton';
-import { recipesSchema } from '~/lib/zod-schemas';
+import { useSidebar } from '~/components/ui/sidebar';
 import { GET } from '~/lib/api-utils';
 import { cn } from '~/lib/utils';
+import { recipesSchema } from '~/lib/zod-schemas';
 
 export function Recipes() {
   const { open: isSidebarOpen } = useSidebar();
 
   const { data: recipes, isLoading } = useQuery({
-    queryKey: ['recipe-data-to-approve'],
     queryFn: () => GET('/api/admin/recipe-data/to-approve', recipesSchema),
+    queryKey: ['recipe-data-to-approve'],
   });
 
   if (!isLoading && (!recipes || recipes.length === 0)) {

@@ -1,6 +1,6 @@
-import { NextResponse } from 'next/server';
 import { auth } from '@clerk/nextjs/server';
 import { desc, eq } from 'drizzle-orm';
+import { NextResponse } from 'next/server';
 
 import { db } from '~/server/db';
 import { recipeData, recipes } from '~/server/db/schema';
@@ -23,8 +23,8 @@ export async function GET() {
     recipeRecords.map(async (recipe) => {
       const [recipeDataRecord, categories, hasVerifiedVersion] = await Promise.all([
         db.query.recipeData.findFirst({
-          where: eq(recipeData.recipeId, recipe.id),
           orderBy: desc(recipeData.createdAt),
+          where: eq(recipeData.recipeId, recipe.id),
         }),
 
         getRecipeCategories(recipe.id),
@@ -32,10 +32,10 @@ export async function GET() {
       ]);
 
       return {
-        recipe,
-        recipeData: recipeDataRecord,
         categories,
         hasVerifiedVersion,
+        recipe,
+        recipeData: recipeDataRecord,
       };
     }),
   );

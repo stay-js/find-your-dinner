@@ -1,5 +1,5 @@
-import Link from 'next/link';
 import { ChevronRight } from 'lucide-react';
+import Link from 'next/link';
 
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '~/components/ui/collapsible';
 import {
@@ -18,13 +18,13 @@ export function SidebarNavigation({
   label,
 }: {
   items: {
-    title: string;
     icon?: React.ElementType;
     isActive?: boolean;
     items?: {
       title: string;
       url: string;
     }[];
+    title: string;
   }[];
   label?: string;
 }) {
@@ -34,10 +34,10 @@ export function SidebarNavigation({
       <SidebarMenu>
         {items.map((item) => (
           <Collapsible
-            key={item.title}
             asChild
-            defaultOpen={item.isActive}
             className="group/collapsible"
+            defaultOpen={item.isActive}
+            key={item.title}
           >
             <SidebarMenuItem>
               <CollapsibleTrigger asChild>

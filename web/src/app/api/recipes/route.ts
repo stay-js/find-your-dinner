@@ -1,9 +1,9 @@
 import { auth } from '@clerk/nextjs/server';
 import { NextRequest, NextResponse } from 'next/server';
 
-import { db } from '~/server/db';
-import { recipes, categoryRecipe, recipeData, ingredientRecipeData } from '~/server/db/schema';
 import { createUpdateRecipeSchema } from '~/lib/zod-schemas';
+import { db } from '~/server/db';
+import { categoryRecipe, ingredientRecipeData, recipeData, recipes } from '~/server/db/schema';
 
 export async function POST(request: NextRequest) {
   const { isAuthenticated, userId } = await auth();
@@ -17,7 +17,7 @@ export async function POST(request: NextRequest) {
 
   if (!result.success) {
     return NextResponse.json(
-      { error: 'INVALID_REQUEST_BODY', details: result.error },
+      { details: result.error, error: 'INVALID_REQUEST_BODY' },
       { status: 400 },
     );
   }
@@ -44,7 +44,7 @@ export async function POST(request: NextRequest) {
 
       await tx
         .insert(categoryRecipe)
-        .values(categories.map((categoryId) => ({ recipeId, categoryId })));
+        .values(categories.map((categoryId) => ({ categoryId, recipeId })));
 
       await tx
         .insert(ingredientRecipeData)
@@ -54,7 +54,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ message: 'CREATED' }, { status: 201 });
   } catch (err) {
     return NextResponse.json(
-      { error: 'FAILED_TO_CREATE_RECIPE', details: String(err) },
+      { details: String(err), error: 'FAILED_TO_CREATE_RECIPE' },
       { status: 500 },
     );
   }

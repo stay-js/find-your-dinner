@@ -1,22 +1,19 @@
-import { createMetadata } from '~/lib/create-metadata';
 import { RecipeForm } from '~/components/recipe-form';
+import { createMetadata } from '~/lib/create-metadata';
 
 export const metadata = createMetadata({
   path: '/dashboard/recipes/create',
-  title: 'Recept létrehozása',
+
   description: 'Recept létrehozása - Find Your Dinner.',
+  title: 'Recept létrehozása',
+
   noIndex: true,
 });
 
 const defaultValues = {
-  title: '',
-  previewImageUrl: '',
-  description: '',
-  instructions: '',
-  prepTimeMinutes: '',
-  cookTimeMinutes: '',
-  servings: '',
   categories: [],
+  cookTimeMinutes: '',
+  description: '',
   ingredients: [
     {
       ingredientId: '',
@@ -24,6 +21,11 @@ const defaultValues = {
       unitId: '',
     },
   ],
+  instructions: '',
+  prepTimeMinutes: '',
+  previewImageUrl: '',
+  servings: '',
+  title: '',
 };
 
 export default async function CreatePage() {

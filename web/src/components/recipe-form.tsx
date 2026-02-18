@@ -1,59 +1,42 @@
 'use client';
 
-import { Fragment } from 'react';
-import { useRouter } from 'next/navigation';
-import { useMutation, useQuery } from '@tanstack/react-query';
-import { Controller, useFieldArray, useForm, type SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
-import { Clock, Users, Plus, Trash2, Upload, ChefHat, X } from 'lucide-react';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { ChefHat, Clock, Plus, Trash2, Upload, Users, X } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import { Fragment } from 'react';
+import { Controller, type SubmitHandler, useFieldArray, useForm } from 'react-hook-form';
 import { toast } from 'sonner';
+import { z } from 'zod';
 
-import { Button } from '~/components/ui/button';
-import { SelectGroup, SelectItem, SelectLabel } from '~/components/ui/select';
-import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card';
+import { FormInput, FormSelect, FormTextarea } from '~/components/form';
 import { Badge } from '~/components/ui/badge';
-import { Separator } from '~/components/ui/separator';
+import { Button } from '~/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card';
 import { FieldError } from '~/components/ui/field';
+import { SelectGroup, SelectItem, SelectLabel } from '~/components/ui/select';
+import { Separator } from '~/components/ui/separator';
 import { Skeleton } from '~/components/ui/skeleton';
-import { FormInput, FormTextarea, FormSelect } from '~/components/form';
+import { useIsMobile } from '~/hooks/use-mobile';
+import { GET, POST, PUT } from '~/lib/api-utils';
+import { cn } from '~/lib/utils';
+import { isIntegerString, isPositiveIntegerString } from '~/lib/zod-helpers';
 import {
   categoriesSchema,
+  type CreateUpdateRecipeSchema,
   ingredientsSchema,
   unitsSchema,
-  type CreateUpdateRecipeSchema,
 } from '~/lib/zod-schemas';
-import { isIntegerString, isPositiveIntegerString } from '~/lib/zod-helpers';
-import { GET, POST, PUT } from '~/lib/api-utils';
-import { useIsMobile } from '~/hooks/use-mobile';
-import { cn } from '~/lib/utils';
 
 const formSchema = z.object({
-  title: z
-    .string()
-    .trim()
-    .min(1, { error: 'Add meg a recept nevét!' })
-    .max(512, { error: 'A recept neve legfeljebb 512 karakter lehet!' }),
-  previewImageUrl: z.url({ error: 'Adj meg egy érvényes URL-t!' }).trim().max(2048, {
-    error: 'Az URL hossza legfeljebb 2048 karakter lehet!',
+  categories: z.array(z.number().int().positive()).min(1, {
+    error: 'Válassz legalább egy kategóriát!',
   }),
-  description: z.string().trim().min(1, { error: 'Add meg a recept leírását!' }),
-  instructions: z.string().trim().min(1, { error: 'Add meg az elkészítési utasításokat!' }),
-  prepTimeMinutes: z
-    .string()
-    .trim()
-    .refine(isIntegerString, { error: 'Az előkészítési idő csak pozitív egész szám lehet!' }),
   cookTimeMinutes: z
     .string()
     .trim()
     .refine(isIntegerString, { error: 'A főzési/sütési idő csak pozitív egész szám lehet!' }),
-  servings: z
-    .string()
-    .trim()
-    .refine(isIntegerString, { error: 'Az adagok száma csak pozitív egész szám lehet!' }),
-  categories: z.array(z.number().int().positive()).min(1, {
-    error: 'Válassz legalább egy kategóriát!',
-  }),
+  description: z.string().trim().min(1, { error: 'Add meg a recept leírását!' }),
   ingredients: z
     .array(
       z.object({
@@ -72,6 +55,23 @@ const formSchema = z.object({
       }),
     )
     .min(1, { error: 'Adj hozzá legalább egy hozzávalót!' }),
+  instructions: z.string().trim().min(1, { error: 'Add meg az elkészítési utasításokat!' }),
+  prepTimeMinutes: z
+    .string()
+    .trim()
+    .refine(isIntegerString, { error: 'Az előkészítési idő csak pozitív egész szám lehet!' }),
+  previewImageUrl: z.url({ error: 'Adj meg egy érvényes URL-t!' }).trim().max(2048, {
+    error: 'Az URL hossza legfeljebb 2048 karakter lehet!',
+  }),
+  servings: z
+    .string()
+    .trim()
+    .refine(isIntegerString, { error: 'Az adagok száma csak pozitív egész szám lehet!' }),
+  title: z
+    .string()
+    .trim()
+    .min(1, { error: 'Add meg a recept nevét!' })
+    .max(512, { error: 'A recept neve legfeljebb 512 karakter lehet!' }),
 });
 
 type FormSchema = z.infer<typeof formSchema>;
@@ -88,30 +88,30 @@ export function RecipeForm({
 
   const isEdit = !!recipeId;
 
-  const { handleSubmit, control, reset } = useForm<FormSchema>({
-    resolver: zodResolver(formSchema),
+  const { control, handleSubmit, reset } = useForm<FormSchema>({
     defaultValues,
+    resolver: zodResolver(formSchema),
   });
 
   const {
-    fields: addedIngredients,
     append: appendIngredient,
+    fields: addedIngredients,
     remove: removeIngredient,
   } = useFieldArray({ control, name: 'ingredients' });
 
   const { data: categories, isLoading: isCategoriesLoading } = useQuery({
-    queryKey: ['categories'],
     queryFn: () => GET('/api/categories', categoriesSchema),
+    queryKey: ['categories'],
   });
 
   const { data: ingredients, isLoading: isIngredientsLoading } = useQuery({
-    queryKey: ['ingredients'],
     queryFn: () => GET('/api/ingredients', ingredientsSchema),
+    queryKey: ['ingredients'],
   });
 
   const { data: units, isLoading: isUnitsLoading } = useQuery({
-    queryKey: ['units'],
     queryFn: () => GET('/api/units', unitsSchema),
+    queryKey: ['units'],
   });
 
   const { mutateAsync: createRecipe } = useMutation({
@@ -129,20 +129,20 @@ export function RecipeForm({
 
     const parsedData = {
       ...data,
-      prepTimeMinutes: Number(data.prepTimeMinutes),
       cookTimeMinutes: Number(data.cookTimeMinutes),
-      servings: Number(data.servings),
       ingredients: data.ingredients.map((ingredient) => ({
         ingredientId: Number(ingredient.ingredientId),
         quantity: Number(ingredient.quantity),
         unitId: Number(ingredient.unitId),
       })),
+      prepTimeMinutes: Number(data.prepTimeMinutes),
+      servings: Number(data.servings),
     } satisfies CreateUpdateRecipeSchema;
 
     toast.promise(isEdit ? updateRecipe(parsedData) : createRecipe(parsedData), {
+      error: `Hiba történt a recept ${isEdit ? 'szerkesztése' : 'létrehozása'} során!`,
       loading: `Recept ${isEdit ? 'szerkesztése' : 'létrehozása'}...`,
       success: `A recept sikeresen ${isEdit ? 'szerkesztve' : 'létrehozva'}!`,
-      error: `Hiba történt a recept ${isEdit ? 'szerkesztése' : 'létrehozása'} során!`,
     });
   };
 
@@ -172,33 +172,33 @@ export function RecipeForm({
 
           <CardContent className="flex flex-col gap-4">
             <FormInput
-              name="title"
               control={control}
               label="Recept neve"
+              name="title"
               placeholder="Add meg a recept nevét..."
             />
 
             <FormTextarea
-              name="description"
-              control={control}
               className="min-h-25 resize-none"
+              control={control}
               label="Leírás"
+              name="description"
               placeholder="Recept rövid leírása..."
             />
 
             <div className="flex items-end gap-2">
               <FormInput
-                name="previewImageUrl"
                 control={control}
                 label="Előnézeti kép URL"
+                name="previewImageUrl"
                 placeholder="https://example.com/image.jpg"
               />
 
               <Button
+                onClick={() => toast.error('TODO image upload')}
+                size="icon"
                 type="button"
                 variant="outline"
-                size="icon"
-                onClick={() => toast.error('TODO image upload')}
               >
                 <Upload className="size-4" />
                 <span className="sr-only">Kép feltöltése</span>
@@ -215,51 +215,51 @@ export function RecipeForm({
           <CardContent>
             <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
               <FormInput
-                name="prepTimeMinutes"
                 control={control}
                 errorPosition={isMobile ? 'top' : 'bottom'}
-                type="number"
-                min={0}
-                step={1}
                 label={
                   <>
                     <Clock className="size-4" />
                     <span>Előkészítési idő (perc)</span>
                   </>
                 }
+                min={0}
+                name="prepTimeMinutes"
                 placeholder="15"
+                step={1}
+                type="number"
               />
 
               <FormInput
-                name="cookTimeMinutes"
                 control={control}
                 errorPosition={isMobile ? 'top' : 'bottom'}
-                type="number"
-                min={0}
-                step={1}
                 label={
                   <>
                     <ChefHat className="size-4" />
                     <span>Főzési/Sütési idő (perc)</span>
                   </>
                 }
+                min={0}
+                name="cookTimeMinutes"
                 placeholder="30"
+                step={1}
+                type="number"
               />
 
               <FormInput
-                name="servings"
                 control={control}
                 errorPosition={isMobile ? 'top' : 'bottom'}
-                type="number"
-                min={0}
-                step={1}
                 label={
                   <>
                     <Users className="size-4" />
                     <span>Adagok száma</span>
                   </>
                 }
+                min={0}
+                name="servings"
                 placeholder="4"
+                step={1}
+                type="number"
               />
             </div>
           </CardContent>
@@ -286,12 +286,12 @@ export function RecipeForm({
                         .fill(null)
                         .map((_, index) => (
                           <Skeleton
-                            key={index}
                             className={cn(
                               'h-8 w-16 rounded-full',
                               index % 2 === 0 && 'w-24',
                               index % 3 === 0 && 'w-18',
                             )}
+                            key={index}
                           />
                         ))}
 
@@ -300,12 +300,11 @@ export function RecipeForm({
 
                       return (
                         <Badge
-                          key={category.id}
-                          variant={isSelected ? 'default' : 'outline'}
                           className={cn(
                             'flex cursor-pointer gap-2 px-3 py-1.5 text-sm transition-colors select-none',
                             fieldState.invalid && 'border-destructive',
                           )}
+                          key={category.id}
                           onClick={() => {
                             const nextValue = isSelected
                               ? field.value.filter((id) => id !== category.id)
@@ -313,6 +312,7 @@ export function RecipeForm({
 
                             field.onChange(nextValue);
                           }}
+                          variant={isSelected ? 'default' : 'outline'}
                         >
                           {isSelected && <X className="size-4" />}
                           <span>{category.name}</span>
@@ -333,10 +333,10 @@ export function RecipeForm({
             <CardTitle className="text-lg">Hozzávalók</CardTitle>
 
             <Button
+              onClick={() => appendIngredient({ ingredientId: '', quantity: '', unitId: '' })}
+              size={isMobile ? 'icon-sm' : 'sm'}
               type="button"
               variant="outline"
-              size={isMobile ? 'icon-sm' : 'sm'}
-              onClick={() => appendIngredient({ ingredientId: '', quantity: '', unitId: '' })}
             >
               <Plus className="size-4" />
               <span className="max-md:hidden">Hozzávaló hozzáadása</span>
@@ -349,16 +349,16 @@ export function RecipeForm({
                 {index > 0 && <Separator />}
 
                 <div
-                  key={field.id}
                   className="bg-background/30 flex items-start gap-4 rounded-lg border p-6"
+                  key={field.id}
                 >
                   <div className="flex w-full flex-col gap-3">
                     <FormSelect
                       control={control}
-                      name={`ingredients.${index}.ingredientId`}
-                      label="Hozzávaló neve"
-                      placeholder="Válassz hozzávalót"
                       disabled={isIngredientsLoading}
+                      label="Hozzávaló neve"
+                      name={`ingredients.${index}.ingredientId`}
+                      placeholder="Válassz hozzávalót"
                     >
                       <SelectGroup>
                         <SelectLabel>Hozzávalók</SelectLabel>
@@ -372,21 +372,21 @@ export function RecipeForm({
                     </FormSelect>
 
                     <FormInput
-                      name={`ingredients.${index}.quantity`}
                       control={control}
                       label="Mennyiség"
-                      type="number"
                       min={0}
-                      step={1}
+                      name={`ingredients.${index}.quantity`}
                       placeholder="250"
+                      step={1}
+                      type="number"
                     />
 
                     <FormSelect
                       control={control}
-                      name={`ingredients.${index}.unitId`}
-                      label="Mértékegység"
-                      placeholder="Válassz mértékegységet"
                       disabled={isUnitsLoading}
+                      label="Mértékegység"
+                      name={`ingredients.${index}.unitId`}
+                      placeholder="Válassz mértékegységet"
                     >
                       <SelectGroup>
                         <SelectLabel>Mértékegységek</SelectLabel>
@@ -401,12 +401,12 @@ export function RecipeForm({
                   </div>
 
                   <Button
-                    type="button"
                     className="self-end"
-                    variant="destructive"
-                    size="icon"
-                    onClick={() => removeIngredient(index)}
                     disabled={addedIngredients.length === 1}
+                    onClick={() => removeIngredient(index)}
+                    size="icon"
+                    type="button"
+                    variant="destructive"
                   >
                     <Trash2 className="size-4" />
                   </Button>
@@ -423,10 +423,10 @@ export function RecipeForm({
 
           <CardContent className="flex flex-col gap-4">
             <FormTextarea
-              name="instructions"
-              control={control}
               className="min-h-50 resize-none"
+              control={control}
               label="Elkészítési utasítások"
+              name="instructions"
               placeholder="Írd le lépésről lépésre, a recepted elkészítését..."
             />
 

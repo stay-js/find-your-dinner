@@ -2,8 +2,9 @@ import { createMetadata } from '~/lib/create-metadata';
 
 export const metadata = createMetadata({
   path: '/dashboard',
-  title: 'Recepteim',
+
   description: 'Recepteim - Find Your Dinner.',
+  title: 'Recepteim',
 });
 
 export default async function DashboardPage() {

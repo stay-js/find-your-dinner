@@ -1,10 +1,13 @@
 import { createMetadata } from '~/lib/create-metadata';
+
 import { Recipes } from './recipes';
 
 export const metadata = createMetadata({
   path: '/dashboard/admin/recipes/approve',
-  title: 'Receptek jóváhagyása - Admin',
+
   description: 'Receptek jóváhagyása - Admin - Find Your Dinner.',
+  title: 'Receptek jóváhagyása - Admin',
+
   noIndex: true,
 });
 

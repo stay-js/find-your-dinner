@@ -1,8 +1,8 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
 import { useMutation } from '@tanstack/react-query';
 import { AlertTriangle, CheckCircle } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 
 import { Button } from '~/components/ui/button';
@@ -11,7 +11,7 @@ import { POST } from '~/lib/api-utils';
 export function Approve({ recipeDataId }: { recipeDataId: number }) {
   const router = useRouter();
 
-  const { mutate: approveRecipeData, isPending: isApproving } = useMutation({
+  const { isPending: isApproving, mutate: approveRecipeData } = useMutation({
     mutationFn: (recipeDataId: number) => POST(`/api/admin/recipe-data/approve/${recipeDataId}`),
     onError: () => {
       toast.error('Hiba történt a recept jóváhagyása során. Kérlek, próbáld újra később.');
@@ -32,7 +32,7 @@ export function Approve({ recipeDataId }: { recipeDataId: number }) {
         </div>
       </div>
 
-      <Button size="sm" disabled={isApproving} onClick={() => approveRecipeData(recipeDataId)}>
+      <Button disabled={isApproving} onClick={() => approveRecipeData(recipeDataId)} size="sm">
         <CheckCircle className="size-4" />
         <span>Recept jóváhagyása</span>
       </Button>

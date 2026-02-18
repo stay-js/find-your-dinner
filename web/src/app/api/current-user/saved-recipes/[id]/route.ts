@@ -1,10 +1,10 @@
-import { type NextRequest, NextResponse } from 'next/server';
 import { auth } from '@clerk/nextjs/server';
-import { eq, and } from 'drizzle-orm';
+import { and, eq } from 'drizzle-orm';
+import { type NextRequest, NextResponse } from 'next/server';
 
+import { idParamSchema } from '~/lib/zod-schemas';
 import { db } from '~/server/db';
 import { savedRecipes } from '~/server/db/schema';
-import { idParamSchema } from '~/lib/zod-schemas';
 
 export async function DELETE(_: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const { isAuthenticated, userId } = await auth();
@@ -17,7 +17,7 @@ export async function DELETE(_: NextRequest, { params }: { params: Promise<{ id:
 
   if (!result.success) {
     return NextResponse.json(
-      { error: 'INVALID_RECIPE_ID', details: result.error },
+      { details: result.error, error: 'INVALID_RECIPE_ID' },
       { status: 400 },
     );
   }

@@ -7,6 +7,7 @@ export async function getRecipeAuthor(userId: string) {
 
   return {
     id: user.id,
+
     firstName: user.firstName,
     lastName: user.lastName,
   };

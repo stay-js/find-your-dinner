@@ -2,15 +2,19 @@ import type { Metadata } from 'next';
 
 export function createMetadata({
   path,
-  title,
+
   absoluteTitle,
   description,
+  title,
+
   noIndex,
 }: {
   path: string;
-  title: string;
+
   absoluteTitle?: string;
   description?: string;
+  title: string;
+
   noIndex?: boolean;
 }): Metadata {
   return {
@@ -25,54 +29,54 @@ export function createMetadata({
 
     keywords: [''].join(', '),
 
-    title: absoluteTitle ?? `${title} - Find Your Dinner.`,
     description,
+    title: absoluteTitle ?? `${title} - Find Your Dinner.`,
 
     applicationName: 'Find Your Dinner.',
 
     robots: noIndex
       ? {
-          index: false,
           follow: false,
-          'max-video-preview': -1,
+          index: false,
           'max-image-preview': 'none',
           'max-snippet': -1,
+          'max-video-preview': -1,
         }
       : {
-          index: true,
           follow: true,
           googleBot: {
-            index: true,
             follow: true,
-            'max-video-preview': -1,
+            index: true,
             'max-image-preview': 'large',
             'max-snippet': -1,
+            'max-video-preview': -1,
           },
+          index: true,
         },
 
     openGraph: {
-      type: 'website',
-      url: `https://find-your-dinner.znagy.hu${path}`,
-      title: absoluteTitle ?? `${title} - Find Your Dinner.`,
       description,
-      siteName: 'Find Your Dinner.',
-      locale: 'hu-HU',
       images: [
         {
+          alt: 'Find Your Dinner.',
+          height: 1024,
+          type: 'image/png',
           url: '/logo.png',
           width: 1024,
-          height: 1024,
-          alt: 'Find Your Dinner.',
-          type: 'image/png',
         },
       ],
+      locale: 'hu-HU',
+      siteName: 'Find Your Dinner.',
+      title: absoluteTitle ?? `${title} - Find Your Dinner.`,
+      type: 'website',
+      url: `https://find-your-dinner.znagy.hu${path}`,
     },
 
     twitter: {
       card: 'summary',
-      title: absoluteTitle ?? `${title} - Find Your Dinner.`,
       description,
       images: ['/logo.png'],
+      title: absoluteTitle ?? `${title} - Find Your Dinner.`,
     },
 
     icons: {

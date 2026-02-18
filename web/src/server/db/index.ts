@@ -1,8 +1,8 @@
 import { drizzle } from 'drizzle-orm/node-postgres';
-import { Pool, type Pool as PgPool } from 'pg';
+import { type Pool as PgPool, Pool } from 'pg';
 
-import * as schema from '~/server/db/schema';
 import { env } from '~/env';
+import * as schema from '~/server/db/schema';
 
 const globalForDb = globalThis as unknown as { conn: PgPool | undefined };
 

@@ -1,10 +1,10 @@
-import { type NextRequest, NextResponse } from 'next/server';
 import { auth } from '@clerk/nextjs/server';
-import { desc, eq, and, exists } from 'drizzle-orm';
+import { and, desc, eq, exists } from 'drizzle-orm';
+import { type NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 
 import { db } from '~/server/db';
-import { recipes, recipeData, savedRecipes } from '~/server/db/schema';
+import { recipeData, recipes, savedRecipes } from '~/server/db/schema';
 import { getRecipeCategories } from '~/server/utils/recipe-helpers';
 
 export async function GET(request: NextRequest) {
@@ -20,8 +20,8 @@ export async function GET(request: NextRequest) {
   if (!includeRecipe) {
     const result = await db
       .select({
-        savedAt: savedRecipes.createdAt,
         recipeId: savedRecipes.recipeId,
+        savedAt: savedRecipes.createdAt,
       })
       .from(savedRecipes)
       .where(eq(savedRecipes.userId, userId));
@@ -31,8 +31,8 @@ export async function GET(request: NextRequest) {
 
   const recipeRecords = await db
     .select({
-      savedAt: savedRecipes.createdAt,
       recipe: recipes,
+      savedAt: savedRecipes.createdAt,
     })
     .from(savedRecipes)
     .innerJoin(recipes, eq(savedRecipes.recipeId, recipes.id))
@@ -50,22 +50,22 @@ export async function GET(request: NextRequest) {
     .orderBy(desc(savedRecipes.createdAt));
 
   const result = await Promise.all(
-    recipeRecords.map(async ({ savedAt, recipe }) => {
+    recipeRecords.map(async ({ recipe, savedAt }) => {
       const [recipeDataRecord, categories] = await Promise.all([
         db.query.recipeData.findFirst({
-          where: and(eq(recipeData.recipeId, recipe.id), eq(recipeData.verified, true)),
           orderBy: desc(recipeData.createdAt),
+          where: and(eq(recipeData.recipeId, recipe.id), eq(recipeData.verified, true)),
         }),
 
         getRecipeCategories(recipe.id),
       ]);
 
       return {
-        savedAt,
-        recipe,
-        recipeData: recipeDataRecord,
         categories,
         hasVerifiedVersion: true,
+        recipe,
+        recipeData: recipeDataRecord,
+        savedAt,
       };
     }),
   );
@@ -89,14 +89,14 @@ export async function POST(request: NextRequest) {
 
   if (!result.success) {
     return NextResponse.json(
-      { error: 'INVALID_REQUEST_BODY', details: result.error },
+      { details: result.error, error: 'INVALID_REQUEST_BODY' },
       { status: 400 },
     );
   }
 
   const { recipeId } = result.data;
 
-  await db.insert(savedRecipes).values({ userId, recipeId });
+  await db.insert(savedRecipes).values({ recipeId, userId });
 
   return NextResponse.json({ message: 'CREATED' }, { status: 201 });
 }

@@ -2,9 +2,12 @@ import { RecipePage } from '~/app/_recipe-page';
 import { createMetadata } from '~/lib/create-metadata';
 
 export const metadata = createMetadata({
-  path: '/',
-  title: 'Recept',
+  path: '/dashboard/recipes/view',
+
   description: 'Recept - Find Your Dinner.',
+  title: 'Recept',
+
+  noIndex: true,
 });
 
 export default RecipePage;

@@ -1,5 +1,5 @@
-import { notFound } from 'next/navigation';
 import { and, desc, eq } from 'drizzle-orm';
+import { notFound } from 'next/navigation';
 
 import { db } from '~/server/db';
 import { recipeData, recipes } from '~/server/db/schema';
@@ -18,8 +18,8 @@ export async function getRecipe(id: number, allowUnverified: boolean = false) {
   const [recipe, recipeDataRecord] = await Promise.all([
     db.query.recipes.findFirst({ where: eq(recipes.id, id) }),
     db.query.recipeData.findFirst({
-      where: whereClause,
       orderBy: desc(recipeData.createdAt),
+      where: whereClause,
     }),
   ]);
 
@@ -33,11 +33,11 @@ export async function getRecipe(id: number, allowUnverified: boolean = false) {
   ]);
 
   return {
+    author,
+    categories,
+    hasVerifiedVersion,
+    ingredients,
     recipe,
     recipeData: recipeDataRecord,
-    categories,
-    ingredients,
-    author,
-    hasVerifiedVersion,
   };
 }

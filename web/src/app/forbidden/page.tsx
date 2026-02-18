@@ -1,13 +1,15 @@
 import Link from 'next/link';
 
-import { Button } from '~/components/ui/button';
 import { Footer } from '~/components/footer';
+import { Button } from '~/components/ui/button';
 import { createMetadata } from '~/lib/create-metadata';
 
 export const metadata = createMetadata({
   path: '/forbidden',
-  title: '403',
+
   description: 'Nem vagy jogosult a tartalom megtekintésére - Find Your Dinner.',
+  title: '403',
+
   noIndex: true,
 });
 
@@ -21,7 +23,7 @@ export default function ForbiddenPage() {
             <p className="text-lg">Nem vagy jogosult a tartalom megtekintésére</p>
           </div>
 
-          <Button asChild size="lg" className="w-fit">
+          <Button asChild className="w-fit" size="lg">
             <Link href="/">Vissza a főoldalra</Link>
           </Button>
         </div>

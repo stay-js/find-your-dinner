@@ -1,7 +1,6 @@
-import { notFound } from 'next/navigation';
 import { auth } from '@clerk/nextjs/server';
+import { notFound } from 'next/navigation';
 
-import { getRecipe } from '~/server/utils/get-recipe';
 import {
   Categories,
   Ingredients,
@@ -11,14 +10,18 @@ import {
   Stats,
   Title,
 } from '~/components/recipe-page';
-import { idParamSchema } from '~/lib/zod-schemas';
 import { createMetadata } from '~/lib/create-metadata';
+import { idParamSchema } from '~/lib/zod-schemas';
+import { getRecipe } from '~/server/utils/get-recipe';
+
 import { Approve } from './approve';
 
 export const metadata = createMetadata({
   path: '/dashboard/admin/recipes/view',
-  title: 'Recept megtekintése - Admin',
+
   description: 'Recept megtekintése - Admin - Find Your Dinner.',
+  title: 'Recept megtekintése - Admin',
+
   noIndex: true,
 });
 
@@ -30,7 +33,7 @@ export default async function ViewPage({ params }: { params: Promise<{ id: strin
 
   const { id } = result.data;
 
-  const { recipe, recipeData, categories, ingredients, author } = await getRecipe(id, true);
+  const { author, categories, ingredients, recipe, recipeData } = await getRecipe(id, true);
 
   return (
     <div className="@container">
@@ -41,19 +44,19 @@ export default async function ViewPage({ params }: { params: Promise<{ id: strin
           <PreviewImage previewImageUrl={recipeData.previewImageUrl} title={recipeData.title} />
 
           <Title
+            description={recipeData.description}
             isAdmin={true}
             isAuthor={userId === recipe.userId}
             recipeId={recipe.id}
             title={recipeData.title}
-            description={recipeData.description}
           />
 
           <Categories categories={categories} />
 
           <Stats
-            recipeId={recipe.id}
-            prepTimeMinutes={recipeData.prepTimeMinutes}
             cookTimeMinutes={recipeData.cookTimeMinutes}
+            prepTimeMinutes={recipeData.prepTimeMinutes}
+            recipeId={recipe.id}
             servings={recipeData.servings}
           />
 
@@ -62,11 +65,11 @@ export default async function ViewPage({ params }: { params: Promise<{ id: strin
           <Instructions instructions={recipeData.instructions} />
 
           <Overview
-            prepTimeMinutes={recipeData.prepTimeMinutes}
+            author={author}
             cookTimeMinutes={recipeData.cookTimeMinutes}
             createdAt={recipeData.createdAt!}
+            prepTimeMinutes={recipeData.prepTimeMinutes}
             updatedAt={recipeData.updatedAt!}
-            author={author}
           />
         </div>
 

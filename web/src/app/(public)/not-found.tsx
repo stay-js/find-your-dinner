@@ -2,8 +2,10 @@ import { createMetadata } from '~/lib/create-metadata';
 
 export const metadata = createMetadata({
   path: '/404',
-  title: '404',
+
   description: 'A keresett tartalom nem található',
+  title: '404',
+
   noIndex: true,
 });
 

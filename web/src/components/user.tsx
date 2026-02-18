@@ -5,22 +5,6 @@ import { useUser } from '@clerk/nextjs';
 import { Avatar, AvatarFallback, AvatarImage } from '~/components/ui/avatar';
 import { cn } from '~/lib/utils';
 
-export function UserAvatar({ className }: { className?: string }) {
-  const { user } = useUser();
-  if (!user) return null;
-
-  return (
-    <Avatar className={cn('size-6 rounded-full', className)}>
-      <AvatarImage src={user.imageUrl} alt={user.fullName ?? ''} />
-
-      <AvatarFallback className="rounded-full">
-        {user.firstName?.[0]}
-        {user.lastName?.[0]}
-      </AvatarFallback>
-    </Avatar>
-  );
-}
-
 export function User() {
   const { user } = useUser();
   if (!user) return null;
@@ -34,5 +18,21 @@ export function User() {
         <span className="truncate text-xs">{user.primaryEmailAddress?.emailAddress}</span>
       </div>
     </div>
+  );
+}
+
+export function UserAvatar({ className }: { className?: string }) {
+  const { user } = useUser();
+  if (!user) return null;
+
+  return (
+    <Avatar className={cn('size-6 rounded-full', className)}>
+      <AvatarImage alt={user.fullName ?? ''} src={user.imageUrl} />
+
+      <AvatarFallback className="rounded-full">
+        {user.firstName?.[0]}
+        {user.lastName?.[0]}
+      </AvatarFallback>
+    </Avatar>
   );
 }

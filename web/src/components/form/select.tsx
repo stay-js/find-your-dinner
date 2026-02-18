@@ -1,45 +1,51 @@
 import {
-  Controller,
   type Control,
+  Controller,
   type FieldPath,
   type FieldValues,
   type PathValue,
 } from 'react-hook-form';
 
 import { Field, FieldError, FieldGroup, FieldLabel } from '~/components/ui/field';
-import { Select, SelectTrigger, SelectValue, SelectContent } from '~/components/ui/select';
+import { Select, SelectContent, SelectTrigger, SelectValue } from '~/components/ui/select';
 
-type SelectValue = React.InputHTMLAttributes<HTMLSelectElement>['value'] | null;
+type FormSelectProps<
+  TFieldValues extends FieldValues,
+  TName extends FieldPath<TFieldValues>,
+> = (PathValue<TFieldValues, TName> extends SelectValue
+  ? {} // eslint-disable-line @typescript-eslint/no-empty-object-type
+  : { _error: 'Field value must match select value type' }) & {
+  errorPosition?: 'bottom' | 'top';
 
-type FormSelectProps<TFieldValues extends FieldValues, TName extends FieldPath<TFieldValues>> = {
-  name: TName;
   control: Control<TFieldValues>;
+  name: TName;
+
   disabled?: boolean;
   label: string;
   placeholder?: string;
+
   children?: React.ReactNode;
-  errorPosition?: 'top' | 'bottom';
-} & (PathValue<TFieldValues, TName> extends SelectValue
-  ? {} // eslint-disable-line @typescript-eslint/no-empty-object-type
-  : { _error: 'Field value must match select value type' });
+};
+
+type SelectValue = null | React.InputHTMLAttributes<HTMLSelectElement>['value'];
 
 export function FormSelect<
   TFieldValues extends FieldValues,
   TName extends FieldPath<TFieldValues>,
 >({
-  name,
+  children,
   control,
   disabled,
-  label,
-  placeholder,
-  children,
   errorPosition = 'top',
+  label,
+  name,
+  placeholder,
 }: FormSelectProps<TFieldValues, TName>) {
   return (
     <FieldGroup>
       <Controller
-        name={name}
         control={control}
+        name={name}
         render={({ field, fieldState }) => (
           <Field data-invalid={fieldState.invalid}>
             <div className="flex flex-wrap justify-between gap-x-4 gap-y-2">
@@ -51,12 +57,12 @@ export function FormSelect<
 
             <Select
               {...field}
-              disabled={disabled}
-              value={field.value ?? ''}
-              onValueChange={field.onChange}
               aria-invalid={fieldState.invalid}
+              disabled={disabled}
+              onValueChange={field.onChange}
+              value={field.value ?? ''}
             >
-              <SelectTrigger id={name} aria-invalid={fieldState.invalid}>
+              <SelectTrigger aria-invalid={fieldState.invalid} id={name}>
                 <SelectValue placeholder={placeholder} />
               </SelectTrigger>
               <SelectContent>{children}</SelectContent>

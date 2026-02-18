@@ -22,32 +22,13 @@ export const ingredientsSchema = z.array(
 
 export const unitsSchema = z.array(
   z.object({
+    abbreviation: z.string().min(1).max(16),
     id: z.number().int().positive(),
     name: z.string().min(1).max(64),
-    abbreviation: z.string().min(1).max(16),
   }),
 );
 
 export const recipeWithoutIngredientSchema = z.object({
-  recipe: z.object({
-    id: z.number().int().positive(),
-    userId: z.string().min(1),
-    createdAt: z.coerce.date(),
-  }),
-  recipeData: z.object({
-    id: z.number().int().positive(),
-    recipeId: z.number().int().positive(),
-    title: z.string().trim().min(1).max(512),
-    previewImageUrl: z.url().trim().max(2048),
-    description: z.string().trim().min(1),
-    instructions: z.string().trim().min(1),
-    prepTimeMinutes: z.number().int().positive(),
-    cookTimeMinutes: z.number().int().positive(),
-    servings: z.number().int().positive(),
-    verified: z.boolean(),
-    createdAt: z.coerce.date(),
-    updatedAt: z.coerce.date(),
-  }),
   categories: z.array(
     z.object({
       id: z.number().int().positive(),
@@ -55,6 +36,25 @@ export const recipeWithoutIngredientSchema = z.object({
     }),
   ),
   hasVerifiedVersion: z.boolean(),
+  recipe: z.object({
+    createdAt: z.coerce.date(),
+    id: z.number().int().positive(),
+    userId: z.string().min(1),
+  }),
+  recipeData: z.object({
+    cookTimeMinutes: z.number().int().positive(),
+    createdAt: z.coerce.date(),
+    description: z.string().trim().min(1),
+    id: z.number().int().positive(),
+    instructions: z.string().trim().min(1),
+    prepTimeMinutes: z.number().int().positive(),
+    previewImageUrl: z.url().trim().max(2048),
+    recipeId: z.number().int().positive(),
+    servings: z.number().int().positive(),
+    title: z.string().trim().min(1).max(512),
+    updatedAt: z.coerce.date(),
+    verified: z.boolean(),
+  }),
 });
 
 export type RecipeWithoutIngredients = z.infer<typeof recipeWithoutIngredientSchema>;
@@ -70,6 +70,11 @@ export const savedRecipesSchema = z.array(savedRecipeSchema);
 export type SavedRecipes = z.infer<typeof savedRecipesSchema>;
 
 export const recipeSchema = recipeWithoutIngredientSchema.extend({
+  author: z.object({
+    firstName: z.string().nullable(),
+    id: z.string().min(1),
+    lastName: z.string().nullable(),
+  }),
   ingredients: z.array(
     z.object({
       ingredient: z.object({
@@ -78,17 +83,12 @@ export const recipeSchema = recipeWithoutIngredientSchema.extend({
       }),
       quantity: z.number().positive(),
       unit: z.object({
+        abbreviation: z.string().min(1).max(16),
         id: z.number().int().positive(),
         name: z.string().min(1).max(64),
-        abbreviation: z.string().min(1).max(16),
       }),
     }),
   ),
-  author: z.object({
-    id: z.string().min(1),
-    firstName: z.string().nullable(),
-    lastName: z.string().nullable(),
-  }),
 });
 
 export type Recipe = z.infer<typeof recipeSchema>;
@@ -99,20 +99,15 @@ export type Recipes = z.infer<typeof recipesSchema>;
 
 export const savedRecipeIdsSchema = z.array(
   z.object({
-    savedAt: z.coerce.date(),
     recipeId: z.number().int().positive(),
+    savedAt: z.coerce.date(),
   }),
 );
 
 export const createUpdateRecipeSchema = z.object({
-  title: z.string().trim().min(1).max(512),
-  previewImageUrl: z.url().trim().max(2048),
-  description: z.string().trim().min(1),
-  instructions: z.string().trim().min(1),
-  prepTimeMinutes: z.number().int().positive(),
-  cookTimeMinutes: z.number().int().positive(),
-  servings: z.number().int().positive(),
   categories: z.array(z.number().int().positive()).min(1),
+  cookTimeMinutes: z.number().int().positive(),
+  description: z.string().trim().min(1),
   ingredients: z
     .array(
       z.object({
@@ -122,6 +117,11 @@ export const createUpdateRecipeSchema = z.object({
       }),
     )
     .min(1),
+  instructions: z.string().trim().min(1),
+  prepTimeMinutes: z.number().int().positive(),
+  previewImageUrl: z.url().trim().max(2048),
+  servings: z.number().int().positive(),
+  title: z.string().trim().min(1).max(512),
 });
 
 export type CreateUpdateRecipeSchema = z.infer<typeof createUpdateRecipeSchema>;

@@ -1,16 +1,16 @@
+import { SignedIn, SignedOut, SignInButton, SignUpButton } from '@clerk/nextjs';
 import Link from 'next/link';
 
+import { Logo } from '~/components/logo';
 import { Button } from '~/components/ui/button';
 import { DropdownMenu, DropdownMenuTrigger } from '~/components/ui/dropdown-menu';
-import { Logo } from '~/components/logo';
-import { UserDropdown } from '~/components/user-dropdown';
 import { UserAvatar } from '~/components/user';
-import { SignedIn, SignedOut, SignInButton, SignUpButton } from '@clerk/nextjs';
+import { UserDropdown } from '~/components/user-dropdown';
 
 export function Header() {
   return (
     <header className="bg-background sticky top-0 z-10 flex h-16 items-center justify-between gap-4 border-b px-4">
-      <Link href="/" className="flex items-center gap-2">
+      <Link className="flex items-center gap-2" href="/">
         <Logo size={36} />
 
         <span className="text-primary text-base font-semibold underline-offset-4 hover:underline">
@@ -37,7 +37,7 @@ export function Header() {
           </SignInButton>
 
           <SignUpButton mode="modal">
-            <Button variant="outline" className="max-md:hidden">
+            <Button className="max-md:hidden" variant="outline">
               Regisztráció
             </Button>
           </SignUpButton>

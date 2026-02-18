@@ -1,6 +1,6 @@
 import {
-  Controller,
   type Control,
+  Controller,
   type FieldPath,
   type FieldValues,
   type PathValue,
@@ -9,37 +9,39 @@ import {
 import { Field, FieldError, FieldGroup, FieldLabel } from '~/components/ui/field';
 import { Textarea } from '~/components/ui/textarea';
 
-type TextareaValue = React.TextareaHTMLAttributes<HTMLTextAreaElement>['value'] | null;
-
 type FormTextareaProps<TFieldValues extends FieldValues, TName extends FieldPath<TFieldValues>> = {
-  name: TName;
+  errorPosition?: 'bottom' | 'top';
+
   control: Control<TFieldValues>;
+  name: TName;
+
+  className?: string;
   disabled?: boolean;
   label: string;
   placeholder?: string;
-  className?: string;
-  errorPosition?: 'top' | 'bottom';
 } & (PathValue<TFieldValues, TName> extends TextareaValue
   ? {} // eslint-disable-line @typescript-eslint/no-empty-object-type
   : { _error: 'Field value must match input value type' });
+
+type TextareaValue = null | React.TextareaHTMLAttributes<HTMLTextAreaElement>['value'];
 
 export function FormTextarea<
   TFieldValues extends FieldValues,
   TName extends FieldPath<TFieldValues>,
 >({
-  name,
+  className,
   control,
   disabled,
-  label,
-  placeholder,
-  className,
   errorPosition = 'top',
+  label,
+  name,
+  placeholder,
 }: FormTextareaProps<TFieldValues, TName>) {
   return (
     <FieldGroup>
       <Controller
-        name={name}
         control={control}
+        name={name}
         render={({ field, fieldState }) => (
           <Field data-invalid={fieldState.invalid}>
             <div className="flex flex-wrap justify-between gap-x-4 gap-y-2">
@@ -51,12 +53,12 @@ export function FormTextarea<
 
             <Textarea
               {...field}
-              className={className}
-              id={name}
-              disabled={disabled}
-              value={field.value ?? ''}
-              placeholder={placeholder}
               aria-invalid={fieldState.invalid}
+              className={className}
+              disabled={disabled}
+              id={name}
+              placeholder={placeholder}
+              value={field.value ?? ''}
             />
 
             {fieldState.invalid && errorPosition === 'bottom' && (

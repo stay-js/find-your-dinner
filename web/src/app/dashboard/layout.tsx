@@ -1,15 +1,15 @@
-import Link from 'next/link';
 import { auth } from '@clerk/nextjs/server';
+import Link from 'next/link';
 
-import { checkIsAdmin } from '~/server/utils/check-is-admin';
+import { DashboardSidebar } from '~/components/dashboard-sidebar';
+import { Footer } from '~/components/footer';
 import { Button } from '~/components/ui/button';
 import { Separator } from '~/components/ui/separator';
 import { SidebarInset, SidebarProvider, SidebarTrigger } from '~/components/ui/sidebar';
-import { DashboardSidebar } from '~/components/dashboard-sidebar';
-import { Footer } from '~/components/footer';
+import { checkIsAdmin } from '~/server/utils/check-is-admin';
 
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
-  const { isAuthenticated, userId, redirectToSignIn } = await auth();
+  const { isAuthenticated, redirectToSignIn, userId } = await auth();
   if (!isAuthenticated) redirectToSignIn();
 
   const isAdmin = await checkIsAdmin(userId);
@@ -22,9 +22,9 @@ export default async function DashboardLayout({ children }: { children: React.Re
         <header className="bg-background sticky top-0 z-10 flex h-16 shrink-0 items-center gap-2 border-b px-4 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12">
           <SidebarTrigger />
 
-          <Separator orientation="vertical" className="data-[orientation=vertical]:h-4" />
+          <Separator className="data-[orientation=vertical]:h-4" orientation="vertical" />
 
-          <Button variant="link" className="px-2" asChild>
+          <Button asChild className="px-2" variant="link">
             <Link href="/">Vissza a főoldalra</Link>
           </Button>
         </header>

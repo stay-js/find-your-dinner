@@ -1,6 +1,9 @@
+import { Bookmark, CheckCircle2, Clock, Users } from 'lucide-react';
 import Link from 'next/link';
-import { Clock, Users, Bookmark, CheckCircle2 } from 'lucide-react';
 
+import { SafeImage } from '~/components/safe-image';
+import { Badge } from '~/components/ui/badge';
+import { Button } from '~/components/ui/button';
 import {
   Card,
   CardContent,
@@ -9,40 +12,37 @@ import {
   CardHeader,
   CardTitle,
 } from '~/components/ui/card';
-import { Badge } from '~/components/ui/badge';
-import { Button } from '~/components/ui/button';
-import { SafeImage } from '~/components/safe-image';
 import { useSaveState } from '~/hooks/use-save-state';
-import { type RecipeWithoutIngredients } from '~/lib/zod-schemas';
 import { cn } from '~/lib/utils';
+import { type RecipeWithoutIngredients } from '~/lib/zod-schemas';
 
 export function RecipeCard({
   pageType,
   recipe,
   showIsVerified = false,
 }: {
-  pageType: 'tinder' | 'final' | 'manage' | 'search' | 'saved' | 'admin';
+  pageType: 'admin' | 'final' | 'manage' | 'saved' | 'search' | 'tinder';
   recipe: RecipeWithoutIngredients;
   showIsVerified?: boolean;
 }) {
-  const { isSaved, handleSaveToggle, isPending } = useSaveState(recipe.recipe.id);
+  const { handleSaveToggle, isPending, isSaved } = useSaveState(recipe.recipe.id);
 
   return (
     <Card className="w-full gap-6 overflow-hidden pt-0">
       <div className="relative aspect-4/3 w-full overflow-hidden">
         <SafeImage
-          src={recipe.recipeData.previewImageUrl || '/placeholder.png'}
           alt={recipe.recipeData.title}
-          fill
           className="w-full object-cover transition-transform duration-300 hover:scale-105"
+          fill
+          src={recipe.recipeData.previewImageUrl || '/placeholder.png'}
         />
 
         <Button
-          variant="ghost"
-          size="icon"
           className="bg-background/80 absolute top-3 right-3 backdrop-blur-sm"
           disabled={isPending}
           onClick={handleSaveToggle}
+          size="icon"
+          variant="ghost"
         >
           <Bookmark className={cn('size-5', isSaved && 'fill-current')} />
 
@@ -62,7 +62,7 @@ export function RecipeCard({
       <CardHeader className="gap-4">
         <div className="flex flex-wrap gap-2">
           {recipe.categories.map((category) => (
-            <Badge key={category.id} variant="secondary" className="text-xs">
+            <Badge className="text-xs" key={category.id} variant="secondary">
               {category.name}
             </Badge>
           ))}
@@ -127,7 +127,7 @@ export function RecipeCard({
         )}
 
         {pageType === 'manage' && (
-          <Button variant="outline" asChild>
+          <Button asChild variant="outline">
             <Link href={`/dashboard/recipes/edit/${recipe.recipe.id}`}>Szerkesztés</Link>
           </Button>
         )}

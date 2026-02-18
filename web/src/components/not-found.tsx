@@ -11,7 +11,7 @@ export function NotFound() {
           <p className="text-lg">A keresett tartalom nem található</p>
         </div>
 
-        <Button asChild size="lg" className="w-fit">
+        <Button asChild className="w-fit" size="lg">
           <Link href="/">Vissza a főoldalra</Link>
         </Button>
       </div>

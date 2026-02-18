@@ -1,11 +1,10 @@
 'use client';
 
-import { usePathname } from 'next/navigation';
-import Link from 'next/link';
 import { useClerk } from '@clerk/nextjs';
 import { LogOut, Notebook, Settings } from 'lucide-react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
-import { useIsMobile } from '~/hooks/use-mobile';
 import {
   DropdownMenuContent,
   DropdownMenuGroup,
@@ -14,6 +13,7 @@ import {
   DropdownMenuSeparator,
 } from '~/components/ui/dropdown-menu';
 import { User } from '~/components/user';
+import { useIsMobile } from '~/hooks/use-mobile';
 
 export function UserDropdown({ location }: { location: 'left' | 'right' }) {
   const pathname = usePathname();
@@ -22,9 +22,9 @@ export function UserDropdown({ location }: { location: 'left' | 'right' }) {
 
   return (
     <DropdownMenuContent
+      align={location === 'right' ? 'end' : 'start'}
       className="my-4 w-(--radix-dropdown-menu-trigger-width) min-w-56 rounded-lg"
       side={!isMobile ? 'right' : undefined}
-      align={location === 'right' ? 'end' : 'start'}
       sideOffset={4}
     >
       <DropdownMenuLabel className="p-0">
@@ -35,7 +35,7 @@ export function UserDropdown({ location }: { location: 'left' | 'right' }) {
 
       <DropdownMenuGroup>
         <DropdownMenuItem asChild className="w-full">
-          <button onClick={() => openUserProfile()} className="flex items-center gap-2">
+          <button className="flex items-center gap-2" onClick={() => openUserProfile()}>
             <Settings />
             <span>Fiók kezelése</span>
           </button>
@@ -43,7 +43,7 @@ export function UserDropdown({ location }: { location: 'left' | 'right' }) {
 
         {!pathname.startsWith('/dashboard') && (
           <DropdownMenuItem asChild className="w-full">
-            <Link href="/dashboard" className="flex items-center gap-2">
+            <Link className="flex items-center gap-2" href="/dashboard">
               <Notebook />
               <span>Recepteim</span>
             </Link>
@@ -51,7 +51,7 @@ export function UserDropdown({ location }: { location: 'left' | 'right' }) {
         )}
 
         <DropdownMenuItem asChild className="w-full">
-          <button onClick={() => signOut({ redirectUrl: '/' })} className="flex items-center gap-2">
+          <button className="flex items-center gap-2" onClick={() => signOut({ redirectUrl: '/' })}>
             <LogOut />
             <span>Kijelentkezés</span>
           </button>

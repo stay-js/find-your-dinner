@@ -1,7 +1,7 @@
 'use client';
 
+import { Monitor, Moon, Sun } from 'lucide-react';
 import { useTheme } from 'next-themes';
-import { Moon, Monitor, Sun } from 'lucide-react';
 
 import {
   Select,
@@ -15,19 +15,19 @@ import {
 import { useMounted } from '~/hooks/use-mounted';
 
 const themes = [
-  { name: 'Világos', value: 'light', icon: Sun },
-  { name: 'Sötét', value: 'dark', icon: Moon },
-  { name: 'Rendszer', value: 'system', icon: Monitor },
+  { icon: Sun, name: 'Világos', value: 'light' },
+  { icon: Moon, name: 'Sötét', value: 'dark' },
+  { icon: Monitor, name: 'Rendszer', value: 'system' },
 ];
 
 export function ThemeSwitcher() {
   const mounted = useMounted();
-  const { theme, setTheme } = useTheme();
+  const { setTheme, theme } = useTheme();
 
   if (!mounted) return <div className="h-9" />;
 
   return (
-    <Select value={theme ?? 'system'} onValueChange={setTheme}>
+    <Select onValueChange={setTheme} value={theme ?? 'system'}>
       <SelectTrigger id="theme">
         <SelectValue placeholder="Válassz témát" />
       </SelectTrigger>

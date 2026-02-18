@@ -1,14 +1,17 @@
-import Link from 'next/link';
 import { Plus } from 'lucide-react';
+import Link from 'next/link';
 
 import { Button } from '~/components/ui/button';
 import { createMetadata } from '~/lib/create-metadata';
+
 import { Recipes } from './recipes';
 
 export const metadata = createMetadata({
   path: '/dashboard/recipes/manage',
-  title: 'Recepteim kezelése',
+
   description: 'Recepteim kezelése - Find Your Dinner.',
+  title: 'Recepteim kezelése',
+
   noIndex: true,
 });
 

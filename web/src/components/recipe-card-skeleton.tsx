@@ -13,7 +13,7 @@ export function RecipeCardSkeleton() {
       <CardHeader className="gap-4">
         <div className="flex flex-wrap gap-2">
           {Array.from({ length: 3 }).map((_, i) => (
-            <Skeleton key={i} className="h-5 w-16 rounded-full" />
+            <Skeleton className="h-5 w-16 rounded-full" key={i} />
           ))}
         </div>
 
