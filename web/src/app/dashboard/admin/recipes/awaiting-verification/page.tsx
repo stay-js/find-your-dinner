@@ -5,7 +5,7 @@ import { Recipes } from './recipes';
 export const metadata = createMetadata({
   path: '/dashboard/admin/recipes/awaiting-verification',
 
-  description: 'Receptek jóváhagyása - Admin - Find Your Dinner.',
+  description: 'Receptek jóváhagyása - Admin',
   title: 'Receptek jóváhagyása - Admin',
 
   noIndex: true,

@@ -5,7 +5,7 @@ import { SavedRecipes } from './saved-recipes';
 export const metadata = createMetadata({
   path: '/dashboard/recipes/saved',
 
-  description: 'Mentett receptek - Find Your Dinner.',
+  description: 'Mentett receptek',
   title: 'Mentett receptek',
 
   noIndex: true,

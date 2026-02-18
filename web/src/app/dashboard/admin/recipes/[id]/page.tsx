@@ -1,4 +1,5 @@
 import { auth } from '@clerk/nextjs/server';
+import { type Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
 import {
@@ -16,14 +17,28 @@ import { getRecipe } from '~/server/utils/get-recipe';
 
 import { Approve } from './approve';
 
-export const metadata = createMetadata({
-  path: '/dashboard/admin/recipes/[id]',
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}): Promise<Metadata> {
+  const result = idParamSchema.safeParse(await params);
+  if (!result.success) notFound();
 
-  description: 'Recept megtekintése - Admin - Find Your Dinner.',
-  title: 'Recept megtekintése - Admin',
+  const { id } = result.data;
 
-  noIndex: true,
-});
+  const recipe = await getRecipe(id, true);
+  if (!recipe) notFound();
+
+  return createMetadata({
+    path: `/dashboard/admin/recipes/${id}`,
+
+    description: recipe.recipeData.description,
+    title: `Recept - ${recipe.recipeData.title}`,
+
+    noIndex: true,
+  });
+}
 
 export default async function ViewPage({ params }: { params: Promise<{ id: string }> }) {
   const { userId } = await auth();
