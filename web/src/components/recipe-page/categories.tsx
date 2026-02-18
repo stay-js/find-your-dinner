@@ -1,6 +1,5 @@
-import type { Categories } from '~/lib/zod';
-
 import { Badge } from '~/components/ui/badge';
+import  { type Categories } from '~/lib/zod';
 
 export function Categories({ categories }: { categories: Categories }) {
   return (

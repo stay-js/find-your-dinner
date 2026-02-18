@@ -25,6 +25,12 @@ const eslintConfig = defineConfig([
       'perfectionist/sort-object-types': ['error', { partitionByNewLine: true }],
       'perfectionist/sort-objects': ['error', { partitionByNewLine: true }],
       'perfectionist/sort-sets': ['error', { partitionByNewLine: true }],
+
+      '@typescript-eslint/consistent-type-imports': [
+        'error',
+        { fixStyle: 'inline-type-imports', prefer: 'type-imports' },
+      ],
+      'import/consistent-type-specifier-style': ['error', 'prefer-inline'],
     },
   },
   globalIgnores(['.next/**', 'out/**', 'build/**', 'next-env.d.ts']),

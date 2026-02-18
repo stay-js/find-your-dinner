@@ -1,10 +1,9 @@
 import '~/styles/globals.css';
 
-import type { Viewport } from 'next';
-
 import { ClerkProvider } from '@clerk/nextjs';
 import { shadcn } from '@clerk/themes';
 import { GeistSans } from 'geist/font/sans';
+import  { type Viewport } from 'next';
 import { ThemeProvider } from 'next-themes';
 
 import { ReactQueryProvider } from '~/app/react-query-provider';

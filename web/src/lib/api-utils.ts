@@ -1,4 +1,4 @@
-import type { ZodType } from 'zod';
+import  { type ZodType } from 'zod';
 
 export async function DELETE(url: string) {
   const res = await fetch(url, { method: 'DELETE' });
