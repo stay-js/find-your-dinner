@@ -11,8 +11,8 @@ export const metadata = createMetadata({
 
 export default async function AdminManagePage() {
   return (
-    <div>
-      <h1>Admin - Receptek kezelése</h1>
+    <div className="container flex flex-col gap-4">
+      <h1 className="text-foreground text-2xl font-semibold">Receptek kezelése</h1>
     </div>
   );
 }

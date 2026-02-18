@@ -29,7 +29,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
           </Button>
         </header>
 
-        <div className="h-full min-h-[75vh] p-6 pb-12">{children}</div>
+        <div className="h-full min-h-[75vh] pt-6 pb-12">{children}</div>
 
         <Footer />
       </SidebarInset>

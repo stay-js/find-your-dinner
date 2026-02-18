@@ -13,7 +13,7 @@ export const metadata = createMetadata({
 
 export default async function SavedRecipesPage() {
   return (
-    <div className="container flex h-full flex-col gap-4 px-0">
+    <div className="container flex h-full flex-col gap-4">
       <h1 className="text-foreground text-2xl font-semibold">Mentett receptek</h1>
 
       <SavedRecipes />
