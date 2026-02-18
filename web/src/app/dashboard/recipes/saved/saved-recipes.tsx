@@ -16,8 +16,8 @@ export function SavedRecipes() {
   const { open: isSidebarOpen } = useSidebar();
 
   const { data: savedRecipes, isLoading } = useQuery({
-    queryFn: () => GET('/api/current-user/saved-recipes?include=recipe', savedRecipesSchema),
-    queryKey: ['current-user-saved-recipes'],
+    queryFn: () => GET('/api/user/saved-recipes?include=recipe', savedRecipesSchema),
+    queryKey: ['currentUser', 'savedRecipes'],
   });
 
   return (

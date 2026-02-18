@@ -12,7 +12,7 @@ export function Approve({ recipeDataId }: { recipeDataId: number }) {
   const router = useRouter();
 
   const { isPending: isApproving, mutate: approveRecipeData } = useMutation({
-    mutationFn: (recipeDataId: number) => POST(`/api/admin/recipe-data/approve/${recipeDataId}`),
+    mutationFn: (recipeDataId: number) => POST(`/api/recipe-data/${recipeDataId}/verify`),
     onError: () => {
       toast.error('Hiba történt a recept jóváhagyása során. Kérlek, próbáld újra később.');
     },

@@ -7,6 +7,7 @@ import { createUpdateRecipeSchema, idParamSchema } from '~/lib/zod';
 import { db } from '~/server/db';
 import { categoryRecipe, ingredientRecipeData, recipeData, recipes } from '~/server/db/schema';
 import { checkIsAdmin } from '~/server/utils/check-is-admin';
+import { forbidden, unauthorized } from '~/server/utils/errors';
 import { getRecipe } from '~/server/utils/get-recipe';
 
 export async function GET(_: NextRequest, { params }: { params: Promise<{ id: string }> }) {
@@ -14,7 +15,7 @@ export async function GET(_: NextRequest, { params }: { params: Promise<{ id: st
 
   if (!result.success) {
     return NextResponse.json(
-      { details: result.error, error: 'INVALID_RECIPE_ID' },
+      { details: result.error, message: 'Invalid recipe id' },
       { status: 400 },
     );
   }
@@ -22,22 +23,20 @@ export async function GET(_: NextRequest, { params }: { params: Promise<{ id: st
   const { id } = result.data;
 
   const recipe = await getRecipe(id);
+  if (!recipe) notFound();
 
   return NextResponse.json(recipe);
 }
 
 export async function PUT(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const { isAuthenticated, userId } = await auth();
-
-  if (!isAuthenticated) {
-    return NextResponse.json({ error: 'UNAUTHORIZED' }, { status: 401 });
-  }
+  if (!isAuthenticated) return unauthorized();
 
   const result = idParamSchema.safeParse(await params);
 
   if (!result.success) {
     return NextResponse.json(
-      { details: result.error, error: 'INVALID_RECIPE_ID' },
+      { details: result.error, message: 'Invalid recipe id' },
       { status: 400 },
     );
   }
@@ -48,17 +47,14 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
   if (!recipe) notFound();
 
   const isAdmin = await checkIsAdmin(userId);
-
-  if (!isAdmin && recipe.userId !== userId) {
-    return NextResponse.json({ error: 'FORBIDDEN' }, { status: 403 });
-  }
+  if (!isAdmin && recipe.userId !== userId) return forbidden();
 
   const body = await request.json();
   const bodyResult = createUpdateRecipeSchema.safeParse(body);
 
   if (!bodyResult.success) {
     return NextResponse.json(
-      { details: bodyResult.error, error: 'INVALID_REQUEST_BODY' },
+      { details: bodyResult.error, message: 'Invalid request body' },
       { status: 400 },
     );
   }
@@ -73,7 +69,7 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
         .returning({ id: recipeData.id });
 
       const recipeDataId = insertResult.at(0)?.id;
-      if (!recipeDataId) throw new Error('Failed to retrieve inserted recipe data ID');
+      if (!recipeDataId) throw new Error('Failed to insert recipe data');
 
       await tx.delete(categoryRecipe).where(eq(categoryRecipe.recipeId, recipe.id));
 
@@ -88,9 +84,7 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
 
     return new NextResponse(null, { status: 204 });
   } catch (err) {
-    return NextResponse.json(
-      { details: String(err), error: 'FAILED_TO_UPDATE_RECIPE' },
-      { status: 500 },
-    );
+    console.error(err);
+    return NextResponse.json({ message: 'Failed to update recipe' }, { status: 500 });
   }
 }

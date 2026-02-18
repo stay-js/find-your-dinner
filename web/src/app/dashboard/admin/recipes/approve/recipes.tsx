@@ -14,8 +14,8 @@ export function Recipes() {
   const { open: isSidebarOpen } = useSidebar();
 
   const { data: recipes, isLoading } = useQuery({
-    queryFn: () => GET('/api/admin/recipe-data/to-approve', recipesSchema),
-    queryKey: ['recipe-data-to-approve'],
+    queryFn: () => GET('/api/recipes/awaiting-verification', recipesSchema),
+    queryKey: ['recipes', 'awaitingVerification'],
   });
 
   if (!isLoading && (!recipes || recipes.length === 0)) {

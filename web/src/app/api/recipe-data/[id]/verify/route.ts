@@ -1,30 +1,26 @@
 import { auth } from '@clerk/nextjs/server';
 import { eq } from 'drizzle-orm';
+import { notFound } from 'next/navigation';
 import { type NextRequest, NextResponse } from 'next/server';
 
 import { idParamSchema } from '~/lib/zod';
 import { db } from '~/server/db';
 import { recipeData } from '~/server/db/schema';
 import { checkIsAdmin } from '~/server/utils/check-is-admin';
+import { forbidden, unauthorized } from '~/server/utils/errors';
 
 export async function POST(_: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const { isAuthenticated, userId } = await auth();
-
-  if (!isAuthenticated) {
-    return NextResponse.json({ error: 'UNAUTHORIZED' }, { status: 401 });
-  }
+  if (!isAuthenticated) return unauthorized();
 
   const isAdmin = await checkIsAdmin(userId);
-
-  if (!isAdmin) {
-    return NextResponse.json({ error: 'FORBIDDEN' }, { status: 403 });
-  }
+  if (!isAdmin) return forbidden();
 
   const result = idParamSchema.safeParse(await params);
 
   if (!result.success) {
     return NextResponse.json(
-      { details: result.error, error: 'INVALID_RECIPE_DATA_ID' },
+      { details: result.error, message: 'Invalid recipe data id' },
       { status: 400 },
     );
   }
@@ -32,13 +28,10 @@ export async function POST(_: NextRequest, { params }: { params: Promise<{ id: s
   const { id } = result.data;
 
   const recipeDataRecord = await db.query.recipeData.findFirst({ where: eq(recipeData.id, id) });
-
-  if (!recipeDataRecord) {
-    return NextResponse.json({ error: 'RECIPE_DATA_NOT_FOUND' }, { status: 404 });
-  }
+  if (!recipeDataRecord) notFound();
 
   if (recipeDataRecord.verified) {
-    return NextResponse.json({ error: 'RECIPE_DATA_ALREADY_VERIFIED' }, { status: 400 });
+    return NextResponse.json({ message: 'Recipe data already verified' }, { status: 400 });
   }
 
   await db.update(recipeData).set({ verified: true }).where(eq(recipeData.id, id));

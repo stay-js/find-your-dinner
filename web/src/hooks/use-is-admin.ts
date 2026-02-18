@@ -7,8 +7,8 @@ import { isAdminSchema } from '~/lib/zod';
 
 export function useIsAdmin() {
   const { data, isError, isLoading } = useQuery({
-    queryFn: () => GET('/api/admin/is-admin', isAdminSchema),
-    queryKey: ['is-admin'],
+    queryFn: () => GET('/api/user/is-admin', isAdminSchema),
+    queryKey: ['currentUser', 'isAdmin'],
     retry: false,
   });
 

@@ -4,20 +4,18 @@ import { NextRequest, NextResponse } from 'next/server';
 import { createUpdateRecipeSchema } from '~/lib/zod';
 import { db } from '~/server/db';
 import { categoryRecipe, ingredientRecipeData, recipeData, recipes } from '~/server/db/schema';
+import { unauthorized } from '~/server/utils/errors';
 
 export async function POST(request: NextRequest) {
   const { isAuthenticated, userId } = await auth();
-
-  if (!isAuthenticated) {
-    return NextResponse.json({ error: 'UNAUTHORIZED' }, { status: 401 });
-  }
+  if (!isAuthenticated) return unauthorized();
 
   const body = await request.json();
   const result = createUpdateRecipeSchema.safeParse(body);
 
   if (!result.success) {
     return NextResponse.json(
-      { details: result.error, error: 'INVALID_REQUEST_BODY' },
+      { details: result.error, message: 'Invalid request body' },
       { status: 400 },
     );
   }
@@ -25,14 +23,14 @@ export async function POST(request: NextRequest) {
   const { categories, ingredients, ...data } = result.data;
 
   try {
-    await db.transaction(async (tx) => {
+    const recipeId = await db.transaction(async (tx) => {
       const recipeInsertResult = await tx
         .insert(recipes)
         .values({ userId })
         .returning({ id: recipes.id });
 
       const recipeId = recipeInsertResult.at(0)?.id;
-      if (!recipeId) throw new Error('Failed to retrieve inserted recipe ID');
+      if (!recipeId) throw new Error('Failed to insert recipe');
 
       const recipeDataInsertResult = await tx
         .insert(recipeData)
@@ -40,7 +38,7 @@ export async function POST(request: NextRequest) {
         .returning({ id: recipeData.id });
 
       const recipeDataId = recipeDataInsertResult.at(0)?.id;
-      if (!recipeDataId) throw new Error('Failed to retrieve inserted recipe data ID');
+      if (!recipeDataId) throw new Error('Failed to insert recipe data');
 
       await tx
         .insert(categoryRecipe)
@@ -49,13 +47,13 @@ export async function POST(request: NextRequest) {
       await tx
         .insert(ingredientRecipeData)
         .values(ingredients.map((ingredient) => ({ recipeDataId, ...ingredient })));
+
+      return recipeId;
     });
 
-    return NextResponse.json({ message: 'CREATED' }, { status: 201 });
+    return NextResponse.json({ message: 'Created', recipeId }, { status: 201 });
   } catch (err) {
-    return NextResponse.json(
-      { details: String(err), error: 'FAILED_TO_CREATE_RECIPE' },
-      { status: 500 },
-    );
+    console.error(err);
+    return NextResponse.json({ message: 'Failed to create recipe' }, { status: 500 });
   }
 }

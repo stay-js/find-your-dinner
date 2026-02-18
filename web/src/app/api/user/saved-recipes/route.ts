@@ -5,14 +5,12 @@ import { type NextRequest, NextResponse } from 'next/server';
 import { createSavedRecipeSchema } from '~/lib/zod';
 import { db } from '~/server/db';
 import { recipeData, recipes, savedRecipes } from '~/server/db/schema';
+import { unauthorized } from '~/server/utils/errors';
 import { getRecipeCategories } from '~/server/utils/recipe-helpers';
 
 export async function GET(request: NextRequest) {
   const { isAuthenticated, userId } = await auth();
-
-  if (!isAuthenticated) {
-    return NextResponse.json({ error: 'UNAUTHORIZED' }, { status: 401 });
-  }
+  if (!isAuthenticated) return unauthorized();
 
   const { searchParams } = new URL(request.url);
   const includeRecipe = searchParams.get('include') === 'recipe';
@@ -75,17 +73,14 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   const { isAuthenticated, userId } = await auth();
-
-  if (!isAuthenticated) {
-    return NextResponse.json({ error: 'UNAUTHORIZED' }, { status: 401 });
-  }
+  if (!isAuthenticated) return unauthorized();
 
   const body = await request.json();
   const result = createSavedRecipeSchema.safeParse(body);
 
   if (!result.success) {
     return NextResponse.json(
-      { details: result.error, error: 'INVALID_REQUEST_BODY' },
+      { details: result.error, message: 'Invalid request body' },
       { status: 400 },
     );
   }
@@ -94,5 +89,5 @@ export async function POST(request: NextRequest) {
 
   await db.insert(savedRecipes).values({ recipeId, userId });
 
-  return NextResponse.json({ message: 'CREATED' }, { status: 201 });
+  return NextResponse.json({ message: 'Recipe saved', recipeId }, { status: 201 });
 }

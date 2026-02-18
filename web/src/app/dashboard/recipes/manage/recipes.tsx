@@ -16,8 +16,8 @@ export function Recipes() {
   const { open: isSidebarOpen } = useSidebar();
 
   const { data: recipes, isLoading } = useQuery({
-    queryFn: () => GET('/api/current-user/recipes', recipesSchema),
-    queryKey: ['current-user-recipes'],
+    queryFn: () => GET('/api/user/recipes', recipesSchema),
+    queryKey: ['currentUser', 'recipes'],
   });
 
   return (

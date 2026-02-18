@@ -8,17 +8,17 @@ export function useSaving() {
   const utils = useQueryClient();
 
   function invalidate() {
-    utils.invalidateQueries({ queryKey: ['current-user-saved-recipes'] });
-    utils.invalidateQueries({ queryKey: ['current-user-saved-recipe-ids'] });
+    utils.invalidateQueries({ queryKey: ['currentUser', 'savedRecipes'] });
+    utils.invalidateQueries({ queryKey: ['currentUser', 'savedRecipeIds'] });
   }
 
   const { data: savedRecipes } = useQuery({
-    queryFn: () => GET('/api/current-user/saved-recipes', savedRecipeIdsSchema),
-    queryKey: ['current-user-saved-recipe-ids'],
+    queryFn: () => GET('/api/user/saved-recipes', savedRecipeIdsSchema),
+    queryKey: ['currentUser', 'savedRecipeIds'],
   });
 
   const { isPending: isSavePending, mutate: saveRecipe } = useMutation({
-    mutationFn: (recipeId: number) => POST('/api/current-user/saved-recipes', { recipeId }),
+    mutationFn: (recipeId: number) => POST('/api/user/saved-recipes', { recipeId }),
     onError: () => {
       toast.error('Hiba történt a recept mentése során. Kérlek, próbáld újra később!');
     },
@@ -26,7 +26,7 @@ export function useSaving() {
   });
 
   const { isPending: isUnsavePending, mutate: unsaveRecipe } = useMutation({
-    mutationFn: (recipeId: number) => DELETE(`/api/current-user/saved-recipes/${recipeId}`),
+    mutationFn: (recipeId: number) => DELETE(`/api/user/saved-recipes/${recipeId}`),
     onError: () => {
       toast.error('Hiba történt a mentett recept eltávolítása során. Kérlek, próbáld újra később!');
     },

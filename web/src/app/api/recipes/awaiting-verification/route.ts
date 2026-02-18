@@ -1,34 +1,39 @@
 import { auth } from '@clerk/nextjs/server';
-import { and, desc, eq, exists } from 'drizzle-orm';
+import { and, desc, eq, max } from 'drizzle-orm';
 import { NextResponse } from 'next/server';
 
 import { db } from '~/server/db';
 import { recipeData, recipes } from '~/server/db/schema';
 import { checkIsAdmin } from '~/server/utils/check-is-admin';
+import { forbidden, unauthorized } from '~/server/utils/errors';
 import { getHasVerifiedVersion, getRecipeCategories } from '~/server/utils/recipe-helpers';
 
 export async function GET() {
   const { isAuthenticated, userId } = await auth();
-
-  if (!isAuthenticated) {
-    return NextResponse.json({ error: 'UNAUTHORIZED' }, { status: 401 });
-  }
+  if (!isAuthenticated) return unauthorized();
 
   const isAdmin = await checkIsAdmin(userId);
+  if (!isAdmin) return forbidden();
 
-  if (!isAdmin) {
-    return NextResponse.json({ error: 'FORBIDDEN' }, { status: 403 });
-  }
+  const latestRecipeData = db
+    .select({
+      latestCreatedAt: max(recipeData.createdAt).as('latestCreatedAt'),
+      recipeId: recipeData.recipeId,
+    })
+    .from(recipeData)
+    .groupBy(recipeData.recipeId)
+    .as('latestRecipeData');
 
   const recipeRecords = await db
     .select({ recipe: recipes })
     .from(recipes)
-    .where(
-      exists(
-        db
-          .select()
-          .from(recipeData)
-          .where(and(eq(recipeData.recipeId, recipes.id), eq(recipeData.verified, false))),
+    .innerJoin(latestRecipeData, eq(latestRecipeData.recipeId, recipes.id))
+    .innerJoin(
+      recipeData,
+      and(
+        eq(recipeData.recipeId, latestRecipeData.recipeId),
+        eq(recipeData.createdAt, latestRecipeData.latestCreatedAt),
+        eq(recipeData.verified, false),
       ),
     )
     .orderBy(desc(recipes.createdAt));

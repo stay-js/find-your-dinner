@@ -4,6 +4,5 @@ import { db } from '~/server/db';
 
 export async function GET() {
   const categories = await db.query.categories.findMany();
-
   return NextResponse.json(categories);
 }
