@@ -5,16 +5,16 @@ export const admins = pgTable('admins', (d) => ({
 }));
 
 export const recipes = pgTable('recipes', (d) => ({
-  id: d.bigserial('id', { mode: 'number' }).primaryKey(),
+  id: d.bigint('id', { mode: 'number' }).primaryKey().generatedAlwaysAsIdentity(),
   userId: d.varchar('user_id', { length: 256 }).notNull(),
 
   createdAt: d.timestamp('created_at').defaultNow(),
 }));
 
 export const recipeData = pgTable('recipe_data', (d) => ({
-  id: d.bigserial('id', { mode: 'number' }).primaryKey(),
+  id: d.bigint('id', { mode: 'number' }).primaryKey().generatedAlwaysAsIdentity(),
   recipeId: d
-    .bigserial('recipe_id', { mode: 'number' })
+    .bigint('recipe_id', { mode: 'number' })
     .notNull()
     .references(() => recipes.id, { onDelete: 'cascade', onUpdate: 'cascade' }),
 
@@ -39,14 +39,15 @@ export const recipeData = pgTable('recipe_data', (d) => ({
 }));
 
 export const units = pgTable('units', (d) => ({
-  id: d.bigserial('id', { mode: 'number' }).primaryKey(),
+  id: d.bigint('id', { mode: 'number' }).primaryKey().generatedAlwaysAsIdentity(),
 
   abbreviation: d.varchar('abbreviation', { length: 16 }).notNull(),
   name: d.varchar('name', { length: 64 }).notNull().unique(),
 }));
 
 export const ingredients = pgTable('ingredients', (d) => ({
-  id: d.bigserial('id', { mode: 'number' }).primaryKey(),
+  id: d.bigint('id', { mode: 'number' }).primaryKey().generatedAlwaysAsIdentity(),
+
   name: d.varchar('name', { length: 256 }).notNull().unique(),
 }));
 
@@ -54,15 +55,15 @@ export const ingredientRecipeData = pgTable(
   'ingredient_recipe_data',
   (d) => ({
     ingredientId: d
-      .bigserial('ingredient_id', { mode: 'number' })
+      .bigint('ingredient_id', { mode: 'number' })
       .notNull()
       .references(() => ingredients.id, { onDelete: 'restrict', onUpdate: 'restrict' }),
     recipeDataId: d
-      .bigserial('recipe_data_id', { mode: 'number' })
+      .bigint('recipe_data_id', { mode: 'number' })
       .notNull()
       .references(() => recipeData.id, { onDelete: 'cascade', onUpdate: 'cascade' }),
     unitId: d
-      .bigserial('unit_id', { mode: 'number' })
+      .bigint('unit_id', { mode: 'number' })
       .notNull()
       .references(() => units.id, { onDelete: 'restrict', onUpdate: 'restrict' }),
 
@@ -72,7 +73,8 @@ export const ingredientRecipeData = pgTable(
 );
 
 export const categories = pgTable('categories', (d) => ({
-  id: d.bigserial('id', { mode: 'number' }).primaryKey(),
+  id: d.bigint('id', { mode: 'number' }).primaryKey().generatedAlwaysAsIdentity(),
+
   name: d.varchar('name', { length: 128 }).notNull().unique(),
 }));
 
@@ -80,11 +82,11 @@ export const categoryRecipe = pgTable(
   'category_recipe',
   (d) => ({
     categoryId: d
-      .bigserial('category_id', { mode: 'number' })
+      .bigint('category_id', { mode: 'number' })
       .notNull()
       .references(() => categories.id, { onDelete: 'restrict', onUpdate: 'restrict' }),
     recipeId: d
-      .bigserial('recipe_id', { mode: 'number' })
+      .bigint('recipe_id', { mode: 'number' })
       .notNull()
       .references(() => recipes.id, { onDelete: 'cascade', onUpdate: 'cascade' }),
   }),
@@ -95,7 +97,7 @@ export const savedRecipes = pgTable(
   'saved_recipes',
   (d) => ({
     recipeId: d
-      .bigserial('recipe_id', { mode: 'number' })
+      .bigint('recipe_id', { mode: 'number' })
       .notNull()
       .references(() => recipes.id, { onDelete: 'cascade', onUpdate: 'cascade' }),
     userId: d.varchar('user_id', { length: 256 }).notNull(),

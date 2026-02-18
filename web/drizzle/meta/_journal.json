@@ -5,35 +5,35 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1771365929511,
+      "when": 1771443543311,
       "tag": "0000_init",
       "breakpoints": true
     },
     {
       "idx": 1,
       "version": "7",
-      "when": 1771365943014,
+      "when": 1771443682206,
       "tag": "0001_seed_categories_table",
       "breakpoints": true
     },
     {
       "idx": 2,
       "version": "7",
-      "when": 1771365952090,
+      "when": 1771443702423,
       "tag": "0002_seed_units_table",
       "breakpoints": true
     },
     {
       "idx": 3,
       "version": "7",
-      "when": 1771365956303,
+      "when": 1771443718077,
       "tag": "0003_seed_ingredients_table",
       "breakpoints": true
     },
     {
       "idx": 4,
       "version": "7",
-      "when": 1771365961517,
+      "when": 1771443734882,
       "tag": "0004_seed_admins_table",
       "breakpoints": true
     }

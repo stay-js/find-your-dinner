@@ -1,5 +1,5 @@
 {
-  "id": "92972c11-38ce-4734-a529-2631e6db477a",
+  "id": "54fbd28e-0603-4e71-9e33-8a5b8690c10c",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -37,9 +37,20 @@
       "columns": {
         "id": {
           "name": "id",
-          "type": "bigserial",
+          "type": "bigint",
           "primaryKey": true,
-          "notNull": true
+          "notNull": true,
+          "identity": {
+            "type": "always",
+            "name": "categories_id_seq",
+            "schema": "public",
+            "increment": "1",
+            "startWith": "1",
+            "minValue": "1",
+            "maxValue": "9223372036854775807",
+            "cache": "1",
+            "cycle": false
+          }
         },
         "name": {
           "name": "name",
@@ -68,34 +79,21 @@
       "name": "category_recipe",
       "schema": "",
       "columns": {
-        "recipe_id": {
-          "name": "recipe_id",
-          "type": "bigserial",
+        "category_id": {
+          "name": "category_id",
+          "type": "bigint",
           "primaryKey": false,
           "notNull": true
         },
-        "category_id": {
-          "name": "category_id",
-          "type": "bigserial",
+        "recipe_id": {
+          "name": "recipe_id",
+          "type": "bigint",
           "primaryKey": false,
           "notNull": true
         }
       },
       "indexes": {},
       "foreignKeys": {
-        "category_recipe_recipe_id_recipes_id_fk": {
-          "name": "category_recipe_recipe_id_recipes_id_fk",
-          "tableFrom": "category_recipe",
-          "tableTo": "recipes",
-          "columnsFrom": [
-            "recipe_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "cascade"
-        },
         "category_recipe_category_id_categories_id_fk": {
           "name": "category_recipe_category_id_categories_id_fk",
           "tableFrom": "category_recipe",
@@ -108,6 +106,19 @@
           ],
           "onDelete": "restrict",
           "onUpdate": "restrict"
+        },
+        "category_recipe_recipe_id_recipes_id_fk": {
+          "name": "category_recipe_recipe_id_recipes_id_fk",
+          "tableFrom": "category_recipe",
+          "tableTo": "recipes",
+          "columnsFrom": [
+            "recipe_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "cascade"
         }
       },
       "compositePrimaryKeys": {
@@ -128,15 +139,21 @@
       "name": "ingredient_recipe_data",
       "schema": "",
       "columns": {
-        "recipe_data_id": {
-          "name": "recipe_data_id",
-          "type": "bigserial",
+        "ingredient_id": {
+          "name": "ingredient_id",
+          "type": "bigint",
           "primaryKey": false,
           "notNull": true
         },
-        "ingredient_id": {
-          "name": "ingredient_id",
-          "type": "bigserial",
+        "recipe_data_id": {
+          "name": "recipe_data_id",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "unit_id": {
+          "name": "unit_id",
+          "type": "bigint",
           "primaryKey": false,
           "notNull": true
         },
@@ -145,29 +162,10 @@
           "type": "double precision",
           "primaryKey": false,
           "notNull": true
-        },
-        "unit_id": {
-          "name": "unit_id",
-          "type": "bigserial",
-          "primaryKey": false,
-          "notNull": true
         }
       },
       "indexes": {},
       "foreignKeys": {
-        "ingredient_recipe_data_recipe_data_id_recipe_data_id_fk": {
-          "name": "ingredient_recipe_data_recipe_data_id_recipe_data_id_fk",
-          "tableFrom": "ingredient_recipe_data",
-          "tableTo": "recipe_data",
-          "columnsFrom": [
-            "recipe_data_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "cascade"
-        },
         "ingredient_recipe_data_ingredient_id_ingredients_id_fk": {
           "name": "ingredient_recipe_data_ingredient_id_ingredients_id_fk",
           "tableFrom": "ingredient_recipe_data",
@@ -180,6 +178,19 @@
           ],
           "onDelete": "restrict",
           "onUpdate": "restrict"
+        },
+        "ingredient_recipe_data_recipe_data_id_recipe_data_id_fk": {
+          "name": "ingredient_recipe_data_recipe_data_id_recipe_data_id_fk",
+          "tableFrom": "ingredient_recipe_data",
+          "tableTo": "recipe_data",
+          "columnsFrom": [
+            "recipe_data_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "cascade"
         },
         "ingredient_recipe_data_unit_id_units_id_fk": {
           "name": "ingredient_recipe_data_unit_id_units_id_fk",
@@ -215,9 +226,20 @@
       "columns": {
         "id": {
           "name": "id",
-          "type": "bigserial",
+          "type": "bigint",
           "primaryKey": true,
-          "notNull": true
+          "notNull": true,
+          "identity": {
+            "type": "always",
+            "name": "ingredients_id_seq",
+            "schema": "public",
+            "increment": "1",
+            "startWith": "1",
+            "minValue": "1",
+            "maxValue": "9223372036854775807",
+            "cache": "1",
+            "cycle": false
+          }
         },
         "name": {
           "name": "name",
@@ -248,25 +270,24 @@
       "columns": {
         "id": {
           "name": "id",
-          "type": "bigserial",
+          "type": "bigint",
           "primaryKey": true,
-          "notNull": true
+          "notNull": true,
+          "identity": {
+            "type": "always",
+            "name": "recipe_data_id_seq",
+            "schema": "public",
+            "increment": "1",
+            "startWith": "1",
+            "minValue": "1",
+            "maxValue": "9223372036854775807",
+            "cache": "1",
+            "cycle": false
+          }
         },
         "recipe_id": {
           "name": "recipe_id",
-          "type": "bigserial",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "title": {
-          "name": "title",
-          "type": "varchar(512)",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "preview_image_url": {
-          "name": "preview_image_url",
-          "type": "varchar(2048)",
+          "type": "bigint",
           "primaryKey": false,
           "notNull": true
         },
@@ -282,14 +303,26 @@
           "primaryKey": false,
           "notNull": true
         },
-        "prep_time_minutes": {
-          "name": "prep_time_minutes",
-          "type": "integer",
+        "title": {
+          "name": "title",
+          "type": "varchar(512)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "preview_image_url": {
+          "name": "preview_image_url",
+          "type": "varchar(2048)",
           "primaryKey": false,
           "notNull": true
         },
         "cook_time_minutes": {
           "name": "cook_time_minutes",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "prep_time_minutes": {
+          "name": "prep_time_minutes",
           "type": "integer",
           "primaryKey": false,
           "notNull": true
@@ -350,9 +383,20 @@
       "columns": {
         "id": {
           "name": "id",
-          "type": "bigserial",
+          "type": "bigint",
           "primaryKey": true,
-          "notNull": true
+          "notNull": true,
+          "identity": {
+            "type": "always",
+            "name": "recipes_id_seq",
+            "schema": "public",
+            "increment": "1",
+            "startWith": "1",
+            "minValue": "1",
+            "maxValue": "9223372036854775807",
+            "cache": "1",
+            "cycle": false
+          }
         },
         "user_id": {
           "name": "user_id",
@@ -380,15 +424,15 @@
       "name": "saved_recipes",
       "schema": "",
       "columns": {
-        "user_id": {
-          "name": "user_id",
-          "type": "varchar(256)",
+        "recipe_id": {
+          "name": "recipe_id",
+          "type": "bigint",
           "primaryKey": false,
           "notNull": true
         },
-        "recipe_id": {
-          "name": "recipe_id",
-          "type": "bigserial",
+        "user_id": {
+          "name": "user_id",
+          "type": "varchar(256)",
           "primaryKey": false,
           "notNull": true
         },
@@ -436,19 +480,30 @@
       "columns": {
         "id": {
           "name": "id",
-          "type": "bigserial",
+          "type": "bigint",
           "primaryKey": true,
+          "notNull": true,
+          "identity": {
+            "type": "always",
+            "name": "units_id_seq",
+            "schema": "public",
+            "increment": "1",
+            "startWith": "1",
+            "minValue": "1",
+            "maxValue": "9223372036854775807",
+            "cache": "1",
+            "cycle": false
+          }
+        },
+        "abbreviation": {
+          "name": "abbreviation",
+          "type": "varchar(16)",
+          "primaryKey": false,
           "notNull": true
         },
         "name": {
           "name": "name",
           "type": "varchar(64)",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "abbreviation": {
-          "name": "abbreviation",
-          "type": "varchar(16)",
           "primaryKey": false,
           "notNull": true
         }
