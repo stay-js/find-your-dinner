@@ -1,16 +1,16 @@
-import { pgTable as table, index, primaryKey } from 'drizzle-orm/pg-core';
+import { pgTable, primaryKey } from 'drizzle-orm/pg-core';
 
-export const admins = table('admins', (d) => ({
+export const admins = pgTable('admins', (d) => ({
   userId: d.varchar('user_id', { length: 256 }).notNull().unique(),
 }));
 
-export const recipes = table('recipes', (d) => ({
+export const recipes = pgTable('recipes', (d) => ({
   id: d.bigserial('id', { mode: 'number' }).primaryKey(),
   userId: d.varchar('user_id', { length: 256 }).notNull(),
   createdAt: d.timestamp('created_at').defaultNow(),
 }));
 
-export const recipeData = table('recipe_data', (d) => ({
+export const recipeData = pgTable('recipe_data', (d) => ({
   id: d.bigserial('id', { mode: 'number' }).primaryKey(),
   recipeId: d
     .bigserial('recipe_id', { mode: 'number' })
@@ -31,18 +31,18 @@ export const recipeData = table('recipe_data', (d) => ({
     .$onUpdate(() => new Date()),
 }));
 
-export const units = table('units', (d) => ({
+export const units = pgTable('units', (d) => ({
   id: d.bigserial('id', { mode: 'number' }).primaryKey(),
   name: d.varchar('name', { length: 64 }).notNull().unique(),
   abbreviation: d.varchar('abbreviation', { length: 16 }).notNull(),
 }));
 
-export const ingredients = table('ingredients', (d) => ({
+export const ingredients = pgTable('ingredients', (d) => ({
   id: d.bigserial('id', { mode: 'number' }).primaryKey(),
   name: d.varchar('name', { length: 256 }).notNull().unique(),
 }));
 
-export const ingredientRecipeData = table(
+export const ingredientRecipeData = pgTable(
   'ingredient_recipe_data',
   (d) => ({
     recipeDataId: d
@@ -62,12 +62,12 @@ export const ingredientRecipeData = table(
   (t) => [primaryKey({ columns: [t.recipeDataId, t.ingredientId] })],
 );
 
-export const categories = table('categories', (d) => ({
+export const categories = pgTable('categories', (d) => ({
   id: d.bigserial('id', { mode: 'number' }).primaryKey(),
   name: d.varchar('name', { length: 128 }).notNull().unique(),
 }));
 
-export const categoryRecipe = table(
+export const categoryRecipe = pgTable(
   'category_recipe',
   (d) => ({
     recipeId: d
@@ -82,7 +82,7 @@ export const categoryRecipe = table(
   (t) => [primaryKey({ columns: [t.recipeId, t.categoryId] })],
 );
 
-export const savedRecipes = table(
+export const savedRecipes = pgTable(
   'saved_recipes',
   (d) => ({
     userId: d.varchar('user_id', { length: 256 }).notNull(),

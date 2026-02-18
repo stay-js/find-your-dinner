@@ -1,4 +1,4 @@
-import { and, desc, eq } from 'drizzle-orm';
+import { eq } from 'drizzle-orm';
 
 import { db } from '~/server/db';
 import { categories, categoryRecipe } from '~/server/db/schema';

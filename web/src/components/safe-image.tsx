@@ -5,10 +5,11 @@ import { useState } from 'react';
 
 type SafeImageProps = ImageProps & {
   fallbackSrc?: string;
+  alt: string;
 };
 
-export function SafeImage({ fallbackSrc = '/placeholder.png', ...props }: SafeImageProps) {
+export function SafeImage({ fallbackSrc = '/placeholder.png', alt, ...props }: SafeImageProps) {
   const [imgSrc, setImgSrc] = useState(props.src || fallbackSrc);
 
-  return <Image {...props} src={imgSrc} onError={() => setImgSrc(fallbackSrc)} />;
+  return <Image {...props} src={imgSrc} alt={alt} onError={() => setImgSrc(fallbackSrc)} />;
 }

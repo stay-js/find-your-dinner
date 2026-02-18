@@ -20,7 +20,7 @@ type FormSelectProps<TFieldValues extends FieldValues, TName extends FieldPath<T
   children?: React.ReactNode;
   errorPosition?: 'top' | 'bottom';
 } & (PathValue<TFieldValues, TName> extends SelectValue
-  ? {}
+  ? {} // eslint-disable-line @typescript-eslint/no-empty-object-type
   : { _error: 'Field value must match select value type' });
 
 export function FormSelect<

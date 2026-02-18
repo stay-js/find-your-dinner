@@ -1,7 +1,8 @@
 import './src/env.js';
 
-/** @type {import("next").NextConfig} */
-const config = {
+import type { NextConfig } from 'next';
+
+const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       {
@@ -12,4 +13,4 @@ const config = {
   },
 };
 
-export default config;
+export default nextConfig;

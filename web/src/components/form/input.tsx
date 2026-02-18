@@ -24,7 +24,7 @@ type FormInputProps<TFieldValues extends FieldValues, TName extends FieldPath<TF
   max?: number;
   step?: number;
 } & (PathValue<TFieldValues, TName> extends InputValue
-  ? {}
+  ? {} // eslint-disable-line @typescript-eslint/no-empty-object-type
   : { _error: 'Field value must match input value type' });
 
 export function FormInput<TFieldValues extends FieldValues, TName extends FieldPath<TFieldValues>>({

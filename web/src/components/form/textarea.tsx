@@ -20,7 +20,7 @@ type FormTextareaProps<TFieldValues extends FieldValues, TName extends FieldPath
   className?: string;
   errorPosition?: 'top' | 'bottom';
 } & (PathValue<TFieldValues, TName> extends TextareaValue
-  ? {}
+  ? {} // eslint-disable-line @typescript-eslint/no-empty-object-type
   : { _error: 'Field value must match input value type' });
 
 export function FormTextarea<
