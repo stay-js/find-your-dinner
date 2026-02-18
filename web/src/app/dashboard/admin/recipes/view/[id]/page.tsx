@@ -11,7 +11,7 @@ import {
   Title,
 } from '~/components/recipe-page';
 import { createMetadata } from '~/lib/create-metadata';
-import { idParamSchema } from '~/lib/zod-schemas';
+import { idParamSchema } from '~/lib/zod';
 import { getRecipe } from '~/server/utils/get-recipe';
 
 import { Approve } from './approve';

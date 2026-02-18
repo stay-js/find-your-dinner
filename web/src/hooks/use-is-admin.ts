@@ -3,7 +3,7 @@
 import { useQuery } from '@tanstack/react-query';
 
 import { GET } from '~/lib/api-utils';
-import { isAdminSchema } from '~/lib/zod-schemas';
+import { isAdminSchema } from '~/lib/zod';
 
 export function useIsAdmin() {
   const { data, isError, isLoading } = useQuery({

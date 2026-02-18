@@ -1,7 +1,7 @@
 import { auth } from '@clerk/nextjs/server';
 import { type NextRequest, NextResponse } from 'next/server';
 
-import { idParamSchema } from '~/lib/zod-schemas';
+import { idParamSchema } from '~/lib/zod';
 import { checkIsAdmin } from '~/server/utils/check-is-admin';
 import { getRecipe } from '~/server/utils/get-recipe';
 

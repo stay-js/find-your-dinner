@@ -13,7 +13,6 @@ export const recipes = pgTable('recipes', (d) => ({
 
 export const recipeData = pgTable('recipe_data', (d) => ({
   id: d.bigserial('id', { mode: 'number' }).primaryKey(),
-
   recipeId: d
     .bigserial('recipe_id', { mode: 'number' })
     .notNull()

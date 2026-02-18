@@ -11,9 +11,19 @@ export const metadata = createMetadata({
 });
 
 const defaultValues = {
-  categories: [],
-  cookTimeMinutes: '',
   description: '',
+  instructions: '',
+  title: '',
+
+  previewImageUrl: '',
+
+  cookTimeMinutes: '',
+  prepTimeMinutes: '',
+
+  servings: '',
+
+  categories: [],
+
   ingredients: [
     {
       ingredientId: '',
@@ -21,11 +31,6 @@ const defaultValues = {
       unitId: '',
     },
   ],
-  instructions: '',
-  prepTimeMinutes: '',
-  previewImageUrl: '',
-  servings: '',
-  title: '',
 };
 
 export default async function CreatePage() {

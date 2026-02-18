@@ -10,3 +10,9 @@ export function isPositiveIntegerString(val: string) {
   const num = Number(val);
   return Number.isInteger(num) && num > 0;
 }
+
+export function parseCultureInvariantFloat(value: null | string | undefined) {
+  if (!value || value.trim() === '') return null;
+
+  return Number(value.trim().replace(',', '.'));
+}

@@ -2,7 +2,7 @@ import { auth } from '@clerk/nextjs/server';
 import { eq } from 'drizzle-orm';
 import { type NextRequest, NextResponse } from 'next/server';
 
-import { idParamSchema } from '~/lib/zod-schemas';
+import { idParamSchema } from '~/lib/zod';
 import { db } from '~/server/db';
 import { recipeData } from '~/server/db/schema';
 import { checkIsAdmin } from '~/server/utils/check-is-admin';

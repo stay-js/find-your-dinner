@@ -1,8 +1,8 @@
 import { auth } from '@clerk/nextjs/server';
 import { and, desc, eq, exists } from 'drizzle-orm';
 import { type NextRequest, NextResponse } from 'next/server';
-import { z } from 'zod';
 
+import { createSavedRecipeSchema } from '~/lib/zod';
 import { db } from '~/server/db';
 import { recipeData, recipes, savedRecipes } from '~/server/db/schema';
 import { getRecipeCategories } from '~/server/utils/recipe-helpers';
@@ -72,10 +72,6 @@ export async function GET(request: NextRequest) {
 
   return NextResponse.json(result);
 }
-
-const createSavedRecipeSchema = z.object({
-  recipeId: z.number().int().positive(),
-});
 
 export async function POST(request: NextRequest) {
   const { isAuthenticated, userId } = await auth();

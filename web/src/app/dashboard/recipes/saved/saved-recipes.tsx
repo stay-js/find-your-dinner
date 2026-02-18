@@ -10,7 +10,7 @@ import { Button } from '~/components/ui/button';
 import { useSidebar } from '~/components/ui/sidebar';
 import { GET } from '~/lib/api-utils';
 import { cn } from '~/lib/utils';
-import { savedRecipesSchema } from '~/lib/zod-schemas';
+import { savedRecipesSchema } from '~/lib/zod';
 
 export function SavedRecipes() {
   const { open: isSidebarOpen } = useSidebar();

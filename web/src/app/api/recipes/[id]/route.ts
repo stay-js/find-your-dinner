@@ -3,8 +3,7 @@ import { eq } from 'drizzle-orm';
 import { notFound } from 'next/navigation';
 import { type NextRequest, NextResponse } from 'next/server';
 
-import { idParamSchema } from '~/lib/zod-schemas';
-import { createUpdateRecipeSchema } from '~/lib/zod-schemas';
+import { createUpdateRecipeSchema, idParamSchema } from '~/lib/zod';
 import { db } from '~/server/db';
 import { categoryRecipe, ingredientRecipeData, recipeData, recipes } from '~/server/db/schema';
 import { checkIsAdmin } from '~/server/utils/check-is-admin';

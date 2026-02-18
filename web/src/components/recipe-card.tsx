@@ -14,11 +14,11 @@ import {
 } from '~/components/ui/card';
 import { useSaveState } from '~/hooks/use-save-state';
 import { cn } from '~/lib/utils';
-import { type RecipeWithoutIngredients } from '~/lib/zod-schemas';
+import { type Recipe } from '~/lib/zod';
 
 type RecipeCardProps = {
   pageType: 'admin' | 'final' | 'manage' | 'saved' | 'search' | 'tinder';
-  recipe: RecipeWithoutIngredients;
+  recipe: Recipe;
   showIsVerified?: boolean;
 };
 

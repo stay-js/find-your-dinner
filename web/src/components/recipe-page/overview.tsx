@@ -1,10 +1,6 @@
-import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card';
+import type { Author } from '~/lib/zod';
 
-type Author = {
-  firstName: null | string;
-  id: string;
-  lastName: null | string;
-};
+import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card';
 
 type OverviewProps = {
   author: Author | null;

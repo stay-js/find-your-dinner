@@ -2,26 +2,21 @@
 
 import { useId, useState } from 'react';
 
+import type { IngredientsWithPivot, IngredientWithPivot } from '~/lib/zod';
+
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card';
 import { Checkbox } from '~/components/ui/checkbox';
 import { cn } from '~/lib/utils';
 
-type Ingredient = {
-  ingredient: {
-    id: number;
-    name: string;
-  };
-  quantity: number;
-  unit: {
-    abbreviation: string;
-    id: number;
-    name: string;
-  };
+type IngredientProps = {
+  checked: boolean;
+  item: IngredientWithPivot;
+  toggleIngredient: (id: number) => void;
 };
 
 type IngredientsProps = {
   className?: string;
-  ingredients: Ingredient[];
+  ingredients: IngredientsWithPivot;
 };
 
 export function Ingredients({ className, ingredients }: IngredientsProps) {
@@ -61,15 +56,7 @@ export function Ingredients({ className, ingredients }: IngredientsProps) {
   );
 }
 
-function Ingredient({
-  checked,
-  item,
-  toggleIngredient,
-}: {
-  checked: boolean;
-  item: Ingredient;
-  toggleIngredient: (id: number) => void;
-}) {
+function Ingredient({ checked, item, toggleIngredient }: IngredientProps) {
   const id = useId();
 
   return (

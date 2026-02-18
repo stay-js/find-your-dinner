@@ -20,13 +20,14 @@ import { Skeleton } from '~/components/ui/skeleton';
 import { useIsMobile } from '~/hooks/use-mobile';
 import { GET, POST, PUT } from '~/lib/api-utils';
 import { cn } from '~/lib/utils';
-import { isIntegerString, isPositiveIntegerString } from '~/lib/zod-helpers';
 import {
   categoriesSchema,
   type CreateUpdateRecipeSchema,
   ingredientsSchema,
+  isIntegerString,
+  isPositiveIntegerString,
   unitsSchema,
-} from '~/lib/zod-schemas';
+} from '~/lib/zod';
 
 const formSchema = z.object({
   categories: z.array(z.number().int().positive()).min(1, {

@@ -10,7 +10,7 @@ import {
   Stats,
   Title,
 } from '~/components/recipe-page';
-import { idParamSchema } from '~/lib/zod-schemas';
+import { idParamSchema } from '~/lib/zod';
 import { checkIsAdmin } from '~/server/utils/check-is-admin';
 import { getRecipe } from '~/server/utils/get-recipe';
 

@@ -1,7 +1,7 @@
 import { auth } from '@clerk/nextjs/server';
 import { NextRequest, NextResponse } from 'next/server';
 
-import { createUpdateRecipeSchema } from '~/lib/zod-schemas';
+import { createUpdateRecipeSchema } from '~/lib/zod';
 import { db } from '~/server/db';
 import { categoryRecipe, ingredientRecipeData, recipeData, recipes } from '~/server/db/schema';
 
