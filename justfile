@@ -1,23 +1,7 @@
 runner := if `command -v pnpm` != "" { "pnpm" } else { "npm" }
 
-# Runs db-setup, db-start, web-setup, migrate and web-dev recipes in sequence
-default: db-setup db-start web-setup migrate web-dev
-
-# Runs web-dev recipe
-[group('shortcuts')]
-dev: web-dev
-
-# Runs web-start recipe
-[group('shortcuts')]
-start: web-start
-
-# Runs web-build recipe
-[group('shortcuts')]
-build: web-build
-
-#Runs web-preview recipe
-[group('shortcuts')]
-preview: web-preview
+# Runs db-setup, db-start, setup, migrate and dev recipes in sequence
+default: db-setup db-start setup migrate dev
 
 # Starts database containers using docker compose
 [group('db')]
@@ -46,7 +30,7 @@ db-setup:
 # Installs dependencies and creates web app configuration (.env file)
 [group('web')]
 [working-directory: 'web']
-web-setup:
+setup:
     #!/bin/bash
     if [ -d "node_modules" ]; then
         echo "node_modules already exists. Skipping dependency installation..."
@@ -65,35 +49,53 @@ web-setup:
 # Starts the development web server
 [group('web')]
 [working-directory: 'web']
-web-dev:
+dev:
     -{{runner}} run dev
 
 # Builds web project
 [group('web')]
 [working-directory: 'web']
-web-build:
+build:
     {{runner}} run build
 
 # Starts the production web server
 [group('web')]
 [working-directory: 'web']
-web-start:
+start:
     {{runner}} run start
 
-# Builds web project and starts the production web server
+# Lints web project
 [group('web')]
 [working-directory: 'web']
-web-preview:
-    {{runner}} run preview
+lint *FLAGS:
+    {{runner}} run lint {{FLAGS}}
+
+# Generates migration from schema changes
+[group('drizzle')]
+[working-directory: 'web']
+generate *FLAGS:
+    {{runner}} run db:generate {{FLAGS}}
+
+# Push schema to database
+[group('drizzle')]
+[working-directory: 'web']
+push:
+    {{runner}} run db:push
 
 # Runs pending database migrations
-[group('migrate')]
+[group('drizzle')]
 [working-directory: 'web']
 migrate:
     {{runner}} run db:migrate
 
 # Resets database and runs all migrations
-[group('migrate')]
+[group('drizzle')]
 [working-directory: 'web']
 migrate-fresh:
     {{runner}} run db:migrate:fresh
+
+# Start drizzle studio
+[group('drizzle')]
+[working-directory: 'web']
+studio:
+    {{runner}} run db:studio
