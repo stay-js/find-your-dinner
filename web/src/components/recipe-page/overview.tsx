@@ -1,5 +1,21 @@
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card';
 
+type Author = {
+  firstName: null | string;
+  id: string;
+  lastName: null | string;
+};
+
+type OverviewProps = {
+  author: Author | null;
+
+  cookTimeMinutes: number;
+  prepTimeMinutes: number;
+
+  createdAt: Date;
+  updatedAt: Date;
+};
+
 export function Overview({
   author,
 
@@ -8,19 +24,7 @@ export function Overview({
 
   createdAt,
   updatedAt,
-}: {
-  author: null | {
-    firstName: null | string;
-    id: string;
-    lastName: null | string;
-  };
-
-  cookTimeMinutes: number;
-  prepTimeMinutes: number;
-
-  createdAt: Date;
-  updatedAt: Date;
-}) {
+}: OverviewProps) {
   return (
     <Card>
       <CardHeader>

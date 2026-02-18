@@ -3,6 +3,16 @@ import Link from 'next/link';
 
 import { Button } from '~/components/ui/button';
 
+type TitleProps = {
+  recipeId: number;
+
+  description: string;
+  title: string;
+
+  isAdmin: boolean;
+  isAuthor: boolean;
+};
+
 export function Title({
   recipeId,
 
@@ -11,15 +21,7 @@ export function Title({
 
   isAdmin,
   isAuthor,
-}: {
-  recipeId: number;
-
-  description: string;
-  title: string;
-
-  isAdmin: boolean;
-  isAuthor: boolean;
-}) {
+}: TitleProps) {
   return (
     <div className="flex flex-col gap-2">
       <div className="flex items-center justify-between gap-4">

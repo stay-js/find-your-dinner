@@ -1,5 +1,15 @@
 import type { Metadata } from 'next';
 
+type CreateMetadataParams = {
+  path: string;
+
+  absoluteTitle?: string;
+  description?: string;
+  title: string;
+
+  noIndex?: boolean;
+};
+
 export function createMetadata({
   path,
 
@@ -8,15 +18,7 @@ export function createMetadata({
   title,
 
   noIndex,
-}: {
-  path: string;
-
-  absoluteTitle?: string;
-  description?: string;
-  title: string;
-
-  noIndex?: boolean;
-}): Metadata {
+}: CreateMetadataParams) {
   return {
     metadataBase: new URL('https://find-your-dinner.znagy.hu'),
 
@@ -82,5 +84,5 @@ export function createMetadata({
     icons: {
       icon: '/favicon.ico',
     },
-  };
+  } satisfies Metadata;
 }

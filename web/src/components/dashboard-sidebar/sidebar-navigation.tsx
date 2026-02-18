@@ -13,21 +13,22 @@ import {
   SidebarMenuSubItem,
 } from '~/components/ui/sidebar';
 
-export function SidebarNavigation({
-  items,
-  label,
-}: {
-  items: {
-    icon?: React.ElementType;
-    isActive?: boolean;
-    items?: {
-      title: string;
-      url: string;
-    }[];
+type Item = {
+  icon?: React.ElementType;
+  isActive?: boolean;
+  items?: {
     title: string;
+    url: string;
   }[];
+  title: string;
+};
+
+type SidebarNavigationProps = {
+  items: Item[];
   label?: string;
-}) {
+};
+
+export function SidebarNavigation({ items, label }: SidebarNavigationProps) {
   return (
     <SidebarGroup>
       <SidebarGroupLabel>{label}</SidebarGroupLabel>

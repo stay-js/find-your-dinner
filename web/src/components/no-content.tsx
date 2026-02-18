@@ -9,15 +9,13 @@ import {
   EmptyTitle,
 } from '~/components/ui/empty';
 
-export function NoContent({
-  create,
-  description,
-  title,
-}: {
+type NoContentProps = {
   create: React.ReactNode;
   description: React.ReactNode;
   title: React.ReactNode;
-}) {
+};
+
+export function NoContent({ create, description, title }: NoContentProps) {
   return (
     <div className="grid h-full place-content-center">
       <Empty>

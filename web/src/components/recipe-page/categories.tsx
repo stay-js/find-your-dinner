@@ -1,6 +1,11 @@
 import { Badge } from '~/components/ui/badge';
 
-export function Categories({ categories }: { categories: { id: number; name: string }[] }) {
+type Category = {
+  id: number;
+  name: string;
+};
+
+export function Categories({ categories }: { categories: Category[] }) {
   return (
     <div className="flex flex-wrap gap-2">
       {categories.map((category) => (

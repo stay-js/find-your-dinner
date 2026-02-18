@@ -6,6 +6,15 @@ import { Button } from '~/components/ui/button';
 import { useSaveState } from '~/hooks/use-save-state';
 import { cn } from '~/lib/utils';
 
+type StatsProps = {
+  recipeId: number;
+
+  cookTimeMinutes: number;
+  prepTimeMinutes: number;
+
+  servings: number;
+};
+
 export function Stats({
   recipeId,
 
@@ -13,14 +22,7 @@ export function Stats({
   prepTimeMinutes,
 
   servings,
-}: {
-  recipeId: number;
-
-  cookTimeMinutes: number;
-  prepTimeMinutes: number;
-
-  servings: number;
-}) {
+}: StatsProps) {
   const { handleSaveToggle, isPending, isSaved } = useSaveState(recipeId);
 
   return (

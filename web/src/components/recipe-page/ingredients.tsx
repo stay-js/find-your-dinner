@@ -19,13 +19,12 @@ type Ingredient = {
   };
 };
 
-export function Ingredients({
-  className,
-  ingredients,
-}: {
+type IngredientsProps = {
   className?: string;
   ingredients: Ingredient[];
-}) {
+};
+
+export function Ingredients({ className, ingredients }: IngredientsProps) {
   const [checkedIngredients, setCheckedIngredients] = useState<Set<number>>(new Set());
 
   const toggleIngredient = (ingredientId: number) => {

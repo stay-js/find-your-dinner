@@ -16,15 +16,13 @@ import { useSaveState } from '~/hooks/use-save-state';
 import { cn } from '~/lib/utils';
 import { type RecipeWithoutIngredients } from '~/lib/zod-schemas';
 
-export function RecipeCard({
-  pageType,
-  recipe,
-  showIsVerified = false,
-}: {
+type RecipeCardProps = {
   pageType: 'admin' | 'final' | 'manage' | 'saved' | 'search' | 'tinder';
   recipe: RecipeWithoutIngredients;
   showIsVerified?: boolean;
-}) {
+};
+
+export function RecipeCard({ pageType, recipe, showIsVerified = false }: RecipeCardProps) {
   const { handleSaveToggle, isPending, isSaved } = useSaveState(recipe.recipe.id);
 
   return (

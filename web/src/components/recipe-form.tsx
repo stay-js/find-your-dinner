@@ -76,13 +76,12 @@ const formSchema = z.object({
 
 type FormSchema = z.infer<typeof formSchema>;
 
-export function RecipeForm({
-  defaultValues,
-  recipeId,
-}: {
+type RecipeFormProps = {
   defaultValues: FormSchema;
   recipeId?: number;
-}) {
+};
+
+export function RecipeForm({ defaultValues, recipeId }: RecipeFormProps) {
   const router = useRouter();
   const isMobile = useIsMobile();
 

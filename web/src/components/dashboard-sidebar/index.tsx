@@ -5,10 +5,11 @@ import { Sidebar, SidebarContent, SidebarFooter, SidebarRail } from '~/component
 import { SidebarNavigation } from './sidebar-navigation';
 import { SidebarUser } from './sidebar-user';
 
-export function DashboardSidebar({
-  isAdmin,
-  ...props
-}: { isAdmin: boolean } & React.ComponentProps<typeof Sidebar>) {
+type DashboardSidebarProps = {
+  isAdmin: boolean;
+} & React.ComponentProps<typeof Sidebar>;
+
+export function DashboardSidebar({ isAdmin, ...props }: DashboardSidebarProps) {
   const navItems = [
     {
       items: [

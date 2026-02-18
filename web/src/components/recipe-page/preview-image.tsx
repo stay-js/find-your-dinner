@@ -1,12 +1,11 @@
 import { SafeImage } from '~/components/safe-image';
 
-export function PreviewImage({
-  previewImageUrl,
-  title,
-}: {
+type PreviewImageProps = {
   previewImageUrl: string;
   title: string;
-}) {
+};
+
+export function PreviewImage({ previewImageUrl, title }: PreviewImageProps) {
   return (
     <div className="aspect-video w-full overflow-hidden rounded-lg">
       <SafeImage
