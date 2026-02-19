@@ -57,8 +57,6 @@ export async function GET(request: NextRequest) {
   return NextResponse.json({
     data: result,
     meta: {
-      canGetNext: page < pageCount,
-      canGetPrevious: page > 1,
       currentPage: page,
       pageCount,
       perPage: PAGE_SIZE,

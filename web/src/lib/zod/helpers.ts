@@ -4,8 +4,6 @@ export function createPaginatedSchema<T extends ZodType>(dataSchema: T) {
   return z.object({
     data: z.array(dataSchema),
     meta: z.object({
-      canGetNext: z.boolean(),
-      canGetPrevious: z.boolean(),
       currentPage: z.number().int().positive(),
       pageCount: z.number().int().positive(),
       perPage: z.number().int().positive(),
