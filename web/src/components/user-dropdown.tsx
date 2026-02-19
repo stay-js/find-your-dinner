@@ -1,7 +1,7 @@
 'use client';
 
 import { useClerk } from '@clerk/nextjs';
-import { LogOut, Notebook, Settings } from 'lucide-react';
+import { LogOut, PanelsTopLeft, Settings } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
@@ -43,9 +43,9 @@ export function UserDropdown({ location }: { location: 'left' | 'right' }) {
 
         {!pathname.startsWith('/dashboard') && (
           <DropdownMenuItem asChild className="w-full">
-            <Link className="flex items-center gap-2" href="/dashboard">
-              <Notebook />
-              <span>Recepteim</span>
+            <Link className="flex items-center gap-2" href="/dashboard/recipes/manage">
+              <PanelsTopLeft />
+              <span>Irányítópult</span>
             </Link>
           </DropdownMenuItem>
         )}
