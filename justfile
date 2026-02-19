@@ -70,6 +70,12 @@ start:
 lint *FLAGS:
     {{runner}} run lint {{FLAGS}}
 
+# Executes a command inside web directory with current npm runner. Usage: just exec <command>
+[group('web')]
+[working-directory: 'web']
+exec *ARGS:
+    {{runner}} {{ARGS}}
+
 # Generates migration from schema changes
 [group('drizzle')]
 [working-directory: 'web']
