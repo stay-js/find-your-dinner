@@ -7,14 +7,7 @@ export const idParamSchema = z.object({
 });
 export type IdParam = z.infer<typeof idParamSchema>;
 
-export const pageSearchParamSchema = z.coerce
-  .number()
-  .int()
-  .positive()
-  .optional()
-  .default(1)
-  .catch(1);
-export type PageSearchParam = z.infer<typeof pageSearchParamSchema>;
+export const pageSchema = z.coerce.number().int().positive().optional().default(1).catch(1);
 
 export const isAdminSchema = z.object({ isAdmin: z.boolean() });
 export type IsAdmin = z.infer<typeof isAdminSchema>;
