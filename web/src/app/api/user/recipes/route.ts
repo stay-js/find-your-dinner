@@ -2,6 +2,7 @@ import { auth } from '@clerk/nextjs/server';
 import { count, desc, eq } from 'drizzle-orm';
 import { type NextRequest, NextResponse } from 'next/server';
 
+import { type PaginationMeta } from '~/lib/zod';
 import { db } from '~/server/db';
 import { recipeData, recipes } from '~/server/db/schema';
 import { unauthorized } from '~/server/utils/errors';
@@ -61,6 +62,6 @@ export async function GET(request: NextRequest) {
       pageCount,
       perPage: PAGE_SIZE,
       total,
-    },
+    } satisfies PaginationMeta,
   });
 }
