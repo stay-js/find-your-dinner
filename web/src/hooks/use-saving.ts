@@ -1,7 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
 
-import { DELETE, GET, POST } from '~/lib/api-utils';
+import { DELETE, GET, POST } from '~/lib/api';
 import { savedRecipeIdsSchema } from '~/lib/zod';
 
 export function useSaving() {

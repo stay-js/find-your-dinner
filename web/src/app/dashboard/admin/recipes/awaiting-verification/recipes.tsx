@@ -6,7 +6,7 @@ import { CheckCircle } from 'lucide-react';
 import { RecipeCard } from '~/components/recipe-card';
 import { RecipeCardSkeleton } from '~/components/recipe-card-skeleton';
 import { useSidebar } from '~/components/ui/sidebar';
-import { GET } from '~/lib/api-utils';
+import { GET } from '~/lib/api';
 import { cn } from '~/lib/utils';
 import { recipesSchema } from '~/lib/zod';
 

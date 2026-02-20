@@ -8,7 +8,7 @@ import { RecipeCard } from '~/components/recipe-card';
 import { RecipeCardSkeleton } from '~/components/recipe-card-skeleton';
 import { Button } from '~/components/ui/button';
 import { useSidebar } from '~/components/ui/sidebar';
-import { GET } from '~/lib/api-utils';
+import { GET } from '~/lib/api';
 import { cn } from '~/lib/utils';
 import { savedRecipesSchema } from '~/lib/zod';
 

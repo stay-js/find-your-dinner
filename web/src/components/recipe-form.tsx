@@ -18,7 +18,7 @@ import { SelectGroup, SelectItem, SelectLabel } from '~/components/ui/select';
 import { Separator } from '~/components/ui/separator';
 import { Skeleton } from '~/components/ui/skeleton';
 import { useIsMobile } from '~/hooks/use-mobile';
-import { GET, POST, PUT } from '~/lib/api-utils';
+import { GET, POST, PUT } from '~/lib/api';
 import { cn } from '~/lib/utils';
 import {
   categoriesSchema,

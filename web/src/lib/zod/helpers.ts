@@ -1,6 +1,12 @@
 import { z, type ZodType } from 'zod';
 
-import { paginationMetaSchema } from './schemas';
+export const paginationMetaSchema = z.object({
+  currentPage: z.number().int().positive(),
+  pageCount: z.number().int().positive(),
+  perPage: z.number().int().positive(),
+  total: z.number().int().nonnegative(),
+});
+export type PaginationMeta = z.infer<typeof paginationMetaSchema>;
 
 export function createPaginatedSchema<T extends ZodType>(dataSchema: T) {
   return z.object({

@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 
 import { Button } from '~/components/ui/button';
-import { POST } from '~/lib/api-utils';
+import { POST } from '~/lib/api';
 
 export function Approve({ recipeDataId }: { recipeDataId: number }) {
   const router = useRouter();

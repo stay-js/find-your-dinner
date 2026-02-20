@@ -12,7 +12,7 @@ import { RecipeCardSkeleton } from '~/components/recipe-card-skeleton';
 import { Button } from '~/components/ui/button';
 import { useSidebar } from '~/components/ui/sidebar';
 import { useCreateQueryString } from '~/hooks/use-create-query-string';
-import { GET } from '~/lib/api-utils';
+import { GET } from '~/lib/api';
 import { cn } from '~/lib/utils';
 import { pageSchema, paginatedRecipesSchema } from '~/lib/zod';
 

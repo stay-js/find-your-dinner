@@ -2,14 +2,6 @@ import { z } from 'zod';
 
 import { createPaginatedSchema } from './helpers';
 
-export const paginationMetaSchema = z.object({
-  currentPage: z.number().int().positive(),
-  pageCount: z.number().int().positive(),
-  perPage: z.number().int().positive(),
-  total: z.number().int().nonnegative(),
-});
-export type PaginationMeta = z.infer<typeof paginationMetaSchema>;
-
 export const idParamSchema = z.object({
   id: z.coerce.number().int().positive(),
 });
