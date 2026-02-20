@@ -8,7 +8,7 @@ import { unauthorized } from '~/server/utils/errors';
 import { getPagination } from '~/server/utils/get-pagination';
 import { getHasVerifiedVersion, getRecipeCategories } from '~/server/utils/recipe-helpers';
 
-const PAGE_SIZE = 15;
+const PAGE_SIZE = 9;
 
 export async function GET(request: NextRequest) {
   const { searchParams } = request.nextUrl;
