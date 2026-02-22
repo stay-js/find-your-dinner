@@ -1,52 +1,54 @@
-networks:
-  database: ~
-
-volumes:
-  pg_data: ~
-  cloudbeaver_data: ~
-  caddy_data: ~
+name: Find Your Dinner. - Database
 
 services:
-  postgres:
-    image: postgres:18.1
+  caddy:
+    image: caddy:2.10.2-alpine
+    depends_on:
+      - cloudbeaver
+    volumes:
+      - ./caddy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+    ports:
+      - "80:80"
+    networks:
+      - database
     restart: unless-stopped
+
+  cloudbeaver:
+    image: dbeaver/cloudbeaver:latest
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - cloudbeaver_data:/opt/cloudbeaver/workspace
+    networks:
+      - database
+    restart: unless-stopped
+
+  postgres:
+    image: postgres:18.2-alpine3.23
+    volumes:
+      - postgres_data:/var/lib/postgresql
     environment:
       - TZ=${TZ}
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - POSTGRES_DB=${POSTGRES_DB}
-    volumes:
-      - pg_data:/var/lib/postgresql
     ports:
-      - 5432:5432
+      - "5432:5432"
     networks:
       - database
+    restart: unless-stopped
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
       interval: 30s
       timeout: 10s
       retries: 5
 
-  cloudbeaver:
-    image: dbeaver/cloudbeaver:latest
-    restart: unless-stopped
-    volumes:
-      - cloudbeaver_data:/opt/cloudbeaver/workspace
-    networks:
-      - database
-    depends_on:
-      postgres:
-        condition: service_healthy
+networks:
+  database: ~
 
-  caddy:
-    image: caddy:2.10.2-alpine
-    restart: unless-stopped
-    ports:
-      - 80:80
-    volumes:
-      - ./caddy/Caddyfile:/etc/caddy/Caddyfile:ro
-      - caddy_data:/data
-    networks:
-      - database
-    depends_on:
-      - cloudbeaver
+volumes:
+  caddy_data: ~
+  cloudbeaver_data: ~
+  postgres_data: ~
