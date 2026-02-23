@@ -1,12 +1,15 @@
 import { auth } from '@clerk/nextjs/server';
-import { and, desc, eq, exists } from 'drizzle-orm';
+import { and, count, desc, eq, exists } from 'drizzle-orm';
 import { type NextRequest, NextResponse } from 'next/server';
 
-import { createSavedRecipeSchema } from '~/lib/zod';
+import { createSavedRecipeSchema, type PaginationMeta } from '~/lib/zod';
 import { db } from '~/server/db';
 import { recipeData, recipes, savedRecipes } from '~/server/db/schema';
 import { unauthorized } from '~/server/utils/errors';
+import { getPagination } from '~/server/utils/get-pagination';
 import { getRecipeCategories } from '~/server/utils/recipe-helpers';
+
+const PAGE_SIZE = 9;
 
 export async function GET(request: NextRequest) {
   const { isAuthenticated, userId } = await auth();
@@ -27,6 +30,25 @@ export async function GET(request: NextRequest) {
     return NextResponse.json(result);
   }
 
+  const savedRecipeWhereClause = and(
+    eq(savedRecipes.userId, userId),
+    exists(
+      db
+        .select()
+        .from(recipeData)
+        .where(and(eq(recipeData.recipeId, savedRecipes.recipeId), eq(recipeData.verified, true))),
+    ),
+  );
+
+  const [totalResult] = await db
+    .select({ count: count() })
+    .from(savedRecipes)
+    .where(savedRecipeWhereClause);
+
+  const total = totalResult?.count ?? 0;
+
+  const { page, pageCount } = getPagination(searchParams.get('page'), total, PAGE_SIZE);
+
   const recipeRecords = await db
     .select({
       recipe: recipes,
@@ -34,18 +56,10 @@ export async function GET(request: NextRequest) {
     })
     .from(savedRecipes)
     .innerJoin(recipes, eq(savedRecipes.recipeId, recipes.id))
-    .where(
-      and(
-        eq(savedRecipes.userId, userId),
-        exists(
-          db
-            .select()
-            .from(recipeData)
-            .where(and(eq(recipeData.recipeId, recipes.id), eq(recipeData.verified, true))),
-        ),
-      ),
-    )
-    .orderBy(desc(savedRecipes.createdAt));
+    .where(savedRecipeWhereClause)
+    .orderBy(desc(savedRecipes.createdAt))
+    .limit(PAGE_SIZE)
+    .offset((page - 1) * PAGE_SIZE);
 
   const result = await Promise.all(
     recipeRecords.map(async ({ recipe, savedAt }) => {
@@ -68,7 +82,15 @@ export async function GET(request: NextRequest) {
     }),
   );
 
-  return NextResponse.json(result);
+  return NextResponse.json({
+    data: result,
+    meta: {
+      currentPage: page,
+      pageCount,
+      perPage: PAGE_SIZE,
+      total,
+    } satisfies PaginationMeta,
+  });
 }
 
 export async function POST(request: NextRequest) {

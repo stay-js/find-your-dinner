@@ -110,8 +110,8 @@ export const savedRecipeSchema = recipeSchema.extend({
 });
 export type SavedRecipe = z.infer<typeof savedRecipeSchema>;
 
-export const savedRecipesSchema = z.array(savedRecipeSchema);
-export type SavedRecipes = z.infer<typeof savedRecipesSchema>;
+export const paginatedSavedRecipesSchema = createPaginatedSchema(savedRecipeSchema);
+export type PaginatedSavedRecipes = z.infer<typeof paginatedSavedRecipesSchema>;
 
 export const fullRecipeSchema = recipeSchema.extend({
   author: authorSchema,
