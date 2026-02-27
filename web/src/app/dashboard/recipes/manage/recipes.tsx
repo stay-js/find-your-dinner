@@ -45,7 +45,7 @@ export function Recipes() {
     <>
       {!isLoading && (!recipes || recipes?.data?.length === 0) && (
         <NoContent
-          create={
+          action={
             <Button asChild>
               <Link href="/dashboard/recipes/create">Recept létrehozása</Link>
             </Button>

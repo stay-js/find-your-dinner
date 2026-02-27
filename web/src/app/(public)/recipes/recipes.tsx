@@ -39,7 +39,6 @@ export function Recipes() {
     <>
       {!isLoading && (!recipes || recipes.data.length === 0) && (
         <NoContent
-          create={null}
           description="Úgy tűnik, még nincs egyetlen recept sem. Gyere vissza később!"
           title="Nincs megjeleníthető recept"
         />

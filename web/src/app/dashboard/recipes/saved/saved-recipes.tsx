@@ -46,7 +46,7 @@ export function SavedRecipes() {
     <>
       {!isLoading && (!savedRecipes || savedRecipes?.data.length === 0) && (
         <NoContent
-          create={
+          action={
             <Button asChild>
               <Link href="/recipes">Tovább a receptekhez</Link>
             </Button>

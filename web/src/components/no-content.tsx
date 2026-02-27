@@ -10,12 +10,12 @@ import {
 } from '~/components/ui/empty';
 
 type NoContentProps = {
-  create: React.ReactNode;
+  action?: React.ReactNode;
   description: React.ReactNode;
   title: React.ReactNode;
 };
 
-export function NoContent({ create, description, title }: NoContentProps) {
+export function NoContent({ action, description, title }: NoContentProps) {
   return (
     <div className="grid h-full place-content-center">
       <Empty>
@@ -23,10 +23,12 @@ export function NoContent({ create, description, title }: NoContentProps) {
           <EmptyMedia variant="icon">
             <CircleAlert />
           </EmptyMedia>
+
           <EmptyTitle>{title}</EmptyTitle>
           <EmptyDescription>{description}</EmptyDescription>
         </EmptyHeader>
-        <EmptyContent>{create}</EmptyContent>
+
+        {action && <EmptyContent>{action}</EmptyContent>}
       </Empty>
     </div>
   );
