@@ -3,25 +3,25 @@ runner := if `command -v pnpm` != "" { "pnpm" } else { "npm" }
 # Runs infra-setup, infra-start, setup, migrate and dev recipes in sequence
 default: infra-setup infra-start setup migrate dev
 
-# Starts database containers using docker compose
+# Starts infra containers using docker compose
 [group('infra')]
 [working-directory: 'infra']
 infra-start:
     docker compose up -d
 
-# Stops database containers
+# Stops infra containers
 [working-directory: 'infra']
 [group('infra')]
 infra-stop:
     docker compose stop
 
-# Removes database containers
+# Removes infra containers
 [working-directory: 'infra']
 [group('infra')]
 infra-remove *FLAGS:
     docker compose down {{FLAGS}}
 
-# Creates database configuration (.env file)
+# Creates infra configuration (.env file)
 [working-directory: 'infra']
 [group('infra')]
 infra-setup:
