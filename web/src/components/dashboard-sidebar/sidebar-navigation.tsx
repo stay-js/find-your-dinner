@@ -32,6 +32,7 @@ export function SidebarNavigation({ items, label }: SidebarNavigationProps) {
   return (
     <SidebarGroup>
       <SidebarGroupLabel>{label}</SidebarGroupLabel>
+
       <SidebarMenu>
         {items.map((item) => (
           <Collapsible

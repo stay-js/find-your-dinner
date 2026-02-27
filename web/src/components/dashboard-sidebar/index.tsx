@@ -37,7 +37,7 @@ export function DashboardSidebar({ isAdmin, ...props }: DashboardSidebarProps) {
           title: 'Adminisztráció',
         },
       ],
-      label: 'Admin',
+      label: 'Adminisztráció',
       visible: isAdmin,
     },
     {
@@ -62,14 +62,14 @@ export function DashboardSidebar({ isAdmin, ...props }: DashboardSidebarProps) {
           isActive: true,
           items: [
             {
-              title: 'Mentett receptek',
+              title: 'Mentett recepteim',
               url: '/dashboard/recipes/saved',
             },
           ],
           title: 'Felfedezés',
         },
       ],
-      label: 'Receptek',
+      label: 'Recepteim',
       visible: true,
     },
   ];
