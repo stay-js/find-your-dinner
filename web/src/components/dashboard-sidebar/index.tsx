@@ -18,15 +18,23 @@ export function DashboardSidebar({ isAdmin, ...props }: DashboardSidebarProps) {
           isActive: true,
           items: [
             {
-              title: 'Receptek jóváhagyása',
-              url: '/dashboard/admin/recipes/awaiting-verification',
-            },
-            {
               title: 'Receptek kezelése',
               url: '/dashboard/admin/recipes/manage',
             },
+            {
+              title: 'Kategóriák kezelése',
+              url: '/dashboard/admin/categories/manage',
+            },
+            {
+              title: 'Hozzávalók kezelése',
+              url: '/dashboard/admin/ingredients/manage',
+            },
+            {
+              title: 'Mértékegységek kezelése',
+              url: '/dashboard/admin/units/manage',
+            },
           ],
-          title: 'Receptek kezelése',
+          title: 'Adminisztráció',
         },
       ],
       label: 'Admin',
