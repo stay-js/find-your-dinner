@@ -39,16 +39,12 @@ export function Footer() {
               <div className="flex flex-col gap-2">
                 {[
                   {
-                    href: '/#felfedezes',
-                    title: 'Felfedezés',
+                    href: '/find',
+                    title: 'Keresés',
                   },
                   {
-                    href: '/receptek',
+                    href: '/recipes',
                     title: 'Összes Recept',
-                  },
-                  {
-                    href: '/kategoriak',
-                    title: 'Kategóriák',
                   },
                   {
                     href: '/dashboard/recipes/saved',
