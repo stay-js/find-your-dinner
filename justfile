@@ -13,7 +13,13 @@ db-start:
 [working-directory: 'db']
 [group('db')]
 db-stop:
-    docker compose down
+    docker compose stop
+
+# Removes database containers
+[working-directory: 'db']
+[group('db')]
+db-remove *FLAGS:
+    docker compose down {{FLAGS}}
 
 # Creates database configuration (.env file)
 [working-directory: 'db']
