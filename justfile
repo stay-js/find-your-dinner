@@ -1,30 +1,30 @@
 runner := if `command -v pnpm` != "" { "pnpm" } else { "npm" }
 
-# Runs db-setup, db-start, setup, migrate and dev recipes in sequence
-default: db-setup db-start setup migrate dev
+# Runs infra-setup, infra-start, setup, migrate and dev recipes in sequence
+default: infra-setup infra-start setup migrate dev
 
 # Starts database containers using docker compose
-[group('db')]
-[working-directory: 'db']
-db-start:
+[group('infra')]
+[working-directory: 'infra']
+infra-start:
     docker compose up -d
 
 # Stops database containers
-[working-directory: 'db']
-[group('db')]
-db-stop:
+[working-directory: 'infra']
+[group('infra')]
+infra-stop:
     docker compose stop
 
 # Removes database containers
-[working-directory: 'db']
-[group('db')]
-db-remove *FLAGS:
+[working-directory: 'infra']
+[group('infra')]
+infra-remove *FLAGS:
     docker compose down {{FLAGS}}
 
 # Creates database configuration (.env file)
-[working-directory: 'db']
-[group('db')]
-db-setup:
+[working-directory: 'infra']
+[group('infra')]
+infra-setup:
     #!/bin/bash
     if [ -f ".env" ]; then
         echo ".env file already exists. Skipping..."

@@ -1,9 +1,9 @@
-# Adatbázis
+# Find Your Dinner. - Infrastruktúra / Fejlesztői környezet
 
 ## Futtatás
 
 ```bash
-just start-db
+just start-infra
 ```
 
 ### Első indítás esetén
@@ -11,15 +11,15 @@ just start-db
 - Előkészületek:
 
 ```bash
-just setup-db
+just setup-infra
 ```
 
 - Ezt követően, környezeti változók felülírása (amennyiben szükséges) a `.env` fájlban.
 
-- Container indítása:
+- Containerek indítása:
 
 ```bash
-just start-db
+just start-infra
 ```
 
 - Migrációk futtatása:
@@ -31,7 +31,13 @@ just migrate
 ## Leállítás
 
 ```bash
-just stop-db
+just stop-infra
+```
+
+## Eltávolítás
+
+```bash
+just remove-infra # -v opcionális, a volume-ok törléséhez
 ```
 
 ## Postgres elérése

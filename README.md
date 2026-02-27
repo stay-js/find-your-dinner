@@ -5,7 +5,7 @@ Itt megtalálod az alkalmazás különböző komponenseinek leírását, telepí
 
 ## ⚙️ Fejlesztői dokumentáció
 
-- [Adatbázis dokumentációja](db/README.md)
+- [Infrastruktúra / Fejlesztői környezet dokumentációja](infra/README.md)
 - [Full-stack web app dokumentációja](web/README.md)
 
 ## Justfile
