@@ -15,7 +15,7 @@ const PAGE_SIZE = 9;
 export async function GET(request: NextRequest) {
   const { searchParams } = request.nextUrl;
 
-  const allowUnverified = searchParams.get('allow-unverified') === 'true';
+  const allowUnverified = ['1', 'true'].includes(searchParams.get('allow-unverified') ?? '');
 
   if (allowUnverified) {
     const { isAuthenticated, userId } = await auth();

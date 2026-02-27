@@ -10,7 +10,19 @@ import { checkIsAdmin } from '~/server/utils/check-is-admin';
 import { forbidden, unauthorized } from '~/server/utils/errors';
 import { getRecipe } from '~/server/utils/get-recipe';
 
-export async function GET(_: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+export async function GET(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+  const { searchParams } = request.nextUrl;
+
+  const allowUnverified = ['1', 'true'].includes(searchParams.get('allow-unverified') ?? '');
+
+  if (allowUnverified) {
+    const { isAuthenticated, userId } = await auth();
+    if (!isAuthenticated) return unauthorized();
+
+    const isAdmin = await checkIsAdmin(userId);
+    if (!isAdmin) return forbidden();
+  }
+
   const result = idParamSchema.safeParse(await params);
 
   if (!result.success) {
@@ -22,7 +34,7 @@ export async function GET(_: NextRequest, { params }: { params: Promise<{ id: st
 
   const { id } = result.data;
 
-  const recipe = await getRecipe(id);
+  const recipe = await getRecipe(id, allowUnverified);
   if (!recipe) notFound();
 
   return NextResponse.json(recipe);
