@@ -42,6 +42,17 @@ services:
       timeout: 5s
       retries: 5
 
+  swagger:
+    image: swaggerapi/swagger-ui:v5.31.2
+    volumes:
+      - ./swagger/openapi.yaml:/docs/openapi.yaml
+    environment:
+      - SWAGGER_JSON=/docs/openapi.yaml
+      - DISPLAY_OPERATION_ID=true
+      - VALIDATOR_URL=null
+    networks:
+      - database
+
 networks:
   database: ~
 

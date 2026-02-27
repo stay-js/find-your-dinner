@@ -1,3 +1,7 @@
 http://cb.localhost {
 	reverse_proxy cloudbeaver:8978
 }
+
+http://swagger.localhost {
+  reverse_proxy swagger:8080
+}
