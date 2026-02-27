@@ -48,7 +48,7 @@ export function SavedRecipes() {
         <NoContent
           create={
             <Button asChild>
-              <Link href="/">Tovább a receptekhez</Link>
+              <Link href="/recipes">Tovább a receptekhez</Link>
             </Button>
           }
           description="Úgy tűnik, még nem mentettél el egyetlen receptet sem. Receptek felfedezéséhez kattints a lenti gombra."
