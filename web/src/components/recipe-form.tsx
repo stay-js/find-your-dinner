@@ -61,9 +61,15 @@ const formSchema = z.object({
     .string()
     .trim()
     .refine(isIntegerString, { error: 'Az előkészítési idő csak pozitív egész szám lehet!' }),
-  previewImageUrl: z.url({ error: 'Adj meg egy érvényes URL-t!' }).trim().max(2048, {
-    error: 'Az URL hossza legfeljebb 2048 karakter lehet!',
-  }),
+  previewImageUrl: z
+    .url({ error: 'Adj meg egy érvényes URL-t!' })
+    .trim()
+    .max(2048, {
+      error: 'Az URL hossza legfeljebb 2048 karakter lehet!',
+    })
+    .refine((url) => url.startsWith('https://'), {
+      error: 'Az URL-nek https:// előtaggal kell kezdődnie!',
+    }),
   servings: z
     .string()
     .trim()

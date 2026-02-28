@@ -133,7 +133,13 @@ export const createUpdateRecipeSchema = z.object({
   instructions: z.string().trim().min(1),
   title: z.string().trim().min(1).max(512),
 
-  previewImageUrl: z.url().trim().max(2048),
+  previewImageUrl: z
+    .url()
+    .trim()
+    .max(2048)
+    .refine((url) => url.startsWith('https://'), {
+      error: 'URL must start with https://',
+    }),
 
   cookTimeMinutes: z.number().int().positive(),
   prepTimeMinutes: z.number().int().positive(),
