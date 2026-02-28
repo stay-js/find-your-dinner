@@ -5,14 +5,14 @@ export const admins = pgTable('admins', (d) => ({
 }));
 
 export const recipes = pgTable('recipes', (d) => ({
-  id: d.bigint('id', { mode: 'number' }).primaryKey().generatedAlwaysAsIdentity(),
+  id: d.bigint('id', { mode: 'number' }).notNull().primaryKey().generatedAlwaysAsIdentity(),
   userId: d.varchar('user_id', { length: 256 }).notNull(),
 
   createdAt: d.timestamp('created_at').defaultNow(),
 }));
 
 export const recipeData = pgTable('recipe_data', (d) => ({
-  id: d.bigint('id', { mode: 'number' }).primaryKey().generatedAlwaysAsIdentity(),
+  id: d.bigint('id', { mode: 'number' }).notNull().primaryKey().generatedAlwaysAsIdentity(),
   recipeId: d
     .bigint('recipe_id', { mode: 'number' })
     .notNull()
@@ -39,14 +39,14 @@ export const recipeData = pgTable('recipe_data', (d) => ({
 }));
 
 export const units = pgTable('units', (d) => ({
-  id: d.bigint('id', { mode: 'number' }).primaryKey().generatedAlwaysAsIdentity(),
+  id: d.bigint('id', { mode: 'number' }).notNull().primaryKey().generatedAlwaysAsIdentity(),
 
   abbreviation: d.varchar('abbreviation', { length: 16 }).notNull(),
   name: d.varchar('name', { length: 64 }).notNull().unique(),
 }));
 
 export const ingredients = pgTable('ingredients', (d) => ({
-  id: d.bigint('id', { mode: 'number' }).primaryKey().generatedAlwaysAsIdentity(),
+  id: d.bigint('id', { mode: 'number' }).notNull().primaryKey().generatedAlwaysAsIdentity(),
 
   name: d.varchar('name', { length: 256 }).notNull().unique(),
 }));
@@ -73,7 +73,7 @@ export const ingredientRecipeData = pgTable(
 );
 
 export const categories = pgTable('categories', (d) => ({
-  id: d.bigint('id', { mode: 'number' }).primaryKey().generatedAlwaysAsIdentity(),
+  id: d.bigint('id', { mode: 'number' }).notNull().primaryKey().generatedAlwaysAsIdentity(),
 
   name: d.varchar('name', { length: 128 }).notNull().unique(),
 }));
