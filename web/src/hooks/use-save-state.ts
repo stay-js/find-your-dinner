@@ -1,3 +1,5 @@
+'use client';
+
 import { useSaving } from '~/hooks/use-saving';
 
 export function useSaveState(recipeId: number) {

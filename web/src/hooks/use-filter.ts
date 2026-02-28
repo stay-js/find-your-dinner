@@ -1,3 +1,5 @@
+'use client';
+
 import Fuse from 'fuse.js';
 import { useState } from 'react';
 import { useDebounceValue } from 'usehooks-ts';

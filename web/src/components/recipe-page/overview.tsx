@@ -1,5 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card';
-import  { type Author } from '~/lib/zod';
+import { type Author } from '~/lib/zod';
 
 type OverviewProps = {
   author: Author | null;

@@ -5,7 +5,7 @@ import { useId, useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card';
 import { Checkbox } from '~/components/ui/checkbox';
 import { cn } from '~/lib/utils';
-import  { type IngredientsWithPivot, type IngredientWithPivot } from '~/lib/zod';
+import { type IngredientsWithPivot, type IngredientWithPivot } from '~/lib/zod';
 
 type IngredientProps = {
   checked: boolean;
