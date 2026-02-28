@@ -1,4 +1,5 @@
-import { pgTable, primaryKey } from 'drizzle-orm/pg-core';
+import { sql } from 'drizzle-orm';
+import { index, pgTable, primaryKey } from 'drizzle-orm/pg-core';
 
 export const admins = pgTable('admins', (d) => ({
   userId: d.varchar('user_id', { length: 256 }).notNull().unique(),
@@ -11,32 +12,44 @@ export const recipes = pgTable('recipes', (d) => ({
   createdAt: d.timestamp('created_at').defaultNow(),
 }));
 
-export const recipeData = pgTable('recipe_data', (d) => ({
-  id: d.bigint('id', { mode: 'number' }).notNull().primaryKey().generatedAlwaysAsIdentity(),
-  recipeId: d
-    .bigint('recipe_id', { mode: 'number' })
-    .notNull()
-    .references(() => recipes.id, { onDelete: 'cascade', onUpdate: 'cascade' }),
+export const recipeData = pgTable(
+  'recipe_data',
+  (d) => ({
+    id: d.bigint('id', { mode: 'number' }).notNull().primaryKey().generatedAlwaysAsIdentity(),
+    recipeId: d
+      .bigint('recipe_id', { mode: 'number' })
+      .notNull()
+      .references(() => recipes.id, { onDelete: 'cascade', onUpdate: 'cascade' }),
 
-  description: d.text('description').notNull(),
-  instructions: d.text('instructions').notNull(),
-  title: d.varchar('title', { length: 512 }).notNull(),
+    description: d.text('description').notNull(),
+    instructions: d.text('instructions').notNull(),
+    title: d.varchar('title', { length: 512 }).notNull(),
 
-  previewImageUrl: d.varchar('preview_image_url', { length: 2048 }).notNull(),
+    previewImageUrl: d.varchar('preview_image_url', { length: 2048 }).notNull(),
 
-  cookTimeMinutes: d.integer('cook_time_minutes').notNull(),
-  prepTimeMinutes: d.integer('prep_time_minutes').notNull(),
+    cookTimeMinutes: d.integer('cook_time_minutes').notNull(),
+    prepTimeMinutes: d.integer('prep_time_minutes').notNull(),
 
-  servings: d.integer('servings').notNull(),
+    servings: d.integer('servings').notNull(),
 
-  verified: d.boolean('verified').default(false).notNull(),
+    verified: d.boolean('verified').default(false).notNull(),
 
-  createdAt: d.timestamp('created_at').defaultNow(),
-  updatedAt: d
-    .timestamp('updated_at')
-    .defaultNow()
-    .$onUpdate(() => new Date()),
-}));
+    createdAt: d.timestamp('created_at').defaultNow(),
+    updatedAt: d
+      .timestamp('updated_at')
+      .defaultNow()
+      .$onUpdate(() => new Date()),
+  }),
+  (t) => [
+    index('recipe_data_fts_idx').using(
+      'gin',
+      sql`(
+        setweight(to_tsvector('hungarian', ${t.title}), 'A') ||
+        setweight(to_tsvector('hungarian', ${t.description}), 'B')
+        )`,
+    ),
+  ],
+);
 
 export const units = pgTable('units', (d) => ({
   id: d.bigint('id', { mode: 'number' }).notNull().primaryKey().generatedAlwaysAsIdentity(),

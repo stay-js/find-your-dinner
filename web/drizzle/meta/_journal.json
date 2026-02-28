@@ -36,6 +36,13 @@
       "when": 1771443734882,
       "tag": "0004_seed_admins_table",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1772290930229,
+      "tag": "0005_alter_recipe_data_table_add_fts_index",
+      "breakpoints": true
     }
   ]
 }
