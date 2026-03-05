@@ -1,6 +1,6 @@
 'use client';
 
-import { useQuery } from '@tanstack/react-query';
+import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import { Eye, EyeOff } from 'lucide-react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -30,6 +30,7 @@ export function Recipes() {
   const [showFilters, setShowFilters] = useState(false);
 
   const { data: recipes, isLoading } = useQuery({
+    placeholderData: keepPreviousData,
     queryFn: () =>
       GET(
         `/api/recipes?page=${page}&query=${encodeURIComponent(urlQuery)}`,
