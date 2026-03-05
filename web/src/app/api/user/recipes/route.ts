@@ -1,5 +1,5 @@
 import { auth } from '@clerk/nextjs/server';
-import { count, desc, eq } from 'drizzle-orm';
+import { and, count, desc, eq, max, sql } from 'drizzle-orm';
 import { type NextRequest, NextResponse } from 'next/server';
 
 import { type PaginationMeta } from '~/lib/zod';
@@ -17,25 +17,53 @@ export async function GET(request: NextRequest) {
   const { isAuthenticated, userId } = await auth();
   if (!isAuthenticated) return unauthorized();
 
+  const searchQuery = searchParams.get('query')?.trim();
+
+  const ftsWhereClause =
+    searchQuery && searchQuery.length >= 3
+      ? sql`(
+        setweight(to_tsvector('hungarian', ${recipeData.title}), 'A') ||
+        setweight(to_tsvector('hungarian', ${recipeData.description}), 'B')
+      ) @@ plainto_tsquery('hungarian', ${searchQuery})`
+      : undefined;
+
+  const latestRecipeData = db
+    .select({
+      latestCreatedAt: max(recipeData.createdAt).as('latestCreatedAt'),
+      recipeId: recipeData.recipeId,
+    })
+    .from(recipeData)
+    .groupBy(recipeData.recipeId)
+    .as('latestRecipeData');
+
+  const joinClause = and(
+    eq(recipeData.recipeId, latestRecipeData.recipeId),
+    eq(recipeData.createdAt, latestRecipeData.latestCreatedAt),
+  );
+
   const [totalResult] = await db
     .select({ count: count() })
     .from(recipes)
-    .where(eq(recipes.userId, userId));
+    .innerJoin(latestRecipeData, eq(latestRecipeData.recipeId, recipes.id))
+    .innerJoin(recipeData, joinClause)
+    .where(and(eq(recipes.userId, userId), ftsWhereClause));
 
   const total = totalResult?.count ?? 0;
 
   const { page, pageCount } = getPagination(searchParams.get('page'), total, PAGE_SIZE);
 
   const recipeRecords = await db
-    .select()
+    .select({ recipe: recipes })
     .from(recipes)
-    .where(eq(recipes.userId, userId))
+    .innerJoin(latestRecipeData, eq(latestRecipeData.recipeId, recipes.id))
+    .innerJoin(recipeData, joinClause)
+    .where(and(eq(recipes.userId, userId), ftsWhereClause))
     .orderBy(desc(recipes.createdAt))
     .limit(PAGE_SIZE)
     .offset((page - 1) * PAGE_SIZE);
 
   const result = await Promise.all(
-    recipeRecords.map(async (recipe) => {
+    recipeRecords.map(async ({ recipe }) => {
       const [recipeDataRecord, categories, hasVerifiedVersion] = await Promise.all([
         db.query.recipeData.findFirst({
           orderBy: desc(recipeData.createdAt),

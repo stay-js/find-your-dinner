@@ -1,5 +1,5 @@
 import { auth } from '@clerk/nextjs/server';
-import { and, count, desc, eq, exists } from 'drizzle-orm';
+import { and, count, desc, eq, max, sql } from 'drizzle-orm';
 import { type NextRequest, NextResponse } from 'next/server';
 
 import { createSavedRecipeSchema, type PaginationMeta } from '~/lib/zod';
@@ -30,20 +30,39 @@ export async function GET(request: NextRequest) {
     return NextResponse.json(result);
   }
 
-  const savedRecipeWhereClause = and(
-    eq(savedRecipes.userId, userId),
-    exists(
-      db
-        .select()
-        .from(recipeData)
-        .where(and(eq(recipeData.recipeId, savedRecipes.recipeId), eq(recipeData.verified, true))),
-    ),
+  const searchQuery = searchParams.get('query')?.trim();
+
+  const ftsWhereClause =
+    searchQuery && searchQuery.length >= 3
+      ? sql`(
+        setweight(to_tsvector('hungarian', ${recipeData.title}), 'A') ||
+        setweight(to_tsvector('hungarian', ${recipeData.description}), 'B')
+      ) @@ plainto_tsquery('hungarian', ${searchQuery})`
+      : undefined;
+
+  const latestRecipeData = db
+    .select({
+      latestCreatedAt: max(recipeData.createdAt).as('latestCreatedAt'),
+      recipeId: recipeData.recipeId,
+    })
+    .from(recipeData)
+    .where(eq(recipeData.verified, true))
+    .groupBy(recipeData.recipeId)
+    .as('latestRecipeData');
+
+  const joinClause = and(
+    eq(recipeData.recipeId, latestRecipeData.recipeId),
+    eq(recipeData.createdAt, latestRecipeData.latestCreatedAt),
+    eq(recipeData.verified, true),
   );
 
   const [totalResult] = await db
     .select({ count: count() })
     .from(savedRecipes)
-    .where(savedRecipeWhereClause);
+    .innerJoin(recipes, eq(savedRecipes.recipeId, recipes.id))
+    .innerJoin(latestRecipeData, eq(latestRecipeData.recipeId, recipes.id))
+    .innerJoin(recipeData, joinClause)
+    .where(and(eq(savedRecipes.userId, userId), ftsWhereClause));
 
   const total = totalResult?.count ?? 0;
 
@@ -56,7 +75,9 @@ export async function GET(request: NextRequest) {
     })
     .from(savedRecipes)
     .innerJoin(recipes, eq(savedRecipes.recipeId, recipes.id))
-    .where(savedRecipeWhereClause)
+    .innerJoin(latestRecipeData, eq(latestRecipeData.recipeId, recipes.id))
+    .innerJoin(recipeData, joinClause)
+    .where(and(eq(savedRecipes.userId, userId), ftsWhereClause))
     .orderBy(desc(savedRecipes.createdAt))
     .limit(PAGE_SIZE)
     .offset((page - 1) * PAGE_SIZE);
