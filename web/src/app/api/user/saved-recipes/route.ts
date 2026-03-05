@@ -69,10 +69,7 @@ export async function GET(request: NextRequest) {
   const { page, pageCount } = getPagination(searchParams.get('page'), total, PAGE_SIZE);
 
   const recipeRecords = await db
-    .select({
-      recipe: recipes,
-      savedAt: savedRecipes.createdAt,
-    })
+    .select({ recipe: recipes })
     .from(savedRecipes)
     .innerJoin(recipes, eq(savedRecipes.recipeId, recipes.id))
     .innerJoin(latestRecipeData, eq(latestRecipeData.recipeId, recipes.id))
@@ -83,7 +80,7 @@ export async function GET(request: NextRequest) {
     .offset((page - 1) * PAGE_SIZE);
 
   const result = await Promise.all(
-    recipeRecords.map(async ({ recipe, savedAt }) => {
+    recipeRecords.map(async ({ recipe }) => {
       const [recipeDataRecord, categories] = await Promise.all([
         db.query.recipeData.findFirst({
           orderBy: desc(recipeData.createdAt),
@@ -98,7 +95,6 @@ export async function GET(request: NextRequest) {
         hasVerifiedVersion: true,
         recipe,
         recipeData: recipeDataRecord,
-        savedAt,
       };
     }),
   );

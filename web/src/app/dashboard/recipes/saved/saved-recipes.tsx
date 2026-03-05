@@ -14,7 +14,7 @@ import { useSidebar } from '~/components/ui/sidebar';
 import { useCreateQueryString } from '~/hooks/use-create-query-string';
 import { GET } from '~/lib/api';
 import { cn } from '~/lib/utils';
-import { pageSchema, paginatedSavedRecipesSchema } from '~/lib/zod';
+import { pageSchema, paginatedRecipesSchema } from '~/lib/zod';
 
 export function SavedRecipes() {
   const { open: isSidebarOpen } = useSidebar();
@@ -28,7 +28,7 @@ export function SavedRecipes() {
 
   const { data: savedRecipes, isLoading } = useQuery({
     queryFn: () =>
-      GET(`/api/user/saved-recipes?include=recipe&page=${page}`, paginatedSavedRecipesSchema),
+      GET(`/api/user/saved-recipes?include=recipe&page=${page}`, paginatedRecipesSchema),
     queryKey: ['currentUser', 'savedRecipes', { page }],
   });
 
