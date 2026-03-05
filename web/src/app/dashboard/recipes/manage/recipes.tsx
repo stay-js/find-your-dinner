@@ -1,17 +1,21 @@
 'use client';
 
-import { useQuery } from '@tanstack/react-query';
+import { keepPreviousData, useQuery } from '@tanstack/react-query';
+import { Eye, EyeOff } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import { NoContent } from '~/components/no-content';
 import { PaginationComponent } from '~/components/pagination-component';
 import { RecipeCard } from '~/components/recipe-card';
 import { RecipeCardSkeleton } from '~/components/recipe-card-skeleton';
 import { Button } from '~/components/ui/button';
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '~/components/ui/collapsible';
+import { Input } from '~/components/ui/input';
 import { useSidebar } from '~/components/ui/sidebar';
 import { useCreateQueryString } from '~/hooks/use-create-query-string';
+import { useDebouncedCallback } from '~/hooks/use-debounce';
 import { GET } from '~/lib/api';
 import { cn } from '~/lib/utils';
 import { pageSchema, paginatedRecipesSchema } from '~/lib/zod';
@@ -25,11 +29,36 @@ export function Recipes() {
   const createQueryString = useCreateQueryString(searchParams);
 
   const page = pageSchema.parse(searchParams.get('page'));
+  const urlQuery = searchParams.get('query')?.trim() ?? '';
+
+  const [query, setQuery] = useState(urlQuery);
+  const [showFilters, setShowFilters] = useState(false);
 
   const { data: recipes, isLoading } = useQuery({
-    queryFn: () => GET(`/api/user/recipes?page=${page}`, paginatedRecipesSchema),
-    queryKey: ['currentUser', 'recipes', { page }],
+    placeholderData: keepPreviousData,
+    queryFn: () =>
+      GET(
+        `/api/user/recipes?page=${page}&query=${encodeURIComponent(urlQuery)}`,
+        paginatedRecipesSchema,
+      ),
+    queryKey: ['currentUser', 'recipes', { page }, { query: urlQuery }],
   });
+
+  const navigateQuery = useDebouncedCallback((q: string) => {
+    router.replace(
+      pathname +
+        '?' +
+        createQueryString([
+          { name: 'query', value: q },
+          { name: 'page', value: '1' },
+        ]),
+    );
+  });
+
+  function handleQueryChange(e: React.ChangeEvent<HTMLInputElement>) {
+    setQuery(e.target.value);
+    navigateQuery(e.target.value);
+  }
 
   const currentApiPage = recipes?.meta?.currentPage;
 
@@ -43,15 +72,40 @@ export function Recipes() {
 
   return (
     <>
+      <Collapsible className="flex flex-col gap-2" onOpenChange={setShowFilters} open={showFilters}>
+        <div className="flex gap-2 max-sm:flex-col">
+          <Input onChange={handleQueryChange} placeholder="Keresés..." value={query} />
+
+          <CollapsibleTrigger asChild>
+            <Button onClick={() => setShowFilters((val) => !val)} variant="outline">
+              {showFilters ? <EyeOff /> : <Eye />}
+              <span>Szűrők</span>
+            </Button>
+          </CollapsibleTrigger>
+        </div>
+
+        <CollapsibleContent className="border-input flex flex-col gap-4 rounded-md border p-4">
+          <h2 className="text-lg font-semibold">Szűrők</h2>
+
+          <div className="flex flex-col gap-2 lg:flex-row"></div>
+        </CollapsibleContent>
+      </Collapsible>
+
       {!isLoading && (!recipes || recipes?.data?.length === 0) && (
         <NoContent
           action={
-            <Button asChild>
-              <Link href="/dashboard/recipes/create">Recept létrehozása</Link>
-            </Button>
+            !urlQuery ? (
+              <Button asChild>
+                <Link href="/dashboard/recipes/create">Recept létrehozása</Link>
+              </Button>
+            ) : undefined
           }
-          description="Úgy tűnik, még nem hoztál létre egyetlen receptet sem. Az alábbi gombra kattintva megteheted."
-          title="Nincs megjeleníthető recept"
+          description={
+            urlQuery
+              ? 'Sajnos nincs a keresési feltételeknek megfelelő recept. Próbáld meg módosítani a keresési feltételeket.'
+              : 'Úgy tűnik, még nem hoztál létre egyetlen receptet sem. Az alábbi gombra kattintva megteheted.'
+          }
+          title={urlQuery ? 'Nincs találat' : 'Nincs megjeleníthető recept'}
         />
       )}
 
