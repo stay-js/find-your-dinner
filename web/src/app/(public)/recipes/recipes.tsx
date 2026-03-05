@@ -86,10 +86,14 @@ export function Recipes() {
         </CollapsibleContent>
       </Collapsible>
 
-      {!isLoading && !query && (!recipes || recipes.data.length === 0) && (
+      {!isLoading && (!recipes || recipes.data.length === 0) && (
         <NoContent
-          description="Úgy tűnik, még nincs egyetlen recept sem. Gyere vissza később!"
-          title="Nincs megjeleníthető recept"
+          description={
+            urlQuery
+              ? 'Sajnos nincs a keresési feltételeknek megfelelő recept. Próbáld meg módosítani a keresési feltételeket.'
+              : 'Úgy tűnik, még nincs egyetlen recept sem. Gyere vissza később!'
+          }
+          title={urlQuery ? 'Nincs találat' : 'Nincs megjeleníthető recept'}
         />
       )}
 
