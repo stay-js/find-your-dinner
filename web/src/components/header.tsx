@@ -1,5 +1,9 @@
+'use client';
+
 import { SignedIn, SignedOut, SignInButton, SignUpButton } from '@clerk/nextjs';
+import { Menu, X } from 'lucide-react';
 import Link from 'next/link';
+import { useState } from 'react';
 
 import { Logo } from '~/components/logo';
 import { Button } from '~/components/ui/button';
@@ -8,41 +12,129 @@ import { UserAvatar } from '~/components/user';
 import { UserDropdown } from '~/components/user-dropdown';
 
 export function Header() {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
   return (
-    <header className="bg-background sticky top-0 z-10 flex h-16 items-center justify-between gap-4 border-b px-4">
-      <Link className="flex items-center gap-2" href="/">
-        <Logo size={36} />
+    <header className="bg-background fixed top-0 z-10 w-full border-b">
+      <div className="flex h-16 items-center justify-between gap-4 px-4">
+        <Link className="flex items-center gap-2" href="/">
+          <Logo size={36} />
 
-        <span className="text-primary text-base font-semibold underline-offset-4 hover:underline">
-          Find Your Dinner.
-        </span>
-      </Link>
+          <span className="text-primary text-base font-semibold underline-offset-4 hover:underline">
+            Find Your Dinner.
+          </span>
+        </Link>
 
-      <SignedIn>
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button size="icon" variant="ghost">
-              <UserAvatar className="size-7" />
+        <div className="hidden items-center gap-4 md:flex">
+          <Button asChild className="px-0" size="sm" variant="link">
+            <Link href="/find">Keresés</Link>
+          </Button>
+
+          <Button asChild className="px-0" size="sm" variant="link">
+            <Link href="/recipes">Összes recept</Link>
+          </Button>
+
+          <SignedIn>
+            <Button asChild className="px-0" size="sm" variant="link">
+              <Link href="/dashboard/recipes/manage">Irányítópult</Link>
             </Button>
-          </DropdownMenuTrigger>
 
-          <UserDropdown location="right" />
-        </DropdownMenu>
-      </SignedIn>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button size="icon" variant="ghost">
+                  <UserAvatar className="size-7" />
+                </Button>
+              </DropdownMenuTrigger>
 
-      <SignedOut>
-        <div className="flex gap-2">
-          <SignInButton mode="modal">
-            <Button>Bejelentkezés</Button>
-          </SignInButton>
+              <UserDropdown location="right" />
+            </DropdownMenu>
+          </SignedIn>
 
-          <SignUpButton mode="modal">
-            <Button className="max-md:hidden" variant="outline">
-              Regisztráció
-            </Button>
-          </SignUpButton>
+          <SignedOut>
+            <div className="flex gap-2">
+              <SignInButton mode="modal">
+                <Button size="sm">Bejelentkezés</Button>
+              </SignInButton>
+
+              <SignUpButton mode="modal">
+                <Button size="sm" variant="outline">
+                  Regisztráció
+                </Button>
+              </SignUpButton>
+            </div>
+          </SignedOut>
         </div>
-      </SignedOut>
+
+        <div className="flex items-center gap-2 md:hidden">
+          <SignedIn>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button size="icon" variant="ghost">
+                  <UserAvatar className="size-7" />
+                </Button>
+              </DropdownMenuTrigger>
+
+              <UserDropdown location="right" />
+            </DropdownMenu>
+          </SignedIn>
+
+          <Button onClick={() => setIsMobileMenuOpen((val) => !val)} size="icon" variant="ghost">
+            {isMobileMenuOpen ? <X className="size-5" /> : <Menu className="size-5" />}
+          </Button>
+        </div>
+      </div>
+
+      {isMobileMenuOpen && (
+        <nav className="flex flex-col items-start gap-2 border-t p-4 md:hidden">
+          <Button
+            asChild
+            className="px-0"
+            onClick={() => setIsMobileMenuOpen(false)}
+            size="sm"
+            variant="link"
+          >
+            <Link href="/find">Keresés</Link>
+          </Button>
+
+          <Button
+            asChild
+            className="px-0"
+            onClick={() => setIsMobileMenuOpen(false)}
+            size="sm"
+            variant="link"
+          >
+            <Link href="/recipes">Összes recept</Link>
+          </Button>
+
+          <SignedIn>
+            <Button
+              asChild
+              className="px-0"
+              onClick={() => setIsMobileMenuOpen(false)}
+              size="sm"
+              variant="link"
+            >
+              <Link href="/dashboard/recipes/manage">Irányítópult</Link>
+            </Button>
+          </SignedIn>
+
+          <SignedOut>
+            <div className="flex gap-2 py-2">
+              <SignInButton mode="modal">
+                <Button onClick={() => setIsMobileMenuOpen(false)} size="sm">
+                  Bejelentkezés
+                </Button>
+              </SignInButton>
+
+              <SignUpButton mode="modal">
+                <Button onClick={() => setIsMobileMenuOpen(false)} size="sm" variant="outline">
+                  Regisztráció
+                </Button>
+              </SignUpButton>
+            </div>
+          </SignedOut>
+        </nav>
+      )}
     </header>
   );
 }
