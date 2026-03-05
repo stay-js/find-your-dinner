@@ -36,7 +36,7 @@ export function Header() {
 
           <SignedIn>
             <Button asChild className="px-0" size="sm" variant="link">
-              <Link href="/dashboard/recipes/manage">Irányítópult</Link>
+              <Link href="/dashboard/recipes">Irányítópult</Link>
             </Button>
 
             <DropdownMenu>
@@ -114,7 +114,7 @@ export function Header() {
               size="sm"
               variant="link"
             >
-              <Link href="/dashboard/recipes/manage">Irányítópult</Link>
+              <Link href="/dashboard/recipes">Irányítópult</Link>
             </Button>
           </SignedIn>
 

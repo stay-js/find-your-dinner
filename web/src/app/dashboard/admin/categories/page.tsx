@@ -1,7 +1,7 @@
 import { createMetadata } from '~/lib/create-metadata';
 
 export const metadata = createMetadata({
-  path: '/dashboard/admin/categories/manage',
+  path: '/dashboard/admin/categories',
 
   description: 'Kategóriák kezelése - Admin',
   title: 'Kategóriák kezelése - Admin',

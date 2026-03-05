@@ -1,9 +1,8 @@
 import { auth } from '@clerk/nextjs/server';
-import Link from 'next/link';
 
+import { DashboardBreadcrumb } from '~/components/dashboard-breadcrumb';
 import { DashboardSidebar } from '~/components/dashboard-sidebar';
 import { Footer } from '~/components/footer';
-import { Button } from '~/components/ui/button';
 import { Separator } from '~/components/ui/separator';
 import { SidebarInset, SidebarProvider, SidebarTrigger } from '~/components/ui/sidebar';
 import { checkIsAdmin } from '~/server/utils/check-is-admin';
@@ -24,9 +23,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
 
           <Separator className="data-[orientation=vertical]:h-4" orientation="vertical" />
 
-          <Button asChild className="px-2" variant="link">
-            <Link href="/">Vissza a főoldalra</Link>
-          </Button>
+          <DashboardBreadcrumb />
         </header>
 
         <div className="h-full min-h-[85vh] pt-6 pb-12">{children}</div>

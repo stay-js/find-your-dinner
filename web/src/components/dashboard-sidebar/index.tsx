@@ -19,19 +19,19 @@ export function DashboardSidebar({ isAdmin, ...props }: DashboardSidebarProps) {
           items: [
             {
               title: 'Receptek kezelése',
-              url: '/dashboard/admin/recipes/manage',
+              url: '/dashboard/admin/recipes',
             },
             {
               title: 'Kategóriák kezelése',
-              url: '/dashboard/admin/categories/manage',
+              url: '/dashboard/admin/categories',
             },
             {
               title: 'Hozzávalók kezelése',
-              url: '/dashboard/admin/ingredients/manage',
+              url: '/dashboard/admin/ingredients',
             },
             {
               title: 'Mértékegységek kezelése',
-              url: '/dashboard/admin/units/manage',
+              url: '/dashboard/admin/units',
             },
           ],
           title: 'Adminisztráció',
@@ -52,7 +52,7 @@ export function DashboardSidebar({ isAdmin, ...props }: DashboardSidebarProps) {
             },
             {
               title: 'Recepteim kezelése',
-              url: '/dashboard/recipes/manage',
+              url: '/dashboard/recipes',
             },
           ],
           title: 'Recepteim',

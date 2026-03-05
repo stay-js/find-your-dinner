@@ -1,7 +1,7 @@
 import { createMetadata } from '~/lib/create-metadata';
 
 export const metadata = createMetadata({
-  path: '/dashboard/admin/ingredients/manage',
+  path: '/dashboard/admin/ingredients',
 
   description: 'Hozzávalók kezelése - Admin',
   title: 'Hozzávalók kezelése - Admin',

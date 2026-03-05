@@ -7,7 +7,7 @@ import { createMetadata } from '~/lib/create-metadata';
 import { Recipes } from './recipes';
 
 export const metadata = createMetadata({
-  path: '/dashboard/recipes/manage',
+  path: '/dashboard/recipes',
 
   description: 'Recepteim kezelése',
   title: 'Recepteim kezelése',

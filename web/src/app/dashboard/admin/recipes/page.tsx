@@ -3,7 +3,7 @@ import { createMetadata } from '~/lib/create-metadata';
 import { Recipes } from './recipes';
 
 export const metadata = createMetadata({
-  path: '/dashboard/admin/recipes/manage',
+  path: '/dashboard/admin/recipes',
 
   description: 'Receptek kezelése - Admin',
   title: 'Receptek kezelése - Admin',

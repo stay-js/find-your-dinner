@@ -122,12 +122,12 @@ export function RecipeForm({ defaultValues, recipeId }: RecipeFormProps) {
 
   const { mutateAsync: createRecipe } = useMutation({
     mutationFn: (data: CreateUpdateRecipeSchema) => POST('/api/recipes', data),
-    onSuccess: () => router.push('/dashboard/recipes/manage'),
+    onSuccess: () => router.push('/dashboard/recipes'),
   });
 
   const { mutateAsync: updateRecipe } = useMutation({
     mutationFn: (data: CreateUpdateRecipeSchema) => PUT(`/api/recipes/${recipeId}`, data),
-    onSuccess: () => router.push('/dashboard/recipes/manage'),
+    onSuccess: () => router.push('/dashboard/recipes'),
   });
 
   const onSubmit: SubmitHandler<FormSchema> = (data) => {

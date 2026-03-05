@@ -1,7 +1,7 @@
 import { createMetadata } from '~/lib/create-metadata';
 
 export const metadata = createMetadata({
-  path: '/dashboard/admin/units/manage',
+  path: '/dashboard/admin/units',
 
   description: 'Mértékegységek kezelése - Admin',
   title: 'Mértékegységek kezelése - Admin',

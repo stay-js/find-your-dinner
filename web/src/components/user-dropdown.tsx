@@ -43,7 +43,7 @@ export function UserDropdown({ location }: { location: 'left' | 'right' }) {
 
         {!pathname.startsWith('/dashboard') && (
           <DropdownMenuItem asChild className="w-full">
-            <Link className="flex items-center gap-2" href="/dashboard/recipes/manage">
+            <Link className="flex items-center gap-2" href="/dashboard/recipes">
               <PanelsTopLeft />
               <span>Irányítópult</span>
             </Link>
