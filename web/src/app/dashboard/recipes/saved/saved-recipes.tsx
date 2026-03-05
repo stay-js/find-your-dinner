@@ -71,7 +71,7 @@ export function SavedRecipes() {
   }, [currentApiPage, page, pathname, router, createQueryString]);
 
   return (
-    <>
+    <div className="flex h-full flex-col gap-4">
       <Collapsible className="flex flex-col gap-2" onOpenChange={setShowFilters} open={showFilters}>
         <div className="flex gap-2 max-sm:flex-col">
           <Input onChange={handleQueryChange} placeholder="Keresés..." value={query} />
@@ -123,6 +123,6 @@ export function SavedRecipes() {
       </div>
 
       <PaginationComponent currentPage={page} pageCount={savedRecipes?.meta.pageCount || 1} />
-    </>
+    </div>
   );
 }
