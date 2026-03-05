@@ -16,6 +16,7 @@ import { Input } from '~/components/ui/input';
 import { useSidebar } from '~/components/ui/sidebar';
 import { useCreateQueryString } from '~/hooks/use-create-query-string';
 import { useDebouncedCallback } from '~/hooks/use-debounce';
+import { useDebouncedLoading } from '~/hooks/use-debounced-loading';
 import { GET } from '~/lib/api';
 import { cn } from '~/lib/utils';
 import { pageSchema, paginatedRecipesSchema } from '~/lib/zod';
@@ -43,6 +44,8 @@ export function Recipes() {
       ),
     queryKey: ['currentUser', 'recipes', { page }, { query: urlQuery }],
   });
+
+  const showSkeleton = useDebouncedLoading(isLoading);
 
   const navigateQuery = useDebouncedCallback((q: string) => {
     router.replace(
@@ -115,7 +118,7 @@ export function Recipes() {
           isSidebarOpen ? 'lg:grid-cols-2 xl:grid-cols-3' : 'sm:grid-cols-2 lg:grid-cols-3',
         )}
       >
-        {isLoading && new Array(3).fill(null).map((_, i) => <RecipeCardSkeleton key={i} />)}
+        {showSkeleton && new Array(3).fill(null).map((_, i) => <RecipeCardSkeleton key={i} />)}
 
         {recipes?.data?.map((recipe) => (
           <RecipeCard key={recipe.recipe.id} pageType="manage" recipe={recipe} showIsVerified />

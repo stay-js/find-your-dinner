@@ -14,6 +14,7 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '~/component
 import { Input } from '~/components/ui/input';
 import { useCreateQueryString } from '~/hooks/use-create-query-string';
 import { useDebouncedCallback } from '~/hooks/use-debounce';
+import { useDebouncedLoading } from '~/hooks/use-debounced-loading';
 import { GET } from '~/lib/api';
 import { pageSchema, paginatedRecipesSchema } from '~/lib/zod';
 
@@ -38,6 +39,8 @@ export function Recipes() {
       ),
     queryKey: ['recipes', { page }, { query: urlQuery }],
   });
+
+  const showSkeleton = useDebouncedLoading(isLoading);
 
   const navigateQuery = useDebouncedCallback((q: string) => {
     router.replace(
@@ -98,7 +101,7 @@ export function Recipes() {
       )}
 
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {isLoading && new Array(3).fill(null).map((_, i) => <RecipeCardSkeleton key={i} />)}
+        {showSkeleton && new Array(3).fill(null).map((_, i) => <RecipeCardSkeleton key={i} />)}
 
         {recipes?.data.map((recipe) => (
           <RecipeCard key={recipe.recipe.id} pageType="search" recipe={recipe} />
