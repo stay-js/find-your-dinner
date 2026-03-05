@@ -51,18 +51,34 @@ export const recipeData = pgTable(
   ],
 );
 
-export const units = pgTable('units', (d) => ({
-  id: d.bigint('id', { mode: 'number' }).notNull().primaryKey().generatedAlwaysAsIdentity(),
+export const units = pgTable(
+  'units',
+  (d) => ({
+    id: d.bigint('id', { mode: 'number' }).notNull().primaryKey().generatedAlwaysAsIdentity(),
 
-  abbreviation: d.varchar('abbreviation', { length: 16 }).notNull(),
-  name: d.varchar('name', { length: 64 }).notNull().unique(),
-}));
+    abbreviation: d.varchar('abbreviation', { length: 16 }).notNull(),
+    name: d.varchar('name', { length: 64 }).notNull().unique(),
+  }),
+  (t) => [
+    index('units_fts_idx').using(
+      'gin',
+      sql`(
+        setweight(to_tsvector('hungarian', ${t.name}), 'A') ||
+        setweight(to_tsvector('hungarian', ${t.abbreviation}), 'B')
+        )`,
+    ),
+  ],
+);
 
-export const ingredients = pgTable('ingredients', (d) => ({
-  id: d.bigint('id', { mode: 'number' }).notNull().primaryKey().generatedAlwaysAsIdentity(),
+export const ingredients = pgTable(
+  'ingredients',
+  (d) => ({
+    id: d.bigint('id', { mode: 'number' }).notNull().primaryKey().generatedAlwaysAsIdentity(),
 
-  name: d.varchar('name', { length: 256 }).notNull().unique(),
-}));
+    name: d.varchar('name', { length: 256 }).notNull().unique(),
+  }),
+  (t) => [index('ingredients_fts_idx').using('gin', sql`to_tsvector('hungarian', ${t.name})`)],
+);
 
 export const ingredientRecipeData = pgTable(
   'ingredient_recipe_data',
@@ -85,11 +101,15 @@ export const ingredientRecipeData = pgTable(
   (t) => [primaryKey({ columns: [t.recipeDataId, t.ingredientId] })],
 );
 
-export const categories = pgTable('categories', (d) => ({
-  id: d.bigint('id', { mode: 'number' }).notNull().primaryKey().generatedAlwaysAsIdentity(),
+export const categories = pgTable(
+  'categories',
+  (d) => ({
+    id: d.bigint('id', { mode: 'number' }).notNull().primaryKey().generatedAlwaysAsIdentity(),
 
-  name: d.varchar('name', { length: 128 }).notNull().unique(),
-}));
+    name: d.varchar('name', { length: 128 }).notNull().unique(),
+  }),
+  (t) => [index('categories_fts_idx').using('gin', sql`to_tsvector('hungarian', ${t.name})`)],
+);
 
 export const categoryRecipe = pgTable(
   'category_recipe',
