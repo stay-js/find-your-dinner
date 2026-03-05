@@ -1,5 +1,5 @@
 import { auth } from '@clerk/nextjs/server';
-import { and, count, desc, eq, max } from 'drizzle-orm';
+import { and, count, desc, eq, max, sql } from 'drizzle-orm';
 import { type NextRequest, NextResponse } from 'next/server';
 
 import { createUpdateRecipeSchema, type PaginationMeta } from '~/lib/zod';
@@ -16,6 +16,15 @@ export async function GET(request: NextRequest) {
   const { searchParams } = request.nextUrl;
 
   const allowUnverified = ['1', 'true'].includes(searchParams.get('allow-unverified') ?? '');
+  const searchQuery = searchParams.get('query')?.trim();
+
+  const ftsWhereClause =
+    searchQuery && searchQuery.length >= 3
+      ? sql`(
+        setweight(to_tsvector('hungarian', ${recipeData.title}), 'A') ||
+        setweight(to_tsvector('hungarian', ${recipeData.description}), 'B')
+      ) @@ plainto_tsquery('hungarian', ${searchQuery})`
+      : undefined;
 
   if (allowUnverified) {
     const { isAuthenticated, userId } = await auth();
@@ -45,7 +54,8 @@ export async function GET(request: NextRequest) {
     .select({ count: count() })
     .from(recipes)
     .innerJoin(latestRecipeData, eq(latestRecipeData.recipeId, recipes.id))
-    .innerJoin(recipeData, joinClause);
+    .innerJoin(recipeData, joinClause)
+    .where(ftsWhereClause);
 
   const total = totalResult?.count ?? 0;
 
@@ -56,6 +66,7 @@ export async function GET(request: NextRequest) {
     .from(recipes)
     .innerJoin(latestRecipeData, eq(latestRecipeData.recipeId, recipes.id))
     .innerJoin(recipeData, joinClause)
+    .where(ftsWhereClause)
     .orderBy(desc(recipes.createdAt))
     .limit(PAGE_SIZE)
     .offset((page - 1) * PAGE_SIZE);
