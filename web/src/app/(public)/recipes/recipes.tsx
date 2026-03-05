@@ -79,7 +79,7 @@ export function Recipes() {
           </CollapsibleTrigger>
         </div>
 
-        <CollapsibleContent className="flex flex-col gap-4 rounded-md border p-4">
+        <CollapsibleContent className="border-input flex flex-col gap-4 rounded-md border p-4">
           <h2 className="text-lg font-semibold">Szűrők</h2>
 
           <div className="flex flex-col gap-2 lg:flex-row"></div>
