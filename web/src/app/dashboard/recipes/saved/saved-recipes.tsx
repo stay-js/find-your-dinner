@@ -37,9 +37,9 @@ export function SavedRecipes() {
   useEffect(() => {
     if (!currentApiPage || currentApiPage === page) return;
 
-    router.replace(pathname + '?' + createQueryString('page', currentApiPage.toString()), {
-      scroll: false,
-    });
+    router.replace(
+      pathname + '?' + createQueryString([{ name: 'page', value: currentApiPage.toString() }]),
+    );
   }, [currentApiPage, page, pathname, router, createQueryString]);
 
   return (

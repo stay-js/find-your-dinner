@@ -9,7 +9,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from '~/components/ui/pagination';
-import { useCreateQueryString } from '~/lib/use-create-query-string';
+import { useCreateQueryString } from '~/hooks/use-create-query-string';
 
 type PaginationComponentProps = {
   currentPage: number;
@@ -27,7 +27,7 @@ export function PaginationComponent({ currentPage, pageCount }: PaginationCompon
   const pageNumbers = getPageNumbers(currentPage, pageCount);
 
   const handlePageChange = (page: number) => {
-    router.replace(pathname + '?' + createQueryString('page', page.toString()), { scroll: false });
+    router.replace(pathname + '?' + createQueryString([{ name: 'page', value: page.toString() }]));
   };
 
   if (pageCount <= 1) return null;

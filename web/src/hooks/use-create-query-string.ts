@@ -1,13 +1,12 @@
-'use client';
-
 import { type ReadonlyURLSearchParams } from 'next/navigation';
 import { useCallback } from 'react';
 
 export function useCreateQueryString(searchParams: ReadonlyURLSearchParams) {
   const createQueryString = useCallback(
-    (name: string, value: string) => {
+    (values: { name: string; value: string }[]) => {
       const params = new URLSearchParams(searchParams.toString());
-      params.set(name, value);
+
+      values.forEach(({ name, value }) => params.set(name, value));
 
       return params.toString();
     },

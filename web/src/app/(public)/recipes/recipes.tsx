@@ -12,9 +12,9 @@ import { RecipeCardSkeleton } from '~/components/recipe-card-skeleton';
 import { Button } from '~/components/ui/button';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '~/components/ui/collapsible';
 import { Input } from '~/components/ui/input';
+import { useCreateQueryString } from '~/hooks/use-create-query-string';
 import { useDebouncedCallback } from '~/hooks/use-debounce';
 import { GET } from '~/lib/api';
-import { useCreateQueryString } from '~/lib/use-create-query-string';
 import { pageSchema, paginatedRecipesSchema } from '~/lib/zod';
 
 export function Recipes() {
@@ -39,7 +39,14 @@ export function Recipes() {
   });
 
   const navigateQuery = useDebouncedCallback((q: string) => {
-    router.replace(pathname + '?' + createQueryString('query', q));
+    router.replace(
+      pathname +
+        '?' +
+        createQueryString([
+          { name: 'query', value: q },
+          { name: 'page', value: '1' },
+        ]),
+    );
   });
 
   function handleQueryChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -52,7 +59,9 @@ export function Recipes() {
   useEffect(() => {
     if (!currentApiPage || currentApiPage === page) return;
 
-    router.replace(pathname + '?' + createQueryString('page', currentApiPage.toString()));
+    router.replace(
+      pathname + '?' + createQueryString([{ name: 'page', value: currentApiPage.toString() }]),
+    );
   }, [currentApiPage, page, pathname, router, createQueryString]);
 
   return (
