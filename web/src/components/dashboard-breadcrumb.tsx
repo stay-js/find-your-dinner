@@ -12,6 +12,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from '~/components/ui/breadcrumb';
+import { useRecipeTitle } from '~/contexts/recipe-title-context';
 
 const segmentLabels: Record<string, string> = {
   admin: 'Admin',
@@ -38,16 +39,38 @@ const sidebarHrefs = new Set([
 
 export function DashboardBreadcrumb() {
   const pathname = usePathname();
+  const recipeTitle = useRecipeTitle();
   const segments = pathname.split('/').filter(Boolean);
 
-  const breadcrumbs: { href: string; label: string }[] = [];
+  const lastSegment = segments.at(-1) ?? '';
+  const prevSegment = segments.at(-2) ?? '';
+  const isRecipeViewPage = /^\d+$/.test(lastSegment) && prevSegment === 'recipes';
+  const isRecipeEditPage =
+    lastSegment === 'edit' && /^\d+$/.test(prevSegment) && segments.at(-3) === 'recipes';
+
+  const breadcrumbs: { href: string; isRecipeLink?: true; label: string }[] = [];
   let path = '';
 
   for (const segment of segments) {
     path += `/${segment}`;
     if (/^\d+$/.test(segment)) continue;
     const label = segmentLabels[segment];
-    if (label) breadcrumbs.push({ href: path, label });
+
+    if (label) {
+      if (isRecipeEditPage && segment === 'edit') {
+        breadcrumbs.push({
+          href: pathname.slice(0, -'/edit'.length),
+          isRecipeLink: true,
+          label: recipeTitle ?? '...',
+        });
+      }
+
+      breadcrumbs.push({ href: path, label });
+    }
+  }
+
+  if (isRecipeViewPage) {
+    breadcrumbs.push({ href: pathname, label: recipeTitle ?? '...' });
   }
 
   return (
@@ -55,7 +78,7 @@ export function DashboardBreadcrumb() {
       <BreadcrumbList>
         {breadcrumbs.map((crumb, index) => {
           const isLast = index === breadcrumbs.length - 1;
-          const isLink = !isLast && sidebarHrefs.has(crumb.href);
+          const isLink = !isLast && (sidebarHrefs.has(crumb.href) || crumb.isRecipeLink);
 
           return (
             <Fragment key={crumb.href}>

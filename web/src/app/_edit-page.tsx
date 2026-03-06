@@ -2,6 +2,7 @@ import { auth } from '@clerk/nextjs/server';
 import { notFound } from 'next/navigation';
 
 import { RecipeForm } from '~/components/recipe-form';
+import { SetRecipeTitle } from '~/contexts/recipe-title-context';
 import { idParamSchema } from '~/lib/zod';
 import { checkIsAdmin } from '~/server/utils/check-is-admin';
 import { getRecipe } from '~/server/utils/get-recipe';
@@ -40,5 +41,10 @@ export async function EditPage({ params }: { params: Promise<{ id: string }> }) 
     })),
   };
 
-  return <RecipeForm defaultValues={defaultValues} recipeId={recipe.id} />;
+  return (
+    <>
+      <SetRecipeTitle title={recipeData.title} />
+      <RecipeForm defaultValues={defaultValues} recipeId={recipe.id} />
+    </>
+  );
 }

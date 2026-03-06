@@ -11,6 +11,7 @@ import {
   Stats,
   Title,
 } from '~/components/recipe-page';
+import { SetRecipeTitle } from '~/contexts/recipe-title-context';
 import { createMetadata } from '~/lib/create-metadata';
 import { idParamSchema } from '~/lib/zod';
 import { getRecipe } from '~/server/utils/get-recipe';
@@ -52,6 +53,8 @@ export default async function ViewPage({ params }: { params: Promise<{ id: strin
 
   return (
     <div className="@container">
+      <SetRecipeTitle title={recipeData.title} />
+
       <div className="container grid gap-6 @5xl:grid-cols-[3fr_1fr]">
         <div className="flex flex-col gap-6">
           {!recipeData.verified && <Approve recipeDataId={recipeData.id} />}
