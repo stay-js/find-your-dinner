@@ -78,7 +78,11 @@ export default async function ViewPage({ params }: { params: Promise<{ id: strin
             servings={recipeData.servings}
           />
 
-          <Ingredients className="@5xl:hidden" ingredients={ingredients} />
+          <Ingredients
+            className="@5xl:hidden"
+            ingredients={ingredients}
+            servings={recipeData.servings}
+          />
 
           <Instructions instructions={recipeData.instructions} />
 
@@ -91,7 +95,11 @@ export default async function ViewPage({ params }: { params: Promise<{ id: strin
           />
         </div>
 
-        <Ingredients className="sticky top-22 @max-5xl:hidden" ingredients={ingredients} />
+        <Ingredients
+          className="sticky top-22 @max-5xl:hidden"
+          ingredients={ingredients}
+          servings={recipeData.servings}
+        />
       </div>
     </div>
   );
