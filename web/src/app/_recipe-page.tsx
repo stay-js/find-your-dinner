@@ -50,7 +50,11 @@ export async function RecipePage({ params }: { params: Promise<{ id: string }> }
           servings={recipeData.servings}
         />
 
-        <Ingredients className="lg:hidden" ingredients={ingredients} />
+        <Ingredients
+          className="lg:hidden"
+          ingredients={ingredients}
+          servings={recipeData.servings}
+        />
 
         <Instructions instructions={recipeData.instructions} />
 
@@ -63,7 +67,11 @@ export async function RecipePage({ params }: { params: Promise<{ id: string }> }
         />
       </div>
 
-      <Ingredients className="sticky top-22 max-lg:hidden" ingredients={ingredients} />
+      <Ingredients
+        className="sticky top-22 max-lg:hidden"
+        ingredients={ingredients}
+        servings={recipeData.servings}
+      />
     </div>
   );
 }

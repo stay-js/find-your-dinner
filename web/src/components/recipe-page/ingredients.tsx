@@ -1,7 +1,9 @@
 'use client';
 
+import { Minus, Plus } from 'lucide-react';
 import { useId, useState } from 'react';
 
+import { Button } from '~/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card';
 import { Checkbox } from '~/components/ui/checkbox';
 import { cn } from '~/lib/utils';
@@ -10,16 +12,21 @@ import { type IngredientsWithPivot, type IngredientWithPivot } from '~/lib/zod';
 type IngredientProps = {
   checked: boolean;
   item: IngredientWithPivot;
+  mulitplier: number;
   toggleIngredient: (id: number) => void;
 };
 
 type IngredientsProps = {
   className?: string;
   ingredients: IngredientsWithPivot;
+  servings: number;
 };
 
-export function Ingredients({ className, ingredients }: IngredientsProps) {
+export function Ingredients({ className, ingredients, servings }: IngredientsProps) {
   const [checkedIngredients, setCheckedIngredients] = useState<Set<number>>(new Set());
+  const [cookedServings, setCookedServings] = useState(servings);
+
+  const multiplier = cookedServings / servings;
 
   const toggleIngredient = (ingredientId: number) => {
     setCheckedIngredients((prev) => {
@@ -38,7 +45,29 @@ export function Ingredients({ className, ingredients }: IngredientsProps) {
   return (
     <Card className={cn('h-fit', className)}>
       <CardHeader>
-        <CardTitle>Hozzávalók</CardTitle>
+        <CardTitle className="flex items-center justify-between gap-4">
+          <span>Hozzávalók</span>
+
+          <div className="flex items-center gap-2">
+            <Button
+              onClick={() => setCookedServings((val) => Math.max(1, val - 1))}
+              size="icon-sm"
+              variant="outline"
+            >
+              <Minus className="size-3.5" />
+            </Button>
+
+            <span className="text-sm">{cookedServings} adag</span>
+
+            <Button
+              onClick={() => setCookedServings((val) => val + 1)}
+              size="icon-sm"
+              variant="outline"
+            >
+              <Plus className="size-3.5" />
+            </Button>
+          </div>
+        </CardTitle>
       </CardHeader>
 
       <CardContent className="flex flex-col gap-2">
@@ -47,6 +76,7 @@ export function Ingredients({ className, ingredients }: IngredientsProps) {
             checked={checkedIngredients.has(item.ingredient.id)}
             item={item}
             key={item.ingredient.id}
+            mulitplier={multiplier}
             toggleIngredient={toggleIngredient}
           />
         ))}
@@ -55,7 +85,7 @@ export function Ingredients({ className, ingredients }: IngredientsProps) {
   );
 }
 
-function Ingredient({ checked, item, toggleIngredient }: IngredientProps) {
+function Ingredient({ checked, item, mulitplier, toggleIngredient }: IngredientProps) {
   const id = useId();
 
   return (
@@ -74,7 +104,7 @@ function Ingredient({ checked, item, toggleIngredient }: IngredientProps) {
         htmlFor={id}
       >
         <span className="font-medium">
-          {item.quantity} {item.unit.abbreviation}
+          {item.quantity * mulitplier} {item.unit.abbreviation}
         </span>{' '}
         <span>{item.ingredient.name}</span>
       </label>
