@@ -5,6 +5,7 @@ import { shadcn } from '@clerk/themes';
 import { GeistSans } from 'geist/font/sans';
 import { type Viewport } from 'next';
 import { ThemeProvider } from 'next-themes';
+import { Suspense } from 'react';
 
 import { ReactQueryProvider } from '~/app/react-query-provider';
 import { Toaster } from '~/components/ui/sonner';
@@ -35,7 +36,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               enableColorScheme
               storageKey="theme"
             >
-              {children}
+              <Suspense>{children}</Suspense>
 
               <Toaster />
             </ThemeProvider>
