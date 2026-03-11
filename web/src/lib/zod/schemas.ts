@@ -7,6 +7,19 @@ export const idParamSchema = z.object({
 });
 export type IdParam = z.infer<typeof idParamSchema>;
 
+export const categoriesSearchSchema = z
+  .string()
+  .nullable()
+  .transform((val) => (val ? JSON.parse(val) : null))
+  .pipe(z.array(z.number().int().positive()).nullable())
+  .catch(null);
+
+export const boolFlagSearchSchema = z
+  .string()
+  .nullable()
+  .transform((val) => val === '1' || val === 'true')
+  .catch(false);
+
 export const pageSchema = z.coerce.number().int().positive().optional().default(1).catch(1);
 
 export const isAdminSchema = z.object({ isAdmin: z.boolean() });

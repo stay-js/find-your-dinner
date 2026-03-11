@@ -1,3 +1,4 @@
+export * from './build-recipe-index-query';
 export * from './get-has-verified-version';
 export * from './get-recipe-author';
 export * from './get-recipe-categories';

@@ -1,15 +1,26 @@
 import { auth } from '@clerk/nextjs/server';
-import { and, count, desc, eq, max, sql } from 'drizzle-orm';
+import { and, count, desc, eq, inArray } from 'drizzle-orm';
 import { type NextRequest, NextResponse } from 'next/server';
+import { z } from 'zod';
 
-import { type PaginationMeta } from '~/lib/zod';
+import { categoriesSearchSchema, type PaginationMeta } from '~/lib/zod';
 import { db } from '~/server/db';
-import { recipeData, recipes } from '~/server/db/schema';
+import { categoryRecipe, recipeData, recipes } from '~/server/db/schema';
 import { unauthorized } from '~/server/utils/errors';
 import { getPagination } from '~/server/utils/get-pagination';
-import { getHasVerifiedVersion, getRecipeCategories } from '~/server/utils/recipe-helpers';
+import {
+  buildFtsClause,
+  buildLatestRecipeData,
+  buildRecipeDataJoinClause,
+  enrichRecipes,
+} from '~/server/utils/recipe-helpers';
 
 const PAGE_SIZE = 9;
+
+const getUserRecipesSchema = z.object({
+  categories: categoriesSearchSchema,
+  query: z.string().trim().nullable().catch(null),
+});
 
 export async function GET(request: NextRequest) {
   const { searchParams } = request.nextUrl;
@@ -17,71 +28,63 @@ export async function GET(request: NextRequest) {
   const { isAuthenticated, userId } = await auth();
   if (!isAuthenticated) return unauthorized();
 
-  const searchQuery = searchParams.get('query')?.trim();
+  const { data: params, success } = getUserRecipesSchema.safeParse({
+    categories: searchParams.get('categories'),
+    query: searchParams.get('query'),
+  });
 
-  const ftsWhereClause =
-    searchQuery && searchQuery.length >= 3
-      ? sql`(
-        setweight(to_tsvector('hungarian', ${recipeData.title}), 'A') ||
-        setweight(to_tsvector('hungarian', ${recipeData.description}), 'B')
-      ) @@ plainto_tsquery('hungarian', ${searchQuery})`
+  if (!success) {
+    return NextResponse.json({ message: 'Invalid query parameters' }, { status: 400 });
+  }
+
+  const ftsWhereClause = buildFtsClause(params.query);
+  const categoryIds = params.categories?.length ? params.categories : undefined;
+  const categoryWhereClause =
+    categoryIds && categoryIds.length > 0
+      ? inArray(categoryRecipe.categoryId, categoryIds)
       : undefined;
 
-  const latestRecipeData = db
-    .select({
-      latestCreatedAt: max(recipeData.createdAt).as('latestCreatedAt'),
-      recipeId: recipeData.recipeId,
-    })
-    .from(recipeData)
-    .groupBy(recipeData.recipeId)
-    .as('latestRecipeData');
+  const latestRd = buildLatestRecipeData();
+  const joinClause = buildRecipeDataJoinClause(latestRd);
 
-  const joinClause = and(
-    eq(recipeData.recipeId, latestRecipeData.recipeId),
-    eq(recipeData.createdAt, latestRecipeData.latestCreatedAt),
-  );
-
-  const [totalResult] = await db
+  const baseCountQuery = db
     .select({ count: count() })
     .from(recipes)
-    .innerJoin(latestRecipeData, eq(latestRecipeData.recipeId, recipes.id))
+    .innerJoin(latestRd, eq(latestRd.recipeId, recipes.id))
     .innerJoin(recipeData, joinClause)
-    .where(and(eq(recipes.userId, userId), ftsWhereClause));
+    .$dynamic();
+
+  const baseRecipesQuery = db
+    .select({ recipe: recipes })
+    .from(recipes)
+    .innerJoin(latestRd, eq(latestRd.recipeId, recipes.id))
+    .innerJoin(recipeData, joinClause)
+    .$dynamic();
+
+  if (categoryWhereClause) {
+    baseCountQuery.innerJoin(
+      categoryRecipe,
+      and(eq(categoryRecipe.recipeId, recipes.id), categoryWhereClause),
+    );
+    baseRecipesQuery.innerJoin(
+      categoryRecipe,
+      and(eq(categoryRecipe.recipeId, recipes.id), categoryWhereClause),
+    );
+  }
+
+  const [totalResult] = await baseCountQuery.where(and(eq(recipes.userId, userId), ftsWhereClause));
 
   const total = totalResult?.count ?? 0;
 
   const { page, pageCount } = getPagination(searchParams.get('page'), total, PAGE_SIZE);
 
-  const recipeRecords = await db
-    .select({ recipe: recipes })
-    .from(recipes)
-    .innerJoin(latestRecipeData, eq(latestRecipeData.recipeId, recipes.id))
-    .innerJoin(recipeData, joinClause)
+  const recipeRecords = await baseRecipesQuery
     .where(and(eq(recipes.userId, userId), ftsWhereClause))
     .orderBy(desc(recipes.createdAt))
     .limit(PAGE_SIZE)
     .offset((page - 1) * PAGE_SIZE);
 
-  const result = await Promise.all(
-    recipeRecords.map(async ({ recipe }) => {
-      const [recipeDataRecord, categories, hasVerifiedVersion] = await Promise.all([
-        db.query.recipeData.findFirst({
-          orderBy: desc(recipeData.createdAt),
-          where: eq(recipeData.recipeId, recipe.id),
-        }),
-
-        getRecipeCategories(recipe.id),
-        getHasVerifiedVersion(recipe.id),
-      ]);
-
-      return {
-        categories,
-        hasVerifiedVersion,
-        recipe,
-        recipeData: recipeDataRecord,
-      };
-    }),
-  );
+  const result = await enrichRecipes(recipeRecords);
 
   return NextResponse.json({
     data: result,

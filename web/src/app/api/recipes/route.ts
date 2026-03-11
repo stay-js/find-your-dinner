@@ -1,30 +1,54 @@
 import { auth } from '@clerk/nextjs/server';
-import { and, count, desc, eq, max, sql } from 'drizzle-orm';
+import { and, count, desc, eq, inArray } from 'drizzle-orm';
 import { type NextRequest, NextResponse } from 'next/server';
+import { z } from 'zod';
 
-import { createUpdateRecipeSchema, type PaginationMeta } from '~/lib/zod';
+import {
+  boolFlagSearchSchema,
+  categoriesSearchSchema,
+  createUpdateRecipeSchema,
+  type PaginationMeta,
+} from '~/lib/zod';
 import { db } from '~/server/db';
 import { categoryRecipe, ingredientRecipeData, recipeData, recipes } from '~/server/db/schema';
 import { checkIsAdmin } from '~/server/utils/check-is-admin';
 import { forbidden, unauthorized } from '~/server/utils/errors';
 import { getPagination } from '~/server/utils/get-pagination';
-import { getHasVerifiedVersion, getRecipeCategories } from '~/server/utils/recipe-helpers';
+import {
+  buildFtsClause,
+  buildLatestRecipeData,
+  buildRecipeDataJoinClause,
+  enrichRecipes,
+} from '~/server/utils/recipe-helpers';
 
 const PAGE_SIZE = 9;
+
+const getRecipesSchema = z.object({
+  'allow-unverified': boolFlagSearchSchema,
+  'awaiting-verification': boolFlagSearchSchema,
+  categories: categoriesSearchSchema,
+  query: z.string().trim().nullable().catch(null),
+});
 
 export async function GET(request: NextRequest) {
   const { searchParams } = request.nextUrl;
 
-  const allowUnverified = ['1', 'true'].includes(searchParams.get('allow-unverified') ?? '');
-  const searchQuery = searchParams.get('query')?.trim();
+  const { data: params, success } = getRecipesSchema.safeParse({
+    'allow-unverified': searchParams.get('allow-unverified'),
+    'awaiting-verification': searchParams.get('awaiting-verification'),
+    categories: searchParams.get('categories'),
+    query: searchParams.get('query'),
+  });
 
-  const ftsWhereClause =
-    searchQuery && searchQuery.length >= 3
-      ? sql`(
-        setweight(to_tsvector('hungarian', ${recipeData.title}), 'A') ||
-        setweight(to_tsvector('hungarian', ${recipeData.description}), 'B')
-      ) @@ plainto_tsquery('hungarian', ${searchQuery})`
-      : undefined;
+  if (!success) {
+    return NextResponse.json({ message: 'Invalid query parameters' }, { status: 400 });
+  }
+
+  const awaitingVerification = params['awaiting-verification'];
+  const allowUnverified = awaitingVerification || params['allow-unverified'];
+  const categoryIds = params.categories?.length ? params.categories : undefined;
+
+  const ftsWhereClause = buildFtsClause(params.query);
 
   if (allowUnverified) {
     const { isAuthenticated, userId } = await auth();
@@ -34,65 +58,53 @@ export async function GET(request: NextRequest) {
     if (!isAdmin) return forbidden();
   }
 
-  const latestRecipeData = db
-    .select({
-      latestCreatedAt: max(recipeData.createdAt).as('latestCreatedAt'),
-      recipeId: recipeData.recipeId,
-    })
-    .from(recipeData)
-    .where(allowUnverified ? undefined : eq(recipeData.verified, true))
-    .groupBy(recipeData.recipeId)
-    .as('latestRecipeData');
+  const verifiedOnly = !allowUnverified;
+  const latestRd = buildLatestRecipeData(verifiedOnly);
+  const joinClause = buildRecipeDataJoinClause(latestRd, { awaitingVerification, verifiedOnly });
 
-  const joinClause = and(
-    eq(recipeData.recipeId, latestRecipeData.recipeId),
-    eq(recipeData.createdAt, latestRecipeData.latestCreatedAt),
-    allowUnverified ? undefined : eq(recipeData.verified, true),
-  );
+  const categoryWhereClause =
+    categoryIds && categoryIds.length > 0
+      ? inArray(categoryRecipe.categoryId, categoryIds)
+      : undefined;
 
-  const [totalResult] = await db
+  const baseCountQuery = db
     .select({ count: count() })
     .from(recipes)
-    .innerJoin(latestRecipeData, eq(latestRecipeData.recipeId, recipes.id))
+    .innerJoin(latestRd, eq(latestRd.recipeId, recipes.id))
     .innerJoin(recipeData, joinClause)
-    .where(ftsWhereClause);
+    .$dynamic();
 
+  const baseRecipesQuery = db
+    .select({ recipe: recipes })
+    .from(recipes)
+    .innerJoin(latestRd, eq(latestRd.recipeId, recipes.id))
+    .innerJoin(recipeData, joinClause)
+    .$dynamic();
+
+  if (categoryWhereClause) {
+    baseCountQuery.innerJoin(
+      categoryRecipe,
+      and(eq(categoryRecipe.recipeId, recipes.id), categoryWhereClause),
+    );
+
+    baseRecipesQuery.innerJoin(
+      categoryRecipe,
+      and(eq(categoryRecipe.recipeId, recipes.id), categoryWhereClause),
+    );
+  }
+
+  const [totalResult] = await baseCountQuery.where(ftsWhereClause);
   const total = totalResult?.count ?? 0;
 
   const { page, pageCount } = getPagination(searchParams.get('page'), total, PAGE_SIZE);
 
-  const recipeRecords = await db
-    .select({ recipe: recipes })
-    .from(recipes)
-    .innerJoin(latestRecipeData, eq(latestRecipeData.recipeId, recipes.id))
-    .innerJoin(recipeData, joinClause)
+  const recipeRecords = await baseRecipesQuery
     .where(ftsWhereClause)
     .orderBy(desc(recipes.createdAt))
     .limit(PAGE_SIZE)
     .offset((page - 1) * PAGE_SIZE);
 
-  const result = await Promise.all(
-    recipeRecords.map(async ({ recipe }) => {
-      const [recipeDataRecord, categories, hasVerifiedVersion] = await Promise.all([
-        db.query.recipeData.findFirst({
-          orderBy: desc(recipeData.createdAt),
-          where: allowUnverified
-            ? eq(recipeData.recipeId, recipe.id)
-            : and(eq(recipeData.recipeId, recipe.id), eq(recipeData.verified, true)),
-        }),
-
-        getRecipeCategories(recipe.id),
-        allowUnverified ? getHasVerifiedVersion(recipe.id) : true,
-      ]);
-
-      return {
-        categories,
-        hasVerifiedVersion,
-        recipe,
-        recipeData: recipeDataRecord,
-      };
-    }),
-  );
+  const result = await enrichRecipes(recipeRecords, { awaitingVerification, verifiedOnly });
 
   return NextResponse.json({
     data: result,
