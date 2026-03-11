@@ -1,5 +1,3 @@
-'use client';
-
 import { useId, useMemo } from 'react';
 
 import {
@@ -11,6 +9,7 @@ import {
   ComboboxEmpty,
   ComboboxItem,
   ComboboxList,
+  ComboboxValue,
   useComboboxAnchor,
 } from '~/components/ui/combobox';
 import { cn } from '~/lib/utils';
@@ -18,18 +17,18 @@ import { cn } from '~/lib/utils';
 type FilterComboboxProps = {
   className?: string;
   disabled?: boolean;
-  emptyText?: string;
   label: string;
   onValueChange: (value: number[]) => void;
-  options: { label: string; value: number }[];
+  options: Option[];
   placeholder?: string;
   value: number[];
 };
 
+type Option = { label: string; value: number };
+
 export function FilterCombobox({
   className,
   disabled,
-  emptyText = 'Nincs találat',
   label,
   onValueChange,
   options,
@@ -39,8 +38,8 @@ export function FilterCombobox({
   const id = useId();
   const anchor = useComboboxAnchor();
 
-  const selectedValues = useMemo(
-    () => options.filter((option) => value.includes(option.value)).map((option) => option.value),
+  const selectedOptions = useMemo(
+    () => options.filter((option) => value.includes(option.value)),
     [options, value],
   );
 
@@ -50,24 +49,36 @@ export function FilterCombobox({
         {label}
       </label>
 
-      <Combobox disabled={disabled} multiple onValueChange={onValueChange} value={selectedValues}>
+      <Combobox
+        autoHighlight
+        disabled={disabled}
+        items={options}
+        itemToStringValue={(item) => item.label}
+        multiple
+        onValueChange={(newSelectedOptions) => {
+          onValueChange(newSelectedOptions.map((option) => option.value));
+        }}
+        value={selectedOptions}
+      >
         <ComboboxChips ref={anchor}>
-          {value.map((val) => {
-            const option = options.find((x) => x.value === val);
-            return option ? <ComboboxChip key={option.value}>{option.label}</ComboboxChip> : null;
-          })}
+          <ComboboxValue>
+            {value.map((val) => {
+              const option = options.find((x) => x.value === val);
+              return option ? <ComboboxChip key={option.value}>{option.label}</ComboboxChip> : null;
+            })}
+          </ComboboxValue>
           <ComboboxChipsInput id={id} placeholder={placeholder} />
         </ComboboxChips>
 
         <ComboboxContent anchor={anchor}>
-          <ComboboxList>
-            <ComboboxEmpty>{emptyText}</ComboboxEmpty>
+          <ComboboxEmpty>Nincs találat</ComboboxEmpty>
 
-            {options.map((option) => (
-              <ComboboxItem key={option.value} value={option.value}>
-                {option.label}
+          <ComboboxList>
+            {(item: Option) => (
+              <ComboboxItem key={item.value} value={item}>
+                {item.label}
               </ComboboxItem>
-            ))}
+            )}
           </ComboboxList>
         </ComboboxContent>
       </Combobox>
