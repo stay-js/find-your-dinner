@@ -80,14 +80,12 @@ export function SavedRecipes() {
   const showSkeleton = useDebouncedLoading(isLoading);
 
   const navigateQuery = useDebouncedCallback((q: string) => {
-    router.replace(
-      pathname +
-        '?' +
-        mergeQueryString([
-          { name: 'query', value: q },
-          { name: 'page', value: '1' },
-        ]),
-    );
+    const params = [
+      { name: 'query', value: q },
+      { name: 'page', value: '1' },
+    ];
+
+    router.replace(`${pathname}?${mergeQueryString(params)}`);
   });
 
   function handleQueryChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -98,14 +96,12 @@ export function SavedRecipes() {
   function handleCategoriesChange(values: number[]) {
     setSelectedCategories(values);
 
-    router.replace(
-      pathname +
-        '?' +
-        mergeQueryString([
-          { name: 'categories', value: values.length > 0 ? JSON.stringify(values) : '' },
-          { name: 'page', value: '1' },
-        ]),
-    );
+    const params = [
+      { name: 'categories', value: values.length > 0 ? JSON.stringify(values) : '[]' },
+      { name: 'page', value: '1' },
+    ];
+
+    router.replace(`${pathname}?${mergeQueryString(params)}`);
   }
 
   const currentApiPage = savedRecipes?.meta?.currentPage;
@@ -113,9 +109,9 @@ export function SavedRecipes() {
   useEffect(() => {
     if (!currentApiPage || currentApiPage === page) return;
 
-    router.replace(
-      pathname + '?' + mergeQueryString([{ name: 'page', value: currentApiPage.toString() }]),
-    );
+    const params = [{ name: 'page', value: currentApiPage.toString() }];
+
+    router.replace(`${pathname}?${mergeQueryString(params)}`);
   }, [currentApiPage, page, pathname, router, mergeQueryString]);
 
   return (
