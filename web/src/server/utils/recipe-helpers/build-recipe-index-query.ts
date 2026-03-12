@@ -31,12 +31,12 @@ export function buildLatestRecipeData(verifiedOnly = false) {
 
 export function buildRecipeDataJoinClause(
   latestRd: ReturnType<typeof buildLatestRecipeData>,
-  opts: { awaitingVerification?: boolean; verifiedOnly?: boolean } = {},
+  opts: { onlyAwaitingVerification?: boolean; verifiedOnly?: boolean } = {},
 ) {
   return and(
     eq(recipeData.recipeId, latestRd.recipeId),
     eq(recipeData.createdAt, latestRd.latestCreatedAt),
-    opts.awaitingVerification
+    opts.onlyAwaitingVerification
       ? eq(recipeData.verified, false)
       : opts.verifiedOnly
         ? eq(recipeData.verified, true)
@@ -47,13 +47,13 @@ export function buildRecipeDataJoinClause(
 export async function enrichRecipes(
   recipeRecords: RecipeRecord[],
   opts: {
-    awaitingVerification?: boolean;
+    onlyAwaitingVerification?: boolean;
     verifiedOnly?: boolean;
   } = {},
 ) {
   return Promise.all(
     recipeRecords.map(async ({ recipe }) => {
-      const recipeDataWhere = opts.awaitingVerification
+      const recipeDataWhere = opts.onlyAwaitingVerification
         ? and(eq(recipeData.recipeId, recipe.id), eq(recipeData.verified, false))
         : opts.verifiedOnly
           ? and(eq(recipeData.recipeId, recipe.id), eq(recipeData.verified, true))

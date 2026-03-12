@@ -25,8 +25,8 @@ const PAGE_SIZE = 9;
 
 const getRecipesSchema = z.object({
   'allow-unverified': boolFlagSearchSchema,
-  'awaiting-verification': boolFlagSearchSchema,
   categories: categoriesSearchSchema,
+  'only-awaiting-verification': boolFlagSearchSchema,
   query: z.string().trim().nullable().catch(null),
 });
 
@@ -35,8 +35,8 @@ export async function GET(request: NextRequest) {
 
   const { data: params, success } = getRecipesSchema.safeParse({
     'allow-unverified': searchParams.get('allow-unverified'),
-    'awaiting-verification': searchParams.get('awaiting-verification'),
     categories: searchParams.get('categories'),
+    'only-awaiting-verification': searchParams.get('only-awaiting-verification'),
     query: searchParams.get('query'),
   });
 
@@ -44,8 +44,8 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ message: 'Invalid query parameters' }, { status: 400 });
   }
 
-  const awaitingVerification = params['awaiting-verification'];
-  const allowUnverified = awaitingVerification || params['allow-unverified'];
+  const onlyAwaitingVerification = params['only-awaiting-verification'];
+  const allowUnverified = onlyAwaitingVerification || params['allow-unverified'];
   const categoryIds = params.categories?.length ? params.categories : undefined;
 
   const ftsWhereClause = buildFtsClause(params.query);
@@ -60,7 +60,10 @@ export async function GET(request: NextRequest) {
 
   const verifiedOnly = !allowUnverified;
   const latestRd = buildLatestRecipeData(verifiedOnly);
-  const joinClause = buildRecipeDataJoinClause(latestRd, { awaitingVerification, verifiedOnly });
+  const joinClause = buildRecipeDataJoinClause(latestRd, {
+    onlyAwaitingVerification,
+    verifiedOnly,
+  });
 
   const categoryWhereClause =
     categoryIds && categoryIds.length > 0
@@ -104,7 +107,7 @@ export async function GET(request: NextRequest) {
     .limit(PAGE_SIZE)
     .offset((page - 1) * PAGE_SIZE);
 
-  const result = await enrichRecipes(recipeRecords, { awaitingVerification, verifiedOnly });
+  const result = await enrichRecipes(recipeRecords, { onlyAwaitingVerification, verifiedOnly });
 
   return NextResponse.json({
     data: result,

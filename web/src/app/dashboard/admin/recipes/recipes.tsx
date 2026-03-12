@@ -40,11 +40,11 @@ export function Recipes() {
   const page = pageSchema.parse(searchParams.get('page'));
   const urlQuery = searchParams.get('query')?.trim() ?? '';
   const urlCategories = categoriesSearchSchema.parse(searchParams.get('categories')) ?? [];
-  const urlAwaitingVerification = searchParams.get('awaiting-verification') === 'true';
+  const urlOnlyAwaitingVerification = searchParams.get('only-awaiting-verification') === 'true';
 
   const [query, setQuery] = useState(urlQuery);
   const [showFilters, setShowFilters] = useState(
-    urlCategories.length > 0 || urlAwaitingVerification,
+    urlCategories.length > 0 || urlOnlyAwaitingVerification,
   );
   const [selectedCategories, setSelectedCategories] = useState<number[]>(urlCategories);
 
@@ -70,8 +70,8 @@ export function Recipes() {
         params.push({ name: 'categories', value: JSON.stringify(urlCategories) });
       }
 
-      if (urlAwaitingVerification) {
-        params.push({ name: 'awaiting-verification', value: 'true' });
+      if (urlOnlyAwaitingVerification) {
+        params.push({ name: 'only-awaiting-verification', value: 'true' });
       }
 
       return GET(`/api/recipes?${buildQueryString(params)}`, paginatedRecipesSchema);
@@ -82,7 +82,7 @@ export function Recipes() {
       { page },
       { query: urlQuery },
       { categories: urlCategories },
-      { awaitingVerification: urlAwaitingVerification },
+      { onlyAwaitingVerification: urlOnlyAwaitingVerification },
     ],
   });
 
@@ -113,9 +113,9 @@ export function Recipes() {
     router.replace(`${pathname}?${mergeQueryString(params)}`);
   }
 
-  function handleAwaitingVerificationChange(checked: boolean) {
+  function handleOnlyAwaitingVerificationChange(checked: boolean) {
     const params = [
-      { name: 'awaiting-verification', value: checked ? 'true' : '' },
+      { name: 'only-awaiting-verification', value: checked ? 'true' : 'false' },
       { name: 'page', value: '1' },
     ];
 
@@ -166,12 +166,12 @@ export function Recipes() {
 
           <div className="flex items-center gap-2">
             <Checkbox
-              checked={urlAwaitingVerification}
-              id="awaiting-verification"
-              onCheckedChange={handleAwaitingVerificationChange}
+              checked={urlOnlyAwaitingVerification}
+              id="only-awaiting-verification"
+              onCheckedChange={handleOnlyAwaitingVerificationChange}
             />
 
-            <Label htmlFor="awaiting-verification">Csak jóváhagyásra váró receptek</Label>
+            <Label htmlFor="only-awaiting-verification">Csak jóváhagyásra váró receptek</Label>
           </div>
         </CollapsibleContent>
       </Collapsible>
@@ -179,12 +179,12 @@ export function Recipes() {
       {!isLoading && (!recipes || recipes.data.length === 0) && (
         <NoContent
           description={
-            urlQuery || urlCategories.length > 0 || urlAwaitingVerification
+            urlQuery || urlCategories.length > 0 || urlOnlyAwaitingVerification
               ? 'Sajnos nincs a keresési feltételeknek megfelelő recept. Próbáld meg módosítani a keresési feltételeket.'
               : 'Úgy tűnik, még nincs egyetlen recept sem.'
           }
           title={
-            urlQuery || urlCategories.length > 0 || urlAwaitingVerification
+            urlQuery || urlCategories.length > 0 || urlOnlyAwaitingVerification
               ? 'Nincs találat'
               : 'Nincs megjeleníthető recept'
           }
