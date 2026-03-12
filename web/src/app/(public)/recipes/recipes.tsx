@@ -36,7 +36,7 @@ export function Recipes() {
   const urlCategories = categoriesSearchSchema.parse(searchParams.get('categories')) ?? [];
 
   const [query, setQuery] = useState(urlQuery);
-  const [showFilters, setShowFilters] = useState(false);
+  const [showFilters, setShowFilters] = useState(urlCategories.length > 0);
   const [selectedCategories, setSelectedCategories] = useState<number[]>(urlCategories);
 
   const { data: categoriesList } = useQuery({
