@@ -1,8 +1,8 @@
 import { type ReadonlyURLSearchParams } from 'next/navigation';
 import { useCallback } from 'react';
 
-export function useCreateQueryString(searchParams: ReadonlyURLSearchParams) {
-  const createQueryString = useCallback(
+export function useMergeQueryString(searchParams: ReadonlyURLSearchParams) {
+  const mergeQueryString = useCallback(
     (values: { name: string; value: string }[]) => {
       const params = new URLSearchParams(searchParams.toString());
 
@@ -13,5 +13,5 @@ export function useCreateQueryString(searchParams: ReadonlyURLSearchParams) {
     [searchParams],
   );
 
-  return createQueryString;
+  return mergeQueryString;
 }

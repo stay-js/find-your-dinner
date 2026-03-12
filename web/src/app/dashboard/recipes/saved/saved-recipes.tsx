@@ -14,7 +14,7 @@ import { Button } from '~/components/ui/button';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '~/components/ui/collapsible';
 import { Input } from '~/components/ui/input';
 import { useSidebar } from '~/components/ui/sidebar';
-import { useCreateQueryString } from '~/hooks/use-create-query-string';
+import { useMergeQueryString } from '~/hooks/use-create-query-string';
 import { useDebouncedCallback } from '~/hooks/use-debounce';
 import { useDebouncedLoading } from '~/hooks/use-debounced-loading';
 import { GET } from '~/lib/api';
@@ -27,7 +27,7 @@ export function SavedRecipes() {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const createQueryString = useCreateQueryString(searchParams);
+  const mergeQueryString = useMergeQueryString(searchParams);
 
   const page = pageSchema.parse(searchParams.get('page'));
   const urlQuery = searchParams.get('query')?.trim() ?? '';
@@ -51,7 +51,7 @@ export function SavedRecipes() {
     router.replace(
       pathname +
         '?' +
-        createQueryString([
+        mergeQueryString([
           { name: 'query', value: q },
           { name: 'page', value: '1' },
         ]),
@@ -69,9 +69,9 @@ export function SavedRecipes() {
     if (!currentApiPage || currentApiPage === page) return;
 
     router.replace(
-      pathname + '?' + createQueryString([{ name: 'page', value: currentApiPage.toString() }]),
+      pathname + '?' + mergeQueryString([{ name: 'page', value: currentApiPage.toString() }]),
     );
-  }, [currentApiPage, page, pathname, router, createQueryString]);
+  }, [currentApiPage, page, pathname, router, mergeQueryString]);
 
   return (
     <div className="flex h-full flex-col gap-4">
