@@ -56,8 +56,11 @@ export function SavedRecipes() {
       const params = [
         { name: 'include', value: 'recipe' },
         { name: 'page', value: page.toString() },
-        { name: 'query', value: urlQuery },
       ];
+
+      if (urlQuery) {
+        params.push({ name: 'query', value: urlQuery });
+      }
 
       if (urlCategories.length > 0) {
         params.push({ name: 'categories', value: JSON.stringify(urlCategories) });

@@ -55,8 +55,11 @@ export function Recipes() {
       const params = [
         { name: 'allow-unverified', value: 'true' },
         { name: 'page', value: page.toString() },
-        { name: 'query', value: urlQuery },
       ];
+
+      if (urlQuery) {
+        params.push({ name: 'query', value: urlQuery });
+      }
 
       if (urlCategories.length > 0) {
         params.push({ name: 'categories', value: JSON.stringify(urlCategories) });
