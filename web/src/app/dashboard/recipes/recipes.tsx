@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
+import { FilterCombobox } from '~/components/filter-combobox';
 import { NoContent } from '~/components/no-content';
 import { PaginationComponent } from '~/components/pagination-component';
 import { RecipeCard } from '~/components/recipe-card';
@@ -20,7 +21,12 @@ import { useDebouncedLoading } from '~/hooks/use-debounced-loading';
 import { GET } from '~/lib/api';
 import { buildQueryString } from '~/lib/build-query-string';
 import { cn } from '~/lib/utils';
-import { pageSchema, paginatedRecipesSchema } from '~/lib/zod';
+import {
+  categoriesSchema,
+  categoriesSearchSchema,
+  pageSchema,
+  paginatedRecipesSchema,
+} from '~/lib/zod';
 
 export function Recipes() {
   const { open: isSidebarOpen } = useSidebar();
@@ -32,9 +38,17 @@ export function Recipes() {
 
   const page = pageSchema.parse(searchParams.get('page'));
   const urlQuery = searchParams.get('query')?.trim() ?? '';
+  const urlCategories = categoriesSearchSchema.parse(searchParams.get('categories')) ?? [];
 
   const [query, setQuery] = useState(urlQuery);
-  const [showFilters, setShowFilters] = useState(false);
+  const [showFilters, setShowFilters] = useState(urlCategories.length > 0);
+  const [selectedCategories, setSelectedCategories] = useState<number[]>(urlCategories);
+
+  const { data: categories } = useQuery({
+    queryFn: () => GET('/api/categories', categoriesSchema),
+    queryKey: ['categories'],
+    staleTime: Infinity,
+  });
 
   const { data: recipes, isLoading } = useQuery({
     placeholderData: keepPreviousData,
@@ -44,9 +58,19 @@ export function Recipes() {
         { name: 'query', value: urlQuery },
       ];
 
+      if (urlCategories.length > 0) {
+        params.push({ name: 'categories', value: JSON.stringify(urlCategories) });
+      }
+
       return GET(`/api/user/recipes?${buildQueryString(params)}`, paginatedRecipesSchema);
     },
-    queryKey: ['currentUser', 'recipes', { page }, { query: urlQuery }],
+    queryKey: [
+      'currentUser',
+      'recipes',
+      { page },
+      { query: urlQuery },
+      { categories: urlCategories },
+    ],
   });
 
   const showSkeleton = useDebouncedLoading(isLoading);
@@ -65,6 +89,19 @@ export function Recipes() {
   function handleQueryChange(e: React.ChangeEvent<HTMLInputElement>) {
     setQuery(e.target.value);
     navigateQuery(e.target.value);
+  }
+
+  function handleCategoriesChange(values: number[]) {
+    setSelectedCategories(values);
+
+    router.replace(
+      pathname +
+        '?' +
+        mergeQueryString([
+          { name: 'categories', value: values.length > 0 ? JSON.stringify(values) : '' },
+          { name: 'page', value: '1' },
+        ]),
+    );
   }
 
   const currentApiPage = recipes?.meta?.currentPage;
@@ -94,7 +131,20 @@ export function Recipes() {
         <CollapsibleContent className="border-input flex flex-col gap-4 rounded-md border p-4">
           <h2 className="text-lg font-semibold">Szűrők</h2>
 
-          <div className="flex flex-col gap-2 lg:flex-row"></div>
+          <div className="flex flex-col gap-2 lg:flex-row">
+            <FilterCombobox
+              label="Kategória"
+              onValueChange={handleCategoriesChange}
+              options={
+                categories?.map((category) => ({
+                  label: category.name,
+                  value: category.id,
+                })) ?? []
+              }
+              placeholder="Szűrés kategóriák szerint..."
+              value={selectedCategories}
+            />
+          </div>
         </CollapsibleContent>
       </Collapsible>
 
