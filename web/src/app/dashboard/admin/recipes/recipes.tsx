@@ -17,6 +17,7 @@ import { useMergeQueryString } from '~/hooks/use-create-query-string';
 import { useDebouncedCallback } from '~/hooks/use-debounce';
 import { useDebouncedLoading } from '~/hooks/use-debounced-loading';
 import { GET } from '~/lib/api';
+import { buildQueryString } from '~/lib/build-query-string';
 import { cn } from '~/lib/utils';
 import { pageSchema, paginatedRecipesSchema } from '~/lib/zod';
 
@@ -36,11 +37,15 @@ export function Recipes() {
 
   const { data: recipes, isLoading } = useQuery({
     placeholderData: keepPreviousData,
-    queryFn: () =>
-      GET(
-        `/api/recipes?allow-unverified=true&page=${page}&query=${encodeURIComponent(urlQuery)}`,
-        paginatedRecipesSchema,
-      ),
+    queryFn: () => {
+      const params = [
+        { name: 'allow-unverified', value: 'true' },
+        { name: 'page', value: page.toString() },
+        { name: 'query', value: urlQuery },
+      ];
+
+      return GET(`/api/recipes?${buildQueryString(params)}`, paginatedRecipesSchema);
+    },
     queryKey: ['recipes', 'admin', { page }, { query: urlQuery }],
   });
 

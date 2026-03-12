@@ -18,6 +18,7 @@ import { useMergeQueryString } from '~/hooks/use-create-query-string';
 import { useDebouncedCallback } from '~/hooks/use-debounce';
 import { useDebouncedLoading } from '~/hooks/use-debounced-loading';
 import { GET } from '~/lib/api';
+import { buildQueryString } from '~/lib/build-query-string';
 import { cn } from '~/lib/utils';
 import { pageSchema, paginatedRecipesSchema } from '~/lib/zod';
 
@@ -37,11 +38,15 @@ export function SavedRecipes() {
 
   const { data: savedRecipes, isLoading } = useQuery({
     placeholderData: keepPreviousData,
-    queryFn: () =>
-      GET(
-        `/api/user/saved-recipes?include=recipe&page=${page}&query=${encodeURIComponent(urlQuery)}`,
-        paginatedRecipesSchema,
-      ),
+    queryFn: () => {
+      const params = [
+        { name: 'include', value: 'recipe' },
+        { name: 'page', value: page.toString() },
+        { name: 'query', value: urlQuery },
+      ];
+
+      return GET(`/api/user/saved-recipes?${buildQueryString(params)}`, paginatedRecipesSchema);
+    },
     queryKey: ['currentUser', 'savedRecipes', { page }, { query: urlQuery }],
   });
 
