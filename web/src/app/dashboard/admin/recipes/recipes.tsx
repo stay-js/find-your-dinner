@@ -145,11 +145,13 @@ export function Recipes() {
       {!isLoading && (!recipes || recipes.data.length === 0) && (
         <NoContent
           description={
-            urlQuery
+            urlQuery || urlCategories.length > 0
               ? 'Sajnos nincs a keresési feltételeknek megfelelő recept. Próbáld meg módosítani a keresési feltételeket.'
               : 'Úgy tűnik, még nincs egyetlen recept sem.'
           }
-          title={urlQuery ? 'Nincs találat' : 'Nincs megjeleníthető recept'}
+          title={
+            urlQuery || urlCategories.length > 0 ? 'Nincs találat' : 'Nincs megjeleníthető recept'
+          }
         />
       )}
 

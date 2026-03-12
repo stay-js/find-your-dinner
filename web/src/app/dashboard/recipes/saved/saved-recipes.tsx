@@ -152,18 +152,20 @@ export function SavedRecipes() {
       {!isLoading && (!savedRecipes || savedRecipes?.data.length === 0) && (
         <NoContent
           action={
-            !urlQuery ? (
+            urlQuery || urlCategories.length > 0 ? undefined : (
               <Button asChild>
                 <Link href="/recipes">Tovább a receptekhez</Link>
               </Button>
-            ) : undefined
+            )
           }
           description={
-            urlQuery
+            urlQuery || urlCategories.length > 0
               ? 'Sajnos nincs a keresési feltételeknek megfelelő recept. Próbáld meg módosítani a keresési feltételeket.'
               : 'Úgy tűnik, még nem mentettél el egyetlen receptet sem. Receptek felfedezéséhez kattints a lenti gombra.'
           }
-          title={urlQuery ? 'Nincs találat' : 'Nincs megjeleníthető recept'}
+          title={
+            urlQuery || urlCategories.length > 0 ? 'Nincs találat' : 'Nincs megjeleníthető recept'
+          }
         />
       )}
 
