@@ -11,8 +11,10 @@ import { PaginationComponent } from '~/components/pagination-component';
 import { RecipeCard } from '~/components/recipe-card';
 import { RecipeCardSkeleton } from '~/components/recipe-card-skeleton';
 import { Button } from '~/components/ui/button';
+import { Checkbox } from '~/components/ui/checkbox';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '~/components/ui/collapsible';
 import { Input } from '~/components/ui/input';
+import { Label } from '~/components/ui/label';
 import { useSidebar } from '~/components/ui/sidebar';
 import { useMergeQueryString } from '~/hooks/use-create-query-string';
 import { useDebouncedCallback } from '~/hooks/use-debounce';
@@ -38,9 +40,12 @@ export function Recipes() {
   const page = pageSchema.parse(searchParams.get('page'));
   const urlQuery = searchParams.get('query')?.trim() ?? '';
   const urlCategories = categoriesSearchSchema.parse(searchParams.get('categories')) ?? [];
+  const urlAwaitingVerification = searchParams.get('awaiting-verification') === 'true';
 
   const [query, setQuery] = useState(urlQuery);
-  const [showFilters, setShowFilters] = useState(urlCategories.length > 0);
+  const [showFilters, setShowFilters] = useState(
+    urlCategories.length > 0 || urlAwaitingVerification,
+  );
   const [selectedCategories, setSelectedCategories] = useState<number[]>(urlCategories);
 
   const { data: categories } = useQuery({
@@ -65,9 +70,20 @@ export function Recipes() {
         params.push({ name: 'categories', value: JSON.stringify(urlCategories) });
       }
 
+      if (urlAwaitingVerification) {
+        params.push({ name: 'awaiting-verification', value: 'true' });
+      }
+
       return GET(`/api/recipes?${buildQueryString(params)}`, paginatedRecipesSchema);
     },
-    queryKey: ['recipes', 'admin', { page }, { query: urlQuery }, { categories: urlCategories }],
+    queryKey: [
+      'recipes',
+      'admin',
+      { page },
+      { query: urlQuery },
+      { categories: urlCategories },
+      { awaitingVerification: urlAwaitingVerification },
+    ],
   });
 
   const showSkeleton = useDebouncedLoading(isLoading);
@@ -91,6 +107,15 @@ export function Recipes() {
 
     const params = [
       { name: 'categories', value: values.length > 0 ? JSON.stringify(values) : '[]' },
+      { name: 'page', value: '1' },
+    ];
+
+    router.replace(`${pathname}?${mergeQueryString(params)}`);
+  }
+
+  function handleAwaitingVerificationChange(checked: boolean) {
+    const params = [
+      { name: 'awaiting-verification', value: checked ? 'true' : '' },
       { name: 'page', value: '1' },
     ];
 
@@ -138,18 +163,30 @@ export function Recipes() {
               value={selectedCategories}
             />
           </div>
+
+          <div className="flex items-center gap-2">
+            <Checkbox
+              checked={urlAwaitingVerification}
+              id="awaiting-verification"
+              onCheckedChange={handleAwaitingVerificationChange}
+            />
+
+            <Label htmlFor="awaiting-verification">Csak jóváhagyásra váró receptek</Label>
+          </div>
         </CollapsibleContent>
       </Collapsible>
 
       {!isLoading && (!recipes || recipes.data.length === 0) && (
         <NoContent
           description={
-            urlQuery || urlCategories.length > 0
+            urlQuery || urlCategories.length > 0 || urlAwaitingVerification
               ? 'Sajnos nincs a keresési feltételeknek megfelelő recept. Próbáld meg módosítani a keresési feltételeket.'
               : 'Úgy tűnik, még nincs egyetlen recept sem.'
           }
           title={
-            urlQuery || urlCategories.length > 0 ? 'Nincs találat' : 'Nincs megjeleníthető recept'
+            urlQuery || urlCategories.length > 0 || urlAwaitingVerification
+              ? 'Nincs találat'
+              : 'Nincs megjeleníthető recept'
           }
         />
       )}
