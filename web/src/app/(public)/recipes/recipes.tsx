@@ -39,7 +39,7 @@ export function Recipes() {
   const [showFilters, setShowFilters] = useState(urlCategories.length > 0);
   const [selectedCategories, setSelectedCategories] = useState<number[]>(urlCategories);
 
-  const { data: categoriesList } = useQuery({
+  const { data: categories } = useQuery({
     queryFn: () => GET('/api/categories', categoriesSchema),
     queryKey: ['categories'],
     staleTime: Infinity,
@@ -127,11 +127,13 @@ export function Recipes() {
             <FilterCombobox
               label="Kategória"
               onValueChange={handleCategoriesChange}
-              options={(categoriesList ?? []).map((cat) => ({
-                label: cat.name,
-                value: cat.id,
-              }))}
-              placeholder="Kategória..."
+              options={
+                categories?.map((category) => ({
+                  label: category.name,
+                  value: category.id,
+                })) ?? []
+              }
+              placeholder="Szűrés kategóriák szerint..."
               value={selectedCategories}
             />
           </div>
