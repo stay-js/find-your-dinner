@@ -42,7 +42,6 @@ export function Recipes() {
 
   const [query, setQuery] = useState(urlQuery);
   const [showFilters, setShowFilters] = useState(urlCategories.length > 0);
-  const [selectedCategories, setSelectedCategories] = useState<number[]>(urlCategories);
 
   const { data: categories } = useQuery({
     queryFn: () => GET('/api/categories', categoriesSchema),
@@ -91,10 +90,8 @@ export function Recipes() {
   }
 
   function handleCategoriesChange(values: number[]) {
-    setSelectedCategories(values);
-
     const params = [
-      { name: 'categories', value: values.length > 0 ? JSON.stringify(values) : '[]' },
+      { name: 'categories', value: JSON.stringify(values) },
       { name: 'page', value: '1' },
     ];
 
@@ -139,7 +136,7 @@ export function Recipes() {
                 })) ?? []
               }
               placeholder="Szűrés kategóriák szerint..."
-              value={selectedCategories}
+              value={urlCategories}
             />
           </div>
         </CollapsibleContent>
