@@ -3,7 +3,7 @@ import { and, countDistinct, desc, eq, inArray } from 'drizzle-orm';
 import { type NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 
-import { categoriesSearchSchema, createSavedRecipeSchema, type PaginationMeta } from '~/lib/zod';
+import { createSavedRecipeSchema, idArraySearchSchema, type PaginationMeta } from '~/lib/zod';
 import { db } from '~/server/db';
 import { categoryRecipe, recipeData, recipes, savedRecipes } from '~/server/db/schema';
 import { unauthorized } from '~/server/utils/errors';
@@ -18,7 +18,7 @@ import {
 const PAGE_SIZE = 9;
 
 const getSavedRecipesSchema = z.object({
-  categories: categoriesSearchSchema,
+  categories: idArraySearchSchema,
   include: z.string().nullable().catch(null),
   query: z.string().trim().nullable().catch(null),
 });

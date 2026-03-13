@@ -7,7 +7,7 @@ export const idParamSchema = z.object({
 });
 export type IdParam = z.infer<typeof idParamSchema>;
 
-export const categoriesSearchSchema = z
+export const idArraySearchSchema = z
   .string()
   .nullable()
   .transform((val) => {

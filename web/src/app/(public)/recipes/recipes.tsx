@@ -20,7 +20,7 @@ import { GET } from '~/lib/api';
 import { buildQueryString } from '~/lib/build-query-string';
 import {
   categoriesSchema,
-  categoriesSearchSchema,
+  idArraySearchSchema,
   pageSchema,
   paginatedRecipesSchema,
 } from '~/lib/zod';
@@ -33,7 +33,7 @@ export function Recipes() {
 
   const page = pageSchema.parse(searchParams.get('page'));
   const urlQuery = searchParams.get('query')?.trim() ?? '';
-  const urlCategories = categoriesSearchSchema.parse(searchParams.get('categories'));
+  const urlCategories = idArraySearchSchema.parse(searchParams.get('categories'));
 
   const [query, setQuery] = useState(urlQuery);
   const [showFilters, setShowFilters] = useState(urlCategories.length > 0);

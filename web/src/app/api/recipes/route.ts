@@ -1,12 +1,12 @@
 import { auth } from '@clerk/nextjs/server';
-import { and, countDistinct, desc, eq, inArray } from 'drizzle-orm';
+import { and, countDistinct, desc, eq, inArray, notExists, notInArray } from 'drizzle-orm';
 import { type NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 
 import {
   boolFlagSearchSchema,
-  categoriesSearchSchema,
   createUpdateRecipeSchema,
+  idArraySearchSchema,
   type PaginationMeta,
 } from '~/lib/zod';
 import { db } from '~/server/db';
@@ -25,7 +25,8 @@ const PAGE_SIZE = 9;
 
 const getRecipesSchema = z.object({
   'allow-unverified': boolFlagSearchSchema,
-  categories: categoriesSearchSchema,
+  categories: idArraySearchSchema,
+  ingredients: idArraySearchSchema,
   'only-awaiting-verification': boolFlagSearchSchema,
   query: z.string().trim().nullable().catch(null),
 });
@@ -36,6 +37,7 @@ export async function GET(request: NextRequest) {
   const { data: params, success } = getRecipesSchema.safeParse({
     'allow-unverified': searchParams.get('allow-unverified'),
     categories: searchParams.get('categories'),
+    ingredients: searchParams.get('ingredients'),
     'only-awaiting-verification': searchParams.get('only-awaiting-verification'),
     query: searchParams.get('query'),
   });
@@ -46,7 +48,8 @@ export async function GET(request: NextRequest) {
 
   const onlyAwaitingVerification = params['only-awaiting-verification'];
   const allowUnverified = onlyAwaitingVerification || params['allow-unverified'];
-  const categoryIds = params.categories?.length ? params.categories : undefined;
+  const categoryIds = params.categories;
+  const ingredientIds = params.ingredients;
 
   const ftsWhereClause = buildFtsClause(params.query);
 
@@ -66,8 +69,21 @@ export async function GET(request: NextRequest) {
   });
 
   const categoryWhereClause =
-    categoryIds && categoryIds.length > 0
-      ? inArray(categoryRecipe.categoryId, categoryIds)
+    categoryIds.length > 0 ? inArray(categoryRecipe.categoryId, categoryIds) : undefined;
+
+  const ingredientWhereClause =
+    ingredientIds.length > 0
+      ? notExists(
+          db
+            .select({ id: ingredientRecipeData.ingredientId })
+            .from(ingredientRecipeData)
+            .where(
+              and(
+                eq(ingredientRecipeData.recipeDataId, recipeData.id),
+                notInArray(ingredientRecipeData.ingredientId, ingredientIds),
+              ),
+            ),
+        )
       : undefined;
 
   const baseCountQuery = db
@@ -96,13 +112,13 @@ export async function GET(request: NextRequest) {
     );
   }
 
-  const [totalResult] = await baseCountQuery.where(ftsWhereClause);
+  const [totalResult] = await baseCountQuery.where(and(ftsWhereClause, ingredientWhereClause));
   const total = totalResult?.count ?? 0;
 
   const { page, pageCount } = getPagination(searchParams.get('page'), total, PAGE_SIZE);
 
   const recipeRecords = await baseRecipesQuery
-    .where(ftsWhereClause)
+    .where(and(ftsWhereClause, ingredientWhereClause))
     .groupBy(recipes.id)
     .orderBy(desc(recipes.createdAt))
     .limit(PAGE_SIZE)
