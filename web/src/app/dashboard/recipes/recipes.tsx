@@ -38,7 +38,7 @@ export function Recipes() {
 
   const page = pageSchema.parse(searchParams.get('page'));
   const urlQuery = searchParams.get('query')?.trim() ?? '';
-  const urlCategories = categoriesSearchSchema.parse(searchParams.get('categories')) ?? [];
+  const urlCategories = categoriesSearchSchema.parse(searchParams.get('categories'));
 
   const [query, setQuery] = useState(urlQuery);
   const [showFilters, setShowFilters] = useState(urlCategories.length > 0);

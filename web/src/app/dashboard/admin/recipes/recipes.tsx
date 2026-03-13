@@ -39,7 +39,7 @@ export function Recipes() {
 
   const page = pageSchema.parse(searchParams.get('page'));
   const urlQuery = searchParams.get('query')?.trim() ?? '';
-  const urlCategories = categoriesSearchSchema.parse(searchParams.get('categories')) ?? [];
+  const urlCategories = categoriesSearchSchema.parse(searchParams.get('categories'));
   const urlOnlyAwaitingVerification = searchParams.get('only-awaiting-verification') === 'true';
 
   const [query, setQuery] = useState(urlQuery);

@@ -10,9 +10,17 @@ export type IdParam = z.infer<typeof idParamSchema>;
 export const categoriesSearchSchema = z
   .string()
   .nullable()
-  .transform((val) => (val ? JSON.parse(val) : null))
-  .pipe(z.array(z.number().int().positive()).nullable())
-  .catch(null);
+  .transform((val) => {
+    if (!val) return [];
+
+    try {
+      return JSON.parse(val);
+    } catch {
+      return [];
+    }
+  })
+  .pipe(z.array(z.number().int().positive()))
+  .catch([]);
 
 export const boolFlagSearchSchema = z
   .string()
