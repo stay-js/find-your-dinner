@@ -69,11 +69,12 @@ export async function GET(request: NextRequest) {
   });
 
   const categoryWhereClause =
-    categoryIds.length > 0 ? inArray(categoryRecipe.categoryId, categoryIds) : undefined;
+    categoryIds.length === 0 ? undefined : inArray(categoryRecipe.categoryId, categoryIds);
 
   const ingredientWhereClause =
-    ingredientIds.length > 0
-      ? notExists(
+    ingredientIds.length === 0
+      ? undefined
+      : notExists(
           db
             .select({ id: ingredientRecipeData.ingredientId })
             .from(ingredientRecipeData)
@@ -83,8 +84,7 @@ export async function GET(request: NextRequest) {
                 notInArray(ingredientRecipeData.ingredientId, ingredientIds),
               ),
             ),
-        )
-      : undefined;
+        );
 
   const baseCountQuery = db
     .select({ count: countDistinct(recipes.id) })
