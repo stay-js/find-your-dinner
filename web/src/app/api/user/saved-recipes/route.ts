@@ -1,5 +1,5 @@
 import { auth } from '@clerk/nextjs/server';
-import { and, count, desc, eq, inArray } from 'drizzle-orm';
+import { and, countDistinct, desc, eq, inArray } from 'drizzle-orm';
 import { type NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 
@@ -64,7 +64,7 @@ export async function GET(request: NextRequest) {
   const joinClause = buildRecipeDataJoinClause(latestRd, { verifiedOnly: true });
 
   const baseCountQuery = db
-    .select({ count: count() })
+    .select({ count: countDistinct(recipes.id) })
     .from(savedRecipes)
     .innerJoin(recipes, eq(savedRecipes.recipeId, recipes.id))
     .innerJoin(latestRd, eq(latestRd.recipeId, recipes.id))
@@ -100,6 +100,7 @@ export async function GET(request: NextRequest) {
 
   const recipeRecords = await baseRecipesQuery
     .where(and(eq(savedRecipes.userId, userId), ftsWhereClause))
+    .groupBy(recipes.id)
     .orderBy(desc(savedRecipes.createdAt))
     .limit(PAGE_SIZE)
     .offset((page - 1) * PAGE_SIZE);
