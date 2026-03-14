@@ -44,7 +44,7 @@ export function FilterCombobox({
   );
 
   return (
-    <div className={cn('flex flex-1 flex-col gap-2', className)}>
+    <div className={cn('flex w-full flex-col gap-2', className)}>
       <label className="block text-sm font-medium" htmlFor={id}>
         {label}
       </label>
@@ -62,10 +62,9 @@ export function FilterCombobox({
       >
         <ComboboxChips ref={anchor}>
           <ComboboxValue>
-            {value.map((val) => {
-              const option = options.find((x) => x.value === val);
-              return option ? <ComboboxChip key={option.value}>{option.label}</ComboboxChip> : null;
-            })}
+            {selectedOptions.map((option) => (
+              <ComboboxChip key={option.value}>{option.label}</ComboboxChip>
+            ))}
           </ComboboxValue>
           <ComboboxChipsInput id={id} placeholder={placeholder} />
         </ComboboxChips>
