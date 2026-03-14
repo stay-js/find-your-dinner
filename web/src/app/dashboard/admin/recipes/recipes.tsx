@@ -5,7 +5,7 @@ import { Eye, EyeOff } from 'lucide-react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
-import { CategoriesFilter, Search } from '~/components/filter';
+import { CategoriesFilter, IngredientsFilter, Search } from '~/components/filter';
 import { NoContent } from '~/components/no-content';
 import { PaginationComponent } from '~/components/pagination-component';
 import { RecipeCard } from '~/components/recipe-card';
@@ -15,7 +15,7 @@ import { Checkbox } from '~/components/ui/checkbox';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '~/components/ui/collapsible';
 import { Label } from '~/components/ui/label';
 import { useSidebar } from '~/components/ui/sidebar';
-import { useCategoriesFilter, useSearch } from '~/hooks/filter';
+import { useCategoriesFilter, useIngredientsFilter, useSearch } from '~/hooks/filter';
 import { useMergeQueryString } from '~/hooks/use-create-query-string';
 import { useDebouncedLoading } from '~/hooks/use-debounced-loading';
 import { GET } from '~/lib/api';
@@ -32,12 +32,14 @@ export function Recipes() {
   const mergeQueryString = useMergeQueryString(searchParams);
 
   const page = pageSchema.parse(searchParams.get('page'));
-  const { debouncedQuery } = useSearch();
-  const { selectedCategories } = useCategoriesFilter();
   const urlOnlyAwaitingVerification = searchParams.get('only-awaiting-verification') === 'true';
 
+  const { debouncedQuery } = useSearch();
+  const { selectedCategories } = useCategoriesFilter();
+  const { selectedIngredients } = useIngredientsFilter();
+
   const [showFilters, setShowFilters] = useState(
-    selectedCategories.length > 0 || urlOnlyAwaitingVerification,
+    selectedCategories.length > 0 || selectedIngredients.length > 0 || urlOnlyAwaitingVerification,
   );
 
   const { data: recipes, isLoading } = useQuery({
@@ -56,6 +58,10 @@ export function Recipes() {
         params.push({ name: 'categories', value: JSON.stringify(selectedCategories) });
       }
 
+      if (selectedIngredients.length > 0) {
+        params.push({ name: 'ingredients', value: JSON.stringify(selectedIngredients) });
+      }
+
       if (urlOnlyAwaitingVerification) {
         params.push({ name: 'only-awaiting-verification', value: 'true' });
       }
@@ -68,11 +74,18 @@ export function Recipes() {
       { page },
       { query: debouncedQuery },
       { categories: selectedCategories },
+      { ingredients: selectedIngredients },
       { onlyAwaitingVerification: urlOnlyAwaitingVerification },
     ],
   });
 
   const showSkeleton = useDebouncedLoading(isLoading);
+
+  const hasActiveFilters =
+    debouncedQuery.length > 0 ||
+    selectedCategories.length > 0 ||
+    selectedIngredients.length > 0 ||
+    urlOnlyAwaitingVerification;
 
   function handleOnlyAwaitingVerificationChange(checked: boolean) {
     const params = [
@@ -112,6 +125,7 @@ export function Recipes() {
 
           <div className="flex flex-col gap-2 lg:flex-row">
             <CategoriesFilter />
+            <IngredientsFilter />
           </div>
 
           <div className="flex items-center gap-2">
@@ -129,15 +143,11 @@ export function Recipes() {
       {!isLoading && (!recipes || recipes.data.length === 0) && (
         <NoContent
           description={
-            debouncedQuery || selectedCategories.length > 0 || urlOnlyAwaitingVerification
+            hasActiveFilters
               ? 'Sajnos nincs a keresési feltételeknek megfelelő recept. Próbáld meg módosítani a keresési feltételeket.'
               : 'Úgy tűnik, még nincs egyetlen recept sem.'
           }
-          title={
-            debouncedQuery || selectedCategories.length > 0 || urlOnlyAwaitingVerification
-              ? 'Nincs találat'
-              : 'Nincs megjeleníthető recept'
-          }
+          title={hasActiveFilters ? 'Nincs találat' : 'Nincs megjeleníthető recept'}
         />
       )}
 

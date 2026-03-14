@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
-import { CategoriesFilter, Search } from '~/components/filter';
+import { CategoriesFilter, IngredientsFilter, Search } from '~/components/filter';
 import { NoContent } from '~/components/no-content';
 import { PaginationComponent } from '~/components/pagination-component';
 import { RecipeCard } from '~/components/recipe-card';
@@ -14,7 +14,7 @@ import { RecipeCardSkeleton } from '~/components/recipe-card-skeleton';
 import { Button } from '~/components/ui/button';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '~/components/ui/collapsible';
 import { useSidebar } from '~/components/ui/sidebar';
-import { useCategoriesFilter, useSearch } from '~/hooks/filter';
+import { useCategoriesFilter, useIngredientsFilter, useSearch } from '~/hooks/filter';
 import { useMergeQueryString } from '~/hooks/use-create-query-string';
 import { useDebouncedLoading } from '~/hooks/use-debounced-loading';
 import { GET } from '~/lib/api';
@@ -31,10 +31,14 @@ export function SavedRecipes() {
   const mergeQueryString = useMergeQueryString(searchParams);
 
   const page = pageSchema.parse(searchParams.get('page'));
+
   const { debouncedQuery } = useSearch();
   const { selectedCategories } = useCategoriesFilter();
+  const { selectedIngredients } = useIngredientsFilter();
 
-  const [showFilters, setShowFilters] = useState(selectedCategories.length > 0);
+  const [showFilters, setShowFilters] = useState(
+    selectedCategories.length > 0 || selectedIngredients.length > 0,
+  );
 
   const { data: savedRecipes, isLoading } = useQuery({
     placeholderData: keepPreviousData,
@@ -52,6 +56,10 @@ export function SavedRecipes() {
         params.push({ name: 'categories', value: JSON.stringify(selectedCategories) });
       }
 
+      if (selectedIngredients.length > 0) {
+        params.push({ name: 'ingredients', value: JSON.stringify(selectedIngredients) });
+      }
+
       return GET(`/api/user/saved-recipes?${buildQueryString(params)}`, paginatedRecipesSchema);
     },
     queryKey: [
@@ -60,10 +68,14 @@ export function SavedRecipes() {
       { page },
       { query: debouncedQuery },
       { categories: selectedCategories },
+      { ingredients: selectedIngredients },
     ],
   });
 
   const showSkeleton = useDebouncedLoading(isLoading);
+
+  const hasActiveFilters =
+    debouncedQuery.length > 0 || selectedCategories.length > 0 || selectedIngredients.length > 0;
 
   const currentApiPage = savedRecipes?.meta?.currentPage;
 
@@ -94,6 +106,7 @@ export function SavedRecipes() {
 
           <div className="flex flex-col gap-2 lg:flex-row">
             <CategoriesFilter />
+            <IngredientsFilter />
           </div>
         </CollapsibleContent>
       </Collapsible>
@@ -101,22 +114,18 @@ export function SavedRecipes() {
       {!isLoading && (!savedRecipes || savedRecipes?.data.length === 0) && (
         <NoContent
           action={
-            debouncedQuery || selectedCategories.length > 0 ? undefined : (
+            hasActiveFilters ? undefined : (
               <Button asChild>
                 <Link href="/recipes">Tovább a receptekhez</Link>
               </Button>
             )
           }
           description={
-            debouncedQuery || selectedCategories.length > 0
+            hasActiveFilters
               ? 'Sajnos nincs a keresési feltételeknek megfelelő recept. Próbáld meg módosítani a keresési feltételeket.'
               : 'Úgy tűnik, még nem mentettél el egyetlen receptet sem. Receptek felfedezéséhez kattints a lenti gombra.'
           }
-          title={
-            debouncedQuery || selectedCategories.length > 0
-              ? 'Nincs találat'
-              : 'Nincs megjeleníthető recept'
-          }
+          title={hasActiveFilters ? 'Nincs találat' : 'Nincs megjeleníthető recept'}
         />
       )}
 
