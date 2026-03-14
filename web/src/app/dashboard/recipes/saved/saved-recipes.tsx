@@ -11,14 +11,14 @@ import { NoContent } from '~/components/no-content';
 import { PaginationComponent } from '~/components/pagination-component';
 import { RecipeCard } from '~/components/recipe-card';
 import { RecipeCardSkeleton } from '~/components/recipe-card-skeleton';
+import { Search } from '~/components/search';
 import { Button } from '~/components/ui/button';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '~/components/ui/collapsible';
-import { Input } from '~/components/ui/input';
 import { useSidebar } from '~/components/ui/sidebar';
 import { useCategoriesFilter } from '~/hooks/use-categories-filter';
 import { useMergeQueryString } from '~/hooks/use-create-query-string';
-import { useDebouncedCallback } from '~/hooks/use-debounce';
 import { useDebouncedLoading } from '~/hooks/use-debounced-loading';
+import { useSearch } from '~/hooks/use-search';
 import { GET } from '~/lib/api';
 import { buildQueryString } from '~/lib/build-query-string';
 import { cn } from '~/lib/utils';
@@ -33,10 +33,9 @@ export function SavedRecipes() {
   const mergeQueryString = useMergeQueryString(searchParams);
 
   const page = pageSchema.parse(searchParams.get('page'));
-  const urlQuery = searchParams.get('query')?.trim() ?? '';
+  const { debouncedQuery } = useSearch();
   const { selectedCategories } = useCategoriesFilter();
 
-  const [query, setQuery] = useState(urlQuery);
   const [showFilters, setShowFilters] = useState(selectedCategories.length > 0);
 
   const { data: savedRecipes, isLoading } = useQuery({
@@ -47,8 +46,8 @@ export function SavedRecipes() {
         { name: 'page', value: page.toString() },
       ];
 
-      if (urlQuery) {
-        params.push({ name: 'query', value: urlQuery });
+      if (debouncedQuery) {
+        params.push({ name: 'query', value: debouncedQuery });
       }
 
       if (selectedCategories.length > 0) {
@@ -61,26 +60,12 @@ export function SavedRecipes() {
       'currentUser',
       'savedRecipes',
       { page },
-      { query: urlQuery },
+      { query: debouncedQuery },
       { categories: selectedCategories },
     ],
   });
 
   const showSkeleton = useDebouncedLoading(isLoading);
-
-  const navigateQuery = useDebouncedCallback((q: string) => {
-    const params = [
-      { name: 'query', value: q },
-      { name: 'page', value: '1' },
-    ];
-
-    router.replace(`${pathname}?${mergeQueryString(params)}`);
-  });
-
-  function handleQueryChange(e: React.ChangeEvent<HTMLInputElement>) {
-    setQuery(e.target.value);
-    navigateQuery(e.target.value);
-  }
 
   const currentApiPage = savedRecipes?.meta?.currentPage;
 
@@ -96,7 +81,7 @@ export function SavedRecipes() {
     <div className="flex h-full flex-col gap-4">
       <Collapsible className="flex flex-col gap-2" onOpenChange={setShowFilters} open={showFilters}>
         <div className="flex gap-2 max-sm:flex-col">
-          <Input onChange={handleQueryChange} placeholder="Keresés..." value={query} />
+          <Search />
 
           <CollapsibleTrigger asChild>
             <Button onClick={() => setShowFilters((val) => !val)} variant="outline">
@@ -118,19 +103,19 @@ export function SavedRecipes() {
       {!isLoading && (!savedRecipes || savedRecipes?.data.length === 0) && (
         <NoContent
           action={
-            urlQuery || selectedCategories.length > 0 ? undefined : (
+            debouncedQuery || selectedCategories.length > 0 ? undefined : (
               <Button asChild>
                 <Link href="/recipes">Tovább a receptekhez</Link>
               </Button>
             )
           }
           description={
-            urlQuery || selectedCategories.length > 0
+            debouncedQuery || selectedCategories.length > 0
               ? 'Sajnos nincs a keresési feltételeknek megfelelő recept. Próbáld meg módosítani a keresési feltételeket.'
               : 'Úgy tűnik, még nem mentettél el egyetlen receptet sem. Receptek felfedezéséhez kattints a lenti gombra.'
           }
           title={
-            urlQuery || selectedCategories.length > 0
+            debouncedQuery || selectedCategories.length > 0
               ? 'Nincs találat'
               : 'Nincs megjeleníthető recept'
           }

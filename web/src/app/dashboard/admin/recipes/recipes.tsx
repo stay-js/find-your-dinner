@@ -5,29 +5,25 @@ import { Eye, EyeOff } from 'lucide-react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
-import { FilterCombobox } from '~/components/filter-combobox';
+import { CategoriesFilter } from '~/components/categories-filter';
 import { NoContent } from '~/components/no-content';
 import { PaginationComponent } from '~/components/pagination-component';
 import { RecipeCard } from '~/components/recipe-card';
 import { RecipeCardSkeleton } from '~/components/recipe-card-skeleton';
+import { Search } from '~/components/search';
 import { Button } from '~/components/ui/button';
 import { Checkbox } from '~/components/ui/checkbox';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '~/components/ui/collapsible';
-import { Input } from '~/components/ui/input';
 import { Label } from '~/components/ui/label';
 import { useSidebar } from '~/components/ui/sidebar';
+import { useCategoriesFilter } from '~/hooks/use-categories-filter';
 import { useMergeQueryString } from '~/hooks/use-create-query-string';
-import { useDebouncedCallback } from '~/hooks/use-debounce';
 import { useDebouncedLoading } from '~/hooks/use-debounced-loading';
+import { useSearch } from '~/hooks/use-search';
 import { GET } from '~/lib/api';
 import { buildQueryString } from '~/lib/build-query-string';
 import { cn } from '~/lib/utils';
-import {
-  categoriesSchema,
-  idArraySearchSchema,
-  pageSchema,
-  paginatedRecipesSchema,
-} from '~/lib/zod';
+import { pageSchema, paginatedRecipesSchema } from '~/lib/zod';
 
 export function Recipes() {
   const { open: isSidebarOpen } = useSidebar();
@@ -38,20 +34,13 @@ export function Recipes() {
   const mergeQueryString = useMergeQueryString(searchParams);
 
   const page = pageSchema.parse(searchParams.get('page'));
-  const urlQuery = searchParams.get('query')?.trim() ?? '';
-  const urlCategories = idArraySearchSchema.parse(searchParams.get('categories'));
+  const { debouncedQuery } = useSearch();
+  const { selectedCategories } = useCategoriesFilter();
   const urlOnlyAwaitingVerification = searchParams.get('only-awaiting-verification') === 'true';
 
-  const [query, setQuery] = useState(urlQuery);
   const [showFilters, setShowFilters] = useState(
-    urlCategories.length > 0 || urlOnlyAwaitingVerification,
+    selectedCategories.length > 0 || urlOnlyAwaitingVerification,
   );
-
-  const { data: categories } = useQuery({
-    queryFn: () => GET('/api/categories', categoriesSchema),
-    queryKey: ['categories'],
-    staleTime: Infinity,
-  });
 
   const { data: recipes, isLoading } = useQuery({
     placeholderData: keepPreviousData,
@@ -61,12 +50,12 @@ export function Recipes() {
         { name: 'page', value: page.toString() },
       ];
 
-      if (urlQuery) {
-        params.push({ name: 'query', value: urlQuery });
+      if (debouncedQuery) {
+        params.push({ name: 'query', value: debouncedQuery });
       }
 
-      if (urlCategories.length > 0) {
-        params.push({ name: 'categories', value: JSON.stringify(urlCategories) });
+      if (selectedCategories.length > 0) {
+        params.push({ name: 'categories', value: JSON.stringify(selectedCategories) });
       }
 
       if (urlOnlyAwaitingVerification) {
@@ -79,36 +68,13 @@ export function Recipes() {
       'recipes',
       'admin',
       { page },
-      { query: urlQuery },
-      { categories: urlCategories },
+      { query: debouncedQuery },
+      { categories: selectedCategories },
       { onlyAwaitingVerification: urlOnlyAwaitingVerification },
     ],
   });
 
   const showSkeleton = useDebouncedLoading(isLoading);
-
-  const navigateQuery = useDebouncedCallback((q: string) => {
-    const params = [
-      { name: 'query', value: q },
-      { name: 'page', value: '1' },
-    ];
-
-    router.replace(`${pathname}?${mergeQueryString(params)}`);
-  });
-
-  function handleQueryChange(e: React.ChangeEvent<HTMLInputElement>) {
-    setQuery(e.target.value);
-    navigateQuery(e.target.value);
-  }
-
-  function handleCategoriesChange(values: number[]) {
-    const params = [
-      { name: 'categories', value: JSON.stringify(values) },
-      { name: 'page', value: '1' },
-    ];
-
-    router.replace(`${pathname}?${mergeQueryString(params)}`);
-  }
 
   function handleOnlyAwaitingVerificationChange(checked: boolean) {
     const params = [
@@ -133,7 +99,7 @@ export function Recipes() {
     <div className="flex h-full flex-col gap-4">
       <Collapsible className="flex flex-col gap-2" onOpenChange={setShowFilters} open={showFilters}>
         <div className="flex gap-2 max-sm:flex-col">
-          <Input onChange={handleQueryChange} placeholder="Keresés..." value={query} />
+          <Search />
 
           <CollapsibleTrigger asChild>
             <Button onClick={() => setShowFilters((val) => !val)} variant="outline">
@@ -147,18 +113,7 @@ export function Recipes() {
           <h2 className="text-lg font-semibold">Szűrők</h2>
 
           <div className="flex flex-col gap-2 lg:flex-row">
-            <FilterCombobox
-              label="Kategória"
-              onValueChange={handleCategoriesChange}
-              options={
-                categories?.map((category) => ({
-                  label: category.name,
-                  value: category.id,
-                })) ?? []
-              }
-              placeholder="Szűrés kategóriák szerint..."
-              value={urlCategories}
-            />
+            <CategoriesFilter />
           </div>
 
           <div className="flex items-center gap-2">
@@ -176,12 +131,12 @@ export function Recipes() {
       {!isLoading && (!recipes || recipes.data.length === 0) && (
         <NoContent
           description={
-            urlQuery || urlCategories.length > 0 || urlOnlyAwaitingVerification
+            debouncedQuery || selectedCategories.length > 0 || urlOnlyAwaitingVerification
               ? 'Sajnos nincs a keresési feltételeknek megfelelő recept. Próbáld meg módosítani a keresési feltételeket.'
               : 'Úgy tűnik, még nincs egyetlen recept sem.'
           }
           title={
-            urlQuery || urlCategories.length > 0 || urlOnlyAwaitingVerification
+            debouncedQuery || selectedCategories.length > 0 || urlOnlyAwaitingVerification
               ? 'Nincs találat'
               : 'Nincs megjeleníthető recept'
           }
