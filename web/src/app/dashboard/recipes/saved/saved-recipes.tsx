@@ -1,20 +1,18 @@
 'use client';
 
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
-import { Eye, EyeOff } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
-import { CategoriesFilter, IngredientsFilter, Search } from '~/components/filter';
+import { RecipeFilters } from '~/components/filter';
 import { NoContent } from '~/components/no-content';
 import { PaginationComponent } from '~/components/pagination-component';
 import { RecipeCard } from '~/components/recipe-card';
 import { RecipeCardSkeleton } from '~/components/recipe-card-skeleton';
 import { Button } from '~/components/ui/button';
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '~/components/ui/collapsible';
 import { useSidebar } from '~/components/ui/sidebar';
-import { useCategoriesFilter, useIngredientsFilter, useSearch } from '~/hooks/filter';
+import { useRecipeFilters } from '~/hooks/filter';
 import { useMergeQueryString } from '~/hooks/use-create-query-string';
 import { useDebouncedLoading } from '~/hooks/use-debounced-loading';
 import { GET } from '~/lib/api';
@@ -32,13 +30,8 @@ export function SavedRecipes() {
 
   const page = pageSchema.parse(searchParams.get('page'));
 
-  const { debouncedQuery } = useSearch();
-  const { selectedCategories } = useCategoriesFilter();
-  const { selectedIngredients } = useIngredientsFilter();
-
-  const [showFilters, setShowFilters] = useState(
-    selectedCategories.length > 0 || selectedIngredients.length > 0,
-  );
+  const { debouncedQuery, hasActiveFilters, selectedCategories, selectedIngredients } =
+    useRecipeFilters();
 
   const { data: savedRecipes, isLoading } = useQuery({
     placeholderData: keepPreviousData,
@@ -48,7 +41,7 @@ export function SavedRecipes() {
         { name: 'page', value: page.toString() },
       ];
 
-      if (debouncedQuery) {
+      if (debouncedQuery.length > 0) {
         params.push({ name: 'query', value: debouncedQuery });
       }
 
@@ -74,9 +67,6 @@ export function SavedRecipes() {
 
   const showSkeleton = useDebouncedLoading(isLoading);
 
-  const hasActiveFilters =
-    debouncedQuery.length > 0 || selectedCategories.length > 0 || selectedIngredients.length > 0;
-
   const currentApiPage = savedRecipes?.meta?.currentPage;
 
   useEffect(() => {
@@ -89,27 +79,7 @@ export function SavedRecipes() {
 
   return (
     <div className="flex h-full flex-col gap-4">
-      <Collapsible className="flex flex-col gap-2" onOpenChange={setShowFilters} open={showFilters}>
-        <div className="flex gap-2 max-sm:flex-col">
-          <Search />
-
-          <CollapsibleTrigger asChild>
-            <Button onClick={() => setShowFilters((val) => !val)} variant="outline">
-              {showFilters ? <EyeOff /> : <Eye />}
-              <span>Szűrők</span>
-            </Button>
-          </CollapsibleTrigger>
-        </div>
-
-        <CollapsibleContent className="border-input flex flex-col gap-4 rounded-md border p-4">
-          <h2 className="text-lg font-semibold">Szűrők</h2>
-
-          <div className="flex flex-col gap-2 lg:flex-row">
-            <IngredientsFilter />
-            <CategoriesFilter />
-          </div>
-        </CollapsibleContent>
-      </Collapsible>
+      <RecipeFilters />
 
       {!isLoading && (!savedRecipes || savedRecipes?.data.length === 0) && (
         <NoContent

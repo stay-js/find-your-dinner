@@ -1,21 +1,16 @@
 'use client';
 
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
-import { Eye, EyeOff } from 'lucide-react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
-import { CategoriesFilter, IngredientsFilter, Search } from '~/components/filter';
+import { OnlyAwaitingVerificationFilter, RecipeFilters } from '~/components/filter';
 import { NoContent } from '~/components/no-content';
 import { PaginationComponent } from '~/components/pagination-component';
 import { RecipeCard } from '~/components/recipe-card';
 import { RecipeCardSkeleton } from '~/components/recipe-card-skeleton';
-import { Button } from '~/components/ui/button';
-import { Checkbox } from '~/components/ui/checkbox';
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '~/components/ui/collapsible';
-import { Label } from '~/components/ui/label';
 import { useSidebar } from '~/components/ui/sidebar';
-import { useCategoriesFilter, useIngredientsFilter, useSearch } from '~/hooks/filter';
+import { useOnlyAwaitingVerificationFilter, useRecipeFilters } from '~/hooks/filter';
 import { useMergeQueryString } from '~/hooks/use-create-query-string';
 import { useDebouncedLoading } from '~/hooks/use-debounced-loading';
 import { GET } from '~/lib/api';
@@ -32,15 +27,10 @@ export function Recipes() {
   const mergeQueryString = useMergeQueryString(searchParams);
 
   const page = pageSchema.parse(searchParams.get('page'));
-  const urlOnlyAwaitingVerification = searchParams.get('only-awaiting-verification') === 'true';
 
-  const { debouncedQuery } = useSearch();
-  const { selectedCategories } = useCategoriesFilter();
-  const { selectedIngredients } = useIngredientsFilter();
-
-  const [showFilters, setShowFilters] = useState(
-    selectedCategories.length > 0 || selectedIngredients.length > 0 || urlOnlyAwaitingVerification,
-  );
+  const { onlyAwaitingVerification } = useOnlyAwaitingVerificationFilter();
+  const { debouncedQuery, hasActiveFilters, selectedCategories, selectedIngredients } =
+    useRecipeFilters();
 
   const { data: recipes, isLoading } = useQuery({
     placeholderData: keepPreviousData,
@@ -50,7 +40,7 @@ export function Recipes() {
         { name: 'page', value: page.toString() },
       ];
 
-      if (debouncedQuery) {
+      if (debouncedQuery.length > 0) {
         params.push({ name: 'query', value: debouncedQuery });
       }
 
@@ -62,7 +52,7 @@ export function Recipes() {
         params.push({ name: 'ingredients', value: JSON.stringify(selectedIngredients) });
       }
 
-      if (urlOnlyAwaitingVerification) {
+      if (onlyAwaitingVerification) {
         params.push({ name: 'only-awaiting-verification', value: 'true' });
       }
 
@@ -75,26 +65,11 @@ export function Recipes() {
       { query: debouncedQuery },
       { categories: selectedCategories },
       { ingredients: selectedIngredients },
-      { onlyAwaitingVerification: urlOnlyAwaitingVerification },
+      { onlyAwaitingVerification },
     ],
   });
 
   const showSkeleton = useDebouncedLoading(isLoading);
-
-  const hasActiveFilters =
-    debouncedQuery.length > 0 ||
-    selectedCategories.length > 0 ||
-    selectedIngredients.length > 0 ||
-    urlOnlyAwaitingVerification;
-
-  function handleOnlyAwaitingVerificationChange(checked: boolean) {
-    const params = [
-      { name: 'only-awaiting-verification', value: checked ? 'true' : 'false' },
-      { name: 'page', value: '1' },
-    ];
-
-    router.replace(`${pathname}?${mergeQueryString(params)}`);
-  }
 
   const currentApiPage = recipes?.meta?.currentPage;
 
@@ -108,37 +83,9 @@ export function Recipes() {
 
   return (
     <div className="flex h-full flex-col gap-4">
-      <Collapsible className="flex flex-col gap-2" onOpenChange={setShowFilters} open={showFilters}>
-        <div className="flex gap-2 max-sm:flex-col">
-          <Search />
-
-          <CollapsibleTrigger asChild>
-            <Button onClick={() => setShowFilters((val) => !val)} variant="outline">
-              {showFilters ? <EyeOff /> : <Eye />}
-              <span>Szűrők</span>
-            </Button>
-          </CollapsibleTrigger>
-        </div>
-
-        <CollapsibleContent className="border-input flex flex-col gap-4 rounded-md border p-4">
-          <h2 className="text-lg font-semibold">Szűrők</h2>
-
-          <div className="flex flex-col gap-2 lg:flex-row">
-            <IngredientsFilter />
-            <CategoriesFilter />
-          </div>
-
-          <div className="flex items-center gap-2">
-            <Checkbox
-              checked={urlOnlyAwaitingVerification}
-              id="only-awaiting-verification"
-              onCheckedChange={handleOnlyAwaitingVerificationChange}
-            />
-
-            <Label htmlFor="only-awaiting-verification">Csak jóváhagyásra váró receptek</Label>
-          </div>
-        </CollapsibleContent>
-      </Collapsible>
+      <RecipeFilters extraFilterActive={onlyAwaitingVerification}>
+        <OnlyAwaitingVerificationFilter />
+      </RecipeFilters>
 
       {!isLoading && (!recipes || recipes.data.length === 0) && (
         <NoContent
