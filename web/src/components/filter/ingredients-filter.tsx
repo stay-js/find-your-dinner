@@ -23,7 +23,7 @@ export function IngredientsFilter() {
       />
 
       <p className="text-muted-foreground text-xs">
-        Csak azok a receptek jelennek meg, amelyek elkészíthetők a kiválasztott hozzávalókból
+        Csak azok a receptek jelennek meg, amelyek elkészíthetőek a kiválasztott hozzávalókból
         (amennyiben van kiválasztott hozzávaló).
       </p>
     </div>

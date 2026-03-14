@@ -9,7 +9,7 @@ export function CategoriesFilter() {
 
   return (
     <FilterCombobox
-      label="Kategória"
+      label="Kategóriák"
       onValueChange={handleCategoriesChange}
       options={
         categories?.map((category) => ({

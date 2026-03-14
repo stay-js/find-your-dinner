@@ -105,8 +105,8 @@ export function SavedRecipes() {
           <h2 className="text-lg font-semibold">Szűrők</h2>
 
           <div className="flex flex-col gap-2 lg:flex-row">
-            <CategoriesFilter />
             <IngredientsFilter />
+            <CategoriesFilter />
           </div>
         </CollapsibleContent>
       </Collapsible>
