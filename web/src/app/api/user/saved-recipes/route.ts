@@ -123,7 +123,7 @@ export async function GET(request: NextRequest) {
 
   const recipeRecords = await baseRecipesQuery
     .where(and(eq(savedRecipes.userId, userId), ftsWhereClause, ingredientWhereClause))
-    .groupBy(recipes.id)
+    .groupBy(recipes.id, savedRecipes.createdAt)
     .orderBy(desc(savedRecipes.createdAt))
     .limit(PAGE_SIZE)
     .offset((page - 1) * PAGE_SIZE);
