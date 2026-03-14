@@ -1,7 +1,8 @@
 'use client';
 
-import { FilterCombobox } from '~/components/filter-combobox';
-import { useCategoriesFilter } from '~/hooks/use-categories-filter';
+import { useCategoriesFilter } from '~/hooks/filter/use-categories-filter';
+
+import { FilterCombobox } from './filter-combobox';
 
 export function CategoriesFilter() {
   const { categories, handleCategoriesChange, selectedCategories } = useCategoriesFilter();

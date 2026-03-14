@@ -1,7 +1,8 @@
 'use client';
 
-import { FilterCombobox } from '~/components/filter-combobox';
-import { useIngredientsFilter } from '~/hooks/use-ingredients-filter';
+import { useIngredientsFilter } from '~/hooks/filter/use-ingredients-filter';
+
+import { FilterCombobox } from './filter-combobox';
 
 export function IngredientsFilter() {
   const { handleIngredientsChange, ingredients, selectedIngredients } = useIngredientsFilter();
