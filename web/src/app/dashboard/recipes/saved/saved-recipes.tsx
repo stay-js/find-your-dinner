@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
-import { FilterCombobox } from '~/components/filter-combobox';
+import { CategoriesFilter } from '~/components/categories-filter';
 import { NoContent } from '~/components/no-content';
 import { PaginationComponent } from '~/components/pagination-component';
 import { RecipeCard } from '~/components/recipe-card';
@@ -15,18 +15,14 @@ import { Button } from '~/components/ui/button';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '~/components/ui/collapsible';
 import { Input } from '~/components/ui/input';
 import { useSidebar } from '~/components/ui/sidebar';
+import { useCategoriesFilter } from '~/hooks/use-categories-filter';
 import { useMergeQueryString } from '~/hooks/use-create-query-string';
 import { useDebouncedCallback } from '~/hooks/use-debounce';
 import { useDebouncedLoading } from '~/hooks/use-debounced-loading';
 import { GET } from '~/lib/api';
 import { buildQueryString } from '~/lib/build-query-string';
 import { cn } from '~/lib/utils';
-import {
-  categoriesSchema,
-  idArraySearchSchema,
-  pageSchema,
-  paginatedRecipesSchema,
-} from '~/lib/zod';
+import { pageSchema, paginatedRecipesSchema } from '~/lib/zod';
 
 export function SavedRecipes() {
   const { open: isSidebarOpen } = useSidebar();
@@ -38,16 +34,10 @@ export function SavedRecipes() {
 
   const page = pageSchema.parse(searchParams.get('page'));
   const urlQuery = searchParams.get('query')?.trim() ?? '';
-  const urlCategories = idArraySearchSchema.parse(searchParams.get('categories'));
+  const { selectedCategories } = useCategoriesFilter();
 
   const [query, setQuery] = useState(urlQuery);
-  const [showFilters, setShowFilters] = useState(urlCategories.length > 0);
-
-  const { data: categories } = useQuery({
-    queryFn: () => GET('/api/categories', categoriesSchema),
-    queryKey: ['categories'],
-    staleTime: Infinity,
-  });
+  const [showFilters, setShowFilters] = useState(selectedCategories.length > 0);
 
   const { data: savedRecipes, isLoading } = useQuery({
     placeholderData: keepPreviousData,
@@ -61,8 +51,8 @@ export function SavedRecipes() {
         params.push({ name: 'query', value: urlQuery });
       }
 
-      if (urlCategories.length > 0) {
-        params.push({ name: 'categories', value: JSON.stringify(urlCategories) });
+      if (selectedCategories.length > 0) {
+        params.push({ name: 'categories', value: JSON.stringify(selectedCategories) });
       }
 
       return GET(`/api/user/saved-recipes?${buildQueryString(params)}`, paginatedRecipesSchema);
@@ -72,7 +62,7 @@ export function SavedRecipes() {
       'savedRecipes',
       { page },
       { query: urlQuery },
-      { categories: urlCategories },
+      { categories: selectedCategories },
     ],
   });
 
@@ -90,15 +80,6 @@ export function SavedRecipes() {
   function handleQueryChange(e: React.ChangeEvent<HTMLInputElement>) {
     setQuery(e.target.value);
     navigateQuery(e.target.value);
-  }
-
-  function handleCategoriesChange(values: number[]) {
-    const params = [
-      { name: 'categories', value: JSON.stringify(values) },
-      { name: 'page', value: '1' },
-    ];
-
-    router.replace(`${pathname}?${mergeQueryString(params)}`);
   }
 
   const currentApiPage = savedRecipes?.meta?.currentPage;
@@ -129,18 +110,7 @@ export function SavedRecipes() {
           <h2 className="text-lg font-semibold">Szűrők</h2>
 
           <div className="flex flex-col gap-2 lg:flex-row">
-            <FilterCombobox
-              label="Kategória"
-              onValueChange={handleCategoriesChange}
-              options={
-                categories?.map((category) => ({
-                  label: category.name,
-                  value: category.id,
-                })) ?? []
-              }
-              placeholder="Szűrés kategóriák szerint..."
-              value={urlCategories}
-            />
+            <CategoriesFilter />
           </div>
         </CollapsibleContent>
       </Collapsible>
@@ -148,19 +118,21 @@ export function SavedRecipes() {
       {!isLoading && (!savedRecipes || savedRecipes?.data.length === 0) && (
         <NoContent
           action={
-            urlQuery || urlCategories.length > 0 ? undefined : (
+            urlQuery || selectedCategories.length > 0 ? undefined : (
               <Button asChild>
                 <Link href="/recipes">Tovább a receptekhez</Link>
               </Button>
             )
           }
           description={
-            urlQuery || urlCategories.length > 0
+            urlQuery || selectedCategories.length > 0
               ? 'Sajnos nincs a keresési feltételeknek megfelelő recept. Próbáld meg módosítani a keresési feltételeket.'
               : 'Úgy tűnik, még nem mentettél el egyetlen receptet sem. Receptek felfedezéséhez kattints a lenti gombra.'
           }
           title={
-            urlQuery || urlCategories.length > 0 ? 'Nincs találat' : 'Nincs megjeleníthető recept'
+            urlQuery || selectedCategories.length > 0
+              ? 'Nincs találat'
+              : 'Nincs megjeleníthető recept'
           }
         />
       )}

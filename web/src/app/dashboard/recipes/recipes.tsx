@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
-import { FilterCombobox } from '~/components/filter-combobox';
+import { CategoriesFilter } from '~/components/categories-filter';
 import { NoContent } from '~/components/no-content';
 import { PaginationComponent } from '~/components/pagination-component';
 import { RecipeCard } from '~/components/recipe-card';
@@ -15,18 +15,14 @@ import { Button } from '~/components/ui/button';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '~/components/ui/collapsible';
 import { Input } from '~/components/ui/input';
 import { useSidebar } from '~/components/ui/sidebar';
+import { useCategoriesFilter } from '~/hooks/use-categories-filter';
 import { useMergeQueryString } from '~/hooks/use-create-query-string';
 import { useDebouncedCallback } from '~/hooks/use-debounce';
 import { useDebouncedLoading } from '~/hooks/use-debounced-loading';
 import { GET } from '~/lib/api';
 import { buildQueryString } from '~/lib/build-query-string';
 import { cn } from '~/lib/utils';
-import {
-  categoriesSchema,
-  idArraySearchSchema,
-  pageSchema,
-  paginatedRecipesSchema,
-} from '~/lib/zod';
+import { pageSchema, paginatedRecipesSchema } from '~/lib/zod';
 
 export function Recipes() {
   const { open: isSidebarOpen } = useSidebar();
@@ -38,16 +34,10 @@ export function Recipes() {
 
   const page = pageSchema.parse(searchParams.get('page'));
   const urlQuery = searchParams.get('query')?.trim() ?? '';
-  const urlCategories = idArraySearchSchema.parse(searchParams.get('categories'));
+  const { selectedCategories } = useCategoriesFilter();
 
   const [query, setQuery] = useState(urlQuery);
-  const [showFilters, setShowFilters] = useState(urlCategories.length > 0);
-
-  const { data: categories } = useQuery({
-    queryFn: () => GET('/api/categories', categoriesSchema),
-    queryKey: ['categories'],
-    staleTime: Infinity,
-  });
+  const [showFilters, setShowFilters] = useState(selectedCategories.length > 0);
 
   const { data: recipes, isLoading } = useQuery({
     placeholderData: keepPreviousData,
@@ -58,8 +48,8 @@ export function Recipes() {
         params.push({ name: 'query', value: urlQuery });
       }
 
-      if (urlCategories.length > 0) {
-        params.push({ name: 'categories', value: JSON.stringify(urlCategories) });
+      if (selectedCategories.length > 0) {
+        params.push({ name: 'categories', value: JSON.stringify(selectedCategories) });
       }
 
       return GET(`/api/user/recipes?${buildQueryString(params)}`, paginatedRecipesSchema);
@@ -69,7 +59,7 @@ export function Recipes() {
       'recipes',
       { page },
       { query: urlQuery },
-      { categories: urlCategories },
+      { categories: selectedCategories },
     ],
   });
 
@@ -87,15 +77,6 @@ export function Recipes() {
   function handleQueryChange(e: React.ChangeEvent<HTMLInputElement>) {
     setQuery(e.target.value);
     navigateQuery(e.target.value);
-  }
-
-  function handleCategoriesChange(values: number[]) {
-    const params = [
-      { name: 'categories', value: JSON.stringify(values) },
-      { name: 'page', value: '1' },
-    ];
-
-    router.replace(`${pathname}?${mergeQueryString(params)}`);
   }
 
   const currentApiPage = recipes?.meta?.currentPage;
@@ -126,18 +107,7 @@ export function Recipes() {
           <h2 className="text-lg font-semibold">Szűrők</h2>
 
           <div className="flex flex-col gap-2 lg:flex-row">
-            <FilterCombobox
-              label="Kategória"
-              onValueChange={handleCategoriesChange}
-              options={
-                categories?.map((category) => ({
-                  label: category.name,
-                  value: category.id,
-                })) ?? []
-              }
-              placeholder="Szűrés kategóriák szerint..."
-              value={urlCategories}
-            />
+            <CategoriesFilter />
           </div>
         </CollapsibleContent>
       </Collapsible>
@@ -145,19 +115,21 @@ export function Recipes() {
       {!isLoading && (!recipes || recipes?.data?.length === 0) && (
         <NoContent
           action={
-            urlQuery || urlCategories.length > 0 ? undefined : (
+            urlQuery || selectedCategories.length > 0 ? undefined : (
               <Button asChild>
                 <Link href="/dashboard/recipes/create">Recept létrehozása</Link>
               </Button>
             )
           }
           description={
-            urlQuery || urlCategories.length > 0
+            urlQuery || selectedCategories.length > 0
               ? 'Sajnos nincs a keresési feltételeknek megfelelő recept. Próbáld meg módosítani a keresési feltételeket.'
               : 'Úgy tűnik, még nem hoztál létre egyetlen receptet sem. Az alábbi gombra kattintva megteheted.'
           }
           title={
-            urlQuery || urlCategories.length > 0 ? 'Nincs találat' : 'Nincs megjeleníthető recept'
+            urlQuery || selectedCategories.length > 0
+              ? 'Nincs találat'
+              : 'Nincs megjeleníthető recept'
           }
         />
       )}
