@@ -1,23 +1,25 @@
-import { ChevronRight, MoreHorizontal } from 'lucide-react';
+import { ChevronRightIcon, MoreHorizontalIcon } from 'lucide-react';
 import { Slot } from 'radix-ui';
 import * as React from 'react';
 
 import { cn } from '~/lib/utils';
 
-function Breadcrumb({ ...props }: React.ComponentProps<'nav'>) {
-  return <nav aria-label="breadcrumb" data-slot="breadcrumb" {...props} />;
+function Breadcrumb({ className, ...props }: React.ComponentProps<'nav'>) {
+  return (
+    <nav aria-label="breadcrumb" className={cn(className)} data-slot="breadcrumb" {...props} />
+  );
 }
 
 function BreadcrumbEllipsis({ className, ...props }: React.ComponentProps<'span'>) {
   return (
     <span
       aria-hidden="true"
-      className={cn('flex size-9 items-center justify-center', className)}
+      className={cn('flex size-5 items-center justify-center [&>svg]:size-4', className)}
       data-slot="breadcrumb-ellipsis"
       role="presentation"
       {...props}
     >
-      <MoreHorizontal className="size-4" />
+      <MoreHorizontalIcon />
       <span className="sr-only">More</span>
     </span>
   );
@@ -26,7 +28,7 @@ function BreadcrumbEllipsis({ className, ...props }: React.ComponentProps<'span'
 function BreadcrumbItem({ className, ...props }: React.ComponentProps<'li'>) {
   return (
     <li
-      className={cn('inline-flex items-center gap-1.5', className)}
+      className={cn('inline-flex items-center gap-1', className)}
       data-slot="breadcrumb-item"
       {...props}
     />
@@ -55,7 +57,7 @@ function BreadcrumbList({ className, ...props }: React.ComponentProps<'ol'>) {
   return (
     <ol
       className={cn(
-        'text-muted-foreground flex flex-wrap items-center gap-1.5 text-sm wrap-break-word sm:gap-2.5',
+        'text-muted-foreground flex flex-wrap items-center gap-1.5 text-sm wrap-break-word',
         className,
       )}
       data-slot="breadcrumb-list"
@@ -86,7 +88,7 @@ function BreadcrumbSeparator({ children, className, ...props }: React.ComponentP
       role="presentation"
       {...props}
     >
-      {children ?? <ChevronRight />}
+      {children ?? <ChevronRightIcon />}
     </li>
   );
 }

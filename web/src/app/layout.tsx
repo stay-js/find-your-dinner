@@ -1,14 +1,15 @@
 import '~/styles/globals.css';
 
-import { Geist, Geist_Mono } from 'next/font/google';
 import { ClerkProvider } from '@clerk/nextjs';
 import { shadcn } from '@clerk/themes';
 import { type Viewport } from 'next';
-import { ThemeProvider } from '~/components/theme-provider';
+import { Geist, Geist_Mono } from 'next/font/google';
 import { Suspense } from 'react';
 
 import { ReactQueryProvider } from '~/app/react-query-provider';
+import { ThemeProvider } from '~/components/theme-provider';
 import { Toaster } from '~/components/ui/sonner';
+import { TooltipProvider } from '~/components/ui/tooltip';
 import { cn } from '~/lib/utils';
 
 export const viewport: Viewport = {
@@ -39,17 +40,19 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     >
       <html
         className={cn('antialiased', fontMono.variable, 'font-sans', fontSans.variable)}
+        data-scroll-behavior="smooth"
         lang="hu"
         suppressHydrationWarning
-        data-scroll-behavior="smooth"
       >
         <body className="overflow-x-hidden antialiased">
           <ThemeProvider>
-            <ReactQueryProvider>
-              <Suspense>{children}</Suspense>
+            <TooltipProvider>
+              <ReactQueryProvider>
+                <Suspense>{children}</Suspense>
 
-              <Toaster />
-            </ReactQueryProvider>
+                <Toaster />
+              </ReactQueryProvider>
+            </TooltipProvider>
           </ThemeProvider>
         </body>
       </html>

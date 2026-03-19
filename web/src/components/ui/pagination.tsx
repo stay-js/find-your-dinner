@@ -37,7 +37,7 @@ function PaginationButton({ isActive, size = 'icon', ...props }: PaginationButto
 function PaginationContent({ className, ...props }: React.ComponentProps<'ul'>) {
   return (
     <ul
-      className={cn('flex flex-row items-center gap-1', className)}
+      className={cn('flex items-center gap-0.5', className)}
       data-slot="pagination-content"
       {...props}
     />
@@ -48,12 +48,15 @@ function PaginationEllipsis({ className, ...props }: React.ComponentProps<'span'
   return (
     <span
       aria-hidden
-      className={cn('flex size-9 items-center justify-center', className)}
+      className={cn(
+        "flex size-8 items-center justify-center [&_svg:not([class*='size-'])]:size-4",
+        className,
+      )}
       data-slot="pagination-ellipsis"
       {...props}
     >
-      <MoreHorizontalIcon className="size-4" />
-      <span className="sr-only">További oldalak</span>
+      <MoreHorizontalIcon />
+      <span className="sr-only">More pages</span>
     </span>
   );
 }
@@ -62,33 +65,38 @@ function PaginationItem({ ...props }: React.ComponentProps<'li'>) {
   return <li data-slot="pagination-item" {...props} />;
 }
 
-function PaginationNext({ className, ...props }: React.ComponentProps<typeof PaginationButton>) {
+function PaginationNext({
+  className,
+  text = 'Next',
+  ...props
+}: { text?: string } & React.ComponentProps<typeof PaginationButton>) {
   return (
     <PaginationButton
       aria-label="Go to next page"
-      className={cn('gap-1 px-2.5 sm:pr-2.5', className)}
+      className={cn('pr-1.5!', className)}
       size="default"
       {...props}
     >
-      <span className="hidden sm:block">Következő</span>
-      <ChevronRightIcon />
+      <span className="hidden sm:block">{text}</span>
+      <ChevronRightIcon data-icon="inline-end" />
     </PaginationButton>
   );
 }
 
 function PaginationPrevious({
   className,
+  text = 'Previous',
   ...props
-}: React.ComponentProps<typeof PaginationButton>) {
+}: { text?: string } & React.ComponentProps<typeof PaginationButton>) {
   return (
     <PaginationButton
       aria-label="Go to previous page"
-      className={cn('gap-1 px-2.5 sm:pl-2.5', className)}
+      className={cn('pl-1.5!', className)}
       size="default"
       {...props}
     >
-      <ChevronLeftIcon />
-      <span className="hidden sm:block">Előző</span>
+      <ChevronLeftIcon data-icon="inline-start" />
+      <span className="hidden sm:block">{text}</span>
     </PaginationButton>
   );
 }
