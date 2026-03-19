@@ -2,6 +2,13 @@ import { z } from 'zod';
 
 import { createPaginatedSchema } from './helpers';
 
+export const findPageStateSchema = z
+  .enum(['filter', 'swipe', 'tournament'])
+  .optional()
+  .default('filter')
+  .catch('filter');
+export type FindPageState = z.infer<typeof findPageStateSchema>;
+
 export const idParamSchema = z.object({
   id: z.coerce.number().int().positive(),
 });

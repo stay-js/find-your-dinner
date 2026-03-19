@@ -1,5 +1,7 @@
 import { createMetadata } from '~/lib/create-metadata';
 
+import { Find } from './find';
+
 export const metadata = createMetadata({
   path: '/find',
 
@@ -9,9 +11,5 @@ export const metadata = createMetadata({
 });
 
 export default async function FindPage() {
-  return (
-    <div className="container flex h-full flex-col gap-6">
-      <h1 className="text-foreground text-2xl font-semibold">Keresés</h1>
-    </div>
-  );
+  return <Find />;
 }
