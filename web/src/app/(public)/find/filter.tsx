@@ -52,7 +52,7 @@ export function Filter({ ingredientIds, setState }: FilterProps) {
               value: ingredient.id,
             })) ?? []
           }
-          placeholder="Szűrés hozzávalók szerint..."
+          placeholder="Hozzávalók kiválasztása..."
           value={ingredientIds}
         />
 

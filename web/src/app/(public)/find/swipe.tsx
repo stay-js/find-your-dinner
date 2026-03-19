@@ -60,7 +60,7 @@ export function Swipe({ ingredientIds, setLikedRecipes, setState }: SwipeProps) 
   }
 
   function handleLike(recipe: Recipe) {
-    if (recipe) setLikedRecipes((prev) => [...prev, recipe]);
+    setLikedRecipes((prev) => [...prev, recipe]);
     handleNext();
   }
 
