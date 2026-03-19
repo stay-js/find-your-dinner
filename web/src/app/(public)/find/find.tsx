@@ -47,7 +47,9 @@ export function Find() {
     <div className="container flex flex-col items-center gap-6 overflow-hidden py-12">
       {state === 'filter' && <Filter ingredientIds={ingredients} setState={setState} />}
 
-      {state === 'swipe' && <Swipe setLikedRecipes={setLikedRecipes} setState={setState} />}
+      {state === 'swipe' && (
+        <Swipe ingredientIds={ingredients} setLikedRecipes={setLikedRecipes} setState={setState} />
+      )}
 
       {state === 'tournament' && <Tournament likedRecipes={likedRecipes} />}
     </div>
