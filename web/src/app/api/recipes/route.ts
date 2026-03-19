@@ -7,6 +7,7 @@ import {
   boolFlagSearchSchema,
   createUpdateRecipeSchema,
   idArraySearchSchema,
+  isPositiveIntegerString,
   type PaginationMeta,
 } from '~/lib/zod';
 import { db } from '~/server/db';
@@ -24,10 +25,16 @@ import {
 const PAGE_SIZE = 9;
 
 const getRecipesSchema = z.object({
-  'allow-unverified': boolFlagSearchSchema,
+  allowUnverified: boolFlagSearchSchema,
   categories: idArraySearchSchema,
   ingredients: idArraySearchSchema,
-  'only-awaiting-verification': boolFlagSearchSchema,
+  onlyAwaitingVerification: boolFlagSearchSchema,
+  perPage: z
+    .string()
+    .refine(isPositiveIntegerString)
+    .default(PAGE_SIZE.toString())
+    .catch(PAGE_SIZE.toString())
+    .transform((val) => Math.min(100, Math.max(1, Number(val)))),
   query: z.string().trim().nullable().catch(null),
 });
 
@@ -35,10 +42,11 @@ export async function GET(request: NextRequest) {
   const { searchParams } = request.nextUrl;
 
   const { data: params, success } = getRecipesSchema.safeParse({
-    'allow-unverified': searchParams.get('allow-unverified'),
+    allowUnverified: searchParams.get('allow-unverified'),
     categories: searchParams.get('categories'),
     ingredients: searchParams.get('ingredients'),
-    'only-awaiting-verification': searchParams.get('only-awaiting-verification'),
+    onlyAwaitingVerification: searchParams.get('only-awaiting-verification'),
+    perPage: searchParams.get('per-page'),
     query: searchParams.get('query'),
   });
 
@@ -46,8 +54,8 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ message: 'Invalid query parameters' }, { status: 400 });
   }
 
-  const onlyAwaitingVerification = params['only-awaiting-verification'];
-  const allowUnverified = onlyAwaitingVerification || params['allow-unverified'];
+  const onlyAwaitingVerification = params.onlyAwaitingVerification;
+  const allowUnverified = onlyAwaitingVerification || params.allowUnverified;
   const categoryIds = params.categories;
   const ingredientIds = params.ingredients;
 
@@ -115,14 +123,14 @@ export async function GET(request: NextRequest) {
   const [totalResult] = await baseCountQuery.where(and(ftsWhereClause, ingredientWhereClause));
   const total = totalResult?.count ?? 0;
 
-  const { page, pageCount } = getPagination(searchParams.get('page'), total, PAGE_SIZE);
+  const { page, pageCount } = getPagination(searchParams.get('page'), total, params.perPage);
 
   const recipeRecords = await baseRecipesQuery
     .where(and(ftsWhereClause, ingredientWhereClause))
     .groupBy(recipes.id)
     .orderBy(desc(recipes.createdAt))
-    .limit(PAGE_SIZE)
-    .offset((page - 1) * PAGE_SIZE);
+    .limit(params.perPage)
+    .offset((page - 1) * params.perPage);
 
   const result = await enrichRecipes(recipeRecords, { onlyAwaitingVerification, verifiedOnly });
 
@@ -131,7 +139,7 @@ export async function GET(request: NextRequest) {
     meta: {
       currentPage: page,
       pageCount,
-      perPage: PAGE_SIZE,
+      perPage: params.perPage,
       total,
     } satisfies PaginationMeta,
   });
