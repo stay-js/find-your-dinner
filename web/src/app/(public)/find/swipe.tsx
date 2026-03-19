@@ -25,5 +25,6 @@ export function Swipe({ ingredientIds, setLikedRecipes, setState }: SwipeProps) 
     },
     queryKey: ['recipes', 'swipe', { ingredients: ingredientIds }],
   });
+
   return <div></div>;
 }
