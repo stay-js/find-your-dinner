@@ -17,12 +17,27 @@ import { cn } from '~/lib/utils';
 import { type Recipe } from '~/lib/zod';
 
 type RecipeCardProps = {
-  pageType: 'admin' | 'final' | 'manage' | 'saved' | 'search' | 'tinder';
+  pageType: 'admin' | 'manage' | 'saved' | 'search' | 'tinder' | 'tournament';
+
   recipe: Recipe;
   showIsVerified?: boolean;
+
+  onDislike?: () => void;
+  onLike?: (id: number) => void;
+
+  onSelect?: (id: number) => void;
 };
 
-export function RecipeCard({ pageType, recipe, showIsVerified = false }: RecipeCardProps) {
+export function RecipeCard({
+  pageType,
+  recipe,
+  showIsVerified = false,
+
+  onDislike,
+  onLike,
+
+  onSelect,
+}: RecipeCardProps) {
   const { handleSaveToggle, isPending, isSaved } = useSaveState(recipe.recipe.id);
 
   return (
@@ -115,12 +130,15 @@ export function RecipeCard({ pageType, recipe, showIsVerified = false }: RecipeC
           </Button>
         )}
 
-        {pageType === 'final' && <Button>Ezt választom</Button>}
-
         {pageType === 'tinder' && (
           <>
-            <Button variant="outline">Nem tetszik</Button>
-            <Button>Tetszik</Button>
+            <Button onClick={onDislike} variant="outline">
+              <span>Nem tetszik</span>
+            </Button>
+
+            <Button onClick={() => onLike?.(recipe.recipe.id)}>
+              <span>Tetszik</span>
+            </Button>
           </>
         )}
 
@@ -133,6 +151,12 @@ export function RecipeCard({ pageType, recipe, showIsVerified = false }: RecipeC
         {pageType === 'manage' && recipe.hasVerifiedVersion && (
           <Button asChild>
             <Link href={`/dashboard/recipes/${recipe.recipe.id}`}>Megtekintés</Link>
+          </Button>
+        )}
+
+        {pageType === 'tournament' && (
+          <Button onClick={() => onSelect?.(recipe.recipe.id)}>
+            <span>Ezt választom</span>
           </Button>
         )}
       </CardFooter>
