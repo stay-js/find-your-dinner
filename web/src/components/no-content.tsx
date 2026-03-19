@@ -8,16 +8,18 @@ import {
   EmptyMedia,
   EmptyTitle,
 } from '~/components/ui/empty';
+import { cn } from '~/lib/utils';
 
 type NoContentProps = {
   action?: React.ReactNode;
+  className?: string;
   description: React.ReactNode;
   title: React.ReactNode;
 };
 
-export function NoContent({ action, description, title }: NoContentProps) {
+export function NoContent({ action, className, description, title }: NoContentProps) {
   return (
-    <div className="grid h-full place-content-center">
+    <div className={cn('grid h-full place-content-center', className)}>
       <Empty>
         <EmptyHeader>
           <EmptyMedia variant="icon">

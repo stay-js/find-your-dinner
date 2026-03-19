@@ -80,6 +80,7 @@ export function Swipe({ ingredientIds, setLikedRecipes, setState }: SwipeProps) 
       {!isLoading && noRecipes && (
         <NoContent
           action={<Button onClick={handleReset}>Vissza a hozzávalókhoz</Button>}
+          className="py-12"
           description={
             'Úgy tűnik, nincs egyetlen recept sem, ami megfelelne a keresési feltételeidnek. Próbáld meg módosítani a keresési feltételeidet.'
           }
