@@ -26,7 +26,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         },
       }}
     >
-      <html className={`${GeistSans.variable} scroll-smooth`} lang="hu" suppressHydrationWarning>
+      <html
+        className={`${GeistSans.variable}`}
+        lang="hu"
+        suppressHydrationWarning
+        data-scroll-behavior="smooth"
+      >
         <body className="overflow-x-hidden antialiased">
           <ReactQueryProvider>
             <ThemeProvider
