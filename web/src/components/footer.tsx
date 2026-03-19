@@ -3,6 +3,7 @@ import Link from 'next/link';
 
 import { Logo } from '~/components/logo';
 import { ThemeSwitcher } from '~/components/theme-switcher';
+import { Kbd } from '~/components/ui/kbd';
 import { Separator } from '~/components/ui/separator';
 
 export function Footer() {
@@ -25,7 +26,7 @@ export function Footer() {
 
             <div className="flex flex-col gap-1">
               <label className="text-muted-foreground w-fit font-medium" htmlFor="theme">
-                Megjelenés
+                Megjelenés - gyorsgomb: <Kbd>D</Kbd>
               </label>
 
               <ThemeSwitcher />
