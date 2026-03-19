@@ -71,13 +71,17 @@ export function Swipe({ ingredientIds, setLikedRecipes, setState }: SwipeProps) 
   }
 
   useEffect(() => {
+    if (isLoading) return;
+
     if (!noRecipes && isOutOfRecipes) setState('tournament');
 
     if (allRecipes.length === 1) {
-      setState('tournament');
       setLikedRecipes(allRecipes);
+      setState('tournament');
     }
-  }, [isOutOfRecipes, noRecipes, setState, setLikedRecipes, allRecipes]);
+  }, [isLoading, isOutOfRecipes, noRecipes, setState, setLikedRecipes, allRecipes]);
+
+  if (isLoading && !showSkeleton) return null;
 
   return (
     <div className="flex w-full max-w-md flex-col gap-8">
