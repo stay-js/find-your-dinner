@@ -46,6 +46,7 @@ export function RecipeCard({
         <SafeImage
           alt={recipe.recipeData.title}
           className="w-full object-cover transition-transform duration-300 hover:scale-105"
+          draggable={false}
           fill
           src={recipe.recipeData.previewImageUrl || '/placeholder.png'}
         />
