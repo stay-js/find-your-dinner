@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { type PanInfo } from 'motion/react';
 import { animate, motion, useMotionValue, useTransform } from 'motion/react';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import { NoContent } from '~/components/no-content';
 import { RecipeCard } from '~/components/recipe-card';
@@ -49,7 +49,7 @@ export function Swipe({ ingredientIds, setLikedRecipes, setState }: SwipeProps) 
 
   const showSkeleton = useDebouncedLoading(isLoading);
 
-  const allRecipes = recipes?.data ?? [];
+  const allRecipes = useMemo(() => recipes?.data ?? [], [recipes]);
 
   const noRecipes = allRecipes.length < 1;
   const isOutOfRecipes = currentIndex >= allRecipes.length;
@@ -72,7 +72,12 @@ export function Swipe({ ingredientIds, setLikedRecipes, setState }: SwipeProps) 
 
   useEffect(() => {
     if (!noRecipes && isOutOfRecipes) setState('tournament');
-  }, [isOutOfRecipes, noRecipes, setState]);
+
+    if (allRecipes.length === 1) {
+      setState('tournament');
+      setLikedRecipes(allRecipes);
+    }
+  }, [isOutOfRecipes, noRecipes, setState, setLikedRecipes, allRecipes]);
 
   return (
     <div className="flex w-full max-w-md flex-col gap-8">
@@ -91,7 +96,7 @@ export function Swipe({ ingredientIds, setLikedRecipes, setState }: SwipeProps) 
         />
       )}
 
-      {currentRecipe && (
+      {allRecipes.length > 1 && currentRecipe && (
         <AnimatedCard
           key={currentIndex}
           onDislike={() => handleNext()}
