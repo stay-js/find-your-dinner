@@ -1,7 +1,9 @@
-import { Bookmark, CheckCircle2, Clock, Users } from 'lucide-react';
+import { useSession } from '@clerk/nextjs';
+import { CheckCircle2, Clock, Users } from 'lucide-react';
 import Link from 'next/link';
 
 import { SafeImage } from '~/components/safe-image';
+import { SaveButton } from '~/components/save-button';
 import { Badge } from '~/components/ui/badge';
 import { Button } from '~/components/ui/button';
 import {
@@ -12,7 +14,6 @@ import {
   CardHeader,
   CardTitle,
 } from '~/components/ui/card';
-import { useSaveState } from '~/hooks/use-save-state';
 import { cn } from '~/lib/utils';
 import { type Recipe } from '~/lib/zod';
 
@@ -38,7 +39,7 @@ export function RecipeCard({
 
   onSelect,
 }: RecipeCardProps) {
-  const { handleSaveToggle, isPending, isSaved } = useSaveState(recipe.recipe.id);
+  const { isSignedIn } = useSession();
 
   return (
     <Card className="w-full gap-6 overflow-hidden pt-0">
@@ -51,19 +52,13 @@ export function RecipeCard({
           src={recipe.recipeData.previewImageUrl || '/placeholder.png'}
         />
 
-        <Button
-          className="bg-background/80 absolute top-3 right-3 backdrop-blur-sm"
-          disabled={isPending}
-          onClick={handleSaveToggle}
-          size="icon"
-          variant="ghost"
-        >
-          <Bookmark className={cn('size-5', isSaved && 'fill-current')} />
-
-          <span className="sr-only">
-            {isSaved ? 'Törlés a mentett receptek közül' : 'Recept mentése'}
-          </span>
-        </Button>
+        {isSignedIn && (
+          <SaveButton
+            className="bg-background/80 absolute top-3 right-3 backdrop-blur-sm"
+            recipeId={recipe.recipe.id}
+            variant="ghost"
+          />
+        )}
 
         {showIsVerified && recipe.recipeData.verified && (
           <Badge className="absolute top-3 left-3 bg-emerald-600 hover:bg-emerald-600">

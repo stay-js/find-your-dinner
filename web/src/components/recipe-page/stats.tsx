@@ -1,10 +1,9 @@
 'use client';
 
-import { Bookmark, ChefHat, Clock, Users } from 'lucide-react';
+import { useSession } from '@clerk/nextjs';
+import { ChefHat, Clock, Users } from 'lucide-react';
 
-import { Button } from '~/components/ui/button';
-import { useSaveState } from '~/hooks/use-save-state';
-import { cn } from '~/lib/utils';
+import { SaveButton } from '~/components/save-button';
 
 type StatsProps = {
   recipeId: number;
@@ -23,7 +22,7 @@ export function Stats({
 
   servings,
 }: StatsProps) {
-  const { handleSaveToggle, isPending, isSaved } = useSaveState(recipeId);
+  const { isSignedIn } = useSession();
 
   return (
     <div className="flex justify-between gap-6 max-sm:flex-col">
@@ -47,13 +46,7 @@ export function Stats({
         </div>
       </div>
 
-      <Button disabled={isPending} onClick={handleSaveToggle} size="icon-sm" variant="outline">
-        <Bookmark className={cn('size-4', isSaved && 'fill-current')} />
-
-        <span className="sr-only">
-          {isSaved ? 'Törlés a mentett receptek közül' : 'Recept mentése'}
-        </span>
-      </Button>
+      {isSignedIn && <SaveButton recipeId={recipeId} variant="outline" />}
     </div>
   );
 }
