@@ -1,6 +1,7 @@
 'use client';
 
-import { SignedIn, SignedOut, SignInButton, SignUpButton } from '@clerk/nextjs';
+import { SignInButton, SignUpButton } from '@clerk/nextjs';
+import { useSession } from '@clerk/nextjs';
 import { Menu, X } from 'lucide-react';
 import Link from 'next/link';
 import { useState } from 'react';
@@ -12,6 +13,8 @@ import { UserAvatar } from '~/components/user';
 import { UserDropdown } from '~/components/user-dropdown';
 
 export function Header() {
+  const { isLoaded, isSignedIn } = useSession();
+
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
@@ -34,39 +37,40 @@ export function Header() {
             <Link href="/recipes">Összes recept</Link>
           </Button>
 
-          <SignedIn>
-            <Button asChild className="px-0" size="sm" variant="link">
-              <Link href="/dashboard/recipes">Irányítópult</Link>
-            </Button>
-
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button size="icon" variant="ghost">
-                  <UserAvatar className="size-7" />
+          {isLoaded &&
+            (isSignedIn ? (
+              <>
+                <Button asChild className="px-0" size="sm" variant="link">
+                  <Link href="/dashboard/recipes">Irányítópult</Link>
                 </Button>
-              </DropdownMenuTrigger>
 
-              <UserDropdown location="right" />
-            </DropdownMenu>
-          </SignedIn>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button size="icon" variant="ghost">
+                      <UserAvatar className="size-7" />
+                    </Button>
+                  </DropdownMenuTrigger>
 
-          <SignedOut>
-            <div className="flex gap-2">
-              <SignInButton mode="modal">
-                <Button size="sm">Bejelentkezés</Button>
-              </SignInButton>
+                  <UserDropdown location="right" />
+                </DropdownMenu>
+              </>
+            ) : (
+              <div className="flex gap-2">
+                <SignInButton mode="modal">
+                  <Button size="sm">Bejelentkezés</Button>
+                </SignInButton>
 
-              <SignUpButton mode="modal">
-                <Button size="sm" variant="outline">
-                  Regisztráció
-                </Button>
-              </SignUpButton>
-            </div>
-          </SignedOut>
+                <SignUpButton mode="modal">
+                  <Button size="sm" variant="outline">
+                    Regisztráció
+                  </Button>
+                </SignUpButton>
+              </div>
+            ))}
         </div>
 
         <div className="flex items-center gap-2 md:hidden">
-          <SignedIn>
+          {isSignedIn && (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button size="icon" variant="ghost">
@@ -76,7 +80,7 @@ export function Header() {
 
               <UserDropdown location="right" />
             </DropdownMenu>
-          </SignedIn>
+          )}
 
           <Button onClick={() => setIsMobileMenuOpen((val) => !val)} size="icon" variant="ghost">
             {isMobileMenuOpen ? <X className="size-5" /> : <Menu className="size-5" />}
@@ -106,33 +110,36 @@ export function Header() {
             <Link href="/recipes">Összes recept</Link>
           </Button>
 
-          <SignedIn>
-            <Button
-              asChild
-              className="px-0"
-              onClick={() => setIsMobileMenuOpen(false)}
-              size="sm"
-              variant="link"
-            >
-              <Link href="/dashboard/recipes">Irányítópult</Link>
-            </Button>
-          </SignedIn>
-
-          <SignedOut>
-            <div className="flex gap-2 py-2">
-              <SignInButton mode="modal">
-                <Button onClick={() => setIsMobileMenuOpen(false)} size="sm">
-                  Bejelentkezés
+          {isLoaded &&
+            (isSignedIn ? (
+              <>
+                <Button
+                  asChild
+                  className="px-0"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  size="sm"
+                  variant="link"
+                >
+                  <Link href="/dashboard/recipes">Irányítópult</Link>
                 </Button>
-              </SignInButton>
+              </>
+            ) : (
+              <>
+                <div className="flex gap-2 py-2">
+                  <SignInButton mode="modal">
+                    <Button onClick={() => setIsMobileMenuOpen(false)} size="sm">
+                      Bejelentkezés
+                    </Button>
+                  </SignInButton>
 
-              <SignUpButton mode="modal">
-                <Button onClick={() => setIsMobileMenuOpen(false)} size="sm" variant="outline">
-                  Regisztráció
-                </Button>
-              </SignUpButton>
-            </div>
-          </SignedOut>
+                  <SignUpButton mode="modal">
+                    <Button onClick={() => setIsMobileMenuOpen(false)} size="sm" variant="outline">
+                      Regisztráció
+                    </Button>
+                  </SignUpButton>
+                </div>
+              </>
+            ))}
         </nav>
       )}
     </header>
