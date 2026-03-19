@@ -7,6 +7,7 @@ import { NoContent } from '~/components/no-content';
 import { RecipeCard } from '~/components/recipe-card';
 import { RecipeCardSkeleton } from '~/components/recipe-card-skeleton';
 import { Button } from '~/components/ui/button';
+import { useDebouncedLoading } from '~/hooks/use-debounced-loading';
 import { GET } from '~/lib/api';
 import { buildQueryString } from '~/lib/build-query-string';
 import { paginatedRecipesSchema, type Recipe } from '~/lib/zod';
@@ -46,6 +47,8 @@ export function Swipe({ ingredientIds, setLikedRecipes, setState }: SwipeProps) 
     queryKey: ['recipes', 'swipe', { ingredients: ingredientIds }],
   });
 
+  const showSkeleton = useDebouncedLoading(isLoading);
+
   const allRecipes = recipes?.data ?? [];
 
   const noRecipes = allRecipes.length < 1;
@@ -75,7 +78,7 @@ export function Swipe({ ingredientIds, setLikedRecipes, setState }: SwipeProps) 
     <div className="flex w-full max-w-md flex-col gap-8">
       <h1 className="text-center text-2xl font-bold">Húzd jobbra, ha tetszik</h1>
 
-      {isLoading && <RecipeCardSkeleton />}
+      {showSkeleton && <RecipeCardSkeleton />}
 
       {!isLoading && noRecipes && (
         <NoContent
