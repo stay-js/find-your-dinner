@@ -33,7 +33,11 @@ export function SavedRecipes() {
   const { debouncedQuery, hasActiveFilters, selectedCategories, selectedIngredients } =
     useRecipeFilters();
 
-  const { data: savedRecipes, isLoading } = useQuery({
+  const {
+    data: savedRecipes,
+    isLoading,
+    isPlaceholderData,
+  } = useQuery({
     placeholderData: keepPreviousData,
     queryFn: () => {
       const params = [
@@ -112,7 +116,10 @@ export function SavedRecipes() {
         ))}
       </div>
 
-      <PaginationComponent currentPage={page} pageCount={savedRecipes?.meta.pageCount || 1} />
+      <PaginationComponent
+        currentPage={isPlaceholderData ? (savedRecipes?.meta.currentPage ?? page) : page}
+        pageCount={savedRecipes?.meta.pageCount || 1}
+      />
     </div>
   );
 }

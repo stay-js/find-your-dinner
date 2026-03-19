@@ -32,7 +32,11 @@ export function Recipes() {
   const { debouncedQuery, hasActiveFilters, selectedCategories, selectedIngredients } =
     useRecipeFilters();
 
-  const { data: recipes, isLoading } = useQuery({
+  const {
+    data: recipes,
+    isLoading,
+    isPlaceholderData,
+  } = useQuery({
     placeholderData: keepPreviousData,
     queryFn: () => {
       const params = [
@@ -111,7 +115,10 @@ export function Recipes() {
         ))}
       </div>
 
-      <PaginationComponent currentPage={page} pageCount={recipes?.meta.pageCount || 1} />
+      <PaginationComponent
+        currentPage={isPlaceholderData ? (recipes?.meta.currentPage ?? page) : page}
+        pageCount={recipes?.meta.pageCount || 1}
+      />
     </div>
   );
 }
