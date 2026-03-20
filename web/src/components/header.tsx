@@ -29,18 +29,18 @@ export function Header() {
         </Link>
 
         <div className="hidden items-center gap-4 md:flex">
-          <Button asChild className="px-0" size="sm" variant="link">
+          <Button asChild className="px-0" variant="link">
             <Link href="/find">Keresés</Link>
           </Button>
 
-          <Button asChild className="px-0" size="sm" variant="link">
+          <Button asChild className="px-0" variant="link">
             <Link href="/recipes">Összes recept</Link>
           </Button>
 
           {isLoaded &&
             (isSignedIn ? (
               <>
-                <Button asChild className="px-0" size="sm" variant="link">
+                <Button asChild className="px-0" variant="link">
                   <Link href="/dashboard/recipes">Irányítópult</Link>
                 </Button>
 
@@ -57,13 +57,11 @@ export function Header() {
             ) : (
               <div className="flex gap-2">
                 <SignInButton mode="modal">
-                  <Button size="sm">Bejelentkezés</Button>
+                  <Button>Bejelentkezés</Button>
                 </SignInButton>
 
                 <SignUpButton mode="modal">
-                  <Button size="sm" variant="outline">
-                    Regisztráció
-                  </Button>
+                  <Button variant="outline">Regisztráció</Button>
                 </SignUpButton>
               </div>
             ))}
@@ -94,7 +92,6 @@ export function Header() {
             asChild
             className="px-0"
             onClick={() => setIsMobileMenuOpen(false)}
-            size="sm"
             variant="link"
           >
             <Link href="/find">Keresés</Link>
@@ -104,7 +101,6 @@ export function Header() {
             asChild
             className="px-0"
             onClick={() => setIsMobileMenuOpen(false)}
-            size="sm"
             variant="link"
           >
             <Link href="/recipes">Összes recept</Link>
@@ -117,7 +113,6 @@ export function Header() {
                   asChild
                   className="px-0"
                   onClick={() => setIsMobileMenuOpen(false)}
-                  size="sm"
                   variant="link"
                 >
                   <Link href="/dashboard/recipes">Irányítópult</Link>
@@ -127,13 +122,11 @@ export function Header() {
               <>
                 <div className="flex gap-2 py-2">
                   <SignInButton mode="modal">
-                    <Button onClick={() => setIsMobileMenuOpen(false)} size="sm">
-                      Bejelentkezés
-                    </Button>
+                    <Button onClick={() => setIsMobileMenuOpen(false)}>Bejelentkezés</Button>
                   </SignInButton>
 
                   <SignUpButton mode="modal">
-                    <Button onClick={() => setIsMobileMenuOpen(false)} size="sm" variant="outline">
+                    <Button onClick={() => setIsMobileMenuOpen(false)} variant="outline">
                       Regisztráció
                     </Button>
                   </SignUpButton>
