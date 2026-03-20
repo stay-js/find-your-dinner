@@ -7,7 +7,7 @@ export function Instructions({ instructions }: { instructions: string }) {
         <CardTitle>Elkészítés</CardTitle>
       </CardHeader>
 
-      <CardContent className="whitespace-pre-wrap">{instructions}</CardContent>
+      <CardContent className="leading-relaxed whitespace-pre-wrap">{instructions}</CardContent>
     </Card>
   );
 }
