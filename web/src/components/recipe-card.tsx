@@ -61,7 +61,7 @@ export function RecipeCard({
         )}
 
         {showIsVerified && recipe.recipeData.verified && (
-          <Badge className="absolute top-3 left-3 bg-emerald-600 hover:bg-emerald-600">
+          <Badge className="dark:text-foreground absolute top-3 left-3 bg-emerald-600 hover:bg-emerald-600">
             <CheckCircle2 className="size-3" />
             <span>Jóváhagyva</span>
           </Badge>
@@ -71,14 +71,14 @@ export function RecipeCard({
       <CardHeader className="gap-4">
         <div className="flex flex-wrap gap-2">
           {recipe.categories.map((category) => (
-            <Badge className="text-xs" key={category.id} variant="secondary">
+            <Badge key={category.id} variant="secondary">
               {category.name}
             </Badge>
           ))}
         </div>
 
         <div className="flex flex-col gap-2">
-          <CardTitle className="line-clamp-1 text-lg">{recipe.recipeData.title}</CardTitle>
+          <CardTitle className="line-clamp-1 font-semibold">{recipe.recipeData.title}</CardTitle>
           <CardDescription className="line-clamp-2">
             {recipe.recipeData.description}
           </CardDescription>
