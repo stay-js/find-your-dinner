@@ -10,13 +10,13 @@ import { toast } from 'sonner';
 import { z } from 'zod';
 
 import { FormInput, FormSelect, FormTextarea } from '~/components/form';
-import { Badge } from '~/components/ui/badge';
 import { Button } from '~/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card';
 import { FieldError } from '~/components/ui/field';
 import { SelectGroup, SelectItem, SelectLabel } from '~/components/ui/select';
 import { Separator } from '~/components/ui/separator';
 import { Skeleton } from '~/components/ui/skeleton';
+import { Toggle } from '~/components/ui/toggle';
 import { useIsMobile } from '~/hooks/use-mobile';
 import { GET, POST, PUT } from '~/lib/api';
 import { cn } from '~/lib/utils';
@@ -305,24 +305,23 @@ export function RecipeForm({ defaultValues, recipeId }: RecipeFormProps) {
                       const isSelected = field.value.includes(category.id);
 
                       return (
-                        <Badge
-                          className={cn(
-                            'flex cursor-pointer gap-2 px-3 py-1.5 text-sm transition-colors select-none',
-                            fieldState.invalid && 'border-destructive',
-                          )}
+                        <Toggle
+                          aria-invalid={fieldState.invalid}
                           key={category.id}
-                          onClick={() => {
-                            const nextValue = isSelected
-                              ? field.value.filter((id) => id !== category.id)
-                              : [...field.value, category.id];
+                          onPressedChange={(pressed) => {
+                            const nextValue = pressed
+                              ? [...field.value, category.id]
+                              : field.value.filter((id) => id !== category.id);
 
                             field.onChange(nextValue);
                           }}
-                          variant={isSelected ? 'default' : 'outline'}
+                          pressed={isSelected}
+                          variant="outline"
                         >
-                          {isSelected && <X className="size-4" />}
                           <span>{category.name}</span>
-                        </Badge>
+
+                          {isSelected && <X className="size-3.5" />}
+                        </Toggle>
                       );
                     })}
                   </div>
