@@ -13,7 +13,6 @@ import { useRecipeFilters } from '~/hooks/filter';
 import { useDebouncedLoading } from '~/hooks/use-debounced-loading';
 import { useMergeQueryString } from '~/hooks/use-merge-query-string';
 import { GET } from '~/lib/api';
-import { buildQueryString } from '~/lib/build-query-string';
 import { pageSchema, paginatedRecipesSchema } from '~/lib/zod';
 
 export function Recipes() {
@@ -34,21 +33,21 @@ export function Recipes() {
   } = useQuery({
     placeholderData: keepPreviousData,
     queryFn: () => {
-      const params = [{ name: 'page', value: page.toString() }];
+      const params = new URLSearchParams({ page: page.toString() });
 
       if (debouncedQuery.length > 0) {
-        params.push({ name: 'query', value: debouncedQuery });
+        params.set('query', debouncedQuery);
       }
 
       if (selectedCategories.length > 0) {
-        params.push({ name: 'categories', value: JSON.stringify(selectedCategories) });
+        params.set('categories', JSON.stringify(selectedCategories));
       }
 
       if (selectedIngredients.length > 0) {
-        params.push({ name: 'ingredients', value: JSON.stringify(selectedIngredients) });
+        params.set('ingredients', JSON.stringify(selectedIngredients));
       }
 
-      return GET(`/api/recipes?${buildQueryString(params)}`, paginatedRecipesSchema);
+      return GET(`/api/recipes?${params}`, paginatedRecipesSchema);
     },
     queryKey: [
       'recipes',

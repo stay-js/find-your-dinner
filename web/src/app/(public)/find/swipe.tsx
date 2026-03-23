@@ -9,7 +9,6 @@ import { RecipeCardSkeleton } from '~/components/recipe-card-skeleton';
 import { Button } from '~/components/ui/button';
 import { useDebouncedLoading } from '~/hooks/use-debounced-loading';
 import { GET } from '~/lib/api';
-import { buildQueryString } from '~/lib/build-query-string';
 import { paginatedRecipesSchema, type Recipe } from '~/lib/zod';
 
 import { type FindPageSetState } from './find';
@@ -36,13 +35,13 @@ export function Swipe({ ingredientIds, setLikedRecipes, setState }: SwipeProps) 
 
   const { data: recipes, isLoading } = useQuery({
     queryFn: () => {
-      const params = [
-        { name: 'page', value: '1' },
-        { name: 'per-page', value: RECIPE_LIMIT.toString() },
-        { name: 'ingredients', value: JSON.stringify(ingredientIds) },
-      ];
+      const params = new URLSearchParams({
+        ingredients: JSON.stringify(ingredientIds),
+        page: '1',
+        'per-page': RECIPE_LIMIT.toString(),
+      });
 
-      return GET(`/api/recipes?${buildQueryString(params)}`, paginatedRecipesSchema);
+      return GET(`/api/recipes?${params}`, paginatedRecipesSchema);
     },
     queryKey: ['recipes', 'swipe', { ingredients: ingredientIds }],
   });
