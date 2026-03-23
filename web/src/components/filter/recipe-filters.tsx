@@ -4,6 +4,7 @@ import { Eye, EyeOff } from 'lucide-react';
 import { useState } from 'react';
 
 import { Button } from '~/components/ui/button';
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '~/components/ui/card';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '~/components/ui/collapsible';
 import { useCategoriesFilter, useIngredientsFilter } from '~/hooks/filter';
 
@@ -37,17 +38,19 @@ export function RecipeFilters({ children, extraFilterActive }: RecipeFiltersProp
         </CollapsibleTrigger>
       </div>
 
-      <CollapsibleContent className="border-input flex flex-col gap-2 rounded-lg border p-4">
-        <h2 className="text-lg font-semibold">Szűrők</h2>
+      <CollapsibleContent>
+        <Card>
+          <CardHeader>
+            <CardTitle>Szűrők</CardTitle>
+          </CardHeader>
 
-        <div className="flex flex-col gap-4">
-          <div className="flex flex-col gap-4 lg:flex-row lg:gap-x-3">
+          <CardContent className="flex flex-col gap-4 lg:flex-row lg:gap-x-3">
             <IngredientsFilter />
             <CategoriesFilter />
-          </div>
+          </CardContent>
 
-          {children}
-        </div>
+          {children && <CardFooter>{children}</CardFooter>}
+        </Card>
       </CollapsibleContent>
     </Collapsible>
   );
