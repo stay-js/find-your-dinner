@@ -3,8 +3,8 @@
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useState } from 'react';
 
-import { useMergeQueryString } from '~/hooks/use-create-query-string';
 import { useDebouncedCallback } from '~/hooks/use-debounce';
+import { useMergeQueryString } from '~/hooks/use-merge-query-string';
 
 export function useSearch() {
   const router = useRouter();
@@ -16,10 +16,10 @@ export function useSearch() {
   const [query, setQuery] = useState(debouncedQuery);
 
   const navigateQuery = useDebouncedCallback((q: string) => {
-    const params = [
-      { name: 'query', value: q },
-      { name: 'page', value: '1' },
-    ];
+    const params = {
+      page: '1',
+      query: q,
+    };
 
     router.replace(`${pathname}?${mergeQueryString(params)}`);
   });

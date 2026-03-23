@@ -9,7 +9,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from '~/components/ui/pagination';
-import { useMergeQueryString } from '~/hooks/use-create-query-string';
+import { useMergeQueryString } from '~/hooks/use-merge-query-string';
 
 type PaginationComponentProps = {
   currentPage: number;

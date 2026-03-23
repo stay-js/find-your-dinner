@@ -3,7 +3,7 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 import { FilterCombobox } from '~/components/filter/filter-combobox';
 import { Button } from '~/components/ui/button';
-import { useMergeQueryString } from '~/hooks/use-create-query-string';
+import { useMergeQueryString } from '~/hooks/use-merge-query-string';
 import { GET } from '~/lib/api';
 import { ingredientsSchema } from '~/lib/zod/schemas';
 
@@ -27,9 +27,7 @@ export function Filter({ ingredientIds, setState }: FilterProps) {
   });
 
   function handleIngredientsChange(values: number[]) {
-    const params = [{ name: 'ingredients', value: JSON.stringify(values) }];
-
-    router.replace(`${pathname}?${mergeQueryString(params)}`);
+    router.replace(`${pathname}?${mergeQueryString({ ingredients: JSON.stringify(values) })}`);
   }
 
   return (

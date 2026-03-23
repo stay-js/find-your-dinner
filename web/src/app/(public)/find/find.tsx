@@ -3,7 +3,7 @@
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useCallback, useEffect, useState } from 'react';
 
-import { useMergeQueryString } from '~/hooks/use-create-query-string';
+import { useMergeQueryString } from '~/hooks/use-merge-query-string';
 import {
   type FindPageState,
   findPageStateSchema,
@@ -30,9 +30,7 @@ export function Find() {
 
   const setState = useCallback(
     (newState: FindPageState) => {
-      const params = [{ name: 'state', value: newState }];
-
-      router.replace(`${pathname}?${mergeQueryString(params)}`);
+      router.replace(`${pathname}?${mergeQueryString({ state: newState })}`);
     },
     [router, pathname, mergeQueryString],
   );

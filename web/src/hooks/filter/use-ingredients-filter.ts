@@ -3,7 +3,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
-import { useMergeQueryString } from '~/hooks/use-create-query-string';
+import { useMergeQueryString } from '~/hooks/use-merge-query-string';
 import { GET } from '~/lib/api';
 import { idArraySearchSchema, ingredientsSchema } from '~/lib/zod';
 
@@ -22,10 +22,10 @@ export function useIngredientsFilter() {
   });
 
   function handleIngredientsChange(values: number[]) {
-    const params = [
-      { name: 'ingredients', value: JSON.stringify(values) },
-      { name: 'page', value: '1' },
-    ];
+    const params = {
+      ingredients: JSON.stringify(values),
+      page: '1',
+    };
 
     router.replace(`${pathname}?${mergeQueryString(params)}`);
   }

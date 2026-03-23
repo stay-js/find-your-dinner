@@ -11,8 +11,8 @@ import { RecipeCard } from '~/components/recipe-card';
 import { RecipeCardSkeleton } from '~/components/recipe-card-skeleton';
 import { useSidebar } from '~/components/ui/sidebar';
 import { useOnlyAwaitingVerificationFilter, useRecipeFilters } from '~/hooks/filter';
-import { useMergeQueryString } from '~/hooks/use-create-query-string';
 import { useDebouncedLoading } from '~/hooks/use-debounced-loading';
+import { useMergeQueryString } from '~/hooks/use-merge-query-string';
 import { GET } from '~/lib/api';
 import { buildQueryString } from '~/lib/build-query-string';
 import { cn } from '~/lib/utils';
@@ -80,9 +80,7 @@ export function Recipes() {
   useEffect(() => {
     if (!currentApiPage || currentApiPage === page) return;
 
-    const params = [{ name: 'page', value: currentApiPage.toString() }];
-
-    router.replace(`${pathname}?${mergeQueryString(params)}`);
+    router.replace(`${pathname}?${mergeQueryString({ page: currentApiPage.toString() })}`);
   }, [currentApiPage, page, pathname, router, mergeQueryString]);
 
   return (

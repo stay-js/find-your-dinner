@@ -2,7 +2,7 @@
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
-import { useMergeQueryString } from '~/hooks/use-create-query-string';
+import { useMergeQueryString } from '~/hooks/use-merge-query-string';
 
 export function useOnlyAwaitingVerificationFilter() {
   const router = useRouter();
@@ -13,10 +13,10 @@ export function useOnlyAwaitingVerificationFilter() {
   const onlyAwaitingVerification = searchParams.get('only-awaiting-verification') === 'true';
 
   function handleOnlyAwaitingVerificationChange(checked: boolean) {
-    const params = [
-      { name: 'only-awaiting-verification', value: checked ? 'true' : 'false' },
-      { name: 'page', value: '1' },
-    ];
+    const params = {
+      'only-awaiting-verification': checked.toString(),
+      page: '1',
+    };
 
     router.replace(`${pathname}?${mergeQueryString(params)}`);
   }
