@@ -14,8 +14,10 @@ export function User() {
       <UserAvatar />
 
       <div className="grid flex-1 text-left text-sm leading-tight">
-        <span className="truncate font-medium">{user.fullName}</span>
-        <span className="truncate text-xs">{user.primaryEmailAddress?.emailAddress}</span>
+        <span className="text-foreground truncate font-medium">{user.fullName}</span>
+        <span className="text-muted-foreground truncate text-xs">
+          {user.primaryEmailAddress?.emailAddress}
+        </span>
       </div>
     </div>
   );
