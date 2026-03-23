@@ -41,7 +41,7 @@ export function Header() {
             (isSignedIn ? (
               <>
                 <Button asChild className="px-0" variant="link">
-                  <Link href="/dashboard/recipes">Irányítópult</Link>
+                  <Link href="/dashboard">Irányítópult</Link>
                 </Button>
 
                 <DropdownMenu>
@@ -115,7 +115,7 @@ export function Header() {
                   onClick={() => setIsMobileMenuOpen(false)}
                   variant="link"
                 >
-                  <Link href="/dashboard/recipes">Irányítópult</Link>
+                  <Link href="/dashboard">Irányítópult</Link>
                 </Button>
               </>
             ) : (
