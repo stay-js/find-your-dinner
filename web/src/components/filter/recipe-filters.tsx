@@ -37,7 +37,7 @@ export function RecipeFilters({ children, extraFilterActive }: RecipeFiltersProp
         </CollapsibleTrigger>
       </div>
 
-      <CollapsibleContent className="border-input flex flex-col gap-2 rounded-md border p-4">
+      <CollapsibleContent className="border-input flex flex-col gap-2 rounded-lg border p-4">
         <h2 className="text-lg font-semibold">Szűrők</h2>
 
         <div className="flex flex-col gap-4">
