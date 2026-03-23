@@ -1,6 +1,14 @@
 import { Globe, Notebook, ShieldCheck } from 'lucide-react';
+import Link from 'next/link';
 
-import { Sidebar, SidebarContent, SidebarFooter, SidebarRail } from '~/components/ui/sidebar';
+import { Logo } from '~/components/logo';
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarFooter,
+  SidebarHeader,
+  SidebarRail,
+} from '~/components/ui/sidebar';
 
 import { SidebarNavigation } from './sidebar-navigation';
 import { SidebarUser } from './sidebar-user';
@@ -76,6 +84,16 @@ export function DashboardSidebar({ isAdmin, ...props }: DashboardSidebarProps) {
 
   return (
     <Sidebar collapsible="offcanvas" {...props}>
+      <SidebarHeader className="flex h-16 justify-center border-b px-4">
+        <Link className="flex items-center gap-2" href="/">
+          <Logo size={36} />
+
+          <span className="text-primary text-base font-semibold underline-offset-4 hover:underline">
+            Find Your Dinner.
+          </span>
+        </Link>
+      </SidebarHeader>
+
       <SidebarContent>
         {navItems
           .filter((group) => group.visible)
