@@ -50,7 +50,7 @@ export default async function DashboardPage() {
         {isAdmin && (
           <section className="flex flex-col gap-4">
             <h2 className="flex items-center gap-2">
-              <ShieldCheck className="text-primary size-5" />
+              <ShieldCheck className="size-5 text-emerald-600" />
               <span className="text-xl font-semibold">Admin</span>
             </h2>
 
@@ -58,14 +58,14 @@ export default async function DashboardPage() {
               <QuickLinkCard
                 description="Jóváhagyásra váró receptek kezelése"
                 href="/dashboard/admin/recipes?only-awaiting-verification=true"
-                icon={<ShieldCheck className="size-5" />}
+                icon={<ShieldCheck className="size-5 text-emerald-600" />}
                 title="Jóváhagyásra váró receptek"
               />
 
               <QuickLinkCard
                 description="Összes recept kezelése, szerkesztése"
                 href="/dashboard/admin/recipes"
-                icon={<Clipboard className="size-5" />}
+                icon={<Clipboard className="size-5 text-emerald-600" />}
                 title="Összes recept kezelése"
               />
             </div>
@@ -74,7 +74,7 @@ export default async function DashboardPage() {
 
         <section className="flex flex-col gap-4">
           <h2 className="flex items-center gap-2">
-            <NotebookPen className="text-primary size-5" />
+            <NotebookPen className="size-5 text-amber-600" />
             <span className="text-xl font-semibold">Recepteim</span>
           </h2>
 
@@ -82,14 +82,14 @@ export default async function DashboardPage() {
             <QuickLinkCard
               description="Új recept létrehozása"
               href="/dashboard/recipes/create"
-              icon={<PlusCircle className="size-5" />}
+              icon={<PlusCircle className="size-5 text-amber-600" />}
               title="Recept létrehozása"
             />
 
             <QuickLinkCard
               description="Saját receptek kezelése, szerkesztése"
               href="/dashboard/recipes"
-              icon={<NotebookPen className="size-5" />}
+              icon={<NotebookPen className="size-5 text-amber-600" />}
               title="Recepteim kezelése"
             />
           </div>
@@ -97,7 +97,7 @@ export default async function DashboardPage() {
 
         <section className="flex flex-col gap-4">
           <h2 className="flex items-center gap-2">
-            <Globe className="text-primary size-5" />
+            <Globe className="size-5 text-sky-600" />
             <span className="text-xl font-semibold">Felfedezés</span>
           </h2>
 
@@ -105,7 +105,7 @@ export default async function DashboardPage() {
             <QuickLinkCard
               description="Mentett receptek megtekintése"
               href="/dashboard/recipes/saved"
-              icon={<Bookmark className="size-5" />}
+              icon={<Bookmark className="size-5 text-sky-600" />}
               title="Mentett recepteim"
             />
           </div>
