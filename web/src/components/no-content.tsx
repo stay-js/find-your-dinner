@@ -23,7 +23,7 @@ export function NoContent({ action, className, description, title }: NoContentPr
       <Empty>
         <EmptyHeader>
           <EmptyMedia variant="icon">
-            <CircleAlert />
+            <CircleAlert className="text-primary size-6" />
           </EmptyMedia>
 
           <EmptyTitle>{title}</EmptyTitle>
