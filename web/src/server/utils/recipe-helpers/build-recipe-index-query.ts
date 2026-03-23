@@ -11,9 +11,13 @@ type RecipeRecord = { recipe: typeof recipes.$inferSelect };
 export function buildFtsClause(query: null | string | undefined) {
   return query && query.length >= 3
     ? sql`(
-        setweight(to_tsvector('hungarian', ${recipeData.title}), 'A') ||
-        setweight(to_tsvector('hungarian', ${recipeData.description}), 'B')
-      ) @@ plainto_tsquery('hungarian', ${query})`
+        (
+          setweight(to_tsvector('hungarian', ${recipeData.title}), 'A') ||
+          setweight(to_tsvector('hungarian', ${recipeData.description}), 'B')
+        ) @@ plainto_tsquery('hungarian', ${query})
+        OR word_similarity(${recipeData.title}, ${query}) > 0.3
+        OR word_similarity(${recipeData.description}, ${query}) > 0.3
+      )`
     : undefined;
 }
 

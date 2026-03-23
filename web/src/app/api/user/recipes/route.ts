@@ -42,7 +42,7 @@ export async function GET(request: NextRequest) {
   const categoryIds = params.categories;
   const ingredientIds = params.ingredients;
 
-  const ftsWhereClause = buildFtsClause(params.query);
+  const searchWhereClause = buildFtsClause(params.query);
 
   const categoryWhereClause =
     categoryIds.length === 0 ? undefined : inArray(categoryRecipe.categoryId, categoryIds);
@@ -91,7 +91,7 @@ export async function GET(request: NextRequest) {
   }
 
   const [totalResult] = await baseCountQuery.where(
-    and(eq(recipes.userId, userId), ftsWhereClause, ingredientWhereClause),
+    and(eq(recipes.userId, userId), searchWhereClause, ingredientWhereClause),
   );
 
   const total = totalResult?.count ?? 0;
@@ -99,7 +99,7 @@ export async function GET(request: NextRequest) {
   const { page, pageCount } = getPagination(searchParams.get('page'), total, PAGE_SIZE);
 
   const recipeRecords = await baseRecipesQuery
-    .where(and(eq(recipes.userId, userId), ftsWhereClause, ingredientWhereClause))
+    .where(and(eq(recipes.userId, userId), searchWhereClause, ingredientWhereClause))
     .groupBy(recipes.id)
     .orderBy(desc(recipes.createdAt))
     .limit(PAGE_SIZE)

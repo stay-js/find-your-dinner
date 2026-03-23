@@ -48,6 +48,8 @@ export const recipeData = pgTable(
         setweight(to_tsvector('hungarian', ${t.description}), 'B')
         )`,
     ),
+    index('recipe_data_title_trgm_idx').using('gin', sql`${t.title} gin_trgm_ops`),
+    index('recipe_data_description_trgm_idx').using('gin', sql`${t.description} gin_trgm_ops`),
   ],
 );
 
@@ -67,6 +69,8 @@ export const units = pgTable(
         setweight(to_tsvector('hungarian', ${t.abbreviation}), 'B')
         )`,
     ),
+    index('units_name_trgm_idx').using('gin', sql`${t.name} gin_trgm_ops`),
+    index('units_abbreviation_trgm_idx').using('gin', sql`${t.abbreviation} gin_trgm_ops`),
   ],
 );
 
@@ -77,7 +81,10 @@ export const ingredients = pgTable(
 
     name: d.varchar('name', { length: 256 }).notNull().unique(),
   }),
-  (t) => [index('ingredients_fts_idx').using('gin', sql`to_tsvector('hungarian', ${t.name})`)],
+  (t) => [
+    index('ingredients_fts_idx').using('gin', sql`to_tsvector('hungarian', ${t.name})`),
+    index('ingredients_name_trgm_idx').using('gin', sql`${t.name} gin_trgm_ops`),
+  ],
 );
 
 export const ingredientRecipeData = pgTable(
@@ -108,7 +115,10 @@ export const categories = pgTable(
 
     name: d.varchar('name', { length: 128 }).notNull().unique(),
   }),
-  (t) => [index('categories_fts_idx').using('gin', sql`to_tsvector('hungarian', ${t.name})`)],
+  (t) => [
+    index('categories_fts_idx').using('gin', sql`to_tsvector('hungarian', ${t.name})`),
+    index('categories_name_trgm_idx').using('gin', sql`${t.name} gin_trgm_ops`),
+  ],
 );
 
 export const categoryRecipe = pgTable(

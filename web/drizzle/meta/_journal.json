@@ -50,6 +50,13 @@
       "when": 1772728342077,
       "tag": "0006_add_categories_ingredients_units_fts_index",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1774287320338,
+      "tag": "0007_add_trgm_fuzzy_indexes",
+      "breakpoints": true
     }
   ]
 }

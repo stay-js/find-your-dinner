@@ -59,7 +59,7 @@ export async function GET(request: NextRequest) {
   const categoryIds = params.categories;
   const ingredientIds = params.ingredients;
 
-  const ftsWhereClause = buildFtsClause(params.query);
+  const searchWhereClause = buildFtsClause(params.query);
 
   if (allowUnverified) {
     const { isAuthenticated, userId } = await auth();
@@ -120,13 +120,13 @@ export async function GET(request: NextRequest) {
     );
   }
 
-  const [totalResult] = await baseCountQuery.where(and(ftsWhereClause, ingredientWhereClause));
+  const [totalResult] = await baseCountQuery.where(and(searchWhereClause, ingredientWhereClause));
   const total = totalResult?.count ?? 0;
 
   const { page, pageCount } = getPagination(searchParams.get('page'), total, params.perPage);
 
   const recipeRecords = await baseRecipesQuery
-    .where(and(ftsWhereClause, ingredientWhereClause))
+    .where(and(searchWhereClause, ingredientWhereClause))
     .groupBy(recipes.id)
     .orderBy(desc(recipes.createdAt))
     .limit(params.perPage)
