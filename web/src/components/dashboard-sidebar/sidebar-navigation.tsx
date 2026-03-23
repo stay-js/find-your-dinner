@@ -1,3 +1,5 @@
+'use client';
+
 import { ChevronRight } from 'lucide-react';
 import Link from 'next/link';
 
@@ -35,13 +37,8 @@ export function SidebarNavigation({ items, label }: SidebarNavigationProps) {
 
       <SidebarMenu>
         {items.map((item) => (
-          <Collapsible
-            asChild
-            className="group/collapsible"
-            defaultOpen={item.isActive}
-            key={item.title}
-          >
-            <SidebarMenuItem>
+          <SidebarMenuItem key={item.title}>
+            <Collapsible className="group/collapsible" defaultOpen={item.isActive}>
               <CollapsibleTrigger asChild>
                 <SidebarMenuButton tooltip={item.title}>
                   {item.icon && <item.icon />}
@@ -63,8 +60,8 @@ export function SidebarNavigation({ items, label }: SidebarNavigationProps) {
                   ))}
                 </SidebarMenuSub>
               </CollapsibleContent>
-            </SidebarMenuItem>
-          </Collapsible>
+            </Collapsible>
+          </SidebarMenuItem>
         ))}
       </SidebarMenu>
     </SidebarGroup>
