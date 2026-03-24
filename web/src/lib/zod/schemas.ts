@@ -189,3 +189,8 @@ export const createUpdateCategorySchema = z.object({
   name: z.string().min(1).max(128),
 });
 export type CreateUpdateCategorySchema = z.infer<typeof createUpdateCategorySchema>;
+
+export const createUpdateIngredientSchema = z.object({
+  name: z.string().min(1).max(256),
+});
+export type CreateUpdateIngredientSchema = z.infer<typeof createUpdateIngredientSchema>;
