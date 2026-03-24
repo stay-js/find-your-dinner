@@ -1,13 +1,13 @@
 import { auth } from '@clerk/nextjs/server';
 import { eq } from 'drizzle-orm';
-import { notFound } from 'next/navigation';
 import { type NextRequest, NextResponse } from 'next/server';
 
 import { createUpdateCategorySchema, idParamSchema } from '~/lib/zod';
 import { db } from '~/server/db';
 import { categories } from '~/server/db/schema';
 import { checkIsAdmin } from '~/server/utils/check-is-admin';
-import { forbidden, unauthorized } from '~/server/utils/errors';
+import { forbidden, notFound, unauthorized } from '~/server/utils/errors';
+import { isPgUniqueViolation } from '~/server/utils/is-pg-unique-violation';
 
 export async function DELETE(_: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const { isAuthenticated, userId } = await auth();
@@ -28,7 +28,7 @@ export async function DELETE(_: NextRequest, { params }: { params: Promise<{ id:
   const { id } = result.data;
 
   const category = await db.query.categories.findFirst({ where: eq(categories.id, id) });
-  if (!category) notFound();
+  if (!category) return notFound();
 
   try {
     await db.delete(categories).where(eq(categories.id, id));
@@ -69,7 +69,7 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
   }
 
   const category = await db.query.categories.findFirst({ where: eq(categories.id, id) });
-  if (!category) notFound();
+  if (!category) return notFound();
 
   const { name } = bodyResult.data;
 
@@ -78,6 +78,10 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
 
     return new NextResponse(null, { status: 204 });
   } catch (err) {
+    if (isPgUniqueViolation(err)) {
+      return NextResponse.json({ message: 'Category already exists' }, { status: 409 });
+    }
+
     console.error(err);
     return NextResponse.json({ message: 'Failed to update category' }, { status: 500 });
   }

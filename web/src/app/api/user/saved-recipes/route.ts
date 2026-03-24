@@ -14,6 +14,7 @@ import {
 } from '~/server/db/schema';
 import { unauthorized } from '~/server/utils/errors';
 import { getPagination } from '~/server/utils/get-pagination';
+import { isPgUniqueViolation } from '~/server/utils/is-pg-unique-violation';
 import {
   buildFtsClause,
   buildLatestRecipeData,
@@ -157,7 +158,16 @@ export async function POST(request: NextRequest) {
 
   const { recipeId } = result.data;
 
-  await db.insert(savedRecipes).values({ recipeId, userId });
+  try {
+    await db.insert(savedRecipes).values({ recipeId, userId });
 
-  return NextResponse.json({ message: 'Recipe saved', recipeId }, { status: 201 });
+    return NextResponse.json({ message: 'Recipe saved', recipeId }, { status: 201 });
+  } catch (err) {
+    if (isPgUniqueViolation(err)) {
+      return NextResponse.json({ message: 'Recipe already saved' }, { status: 409 });
+    }
+
+    console.error(err);
+    return NextResponse.json({ message: 'Failed to save recipe' }, { status: 500 });
+  }
 }

@@ -1,13 +1,12 @@
 import { auth } from '@clerk/nextjs/server';
 import { eq } from 'drizzle-orm';
-import { notFound } from 'next/navigation';
 import { type NextRequest, NextResponse } from 'next/server';
 
 import { createUpdateRecipeSchema, idParamSchema } from '~/lib/zod';
 import { db } from '~/server/db';
 import { categoryRecipe, ingredientRecipeData, recipeData, recipes } from '~/server/db/schema';
 import { checkIsAdmin } from '~/server/utils/check-is-admin';
-import { forbidden, unauthorized } from '~/server/utils/errors';
+import { forbidden, notFound, unauthorized } from '~/server/utils/errors';
 import { getRecipe } from '~/server/utils/get-recipe';
 
 export async function GET(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
@@ -35,7 +34,7 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
   const { id } = result.data;
 
   const recipe = await getRecipe(id, allowUnverified);
-  if (!recipe) notFound();
+  if (!recipe) return notFound();
 
   return NextResponse.json(recipe);
 }
@@ -56,7 +55,7 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
   const { id } = result.data;
 
   const recipe = await db.query.recipes.findFirst({ where: eq(recipes.id, id) });
-  if (!recipe) notFound();
+  if (!recipe) return notFound();
 
   const isAdmin = await checkIsAdmin(userId);
   if (!isAdmin && recipe.userId !== userId) return forbidden();

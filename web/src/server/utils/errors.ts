@@ -4,6 +4,10 @@ export function forbidden(json: Record<string, unknown> = {}) {
   return NextResponse.json({ message: 'Forbidden', ...json }, { status: 403 });
 }
 
+export function notFound(json: Record<string, unknown> = {}) {
+  return NextResponse.json({ message: 'Not found', ...json }, { status: 404 });
+}
+
 export function unauthorized(json: Record<string, unknown> = {}) {
   return NextResponse.json({ message: 'Unauthorized', ...json }, { status: 401 });
 }
