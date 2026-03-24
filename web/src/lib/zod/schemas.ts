@@ -184,3 +184,8 @@ export const createSavedRecipeSchema = z.object({
   recipeId: z.number().int().positive(),
 });
 export type CreateSavedRecipeSchema = z.infer<typeof createSavedRecipeSchema>;
+
+export const createUpdateCategorySchema = z.object({
+  name: z.string().min(1).max(128),
+});
+export type CreateUpdateCategorySchema = z.infer<typeof createUpdateCategorySchema>;
