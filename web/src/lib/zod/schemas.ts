@@ -194,3 +194,9 @@ export const createUpdateIngredientSchema = z.object({
   name: z.string().min(1).max(256),
 });
 export type CreateUpdateIngredientSchema = z.infer<typeof createUpdateIngredientSchema>;
+
+export const createUpdateUnitSchema = z.object({
+  abbreviation: z.string().min(1).max(16),
+  name: z.string().min(1).max(64),
+});
+export type CreateUpdateUnitSchema = z.infer<typeof createUpdateUnitSchema>;
