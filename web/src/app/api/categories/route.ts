@@ -7,6 +7,7 @@ import { db } from '~/server/db';
 import { categories } from '~/server/db/schema';
 import { checkIsAdmin } from '~/server/utils/check-is-admin';
 import { forbidden, unauthorized } from '~/server/utils/errors';
+import { isPgUniqueViolation } from '~/server/utils/is-pg-unique-violation';
 
 export async function GET(request: NextRequest) {
   const { searchParams } = request.nextUrl;
@@ -52,10 +53,20 @@ export async function POST(request: NextRequest) {
   }
 
   const { name } = result.data;
-  const insertResult = await db.insert(categories).values({ name }).returning();
-  const categoryId = insertResult.at(0)?.id;
 
-  if (!categoryId) throw new Error('Failed to insert category');
+  try {
+    const insertResult = await db.insert(categories).values({ name }).returning();
+    const categoryId = insertResult.at(0)?.id;
 
-  return NextResponse.json({ categoryId, message: 'Created' }, { status: 201 });
+    if (!categoryId) throw new Error('Failed to insert category');
+
+    return NextResponse.json({ categoryId, message: 'Created' }, { status: 201 });
+  } catch (err) {
+    if (isPgUniqueViolation(err)) {
+      return NextResponse.json({ message: 'Category already exists' }, { status: 409 });
+    }
+
+    console.error(err);
+    return NextResponse.json({ message: 'Failed to create category' }, { status: 500 });
+  }
 }

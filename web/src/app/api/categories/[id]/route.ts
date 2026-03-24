@@ -3,7 +3,7 @@ import { eq } from 'drizzle-orm';
 import { notFound } from 'next/navigation';
 import { type NextRequest, NextResponse } from 'next/server';
 
-import { idParamSchema } from '~/lib/zod';
+import { createUpdateCategorySchema, idParamSchema } from '~/lib/zod';
 import { db } from '~/server/db';
 import { categories } from '~/server/db/schema';
 import { checkIsAdmin } from '~/server/utils/check-is-admin';
@@ -30,7 +30,55 @@ export async function DELETE(_: NextRequest, { params }: { params: Promise<{ id:
   const category = await db.query.categories.findFirst({ where: eq(categories.id, id) });
   if (!category) notFound();
 
-  await db.delete(categories).where(eq(categories.id, id));
+  try {
+    await db.delete(categories).where(eq(categories.id, id));
 
-  return new Response(null, { status: 204 });
+    return new Response(null, { status: 204 });
+  } catch (err) {
+    console.error(err);
+    return NextResponse.json({ message: 'Failed to delete category' }, { status: 500 });
+  }
+}
+
+export async function PUT(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+  const { isAuthenticated, userId } = await auth();
+  if (!isAuthenticated) return unauthorized();
+
+  const isAdmin = await checkIsAdmin(userId);
+  if (!isAdmin) return forbidden();
+
+  const result = idParamSchema.safeParse(await params);
+
+  if (!result.success) {
+    return NextResponse.json(
+      { details: result.error, message: 'Invalid category id' },
+      { status: 400 },
+    );
+  }
+
+  const { id } = result.data;
+
+  const body = await request.json();
+  const bodyResult = createUpdateCategorySchema.safeParse(body);
+
+  if (!bodyResult.success) {
+    return NextResponse.json(
+      { details: bodyResult.error, message: 'Invalid request body' },
+      { status: 400 },
+    );
+  }
+
+  const category = await db.query.categories.findFirst({ where: eq(categories.id, id) });
+  if (!category) notFound();
+
+  const { name } = bodyResult.data;
+
+  try {
+    await db.update(categories).set({ name }).where(eq(categories.id, id));
+
+    return new NextResponse(null, { status: 204 });
+  } catch (err) {
+    console.error(err);
+    return NextResponse.json({ message: 'Failed to update category' }, { status: 500 });
+  }
 }
