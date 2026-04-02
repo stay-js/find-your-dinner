@@ -1,37 +1,40 @@
-import { auth } from '@clerk/nextjs/server';
-import { notFound } from 'next/navigation';
-
-import {
-  Categories,
-  Ingredients,
-  Instructions,
-  Overview,
-  PreviewImage,
-  Stats,
-  Title,
-} from '~/components/recipe-page';
 import { SetRecipeTitle } from '~/contexts/recipe-title-context';
-import { idParamSchema } from '~/lib/zod';
-import { checkIsAdmin } from '~/server/utils/check-is-admin';
-import { getRecipe } from '~/server/utils/get-recipe';
+import { type getRecipe } from '~/server/utils/get-recipe';
 
-export async function RecipePage({ params }: { params: Promise<{ id: string }> }) {
-  const { userId } = await auth();
-  const isAdmin = await checkIsAdmin(userId);
+import { Categories } from './categories';
+import { Ingredients } from './ingredients';
+import { Instructions } from './instructions';
+import { Overview } from './overview';
+import { PreviewImage } from './preview-image';
+import { Stats } from './stats';
+import { Title } from './title';
 
-  const result = idParamSchema.safeParse(await params);
-  if (!result.success) notFound();
+type Recipe = Awaited<ReturnType<typeof getRecipe>>;
 
-  const { id } = result.data;
+interface RecipePageProps extends Recipe {
+  children?: React.ReactNode;
+  isAdmin: boolean;
+  userId: null | string;
+}
 
-  const { author, categories, ingredients, recipe, recipeData } = await getRecipe(id);
-
+export function RecipePage({
+  author,
+  categories,
+  children,
+  ingredients,
+  isAdmin,
+  recipe,
+  recipeData,
+  userId,
+}: RecipePageProps) {
   return (
     <div className="@container">
       <SetRecipeTitle title={recipeData.title} />
 
       <div className="container grid gap-6 @5xl:grid-cols-[5fr_2fr] @6xl:grid-cols-[3fr_1fr]">
         <div className="flex flex-col gap-6">
+          {children}
+
           <PreviewImage previewImageUrl={recipeData.previewImageUrl} title={recipeData.title} />
 
           <Title

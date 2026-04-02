@@ -7,7 +7,7 @@ export const metadata = createMetadata({
   title: 'Főoldal',
 });
 
-export default async function LandingPage() {
+export default async function PublicLandingPage() {
   return (
     <div className="container">
       <h1 className="text-2xl font-semibold">Find Your Dinner.</h1>

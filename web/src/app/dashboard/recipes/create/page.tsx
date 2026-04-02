@@ -33,6 +33,6 @@ const defaultValues = {
   ],
 };
 
-export default async function CreatePage() {
+export default async function DashboardCreateRecipePage() {
   return <RecipeForm defaultValues={defaultValues} />;
 }

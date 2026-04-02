@@ -1,7 +1,7 @@
 import { type Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
-import { EditPage as AdminEditPage } from '~/app/_edit-page';
+import { EditPage as DashboardAdminEditRecipePage } from '~/app/_edit-page';
 import { createMetadata } from '~/lib/create-metadata';
 import { idParamSchema } from '~/lib/zod';
 import { getRecipe } from '~/server/utils/get-recipe';
@@ -29,4 +29,4 @@ export async function generateMetadata({
   });
 }
 
-export default AdminEditPage;
+export default DashboardAdminEditRecipePage;

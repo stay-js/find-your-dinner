@@ -10,6 +10,6 @@ export const metadata = createMetadata({
   title: 'Keresés',
 });
 
-export default async function FindPage() {
+export default async function PublicFindPage() {
   return <Find />;
 }

@@ -9,7 +9,7 @@ export const metadata = createMetadata({
   title: 'Receptek',
 });
 
-export default async function RecipesPage() {
+export default async function PublicRecipesPage() {
   return (
     <div className="container flex h-full flex-col gap-6">
       <h1 className="text-foreground text-2xl font-semibold">Receptek</h1>

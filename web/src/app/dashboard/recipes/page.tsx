@@ -15,7 +15,7 @@ export const metadata = createMetadata({
   noIndex: true,
 });
 
-export default async function ManagePage() {
+export default async function DashboardManageRecipesPage() {
   return (
     <div className="container flex h-full flex-col gap-4">
       <div className="flex justify-between gap-4 max-sm:flex-col">

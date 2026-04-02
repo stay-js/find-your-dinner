@@ -11,7 +11,7 @@ export const metadata = createMetadata({
   noIndex: true,
 });
 
-export default async function SavedRecipesPage() {
+export default async function DashboardSavedRecipesPage() {
   return (
     <div className="container flex h-full flex-col gap-4">
       <h1 className="text-foreground text-2xl font-semibold">Mentett recepteim</h1>
