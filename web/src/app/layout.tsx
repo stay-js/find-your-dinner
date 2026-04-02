@@ -33,7 +33,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <ClerkProvider
       appearance={{
         elements: {
-          input: 'bg-input/30! text-sm',
+          input: 'bg-input/30! text-sm!',
         },
         theme: shadcn,
       }}

@@ -1,4 +1,5 @@
-import { Github, Globe, UtensilsCrossed } from 'lucide-react';
+import { SiGithub } from '@icons-pack/react-simple-icons';
+import { Globe, UtensilsCrossed } from 'lucide-react';
 import Link from 'next/link';
 
 import { Logo } from '~/components/logo';
@@ -71,7 +72,7 @@ export function Footer() {
                   {
                     external: true,
                     href: 'https://github.com/stay-js/find-your-dinner',
-                    icon: Github,
+                    icon: SiGithub,
                     title: 'GitHub',
                   },
                   {

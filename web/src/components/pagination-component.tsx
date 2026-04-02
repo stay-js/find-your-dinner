@@ -26,11 +26,9 @@ export function PaginationComponent({ currentPage, pageCount }: PaginationCompon
   const hasNextPage = currentPage < pageCount;
   const pageNumbers = getPageNumbers(currentPage, pageCount);
 
-  const handlePageChange = (page: number) => {
-    const params = [{ name: 'page', value: page.toString() }];
-
-    router.replace(`${pathname}?${mergeQueryString(params)}`);
-  };
+  function handlePageChange(page: number) {
+    router.replace(`${pathname}?${mergeQueryString({ page: page.toString() })}`);
+  }
 
   if (pageCount <= 1) return null;
 
