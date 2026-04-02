@@ -1,7 +1,7 @@
 import '~/styles/globals.css';
 
 import { ClerkProvider } from '@clerk/nextjs';
-import { shadcn } from '@clerk/themes';
+import { shadcn } from '@clerk/ui/themes';
 import { type Viewport } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import { Suspense } from 'react';
@@ -32,10 +32,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <ClerkProvider
       appearance={{
-        baseTheme: shadcn,
         elements: {
-          modalBackdrop: 'bg-black/30',
+          input: 'bg-input/30! text-sm',
         },
+        theme: shadcn,
       }}
     >
       <html
