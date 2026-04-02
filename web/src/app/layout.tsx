@@ -34,13 +34,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       appearance={{
         elements: {
           checkbox: 'dark:bg-input/30!',
-          input: 'bg-input/30! text-sm! sm:text-xs!',
+          input: 'bg-input/30! text-xs!',
         },
         theme: shadcn,
       }}
     >
       <html
-        className={cn('antialiased', fontMono.variable, 'font-sans', fontSans.variable)}
+        className={cn(fontMono.variable, 'font-sans', fontSans.variable)}
         data-scroll-behavior="smooth"
         lang="hu"
         suppressHydrationWarning
