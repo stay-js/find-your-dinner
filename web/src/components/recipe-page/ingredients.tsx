@@ -45,7 +45,7 @@ export function Ingredients({ className, ingredients, servings }: IngredientsPro
   return (
     <Card className={cn('h-fit', className)}>
       <CardHeader>
-        <CardTitle className="flex items-center justify-between gap-4">
+        <CardTitle className="flex flex-wrap items-center justify-between gap-4">
           <span>Hozzávalók</span>
 
           <div className="flex items-center gap-2">
@@ -104,7 +104,7 @@ function Ingredient({ checked, item, mulitplier, toggleIngredient }: IngredientP
         htmlFor={id}
       >
         <span className="font-medium">
-          {item.quantity * mulitplier} {item.unit.abbreviation}
+          {Number((item.quantity * mulitplier).toFixed(2))} {item.unit.abbreviation}
         </span>{' '}
         <span>{item.ingredient.name}</span>
       </label>
