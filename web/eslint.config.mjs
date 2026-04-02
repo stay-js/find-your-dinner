@@ -12,6 +12,11 @@ const eslintConfig = defineConfig([
   ...nextTs,
   perfectionist.configs['recommended-natural'],
   {
+    settings: {
+      react: { version: '19.0' },
+    },
+  },
+  {
     plugins: {
       drizzle,
     },
