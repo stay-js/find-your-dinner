@@ -33,7 +33,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <ClerkProvider
       appearance={{
         elements: {
-          input: 'bg-input/30! text-sm!',
+          checkbox: 'dark:bg-input/30!',
+          input: 'bg-input/30! text-sm! sm:text-xs!',
         },
         theme: shadcn,
       }}
