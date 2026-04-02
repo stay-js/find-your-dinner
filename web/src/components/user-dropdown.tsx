@@ -15,9 +15,15 @@ import {
 import { User } from '~/components/user';
 import { useIsMobile } from '~/hooks/use-mobile';
 
-export function UserDropdown({ location }: { location: 'left' | 'right' }) {
+type UserDropdownProps = {
+  location: 'left' | 'right';
+  onClose?: () => void;
+};
+
+export function UserDropdown({ location, onClose }: UserDropdownProps) {
   const pathname = usePathname();
   const isMobile = useIsMobile();
+
   const { openUserProfile, signOut } = useClerk();
 
   return (
@@ -35,7 +41,13 @@ export function UserDropdown({ location }: { location: 'left' | 'right' }) {
 
       <DropdownMenuGroup>
         <DropdownMenuItem asChild className="w-full">
-          <button className="flex items-center gap-2" onClick={() => openUserProfile()}>
+          <button
+            className="flex items-center gap-2"
+            onClick={() => {
+              onClose?.();
+              openUserProfile();
+            }}
+          >
             <Settings />
             <span>Fiók kezelése</span>
           </button>
@@ -51,7 +63,13 @@ export function UserDropdown({ location }: { location: 'left' | 'right' }) {
         )}
 
         <DropdownMenuItem asChild className="w-full">
-          <button className="flex items-center gap-2" onClick={() => signOut({ redirectUrl: '/' })}>
+          <button
+            className="flex items-center gap-2"
+            onClick={() => {
+              onClose?.();
+              signOut({ redirectUrl: '/' });
+            }}
+          >
             <LogOut />
             <span>Kijelentkezés</span>
           </button>

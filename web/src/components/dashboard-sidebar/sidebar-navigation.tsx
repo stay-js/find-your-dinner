@@ -13,6 +13,7 @@ import {
   SidebarMenuSub,
   SidebarMenuSubButton,
   SidebarMenuSubItem,
+  useSidebar,
 } from '~/components/ui/sidebar';
 
 type Item = {
@@ -31,6 +32,8 @@ type SidebarNavigationProps = {
 };
 
 export function SidebarNavigation({ items, label }: SidebarNavigationProps) {
+  const { setOpenMobile } = useSidebar();
+
   return (
     <SidebarGroup>
       <SidebarGroupLabel>{label}</SidebarGroupLabel>
@@ -53,7 +56,7 @@ export function SidebarNavigation({ items, label }: SidebarNavigationProps) {
                 <SidebarMenuSub>
                   {item.items?.map((subItem) => (
                     <SidebarMenuSubItem key={subItem.title}>
-                      <SidebarMenuSubButton asChild>
+                      <SidebarMenuSubButton asChild onClick={() => setOpenMobile(false)}>
                         <Link href={subItem.url}>{subItem.title}</Link>
                       </SidebarMenuSubButton>
                     </SidebarMenuSubItem>

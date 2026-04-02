@@ -1,11 +1,18 @@
 import { ChevronsUpDown } from 'lucide-react';
 
 import { DropdownMenu, DropdownMenuTrigger } from '~/components/ui/dropdown-menu';
-import { SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '~/components/ui/sidebar';
+import {
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  useSidebar,
+} from '~/components/ui/sidebar';
 import { User } from '~/components/user';
 import { UserDropdown } from '~/components/user-dropdown';
 
 export function SidebarUser() {
+  const { setOpenMobile } = useSidebar();
+
   return (
     <SidebarMenu>
       <SidebarMenuItem>
@@ -20,7 +27,7 @@ export function SidebarUser() {
             </SidebarMenuButton>
           </DropdownMenuTrigger>
 
-          <UserDropdown location="left" />
+          <UserDropdown location="left" onClose={() => setOpenMobile(false)} />
         </DropdownMenu>
       </SidebarMenuItem>
     </SidebarMenu>
