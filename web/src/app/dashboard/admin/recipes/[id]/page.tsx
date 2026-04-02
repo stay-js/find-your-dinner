@@ -55,7 +55,7 @@ export default async function ViewPage({ params }: { params: Promise<{ id: strin
     <div className="@container">
       <SetRecipeTitle title={recipeData.title} />
 
-      <div className="container grid gap-6 @5xl:grid-cols-[3fr_1fr]">
+      <div className="container grid gap-6 @5xl:grid-cols-[5fr_2fr] @6xl:grid-cols-[3fr_1fr]">
         <div className="flex flex-col gap-6">
           {!recipeData.verified && <Approve recipeDataId={recipeData.id} />}
 
