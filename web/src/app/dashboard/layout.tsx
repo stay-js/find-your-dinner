@@ -28,7 +28,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
             <DashboardBreadcrumb />
           </header>
 
-          <div className="h-full min-h-[85vh] pt-6 pb-12">{children}</div>
+          <div className="h-full min-h-[85vh] pt-6 pb-12 lg:pt-8">{children}</div>
 
           <Footer />
         </SidebarInset>
