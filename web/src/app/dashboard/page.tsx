@@ -3,10 +3,13 @@ import {
   ArrowRight,
   Bookmark,
   Clipboard,
+  FlaskConical,
   Globe,
   NotebookPen,
   PlusCircle,
+  Ruler,
   ShieldCheck,
+  Tag,
 } from 'lucide-react';
 import Link from 'next/link';
 
@@ -35,7 +38,7 @@ export default async function DashboardPage() {
   const isAdmin = await checkIsAdmin(user?.id);
 
   return (
-    <div className="container flex flex-col gap-12 py-6">
+    <div className="container flex flex-col gap-12">
       <div className="flex flex-col gap-1">
         <h1 className="text-3xl font-bold tracking-tight text-balance">
           Üdvözöllek, {user?.firstName}
@@ -55,19 +58,46 @@ export default async function DashboardPage() {
             </h2>
 
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              <QuickLinkCard
-                description="Jóváhagyásra váró receptek kezelése"
-                href="/dashboard/admin/recipes?only-awaiting-verification=true"
-                icon={<ShieldCheck className="size-5 text-emerald-600" />}
-                title="Jóváhagyásra váró receptek"
-              />
-
-              <QuickLinkCard
-                description="Összes recept kezelése, szerkesztése"
-                href="/dashboard/admin/recipes"
-                icon={<Clipboard className="size-5 text-emerald-600" />}
-                title="Összes recept kezelése"
-              />
+              {[
+                {
+                  description: 'Jóváhagyásra váró receptek kezelése',
+                  href: '/dashboard/admin/recipes?only-awaiting-verification=true',
+                  icon: ShieldCheck,
+                  title: 'Jóváhagyásra váró receptek',
+                },
+                {
+                  description: 'Összes recept kezelése, szerkesztése',
+                  href: '/dashboard/admin/recipes',
+                  icon: Clipboard,
+                  title: 'Receptek kezelése',
+                },
+                {
+                  description: 'Kategóriák kezelése, szerkesztése',
+                  href: '/dashboard/admin/categories',
+                  icon: Tag,
+                  title: 'Kategóriák kezelése',
+                },
+                {
+                  description: 'Hozzávalók kezelése, szerkesztése',
+                  href: '/dashboard/admin/ingredients',
+                  icon: FlaskConical,
+                  title: 'Hozzávalók kezelése',
+                },
+                {
+                  description: 'Mértékegységek kezelése, szerkesztése',
+                  href: '/dashboard/admin/units',
+                  icon: Ruler,
+                  title: 'Mértékegységek kezelése',
+                },
+              ].map((item) => (
+                <QuickLinkCard
+                  description={item.description}
+                  href={item.href}
+                  icon={<item.icon className="size-5 text-emerald-600" />}
+                  key={item.href}
+                  title={item.title}
+                />
+              ))}
             </div>
           </section>
         )}
@@ -79,19 +109,28 @@ export default async function DashboardPage() {
           </h2>
 
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            <QuickLinkCard
-              description="Új recept létrehozása"
-              href="/dashboard/recipes/create"
-              icon={<PlusCircle className="size-5 text-amber-600" />}
-              title="Recept létrehozása"
-            />
-
-            <QuickLinkCard
-              description="Saját receptek kezelése, szerkesztése"
-              href="/dashboard/recipes"
-              icon={<NotebookPen className="size-5 text-amber-600" />}
-              title="Recepteim kezelése"
-            />
+            {[
+              {
+                description: 'Új recept létrehozása',
+                href: '/dashboard/recipes/create',
+                icon: PlusCircle,
+                title: 'Recept létrehozása',
+              },
+              {
+                description: 'Saját receptek kezelése, szerkesztése',
+                href: '/dashboard/recipes',
+                icon: NotebookPen,
+                title: 'Recepteim kezelése',
+              },
+            ].map((item) => (
+              <QuickLinkCard
+                description={item.description}
+                href={item.href}
+                icon={<item.icon className="size-5 text-amber-600" />}
+                key={item.href}
+                title={item.title}
+              />
+            ))}
           </div>
         </section>
 
