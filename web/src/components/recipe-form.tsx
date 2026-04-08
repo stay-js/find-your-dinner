@@ -263,18 +263,17 @@ export function RecipeForm({ defaultValues, recipeId }: RecipeFormProps) {
         <Card>
           <CardHeader>
             <CardTitle className="text-lg">Kategóriák</CardTitle>
-          </CardHeader>
-
-          <CardContent className="flex flex-col gap-4">
             <p className="text-muted-foreground text-sm">
               Válaszd ki a receptedhez tartozó kategóriákat:
             </p>
+          </CardHeader>
 
+          <CardContent>
             <Controller
               control={control}
               name="categories"
               render={({ field, fieldState }) => (
-                <div className="flex flex-col gap-4">
+                <div className="flex flex-col gap-2">
                   <div className="flex flex-wrap gap-2">
                     {isCategoriesLoading &&
                       new Array(8)
