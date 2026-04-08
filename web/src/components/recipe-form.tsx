@@ -4,7 +4,6 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { ChefHat, Clock, Plus, Trash2, Upload, Users, X } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import { Fragment } from 'react';
 import { Controller, type SubmitHandler, useFieldArray, useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { z } from 'zod';
@@ -14,7 +13,6 @@ import { Button } from '~/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card';
 import { FieldError } from '~/components/ui/field';
 import { SelectGroup, SelectItem, SelectLabel } from '~/components/ui/select';
-import { Separator } from '~/components/ui/separator';
 import { Skeleton } from '~/components/ui/skeleton';
 import { Toggle } from '~/components/ui/toggle';
 import { useIsMobile } from '~/hooks/use-mobile';
@@ -153,21 +151,15 @@ export function RecipeForm({ defaultValues, recipeId }: RecipeFormProps) {
   };
 
   return (
-    <div className="container flex max-w-4xl flex-col gap-8">
-      <div className="flex items-center gap-3">
-        <div className="bg-primary text-primary-foreground rounded-lg p-2">
-          <ChefHat className="size-6" />
-        </div>
-
-        <div>
-          <h1 className="text-foreground text-2xl font-semibold">
-            Recept {isEdit ? 'szerkesztése' : 'létrehozása'}
-          </h1>
-          <p className="text-muted-foreground text-sm">
-            Töltsd ki az alábbi űrlapot{' '}
-            {isEdit ? 'a recept szerkesztéséhez' : 'egy új recept létrehozásához'}.
-          </p>
-        </div>
+    <div className="@container container flex flex-col gap-8">
+      <div className="flex flex-col gap-1">
+        <h1 className="text-foreground text-2xl font-semibold">
+          Recept {isEdit ? 'szerkesztése' : 'létrehozása'}
+        </h1>
+        <p className="text-muted-foreground text-sm">
+          Töltsd ki az alábbi űrlapot{' '}
+          {isEdit ? 'a recept szerkesztéséhez' : 'egy új recept létrehozásához'}.
+        </p>
       </div>
 
       <form className="flex flex-col gap-6" onSubmit={handleSubmit(onSubmit)}>
@@ -213,125 +205,127 @@ export function RecipeForm({ defaultValues, recipeId }: RecipeFormProps) {
           </CardContent>
         </Card>
 
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-lg">Elkészítési idő és adagok</CardTitle>
-          </CardHeader>
+        <div className="grid grid-cols-1 gap-6 @5xl:grid-cols-[3fr_2fr]">
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-lg">Elkészítési idő és adagok</CardTitle>
+            </CardHeader>
 
-          <CardContent>
-            <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
-              <FormInput
+            <CardContent>
+              <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
+                <FormInput
+                  control={control}
+                  errorPosition={isMobile ? 'top' : 'bottom'}
+                  label={
+                    <>
+                      <Clock className="size-4" />
+                      <span>Előkészítési idő (perc)</span>
+                    </>
+                  }
+                  min={0}
+                  name="prepTimeMinutes"
+                  placeholder="15"
+                  step={1}
+                  type="number"
+                />
+
+                <FormInput
+                  control={control}
+                  errorPosition={isMobile ? 'top' : 'bottom'}
+                  label={
+                    <>
+                      <ChefHat className="size-4" />
+                      <span>Főzési/Sütési idő (perc)</span>
+                    </>
+                  }
+                  min={0}
+                  name="cookTimeMinutes"
+                  placeholder="30"
+                  step={1}
+                  type="number"
+                />
+
+                <FormInput
+                  control={control}
+                  errorPosition={isMobile ? 'top' : 'bottom'}
+                  label={
+                    <>
+                      <Users className="size-4" />
+                      <span>Adagok száma</span>
+                    </>
+                  }
+                  min={0}
+                  name="servings"
+                  placeholder="4"
+                  step={1}
+                  type="number"
+                />
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-lg">Kategóriák</CardTitle>
+            </CardHeader>
+
+            <CardContent className="flex flex-col gap-4">
+              <p className="text-muted-foreground text-sm">
+                Válaszd ki a receptedhez tartozó kategóriákat:
+              </p>
+
+              <Controller
                 control={control}
-                errorPosition={isMobile ? 'top' : 'bottom'}
-                label={
-                  <>
-                    <Clock className="size-4" />
-                    <span>Előkészítési idő (perc)</span>
-                  </>
-                }
-                min={0}
-                name="prepTimeMinutes"
-                placeholder="15"
-                step={1}
-                type="number"
-              />
+                name="categories"
+                render={({ field, fieldState }) => (
+                  <div className="flex flex-col gap-4">
+                    <div className="flex flex-wrap gap-2">
+                      {isCategoriesLoading &&
+                        new Array(10)
+                          .fill(null)
+                          .map((_, index) => (
+                            <Skeleton
+                              className={cn(
+                                'h-8 w-16 rounded-full',
+                                index % 2 === 0 && 'w-24',
+                                index % 3 === 0 && 'w-18',
+                              )}
+                              key={index}
+                            />
+                          ))}
 
-              <FormInput
-                control={control}
-                errorPosition={isMobile ? 'top' : 'bottom'}
-                label={
-                  <>
-                    <ChefHat className="size-4" />
-                    <span>Főzési/Sütési idő (perc)</span>
-                  </>
-                }
-                min={0}
-                name="cookTimeMinutes"
-                placeholder="30"
-                step={1}
-                type="number"
-              />
+                      {categories?.map((category) => {
+                        const isSelected = field.value.includes(category.id);
 
-              <FormInput
-                control={control}
-                errorPosition={isMobile ? 'top' : 'bottom'}
-                label={
-                  <>
-                    <Users className="size-4" />
-                    <span>Adagok száma</span>
-                  </>
-                }
-                min={0}
-                name="servings"
-                placeholder="4"
-                step={1}
-                type="number"
-              />
-            </div>
-          </CardContent>
-        </Card>
+                        return (
+                          <Toggle
+                            aria-invalid={fieldState.invalid}
+                            key={category.id}
+                            onPressedChange={(pressed) => {
+                              const nextValue = pressed
+                                ? [...field.value, category.id]
+                                : field.value.filter((id) => id !== category.id);
 
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-lg">Kategóriák</CardTitle>
-          </CardHeader>
+                              field.onChange(nextValue);
+                            }}
+                            pressed={isSelected}
+                            variant="outline"
+                          >
+                            <span>{category.name}</span>
 
-          <CardContent className="flex flex-col gap-4">
-            <p className="text-muted-foreground text-sm">
-              Válaszd ki a receptedhez tartozó kategóriákat:
-            </p>
+                            {isSelected && <X className="size-3.5" />}
+                          </Toggle>
+                        );
+                      })}
+                    </div>
 
-            <Controller
-              control={control}
-              name="categories"
-              render={({ field, fieldState }) => (
-                <div className="flex flex-col gap-4">
-                  <div className="flex flex-wrap gap-2">
-                    {isCategoriesLoading &&
-                      new Array(10)
-                        .fill(null)
-                        .map((_, index) => (
-                          <Skeleton
-                            className={cn(
-                              'h-8 w-16 rounded-full',
-                              index % 2 === 0 && 'w-24',
-                              index % 3 === 0 && 'w-18',
-                            )}
-                            key={index}
-                          />
-                        ))}
-
-                    {categories?.map((category) => {
-                      const isSelected = field.value.includes(category.id);
-
-                      return (
-                        <Toggle
-                          aria-invalid={fieldState.invalid}
-                          key={category.id}
-                          onPressedChange={(pressed) => {
-                            const nextValue = pressed
-                              ? [...field.value, category.id]
-                              : field.value.filter((id) => id !== category.id);
-
-                            field.onChange(nextValue);
-                          }}
-                          pressed={isSelected}
-                          variant="outline"
-                        >
-                          <span>{category.name}</span>
-
-                          {isSelected && <X className="size-3.5" />}
-                        </Toggle>
-                      );
-                    })}
+                    {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
                   </div>
-
-                  {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
-                </div>
-              )}
-            />
-          </CardContent>
-        </Card>
+                )}
+              />
+            </CardContent>
+          </Card>
+        </div>
 
         <Card>
           <CardHeader className="flex items-center justify-between">
@@ -344,79 +338,75 @@ export function RecipeForm({ defaultValues, recipeId }: RecipeFormProps) {
               variant="outline"
             >
               <Plus className="size-4" />
-              <span className="max-md:hidden">Hozzávaló hozzáadása</span>
+              <span className="max-md:sr-only">Hozzávaló hozzáadása</span>
             </Button>
           </CardHeader>
 
-          <CardContent className="flex flex-col gap-6">
+          <CardContent className="grid grid-cols-1 gap-6 @4xl:grid-cols-2">
             {addedIngredients.map((field, index) => (
-              <Fragment key={field.id}>
-                {index > 0 && <Separator />}
-
-                <div
-                  className="bg-background/30 flex items-start gap-4 rounded-lg border p-6"
-                  key={field.id}
-                >
-                  <div className="flex w-full flex-col gap-3">
-                    <FormSelect
-                      control={control}
-                      disabled={isIngredientsLoading}
-                      label="Hozzávaló neve"
-                      name={`ingredients.${index}.ingredientId`}
-                      placeholder="Válassz hozzávalót"
-                    >
-                      <SelectGroup>
-                        <SelectLabel>Hozzávalók</SelectLabel>
-
-                        {ingredients?.map((ingredient) => (
-                          <SelectItem key={ingredient.id} value={ingredient.id.toString()}>
-                            {ingredient.name}
-                          </SelectItem>
-                        ))}
-                      </SelectGroup>
-                    </FormSelect>
-
-                    <FormInput
-                      control={control}
-                      label="Mennyiség"
-                      min={0}
-                      name={`ingredients.${index}.quantity`}
-                      placeholder="250"
-                      step={1}
-                      type="number"
-                    />
-
-                    <FormSelect
-                      control={control}
-                      disabled={isUnitsLoading}
-                      label="Mértékegység"
-                      name={`ingredients.${index}.unitId`}
-                      placeholder="Válassz mértékegységet"
-                    >
-                      <SelectGroup>
-                        <SelectLabel>Mértékegységek</SelectLabel>
-
-                        {units?.map((unit) => (
-                          <SelectItem key={unit.id} value={unit.id.toString()}>
-                            {unit.abbreviation} ({unit.name})
-                          </SelectItem>
-                        ))}
-                      </SelectGroup>
-                    </FormSelect>
-                  </div>
-
-                  <Button
-                    className="self-end"
-                    disabled={addedIngredients.length === 1}
-                    onClick={() => removeIngredient(index)}
-                    size="icon"
-                    type="button"
-                    variant="destructive"
+              <div
+                className="bg-background/30 flex items-start gap-4 rounded-lg border p-6"
+                key={field.id}
+              >
+                <div className="flex w-full flex-col gap-3">
+                  <FormSelect
+                    control={control}
+                    disabled={isIngredientsLoading}
+                    label="Hozzávaló neve"
+                    name={`ingredients.${index}.ingredientId`}
+                    placeholder="Válassz hozzávalót"
                   >
-                    <Trash2 className="size-4" />
-                  </Button>
+                    <SelectGroup>
+                      <SelectLabel>Hozzávalók</SelectLabel>
+
+                      {ingredients?.map((ingredient) => (
+                        <SelectItem key={ingredient.id} value={ingredient.id.toString()}>
+                          {ingredient.name}
+                        </SelectItem>
+                      ))}
+                    </SelectGroup>
+                  </FormSelect>
+
+                  <FormInput
+                    control={control}
+                    label="Mennyiség"
+                    min={0}
+                    name={`ingredients.${index}.quantity`}
+                    placeholder="250"
+                    step={1}
+                    type="number"
+                  />
+
+                  <FormSelect
+                    control={control}
+                    disabled={isUnitsLoading}
+                    label="Mértékegység"
+                    name={`ingredients.${index}.unitId`}
+                    placeholder="Válassz mértékegységet"
+                  >
+                    <SelectGroup>
+                      <SelectLabel>Mértékegységek</SelectLabel>
+
+                      {units?.map((unit) => (
+                        <SelectItem key={unit.id} value={unit.id.toString()}>
+                          {unit.abbreviation} ({unit.name})
+                        </SelectItem>
+                      ))}
+                    </SelectGroup>
+                  </FormSelect>
                 </div>
-              </Fragment>
+
+                <Button
+                  className="self-end"
+                  disabled={addedIngredients.length === 1}
+                  onClick={() => removeIngredient(index)}
+                  size="icon"
+                  type="button"
+                  variant="destructive"
+                >
+                  <Trash2 className="size-4" />
+                </Button>
+              </div>
             ))}
           </CardContent>
         </Card>
@@ -443,10 +433,8 @@ export function RecipeForm({ defaultValues, recipeId }: RecipeFormProps) {
         </Card>
 
         <div className="flex justify-end">
-          <Button type="submit">
-            <ChefHat className="size-4" />
-
-            <span>Recept {isEdit ? 'szerkesztése' : 'létrehozása'}</span>
+          <Button size="lg" type="submit">
+            Recept {isEdit ? 'szerkesztése' : 'létrehozása'}
           </Button>
         </div>
       </form>
