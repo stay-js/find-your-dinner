@@ -8,7 +8,7 @@ import { Controller, type SubmitHandler, useFieldArray, useForm } from 'react-ho
 import { toast } from 'sonner';
 import { z } from 'zod';
 
-import { FormInput, FormSelect, FormTextarea } from '~/components/form';
+import { FormCombobox, FormInput, FormSelect, FormTextarea } from '~/components/form';
 import { Button } from '~/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card';
 import { FieldError } from '~/components/ui/field';
@@ -360,23 +360,14 @@ export function RecipeForm({ defaultValues, recipeId }: RecipeFormProps) {
                 </div>
 
                 <div className="flex w-full flex-col gap-3">
-                  <FormSelect
+                  <FormCombobox
                     control={control}
                     disabled={isIngredientsLoading}
-                    label="Hozzávaló neve"
+                    label="Hozzávaló"
                     name={`ingredients.${index}.ingredientId`}
+                    options={ingredients?.map((i) => ({ label: i.name, value: i.id })) ?? []}
                     placeholder="Válassz hozzávalót"
-                  >
-                    <SelectGroup>
-                      <SelectLabel>Hozzávalók</SelectLabel>
-
-                      {ingredients?.map((ingredient) => (
-                        <SelectItem key={ingredient.id} value={ingredient.id.toString()}>
-                          {ingredient.name}
-                        </SelectItem>
-                      ))}
-                    </SelectGroup>
-                  </FormSelect>
+                  />
 
                   <FormInput
                     control={control}
@@ -400,7 +391,7 @@ export function RecipeForm({ defaultValues, recipeId }: RecipeFormProps) {
 
                       {units?.map((unit) => (
                         <SelectItem key={unit.id} value={unit.id.toString()}>
-                          {unit.abbreviation} ({unit.name})
+                          {unit.name} ({unit.abbreviation})
                         </SelectItem>
                       ))}
                     </SelectGroup>
