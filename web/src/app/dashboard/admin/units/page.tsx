@@ -1,5 +1,7 @@
 import { createMetadata } from '~/lib/create-metadata';
 
+import { Units } from './units';
+
 export const metadata = createMetadata({
   path: '/dashboard/admin/units',
 
@@ -11,8 +13,8 @@ export const metadata = createMetadata({
 
 export default async function DashboardAdminManageUnitsPage() {
   return (
-    <div className="container flex flex-col gap-4">
-      <h1 className="text-foreground text-2xl font-semibold">Mértékegységek kezelése</h1>
+    <div className="container flex h-full flex-col gap-4">
+      <Units />
     </div>
   );
 }
