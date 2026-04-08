@@ -1,3 +1,5 @@
+CREATE EXTENSION IF NOT EXISTS pg_trgm;
+--> statement-breakpoint
 CREATE TABLE "admins" (
 	"user_id" varchar(256) NOT NULL,
 	CONSTRAINT "admins_user_id_unique" UNIQUE("user_id")
@@ -70,4 +72,20 @@ ALTER TABLE "ingredient_recipe_data" ADD CONSTRAINT "ingredient_recipe_data_ingr
 ALTER TABLE "ingredient_recipe_data" ADD CONSTRAINT "ingredient_recipe_data_recipe_data_id_recipe_data_id_fk" FOREIGN KEY ("recipe_data_id") REFERENCES "public"."recipe_data"("id") ON DELETE cascade ON UPDATE cascade;--> statement-breakpoint
 ALTER TABLE "ingredient_recipe_data" ADD CONSTRAINT "ingredient_recipe_data_unit_id_units_id_fk" FOREIGN KEY ("unit_id") REFERENCES "public"."units"("id") ON DELETE restrict ON UPDATE restrict;--> statement-breakpoint
 ALTER TABLE "recipe_data" ADD CONSTRAINT "recipe_data_recipe_id_recipes_id_fk" FOREIGN KEY ("recipe_id") REFERENCES "public"."recipes"("id") ON DELETE cascade ON UPDATE cascade;--> statement-breakpoint
-ALTER TABLE "saved_recipes" ADD CONSTRAINT "saved_recipes_recipe_id_recipes_id_fk" FOREIGN KEY ("recipe_id") REFERENCES "public"."recipes"("id") ON DELETE cascade ON UPDATE cascade;
+ALTER TABLE "saved_recipes" ADD CONSTRAINT "saved_recipes_recipe_id_recipes_id_fk" FOREIGN KEY ("recipe_id") REFERENCES "public"."recipes"("id") ON DELETE cascade ON UPDATE cascade;--> statement-breakpoint
+CREATE INDEX "categories_fts_idx" ON "categories" USING gin (to_tsvector('hungarian', "name"));--> statement-breakpoint
+CREATE INDEX "categories_name_trgm_idx" ON "categories" USING gin ("name" gin_trgm_ops);--> statement-breakpoint
+CREATE INDEX "ingredients_fts_idx" ON "ingredients" USING gin (to_tsvector('hungarian', "name"));--> statement-breakpoint
+CREATE INDEX "ingredients_name_trgm_idx" ON "ingredients" USING gin ("name" gin_trgm_ops);--> statement-breakpoint
+CREATE INDEX "recipe_data_fts_idx" ON "recipe_data" USING gin ((
+        setweight(to_tsvector('hungarian', "title"), 'A') ||
+        setweight(to_tsvector('hungarian', "description"), 'B')
+        ));--> statement-breakpoint
+CREATE INDEX "recipe_data_title_trgm_idx" ON "recipe_data" USING gin ("title" gin_trgm_ops);--> statement-breakpoint
+CREATE INDEX "recipe_data_description_trgm_idx" ON "recipe_data" USING gin ("description" gin_trgm_ops);--> statement-breakpoint
+CREATE INDEX "units_fts_idx" ON "units" USING gin ((
+        setweight(to_tsvector('hungarian', "name"), 'A') ||
+        setweight(to_tsvector('hungarian', "abbreviation"), 'B')
+        ));--> statement-breakpoint
+CREATE INDEX "units_name_trgm_idx" ON "units" USING gin ("name" gin_trgm_ops);--> statement-breakpoint
+CREATE INDEX "units_abbreviation_trgm_idx" ON "units" USING gin ("abbreviation" gin_trgm_ops);

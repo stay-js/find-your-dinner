@@ -5,57 +5,8 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1771443543311,
+      "when": 1775661284804,
       "tag": "0000_init",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "7",
-      "when": 1771443682206,
-      "tag": "0001_seed_categories_table",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "7",
-      "when": 1771443702423,
-      "tag": "0002_seed_units_table",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "7",
-      "when": 1771443718077,
-      "tag": "0003_seed_ingredients_table",
-      "breakpoints": true
-    },
-    {
-      "idx": 4,
-      "version": "7",
-      "when": 1771443734882,
-      "tag": "0004_seed_admins_table",
-      "breakpoints": true
-    },
-    {
-      "idx": 5,
-      "version": "7",
-      "when": 1772290930229,
-      "tag": "0005_alter_recipe_data_table_add_fts_index",
-      "breakpoints": true
-    },
-    {
-      "idx": 6,
-      "version": "7",
-      "when": 1772728342077,
-      "tag": "0006_add_categories_ingredients_units_fts_index",
-      "breakpoints": true
-    },
-    {
-      "idx": 7,
-      "version": "7",
-      "when": 1774287320338,
-      "tag": "0007_add_trgm_fuzzy_indexes",
       "breakpoints": true
     }
   ]
