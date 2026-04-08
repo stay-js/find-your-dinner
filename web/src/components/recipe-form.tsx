@@ -281,12 +281,12 @@ export function RecipeForm({ defaultValues, recipeId }: RecipeFormProps) {
                   <div className="flex flex-col gap-4">
                     <div className="flex flex-wrap gap-2">
                       {isCategoriesLoading &&
-                        new Array(10)
+                        new Array(8)
                           .fill(null)
                           .map((_, index) => (
                             <Skeleton
                               className={cn(
-                                'h-8 w-16 rounded-full',
+                                'h-8 w-16 rounded-lg',
                                 index % 2 === 0 && 'w-24',
                                 index % 3 === 0 && 'w-18',
                               )}
@@ -345,9 +345,25 @@ export function RecipeForm({ defaultValues, recipeId }: RecipeFormProps) {
           <CardContent className="grid grid-cols-1 gap-6 @4xl:grid-cols-2">
             {addedIngredients.map((field, index) => (
               <div
-                className="bg-background/30 flex items-start gap-4 rounded-lg border p-6"
+                className="bg-background/30 flex flex-col gap-4 rounded-lg border p-6"
                 key={field.id}
               >
+                <div className="flex h-7 items-center justify-between">
+                  <p className="text-base font-semibold">{index + 1}. hozzávaló</p>
+
+                  {addedIngredients.length > 1 && (
+                    <Button
+                      className="self-end"
+                      onClick={() => removeIngredient(index)}
+                      size="icon-sm"
+                      type="button"
+                      variant="destructive"
+                    >
+                      <Trash2 className="size-3.5" />
+                    </Button>
+                  )}
+                </div>
+
                 <div className="flex w-full flex-col gap-3">
                   <FormSelect
                     control={control}
@@ -395,17 +411,6 @@ export function RecipeForm({ defaultValues, recipeId }: RecipeFormProps) {
                     </SelectGroup>
                   </FormSelect>
                 </div>
-
-                <Button
-                  className="self-end"
-                  disabled={addedIngredients.length === 1}
-                  onClick={() => removeIngredient(index)}
-                  size="icon"
-                  type="button"
-                  variant="destructive"
-                >
-                  <Trash2 className="size-4" />
-                </Button>
               </div>
             ))}
           </CardContent>
