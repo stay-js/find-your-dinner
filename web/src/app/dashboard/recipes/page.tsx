@@ -24,7 +24,7 @@ export default async function DashboardManageRecipesPage() {
         <Button asChild>
           <Link href="/dashboard/recipes/create">
             <Plus className="size-4" />
-            <span>Új recept létrehozása</span>
+            <span>Új recept</span>
           </Link>
         </Button>
       </div>
