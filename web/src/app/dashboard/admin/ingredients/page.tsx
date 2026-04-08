@@ -1,5 +1,7 @@
 import { createMetadata } from '~/lib/create-metadata';
 
+import { Ingredients } from './ingredients';
+
 export const metadata = createMetadata({
   path: '/dashboard/admin/ingredients',
 
@@ -11,8 +13,8 @@ export const metadata = createMetadata({
 
 export default async function DashboardAdminManageIngredientsPage() {
   return (
-    <div className="container flex flex-col gap-4">
-      <h1 className="text-foreground text-2xl font-semibold">Hozzávalók kezelése</h1>
+    <div className="container flex h-full flex-col gap-4">
+      <Ingredients />
     </div>
   );
 }
