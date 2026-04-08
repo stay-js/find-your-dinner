@@ -2,14 +2,13 @@ import 'dotenv/config';
 
 import { db } from '~/server/db';
 import { ingredients } from '~/server/db/schema';
-
 const data = [
   // Zöldségek
   { name: 'Vöröshagyma' },
   { name: 'Fokhagyma' },
   { name: 'Paradicsom' },
   { name: 'Paprika' },
-  { name: 'Csilipaprika' },
+  { name: 'Chili' },
   { name: 'Sárgarépa' },
   { name: 'Fehérrépa' },
   { name: 'Burgonya' },
@@ -28,13 +27,13 @@ const data = [
   { name: 'Zöldbab' },
   { name: 'Kukorica' },
   { name: 'Zeller' },
+  { name: 'Szárzeller' },
   { name: 'Póréhagyma' },
   { name: 'Újhagyma' },
   { name: 'Édeskömény' },
   { name: 'Kelkáposzta' },
   { name: 'Spárga' },
   { name: 'Sütőtök' },
-  { name: 'Fehérrépa (karórépa)' },
   { name: 'Retek' },
   { name: 'Cékla' },
   { name: 'Rukkola' },
@@ -42,11 +41,12 @@ const data = [
   { name: 'Mogyoróhagyma' },
   { name: 'Articsóka' },
   { name: 'Cukorborsó' },
-  { name: 'Edamame' },
-  { name: 'Babakukorica' },
-  { name: 'Vízi gesztenye' },
+  { name: 'Edámbab' },
+  { name: 'Bébikukorica' },
+  { name: 'Gesztenye' },
   { name: 'Babcsíra' },
   { name: 'Tomatillo' },
+  { name: 'Lilahagyma' },
 
   // Gyümölcsök
   { name: 'Alma' },
@@ -69,18 +69,21 @@ const data = [
   { name: 'Füge' },
   { name: 'Mazsola' },
   { name: 'Aszalt szilva' },
-  { name: 'Szárított áfonya' },
+  { name: 'Aszalt áfonya' },
 
   // Húsok
   { name: 'Csirkemell' },
   { name: 'Csirkecomb' },
+  { name: 'Csirke felsőcomb' },
+  { name: 'Csirke alsócomb' },
   { name: 'Egész csirke' },
   { name: 'Sertéshús' },
   { name: 'Sertéskaraj' },
-  { name: 'Sertéshas' },
+  { name: 'Császárhús' },
   { name: 'Sertéslapocka' },
   { name: 'Marhahús' },
   { name: 'Darált marhahús' },
+  { name: 'Darált sertéshús' },
   { name: 'Marhanyak' },
   { name: 'Pulyka' },
   { name: 'Bacon' },
@@ -91,6 +94,8 @@ const data = [
   { name: 'Pancetta' },
   { name: 'Prosciutto' },
   { name: 'Zsír' },
+  { name: 'Császárszalonna' },
+  { name: 'Zsírszalonna' },
 
   // Halak és tengeri ételek
   { name: 'Lazac' },
@@ -103,6 +108,10 @@ const data = [
   { name: 'Rák' },
   { name: 'Homár' },
   { name: 'Polip' },
+  { name: 'Pisztráng' },
+  { name: 'Királyrák' },
+  { name: 'Feketekagyló' },
+  { name: 'Osztriga' },
 
   // Tejtermékek
   { name: 'Tej' },
@@ -118,9 +127,7 @@ const data = [
   { name: 'Krémsajt' },
   { name: 'Pecorino' },
   { name: 'Ricotta' },
-  { name: 'Paneer' },
   { name: 'Sűrített tej' },
-  { name: 'Tojás' },
 
   // Gabonák és hüvelyesek
   { name: 'Búzaliszt' },
@@ -139,12 +146,12 @@ const data = [
   { name: 'Fekete bab' },
   { name: 'Vesebab' },
   { name: 'Fehér vesebab' },
-  { name: 'Tarka bab' },
+  { name: 'Tarkabab' },
   { name: 'Hajdina' },
   { name: 'Kuszkusz' },
-  { name: 'Bulgur búza' },
+  { name: 'Bulgur' },
   { name: 'Rizstészta' },
-  { name: 'Grits (kukoricadara)' },
+  { name: 'Kukoricadara' },
   { name: 'Száraz élesztő' },
   { name: 'Sütőpor' },
   { name: 'Szódabikarbóna' },
@@ -187,6 +194,9 @@ const data = [
   { name: 'Kakaópor' },
   { name: 'Étcsokoládé' },
   { name: 'Matcha por' },
+  { name: 'Tojás' },
+  { name: 'Panírmorzsa' },
+  { name: 'Panko morzsa' },
 
   // Fűszerek és gyógynövények
   { name: 'Só' },
@@ -203,7 +213,7 @@ const data = [
   { name: 'Gyömbér' },
   { name: 'Kurkuma' },
   { name: 'Babérlevél' },
-  { name: 'Chilifehely' },
+  { name: 'Chilipehely' },
   { name: 'Chilipor' },
   { name: 'Szerecsendió' },
   { name: 'Szegfűszeg' },
@@ -222,9 +232,9 @@ const data = [
   { name: 'Menta' },
   { name: 'Majoránna' },
   { name: 'Tárkony' },
-  { name: 'Szumák' },
+  { name: 'Sumák' },
   { name: 'Kínai ötfűszer' },
-  { name: 'Mákszem' },
+  { name: 'Mák' },
   { name: 'Szezámmag' },
   { name: 'Köménymag' },
   { name: 'Mustármag' },
