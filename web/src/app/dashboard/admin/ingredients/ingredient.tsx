@@ -8,11 +8,12 @@ import { type Ingredient } from '~/lib/zod';
 
 type IngredientProps = {
   ingredient: Ingredient;
+  isDestroyPending: boolean;
   onDelete: () => void;
   onEdit: () => void;
 };
 
-export function Ingredient({ ingredient, onDelete, onEdit }: IngredientProps) {
+export function Ingredient({ ingredient, isDestroyPending, onDelete, onEdit }: IngredientProps) {
   return (
     <Card>
       <CardContent className="flex items-center justify-between gap-4">
@@ -23,7 +24,7 @@ export function Ingredient({ ingredient, onDelete, onEdit }: IngredientProps) {
             <Pencil className="size-3.5" />
           </Button>
 
-          <DeletePopover onDelete={onDelete} type="Hozzávaló" />
+          <DeletePopover isPending={isDestroyPending} onDelete={onDelete} type="Hozzávaló" />
         </div>
       </CardContent>
     </Card>

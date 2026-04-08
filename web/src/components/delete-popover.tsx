@@ -10,14 +10,19 @@ import {
   PopoverTitle,
   PopoverTrigger,
 } from '~/components/ui/popover';
+import { Spinner } from '~/components/ui/spinner';
+import { useDebouncedLoading } from '~/hooks/use-debounced-loading';
 
 type DeletePopoverProps = {
+  isPending: boolean;
   onDelete: () => void;
   type: string;
 };
 
-export function DeletePopover({ onDelete, type }: DeletePopoverProps) {
+export function DeletePopover({ isPending, onDelete, type }: DeletePopoverProps) {
   const [isOpen, setIsOpen] = useState(false);
+
+  const showPending = useDebouncedLoading(isPending);
 
   return (
     <Popover onOpenChange={setIsOpen} open={isOpen}>
@@ -40,8 +45,15 @@ export function DeletePopover({ onDelete, type }: DeletePopoverProps) {
             Mégsem
           </Button>
 
-          <Button onClick={onDelete} size="sm" type="button" variant="destructive">
-            Törlés
+          <Button
+            disabled={isPending}
+            onClick={onDelete}
+            size="sm"
+            type="button"
+            variant="destructive"
+          >
+            {showPending && <Spinner />}
+            <span>Törlés</span>
           </Button>
         </div>
       </PopoverContent>

@@ -7,12 +7,13 @@ import { Skeleton } from '~/components/ui/skeleton';
 import { type Unit } from '~/lib/zod';
 
 type UnitProps = {
+  isDestroyPending: boolean;
   onDelete: () => void;
   onEdit: () => void;
   unit: Unit;
 };
 
-export function Unit({ onDelete, onEdit, unit }: UnitProps) {
+export function Unit({ isDestroyPending, onDelete, onEdit, unit }: UnitProps) {
   return (
     <Card>
       <CardContent className="flex items-center justify-between gap-4">
@@ -25,7 +26,7 @@ export function Unit({ onDelete, onEdit, unit }: UnitProps) {
             <Pencil className="size-3.5" />
           </Button>
 
-          <DeletePopover onDelete={onDelete} type="Mértékegység" />
+          <DeletePopover isPending={isDestroyPending} onDelete={onDelete} type="Mértékegység" />
         </div>
       </CardContent>
     </Card>

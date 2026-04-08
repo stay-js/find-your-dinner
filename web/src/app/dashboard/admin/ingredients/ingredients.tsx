@@ -64,7 +64,7 @@ export function Ingredients() {
     },
   });
 
-  const { mutate: destroy } = useMutation({
+  const { isPending: isDestroyPending, mutate: destroy } = useMutation({
     mutationFn: (id: number) => DELETE(`/api/ingredients/${id}`),
     onError: () => {
       toast.error('Hiba történt a hozzávaló törlése során. Kérlek, próbáld újra később.');
@@ -124,6 +124,7 @@ export function Ingredients() {
             ingredients?.map((ingredient) => (
               <Ingredient
                 ingredient={ingredient}
+                isDestroyPending={isDestroyPending}
                 key={ingredient.id}
                 onDelete={() => destroy(ingredient.id)}
                 onEdit={() => openEdit(ingredient)}

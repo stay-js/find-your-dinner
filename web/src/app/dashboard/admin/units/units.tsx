@@ -60,7 +60,7 @@ export function Units() {
     },
   });
 
-  const { mutate: destroy } = useMutation({
+  const { isPending: isDestroyPending, mutate: destroy } = useMutation({
     mutationFn: (id: number) => DELETE(`/api/units/${id}`),
     onError: () => {
       toast.error('Hiba történt a mértékegység törlése során. Kérlek, próbáld újra később.');
@@ -119,6 +119,7 @@ export function Units() {
           {!showSkeleton &&
             units?.map((unit) => (
               <Unit
+                isDestroyPending={isDestroyPending}
                 key={unit.id}
                 onDelete={() => destroy(unit.id)}
                 onEdit={() => openEdit(unit)}

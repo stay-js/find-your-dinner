@@ -64,7 +64,7 @@ export function Categories() {
     },
   });
 
-  const { mutate: destroy } = useMutation({
+  const { isPending: isDestroyPending, mutate: destroy } = useMutation({
     mutationFn: (id: number) => DELETE(`/api/categories/${id}`),
     onError: () => {
       toast.error('Hiba történt a kategória törlése során. Kérlek, próbáld újra később.');
@@ -124,6 +124,7 @@ export function Categories() {
             categories?.map((category) => (
               <Category
                 category={category}
+                isDestroyPending={isDestroyPending}
                 key={category.id}
                 onDelete={() => destroy(category.id)}
                 onEdit={() => openEdit(category)}

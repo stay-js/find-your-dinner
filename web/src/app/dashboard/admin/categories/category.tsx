@@ -8,11 +8,12 @@ import { type Category } from '~/lib/zod';
 
 type CategoryProps = {
   category: Category;
+  isDestroyPending: boolean;
   onDelete: () => void;
   onEdit: () => void;
 };
 
-export function Category({ category, onDelete, onEdit }: CategoryProps) {
+export function Category({ category, isDestroyPending, onDelete, onEdit }: CategoryProps) {
   return (
     <Card>
       <CardContent className="flex items-center justify-between gap-4">
@@ -23,7 +24,7 @@ export function Category({ category, onDelete, onEdit }: CategoryProps) {
             <Pencil className="size-3.5" />
           </Button>
 
-          <DeletePopover onDelete={onDelete} type="Kategória" />
+          <DeletePopover isPending={isDestroyPending} onDelete={onDelete} type="Kategória" />
         </div>
       </CardContent>
     </Card>
