@@ -15,10 +15,15 @@ import {
   SheetTitle,
 } from '~/components/ui/sheet';
 import { Spinner } from '~/components/ui/spinner';
+import { useDebouncedLoading } from '~/hooks/use-debounced-loading';
 import { type Category, type CreateUpdateCategorySchema } from '~/lib/zod/schemas';
 
 const formSchema = z.object({
-  name: z.string().trim().min(1, { error: 'A név megadása kötelező!' }).max(128),
+  name: z
+    .string()
+    .trim()
+    .min(1, { error: 'A név megadása kötelező!' })
+    .max(128, { error: 'A név maximális hossza 128 karakter!' }),
 });
 
 type CategoryFormProps = {
@@ -49,6 +54,8 @@ export function CategoryForm({
     resolver: zodResolver(formSchema),
   });
 
+  const showPending = useDebouncedLoading(isPending);
+
   useEffect(() => {
     reset(selected ?? defaultValues);
   }, [selected, reset]);
@@ -77,7 +84,7 @@ export function CategoryForm({
 
           <SheetFooter>
             <Button disabled={isPending} size="lg" type="submit">
-              {isPending && <Spinner />}
+              {showPending && <Spinner />}
               <span>Mentés</span>
             </Button>
 

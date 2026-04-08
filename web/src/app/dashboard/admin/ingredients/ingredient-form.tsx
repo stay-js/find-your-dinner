@@ -15,10 +15,15 @@ import {
   SheetTitle,
 } from '~/components/ui/sheet';
 import { Spinner } from '~/components/ui/spinner';
+import { useDebouncedLoading } from '~/hooks/use-debounced-loading';
 import { type CreateUpdateIngredientSchema, type Ingredient } from '~/lib/zod/schemas';
 
 const formSchema = z.object({
-  name: z.string().trim().min(1, { error: 'A név megadása kötelező!' }).max(256),
+  name: z
+    .string()
+    .trim()
+    .min(1, { error: 'A név megadása kötelező!' })
+    .max(256, { error: 'A név maximális hossza 256 karakter!' }),
 });
 
 type FormSchema = z.infer<typeof formSchema>;
@@ -49,6 +54,8 @@ export function IngredientForm({
     resolver: zodResolver(formSchema),
   });
 
+  const showPending = useDebouncedLoading(isPending);
+
   useEffect(() => {
     reset(selected ?? defaultValues);
   }, [selected, reset]);
@@ -77,7 +84,7 @@ export function IngredientForm({
 
           <SheetFooter>
             <Button disabled={isPending} size="lg" type="submit">
-              {isPending && <Spinner />}
+              {showPending && <Spinner />}
               <span>Mentés</span>
             </Button>
 
