@@ -170,44 +170,44 @@ export function RecipeForm({ defaultValues, recipeId }: RecipeFormProps) {
       </div>
 
       <form className="flex flex-col gap-6" onSubmit={handleSubmit(onSubmit)}>
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-lg">Alapvető információk</CardTitle>
-          </CardHeader>
+        <div className="grid grid-cols-1 gap-6 @5xl:grid-cols-[5fr_2fr]">
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-lg">Alapvető információk</CardTitle>
+            </CardHeader>
 
-          <CardContent className="flex flex-col gap-4">
-            <FormInput
-              control={control}
-              label="Recept neve"
-              name="title"
-              placeholder="Add meg a recept nevét..."
-            />
+            <CardContent className="flex flex-col gap-4">
+              <FormInput
+                control={control}
+                label="Recept neve"
+                name="title"
+                placeholder="Add meg a recept nevét..."
+              />
 
-            <FormTextarea
-              className="min-h-25 resize-none"
-              control={control}
-              label="Leírás"
-              name="description"
-              placeholder="Recept rövid leírása..."
-            />
+              <FormTextarea
+                className="min-h-25 resize-none"
+                control={control}
+                label="Leírás"
+                name="description"
+                placeholder="Recept rövid leírása..."
+              />
 
-            <FormInput
-              control={control}
-              label="Előnézeti kép URL"
-              name="previewImageUrl"
-              placeholder="https://example.com/image.jpg"
-            />
-          </CardContent>
-        </Card>
+              <FormInput
+                control={control}
+                label="Előnézeti kép URL"
+                name="previewImageUrl"
+                placeholder="https://example.com/image.jpg"
+              />
+            </CardContent>
+          </Card>
 
-        <div className="grid grid-cols-1 gap-6 @5xl:grid-cols-[3fr_2fr]">
           <Card>
             <CardHeader>
               <CardTitle className="text-lg">Elkészítési idő és adagok</CardTitle>
             </CardHeader>
 
             <CardContent>
-              <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
+              <div className="flex flex-col gap-4">
                 <FormInput
                   control={control}
                   errorPosition={isMobile ? 'top' : 'bottom'}
@@ -258,69 +258,69 @@ export function RecipeForm({ defaultValues, recipeId }: RecipeFormProps) {
               </div>
             </CardContent>
           </Card>
-
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-lg">Kategóriák</CardTitle>
-            </CardHeader>
-
-            <CardContent className="flex flex-col gap-4">
-              <p className="text-muted-foreground text-sm">
-                Válaszd ki a receptedhez tartozó kategóriákat:
-              </p>
-
-              <Controller
-                control={control}
-                name="categories"
-                render={({ field, fieldState }) => (
-                  <div className="flex flex-col gap-4">
-                    <div className="flex flex-wrap gap-2">
-                      {isCategoriesLoading &&
-                        new Array(8)
-                          .fill(null)
-                          .map((_, index) => (
-                            <Skeleton
-                              className={cn(
-                                'h-8 w-16 rounded-lg',
-                                index % 2 === 0 && 'w-24',
-                                index % 3 === 0 && 'w-18',
-                              )}
-                              key={index}
-                            />
-                          ))}
-
-                      {categories?.map((category) => {
-                        const isSelected = field.value.includes(category.id);
-
-                        return (
-                          <Toggle
-                            aria-invalid={fieldState.invalid}
-                            key={category.id}
-                            onPressedChange={(pressed) => {
-                              const nextValue = pressed
-                                ? [...field.value, category.id]
-                                : field.value.filter((id) => id !== category.id);
-
-                              field.onChange(nextValue);
-                            }}
-                            pressed={isSelected}
-                            variant="outline"
-                          >
-                            <span>{category.name}</span>
-
-                            {isSelected && <X className="size-3.5" />}
-                          </Toggle>
-                        );
-                      })}
-                    </div>
-
-                    {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
-                  </div>
-                )}
-              />
-            </CardContent>
-          </Card>
         </div>
+
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-lg">Kategóriák</CardTitle>
+          </CardHeader>
+
+          <CardContent className="flex flex-col gap-4">
+            <p className="text-muted-foreground text-sm">
+              Válaszd ki a receptedhez tartozó kategóriákat:
+            </p>
+
+            <Controller
+              control={control}
+              name="categories"
+              render={({ field, fieldState }) => (
+                <div className="flex flex-col gap-4">
+                  <div className="flex flex-wrap gap-2">
+                    {isCategoriesLoading &&
+                      new Array(8)
+                        .fill(null)
+                        .map((_, index) => (
+                          <Skeleton
+                            className={cn(
+                              'h-8 w-16 rounded-lg',
+                              index % 2 === 0 && 'w-24',
+                              index % 3 === 0 && 'w-18',
+                            )}
+                            key={index}
+                          />
+                        ))}
+
+                    {categories?.map((category) => {
+                      const isSelected = field.value.includes(category.id);
+
+                      return (
+                        <Toggle
+                          aria-invalid={fieldState.invalid}
+                          key={category.id}
+                          onPressedChange={(pressed) => {
+                            const nextValue = pressed
+                              ? [...field.value, category.id]
+                              : field.value.filter((id) => id !== category.id);
+
+                            field.onChange(nextValue);
+                          }}
+                          pressed={isSelected}
+                          variant="outline"
+                        >
+                          <span>{category.name}</span>
+
+                          {isSelected && <X className="size-3.5" />}
+                        </Toggle>
+                      );
+                    })}
+                  </div>
+
+                  {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+                </div>
+              )}
+            />
+          </CardContent>
+        </Card>
 
         <Card>
           <CardHeader className="flex items-center justify-between">
