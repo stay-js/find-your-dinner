@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { useDebouncedCallback } from '~/hooks/use-debounce';
 import { useMergeQueryString } from '~/hooks/use-merge-query-string';
 
-export function useSearch() {
+export function useSearch(paginated = true) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -16,10 +16,9 @@ export function useSearch() {
   const [query, setQuery] = useState(debouncedQuery);
 
   const navigateQuery = useDebouncedCallback((q: string) => {
-    const params = {
-      page: '1',
-      query: q,
-    };
+    const params: Record<string, string> = { query: q };
+
+    if (paginated) params.page = '1';
 
     router.replace(`${pathname}?${mergeQueryString(params)}`);
   });

@@ -22,7 +22,7 @@ import { CategoryForm } from './category-form';
 
 export function Categories() {
   const queryClient = useQueryClient();
-  const { debouncedQuery, handleQueryChange, query } = useSearch();
+  const { debouncedQuery, handleQueryChange, query } = useSearch(false);
 
   const [isSheetOpen, setIsSheetOpen] = useState(false);
   const [selected, setSelected] = useState<CategoryType | null>(null);

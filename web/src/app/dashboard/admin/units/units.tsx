@@ -18,7 +18,7 @@ import { UnitForm } from './unit-form';
 
 export function Units() {
   const queryClient = useQueryClient();
-  const { debouncedQuery, handleQueryChange, query } = useSearch();
+  const { debouncedQuery, handleQueryChange, query } = useSearch(false);
 
   const [isSheetOpen, setIsSheetOpen] = useState(false);
   const [selected, setSelected] = useState<null | UnitType>(null);

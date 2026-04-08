@@ -22,7 +22,7 @@ import { IngredientForm } from './ingredient-form';
 
 export function Ingredients() {
   const queryClient = useQueryClient();
-  const { debouncedQuery, handleQueryChange, query } = useSearch();
+  const { debouncedQuery, handleQueryChange, query } = useSearch(false);
 
   const [isSheetOpen, setIsSheetOpen] = useState(false);
   const [selected, setSelected] = useState<IngredientType | null>(null);
