@@ -14,7 +14,9 @@ import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card';
 import { FieldError } from '~/components/ui/field';
 import { SelectGroup, SelectItem, SelectLabel } from '~/components/ui/select';
 import { Skeleton } from '~/components/ui/skeleton';
+import { Spinner } from '~/components/ui/spinner';
 import { Toggle } from '~/components/ui/toggle';
+import { useDebouncedLoading } from '~/hooks/use-debounced-loading';
 import { useIsMobile } from '~/hooks/use-mobile';
 import { GET, POST, PUT } from '~/lib/api';
 import { cn } from '~/lib/utils';
@@ -118,19 +120,22 @@ export function RecipeForm({ defaultValues, recipeId }: RecipeFormProps) {
     queryKey: ['units'],
   });
 
-  const { mutateAsync: createRecipe } = useMutation({
+  const { isPending: isCreatePending, mutateAsync: createRecipe } = useMutation({
     mutationFn: (data: CreateUpdateRecipeSchema) => POST('/api/recipes', data),
+    onError: () => toast.error('Hiba történt a recept létrehozása során!'),
     onSuccess: () => router.push('/dashboard/recipes'),
   });
 
-  const { mutateAsync: updateRecipe } = useMutation({
+  const { isPending: isUpdatePending, mutateAsync: updateRecipe } = useMutation({
     mutationFn: (data: CreateUpdateRecipeSchema) => PUT(`/api/recipes/${recipeId}`, data),
+    onError: () => toast.error('Hiba történt a recept szerkesztése során!'),
     onSuccess: () => router.push('/dashboard/recipes'),
   });
+
+  const isPending = isCreatePending || isUpdatePending;
+  const showPending = useDebouncedLoading(isPending);
 
   const onSubmit: SubmitHandler<FormSchema> = (data) => {
-    reset(defaultValues);
-
     const parsedData = {
       ...data,
       cookTimeMinutes: Number(data.cookTimeMinutes),
@@ -143,11 +148,13 @@ export function RecipeForm({ defaultValues, recipeId }: RecipeFormProps) {
       servings: Number(data.servings),
     } satisfies CreateUpdateRecipeSchema;
 
-    toast.promise(isEdit ? updateRecipe(parsedData) : createRecipe(parsedData), {
-      error: `Hiba történt a recept ${isEdit ? 'szerkesztése' : 'létrehozása'} során!`,
-      loading: `Recept ${isEdit ? 'szerkesztése' : 'létrehozása'}...`,
-      success: `A recept sikeresen ${isEdit ? 'szerkesztve' : 'létrehozva'}!`,
-    });
+    if (isEdit) {
+      updateRecipe(parsedData);
+    } else {
+      createRecipe(parsedData);
+    }
+
+    reset(defaultValues);
   };
 
   return (
@@ -425,11 +432,10 @@ export function RecipeForm({ defaultValues, recipeId }: RecipeFormProps) {
           </CardContent>
         </Card>
 
-        <div className="flex justify-end">
-          <Button size="lg" type="submit">
-            Recept {isEdit ? 'szerkesztése' : 'létrehozása'}
-          </Button>
-        </div>
+        <Button className="self-end" disabled={isPending} size="lg" type="submit">
+          {showPending && <Spinner />}
+          Recept {isEdit ? 'szerkesztése' : 'létrehozása'}
+        </Button>
       </form>
     </div>
   );
