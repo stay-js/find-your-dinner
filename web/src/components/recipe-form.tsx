@@ -2,7 +2,7 @@
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { ChefHat, Clock, Plus, Trash2, Upload, Users, X } from 'lucide-react';
+import { ChefHat, Clock, Plus, Trash2, Users, X } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { Controller, type SubmitHandler, useFieldArray, useForm } from 'react-hook-form';
 import { toast } from 'sonner';
@@ -184,24 +184,12 @@ export function RecipeForm({ defaultValues, recipeId }: RecipeFormProps) {
               placeholder="Recept rövid leírása..."
             />
 
-            <div className="flex items-end gap-2">
-              <FormInput
-                control={control}
-                label="Előnézeti kép URL"
-                name="previewImageUrl"
-                placeholder="https://example.com/image.jpg"
-              />
-
-              <Button
-                onClick={() => toast.error('TODO image upload')}
-                size="icon"
-                type="button"
-                variant="outline"
-              >
-                <Upload className="size-4" />
-                <span className="sr-only">Kép feltöltése</span>
-              </Button>
-            </div>
+            <FormInput
+              control={control}
+              label="Előnézeti kép URL"
+              name="previewImageUrl"
+              placeholder="https://example.com/image.jpg"
+            />
           </CardContent>
         </Card>
 
