@@ -58,7 +58,7 @@ export function IngredientForm({
 
   useEffect(() => {
     reset(selected ?? defaultValues);
-  }, [selected, reset]);
+  }, [selected, reset, isOpen]);
 
   return (
     <Sheet onOpenChange={setIsOpen} open={isOpen}>
