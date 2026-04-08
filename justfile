@@ -111,3 +111,9 @@ migrate-fresh:
 [working-directory: 'web']
 studio:
     {{runner}} run db:studio
+
+# Seeds the database with initial data
+[group('drizzle')]
+[working-directory: 'web']
+seed:
+    {{runner}} run db:seed
