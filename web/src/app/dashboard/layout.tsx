@@ -20,7 +20,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
         <DashboardSidebar isAdmin={isAdmin} />
 
         <SidebarInset>
-          <header className="bg-background sticky top-0 z-10 flex h-16 shrink-0 items-center gap-2 border-b px-4 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12">
+          <header className="bg-background fixed top-0 z-10 flex h-16 w-full items-center gap-2 border-b px-4 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12">
             <SidebarTrigger />
 
             <Separator className="data-[orientation=vertical]:h-4" orientation="vertical" />
@@ -28,7 +28,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
             <DashboardBreadcrumb />
           </header>
 
-          <div className="h-full min-h-[85vh] pt-6 pb-12 lg:pt-8">{children}</div>
+          <div className="h-full min-h-[85vh] pt-22 pb-12">{children}</div>
 
           <Footer />
         </SidebarInset>

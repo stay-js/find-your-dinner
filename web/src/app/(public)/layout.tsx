@@ -7,7 +7,7 @@ export default function PublicLayout({ children }: { children: React.ReactNode }
       <div className="h-full min-h-[85vh]">
         <Header />
 
-        <main className="h-full pt-24 pb-6">{children}</main>
+        <main className="h-full pt-22 pb-12">{children}</main>
       </div>
 
       <Footer />
