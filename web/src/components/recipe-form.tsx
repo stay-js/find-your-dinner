@@ -18,6 +18,7 @@ import { Spinner } from '~/components/ui/spinner';
 import { Toggle } from '~/components/ui/toggle';
 import { useDebouncedLoading } from '~/hooks/use-debounced-loading';
 import { useIsMobile } from '~/hooks/use-mobile';
+import { useMounted } from '~/hooks/use-mounted';
 import { POST, PUT } from '~/lib/api';
 import { getCategories, getIngredients, getUnits } from '~/lib/queries';
 import { cn } from '~/lib/utils';
@@ -85,6 +86,7 @@ type RecipeFormProps = {
 export function RecipeForm({ defaultValues, recipeId }: RecipeFormProps) {
   const router = useRouter();
   const isMobile = useIsMobile();
+  const mounted = useMounted();
 
   const isEdit = !!recipeId;
 
@@ -325,7 +327,7 @@ export function RecipeForm({ defaultValues, recipeId }: RecipeFormProps) {
                 <div className="flex w-full flex-col gap-3">
                   <FormCombobox
                     control={control}
-                    disabled={!ingredients}
+                    disabled={mounted && !ingredients}
                     label="Hozzávaló"
                     name={`ingredients.${index}.ingredientId`}
                     options={ingredients?.map(({ id, name }) => ({ label: name, value: id })) ?? []}
@@ -344,7 +346,7 @@ export function RecipeForm({ defaultValues, recipeId }: RecipeFormProps) {
 
                   <FormSelect
                     control={control}
-                    disabled={!units}
+                    disabled={mounted && !units}
                     label="Mértékegység"
                     name={`ingredients.${index}.unitId`}
                     placeholder="Válassz mértékegységet"
