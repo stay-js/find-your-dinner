@@ -24,7 +24,7 @@ export function ThemeSwitcher() {
   const mounted = useMounted();
   const { setTheme, theme } = useTheme();
 
-  if (!mounted) return <div className="h-9" />;
+  if (!mounted) return <div className="h-8" />;
 
   return (
     <Select onValueChange={setTheme} value={theme ?? 'system'}>
