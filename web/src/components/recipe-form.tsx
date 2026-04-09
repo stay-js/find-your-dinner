@@ -265,11 +265,7 @@ export function RecipeForm({ defaultValues, recipeId }: RecipeFormProps) {
                         .fill(null)
                         .map((_, index) => (
                           <Skeleton
-                            className={cn(
-                              'h-8 w-16 rounded-lg',
-                              index % 2 === 0 && 'w-24',
-                              index % 3 === 0 && 'w-18',
-                            )}
+                            className={cn('h-8 rounded-lg', ['w-16', 'w-24', 'w-18'][index % 3])}
                             key={index}
                           />
                         ))}
