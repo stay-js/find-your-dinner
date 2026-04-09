@@ -149,3 +149,16 @@ export const savedRecipes = pgTable(
   }),
   (t) => [primaryKey({ columns: [t.userId, t.recipeId] })],
 );
+
+export const defaultIngredients = pgTable(
+  'default_ingredients',
+  (d) => ({
+    userId: d.varchar('user_id', { length: 256 }).notNull(),
+
+    ingredientId: d
+      .bigint('ingredient_id', { mode: 'number' })
+      .notNull()
+      .references(() => ingredients.id, { onDelete: 'restrict', onUpdate: 'restrict' }),
+  }),
+  (t) => [primaryKey({ columns: [t.userId, t.ingredientId] })],
+);
