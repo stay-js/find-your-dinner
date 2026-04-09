@@ -4,8 +4,8 @@ import { useQuery } from '@tanstack/react-query';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 import { useMergeQueryString } from '~/hooks/use-merge-query-string';
-import { GET } from '~/lib/api';
-import { idArraySearchSchema, ingredientsSchema } from '~/lib/zod';
+import { getIngredients } from '~/lib/queries';
+import { idArraySearchSchema } from '~/lib/zod';
 
 export function useIngredientsFilter() {
   const router = useRouter();
@@ -15,11 +15,7 @@ export function useIngredientsFilter() {
 
   const selectedIngredients = idArraySearchSchema.parse(searchParams.get('ingredients'));
 
-  const { data: ingredients } = useQuery({
-    queryFn: () => GET('/api/ingredients', ingredientsSchema),
-    queryKey: ['ingredients'],
-    staleTime: Infinity,
-  });
+  const { data: ingredients } = useQuery(getIngredients());
 
   function handleIngredientsChange(values: number[]) {
     const params = {

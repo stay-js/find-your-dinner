@@ -4,8 +4,8 @@ import { useQuery } from '@tanstack/react-query';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 import { useMergeQueryString } from '~/hooks/use-merge-query-string';
-import { GET } from '~/lib/api';
-import { categoriesSchema, idArraySearchSchema } from '~/lib/zod';
+import { getCategories } from '~/lib/queries';
+import { idArraySearchSchema } from '~/lib/zod';
 
 export function useCategoriesFilter() {
   const router = useRouter();
@@ -15,11 +15,7 @@ export function useCategoriesFilter() {
 
   const selectedCategories = idArraySearchSchema.parse(searchParams.get('categories'));
 
-  const { data: categories } = useQuery({
-    queryFn: () => GET('/api/categories', categoriesSchema),
-    queryKey: ['categories'],
-    staleTime: Infinity,
-  });
+  const { data: categories } = useQuery(getCategories());
 
   function handleCategoriesChange(values: number[]) {
     const params = {

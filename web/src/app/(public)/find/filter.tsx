@@ -4,8 +4,7 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { FilterCombobox } from '~/components/filter/filter-combobox';
 import { Button } from '~/components/ui/button';
 import { useMergeQueryString } from '~/hooks/use-merge-query-string';
-import { GET } from '~/lib/api';
-import { ingredientsSchema } from '~/lib/zod/schemas';
+import { getIngredients } from '~/lib/queries';
 
 import { type FindPageSetState } from './find';
 
@@ -20,11 +19,7 @@ export function Filter({ ingredientIds, setState }: FilterProps) {
   const searchParams = useSearchParams();
   const mergeQueryString = useMergeQueryString(searchParams);
 
-  const { data: ingredients } = useQuery({
-    queryFn: () => GET('/api/ingredients', ingredientsSchema),
-    queryKey: ['ingredients'],
-    staleTime: Infinity,
-  });
+  const { data: ingredients } = useQuery(getIngredients());
 
   function handleIngredientsChange(values: number[]) {
     router.replace(`${pathname}?${mergeQueryString({ ingredients: JSON.stringify(values) })}`);

@@ -18,16 +18,10 @@ import { Spinner } from '~/components/ui/spinner';
 import { Toggle } from '~/components/ui/toggle';
 import { useDebouncedLoading } from '~/hooks/use-debounced-loading';
 import { useIsMobile } from '~/hooks/use-mobile';
-import { GET, POST, PUT } from '~/lib/api';
+import { POST, PUT } from '~/lib/api';
+import { getCategories, getIngredients, getUnits } from '~/lib/queries';
 import { cn } from '~/lib/utils';
-import {
-  categoriesSchema,
-  type CreateUpdateRecipeSchema,
-  ingredientsSchema,
-  isIntegerString,
-  isPositiveIntegerString,
-  unitsSchema,
-} from '~/lib/zod';
+import { type CreateUpdateRecipeSchema, isIntegerString, isPositiveIntegerString } from '~/lib/zod';
 
 const formSchema = z.object({
   categories: z.array(z.number().int().positive()).min(1, {
@@ -105,20 +99,9 @@ export function RecipeForm({ defaultValues, recipeId }: RecipeFormProps) {
     remove: removeIngredient,
   } = useFieldArray({ control, name: 'ingredients' });
 
-  const { data: categories, isLoading: isCategoriesLoading } = useQuery({
-    queryFn: () => GET('/api/categories', categoriesSchema),
-    queryKey: ['categories'],
-  });
-
-  const { data: ingredients, isLoading: isIngredientsLoading } = useQuery({
-    queryFn: () => GET('/api/ingredients', ingredientsSchema),
-    queryKey: ['ingredients'],
-  });
-
-  const { data: units, isLoading: isUnitsLoading } = useQuery({
-    queryFn: () => GET('/api/units', unitsSchema),
-    queryKey: ['units'],
-  });
+  const { data: categories, isLoading: isCategoriesLoading } = useQuery(getCategories());
+  const { data: ingredients } = useQuery(getIngredients());
+  const { data: units } = useQuery(getUnits());
 
   const { isPending: isCreatePending, mutateAsync: createRecipe } = useMutation({
     mutationFn: (data: CreateUpdateRecipeSchema) => POST('/api/recipes', data),
@@ -342,7 +325,7 @@ export function RecipeForm({ defaultValues, recipeId }: RecipeFormProps) {
                 <div className="flex w-full flex-col gap-3">
                   <FormCombobox
                     control={control}
-                    disabled={isIngredientsLoading}
+                    disabled={!ingredients}
                     label="Hozzávaló"
                     name={`ingredients.${index}.ingredientId`}
                     options={ingredients?.map(({ id, name }) => ({ label: name, value: id })) ?? []}
@@ -361,7 +344,7 @@ export function RecipeForm({ defaultValues, recipeId }: RecipeFormProps) {
 
                   <FormSelect
                     control={control}
-                    disabled={isUnitsLoading}
+                    disabled={!units}
                     label="Mértékegység"
                     name={`ingredients.${index}.unitId`}
                     placeholder="Válassz mértékegységet"
