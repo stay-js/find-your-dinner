@@ -13,7 +13,7 @@ export const metadata = createMetadata({
 
 export default async function DashboardAdminManageUnitsPage() {
   return (
-    <div className="container flex h-full flex-col gap-4">
+    <div className="container h-full">
       <Units />
     </div>
   );
