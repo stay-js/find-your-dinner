@@ -88,7 +88,7 @@ export function Categories() {
   return (
     <>
       <div className="flex h-full flex-col gap-4">
-        <div className="flex items-center justify-between gap-2">
+        <div className="flex justify-between gap-4 max-sm:flex-col sm:items-center">
           <h1 className="text-foreground text-2xl font-semibold">Kategóriák kezelése</h1>
 
           <Button onClick={openCreate} type="button">

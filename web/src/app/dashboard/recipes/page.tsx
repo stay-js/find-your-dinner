@@ -18,7 +18,7 @@ export const metadata = createMetadata({
 export default async function DashboardManageRecipesPage() {
   return (
     <div className="container flex h-full flex-col gap-4">
-      <div className="flex justify-between gap-4 max-sm:flex-col">
+      <div className="flex justify-between gap-4 max-sm:flex-col sm:items-center">
         <h1 className="text-foreground text-2xl font-semibold">Recepteim kezelése</h1>
 
         <Button asChild>
