@@ -210,7 +210,6 @@ export function RecipeForm({ defaultValues, recipeId }: RecipeFormProps) {
               <div className="flex flex-col gap-4">
                 <FormInput
                   control={control}
-                  errorPosition={isMobile ? 'top' : 'bottom'}
                   icon={<Clock className="size-4" />}
                   label="Előkészítési idő (perc)"
                   min={0}
@@ -222,7 +221,6 @@ export function RecipeForm({ defaultValues, recipeId }: RecipeFormProps) {
 
                 <FormInput
                   control={control}
-                  errorPosition={isMobile ? 'top' : 'bottom'}
                   icon={<ChefHat className="size-4" />}
                   label="Főzési/Sütési idő (perc)"
                   min={0}
@@ -234,7 +232,6 @@ export function RecipeForm({ defaultValues, recipeId }: RecipeFormProps) {
 
                 <FormInput
                   control={control}
-                  errorPosition={isMobile ? 'top' : 'bottom'}
                   icon={<Users className="size-4" />}
                   label="Adagok száma"
                   min={0}
@@ -352,7 +349,7 @@ export function RecipeForm({ defaultValues, recipeId }: RecipeFormProps) {
                     disabled={isIngredientsLoading}
                     label="Hozzávaló"
                     name={`ingredients.${index}.ingredientId`}
-                    options={ingredients?.map((i) => ({ label: i.name, value: i.id })) ?? []}
+                    options={ingredients?.map(({ id, name }) => ({ label: name, value: id })) ?? []}
                     placeholder="Válassz hozzávalót"
                   />
 
