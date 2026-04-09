@@ -211,12 +211,8 @@ export function RecipeForm({ defaultValues, recipeId }: RecipeFormProps) {
                 <FormInput
                   control={control}
                   errorPosition={isMobile ? 'top' : 'bottom'}
-                  label={
-                    <>
-                      <Clock className="size-4" />
-                      <span>Előkészítési idő (perc)</span>
-                    </>
-                  }
+                  icon={<Clock className="size-4" />}
+                  label="Előkészítési idő (perc)"
                   min={0}
                   name="prepTimeMinutes"
                   placeholder="15"
@@ -227,12 +223,8 @@ export function RecipeForm({ defaultValues, recipeId }: RecipeFormProps) {
                 <FormInput
                   control={control}
                   errorPosition={isMobile ? 'top' : 'bottom'}
-                  label={
-                    <>
-                      <ChefHat className="size-4" />
-                      <span>Főzési/Sütési idő (perc)</span>
-                    </>
-                  }
+                  icon={<ChefHat className="size-4" />}
+                  label="Főzési/Sütési idő (perc)"
                   min={0}
                   name="cookTimeMinutes"
                   placeholder="30"
@@ -243,12 +235,8 @@ export function RecipeForm({ defaultValues, recipeId }: RecipeFormProps) {
                 <FormInput
                   control={control}
                   errorPosition={isMobile ? 'top' : 'bottom'}
-                  label={
-                    <>
-                      <Users className="size-4" />
-                      <span>Adagok száma</span>
-                    </>
-                  }
+                  icon={<Users className="size-4" />}
+                  label="Adagok száma"
                   min={0}
                   name="servings"
                   placeholder="4"

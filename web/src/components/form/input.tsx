@@ -22,6 +22,7 @@ type FormInputProps<
   name: TName;
 
   disabled?: boolean;
+  icon?: React.ReactNode;
   label: React.ReactNode;
   max?: number;
   min?: number;
@@ -36,6 +37,7 @@ export function FormInput<TFieldValues extends FieldValues, TName extends FieldP
   control,
   disabled,
   errorPosition = 'top',
+  icon,
   label,
   max,
   min,
@@ -52,7 +54,16 @@ export function FormInput<TFieldValues extends FieldValues, TName extends FieldP
         render={({ field, fieldState }) => (
           <Field data-invalid={fieldState.invalid}>
             <div className="flex flex-wrap justify-between gap-x-4 gap-y-2">
-              <FieldLabel htmlFor={name}>{label}</FieldLabel>
+              <FieldLabel htmlFor={name}>
+                {icon ? (
+                  <>
+                    {icon} <span>{label}</span>
+                  </>
+                ) : (
+                  label
+                )}
+              </FieldLabel>
+
               {fieldState.invalid && errorPosition === 'top' && (
                 <FieldError errors={[fieldState.error]} />
               )}
