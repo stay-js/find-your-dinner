@@ -1,3 +1,4 @@
+import { About, CTA, Features, Hero, Tournament } from '~/components/landing-page';
 import { createMetadata } from '~/lib/create-metadata';
 
 export const metadata = createMetadata({
@@ -9,8 +10,12 @@ export const metadata = createMetadata({
 
 export default async function PublicLandingPage() {
   return (
-    <div className="container">
-      <h1 className="text-2xl font-semibold">Find Your Dinner.</h1>
-    </div>
+    <main className="flex min-h-screen flex-col">
+      <Hero />
+      <About />
+      <Features />
+      <Tournament />
+      <CTA />
+    </main>
   );
 }

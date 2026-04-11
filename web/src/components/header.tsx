@@ -18,7 +18,7 @@ export function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
-    <header className="bg-background fixed top-0 z-10 w-full border-b">
+    <header className="bg-background sticky top-0 z-10 w-full border-b">
       <div className="flex h-16 items-center justify-between gap-4 px-4">
         <Link className="flex items-center gap-2" href="/">
           <Logo size={36} />
