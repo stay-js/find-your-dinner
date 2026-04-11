@@ -58,7 +58,7 @@ export function Header() {
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <Button size="icon" variant="ghost">
-                      <UserAvatar className="size-7" />
+                      <UserAvatar className="size-5.5" />
                     </Button>
                   </DropdownMenuTrigger>
 
@@ -83,7 +83,7 @@ export function Header() {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button size="icon" variant="ghost">
-                  <UserAvatar className="size-7" />
+                  <UserAvatar className="size-5.5" />
                 </Button>
               </DropdownMenuTrigger>
 
