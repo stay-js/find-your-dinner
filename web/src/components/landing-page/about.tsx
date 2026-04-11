@@ -44,7 +44,7 @@ export function About() {
               </CardDescription>
             </CardContent>
 
-            <CardFooter className="mt-auto flex flex-wrap gap-2">
+            <CardFooter className="mt-auto flex min-h-20 flex-wrap gap-2">
               {['🍗 Csirke', '🧄 Fokhagyma', '🍅 Paradicsom', '🧀 Sajt', '🌿 Bazsalikom'].map(
                 (ingredient) => (
                   <Badge className="text-xs" key={ingredient} variant="outline">
@@ -71,21 +71,15 @@ export function About() {
               </CardDescription>
             </CardContent>
 
-            <CardFooter className="mt-auto flex items-center justify-center gap-8">
-              <div className="flex flex-col items-center gap-2">
-                <div className="bg-destructive/10 rounded-full p-2.5">
-                  <X className="text-destructive size-5" />
-                </div>
-
-                <span className="text-muted-foreground text-xs">Nem tetszik</span>
+            <CardFooter className="mt-auto flex min-h-20 items-center justify-center gap-4">
+              <div className="bg-destructive/10 rounded-full p-2.5">
+                <X className="text-destructive size-5" />
               </div>
 
-              <div className="flex flex-col items-center gap-2">
-                <div className="bg-chart-2/10 rounded-full p-2.5">
-                  <Heart className="text-chart-2 size-5 fill-current" />
-                </div>
+              <span>vagy</span>
 
-                <span className="text-muted-foreground text-xs">Tetszik</span>
+              <div className="bg-chart-2/10 rounded-full p-2.5">
+                <Heart className="text-chart-2 size-5 fill-current" />
               </div>
             </CardFooter>
           </Card>
@@ -106,7 +100,7 @@ export function About() {
               </CardDescription>
             </CardContent>
 
-            <CardFooter className="mt-auto flex items-center justify-center gap-2">
+            <CardFooter className="mt-auto flex min-h-20 items-center justify-center gap-2">
               <div className="bg-secondary rounded-lg border px-3 py-1.5 text-xs font-medium">
                 Tészta 🍝
               </div>
