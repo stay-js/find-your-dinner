@@ -2,7 +2,10 @@ import 'dotenv/config';
 
 import { db } from '~/server/db';
 import { ingredients } from '~/server/db/schema';
+
 const data = [
+  { name: 'Víz' },
+
   // Zöldségek
   { name: 'Vöröshagyma' },
   { name: 'Fokhagyma' },
