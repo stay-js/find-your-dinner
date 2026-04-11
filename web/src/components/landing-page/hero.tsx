@@ -1,3 +1,5 @@
+'use client';
+
 import { ArrowRight, ChefHat, Clock, Heart, Sparkles, X } from 'lucide-react';
 import Link from 'next/link';
 
@@ -38,8 +40,13 @@ export function Hero() {
             </Link>
           </Button>
 
-          <Button asChild className="px-8 text-base" size="lg" variant="outline">
-            <Link href="/#about">Hogyan működik?</Link>
+          <Button
+            className="px-8 text-base"
+            onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })}
+            size="lg"
+            variant="outline"
+          >
+            Hogyan működik?
           </Button>
         </div>
 

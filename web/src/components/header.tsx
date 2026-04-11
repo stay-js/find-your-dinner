@@ -4,6 +4,7 @@ import { SignInButton, SignUpButton } from '@clerk/nextjs';
 import { useSession } from '@clerk/nextjs';
 import { Menu, X } from 'lucide-react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 
 import { Logo } from '~/components/logo';
@@ -14,13 +15,23 @@ import { UserDropdown } from '~/components/user-dropdown';
 
 export function Header() {
   const { isLoaded, isSignedIn } = useSession();
+  const pathname = usePathname();
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
     <header className="bg-background sticky top-0 z-10 w-full border-b">
       <div className="flex h-16 items-center justify-between gap-4 px-4">
-        <Link className="flex items-center gap-2" href="/">
+        <Link
+          className="flex items-center gap-2"
+          href="/"
+          onClick={(e) => {
+            if (pathname === '/') {
+              e.preventDefault();
+              window.scrollTo({ behavior: 'smooth', top: 0 });
+            }
+          }}
+        >
           <Logo size={36} />
 
           <span className="text-primary text-base font-semibold underline-offset-4 hover:underline">
