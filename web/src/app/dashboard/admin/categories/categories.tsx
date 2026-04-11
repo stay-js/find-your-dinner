@@ -9,7 +9,6 @@ import { NoContent } from '~/components/no-content';
 import { Button } from '~/components/ui/button';
 import { Input } from '~/components/ui/input';
 import { useSearch } from '~/hooks/filter/use-search';
-import { useDebouncedLoading } from '~/hooks/use-debounced-loading';
 import { DELETE, GET, POST, PUT } from '~/lib/api';
 import {
   categoriesSchema,
@@ -37,8 +36,6 @@ export function Categories() {
     },
     queryKey: ['categories', { query: debouncedQuery }],
   });
-
-  const showSkeleton = useDebouncedLoading(isLoading);
 
   const { isPending: isStorePending, mutate: store } = useMutation({
     mutationFn: (data: CreateUpdateCategorySchema) => POST('/api/categories', data),
@@ -118,18 +115,17 @@ export function Categories() {
         )}
 
         <div className="flex flex-col gap-2">
-          {showSkeleton && new Array(3).fill(null).map((_, i) => <CategorySkeleton key={i} />)}
+          {isLoading && new Array(3).fill(null).map((_, i) => <CategorySkeleton key={i} />)}
 
-          {!showSkeleton &&
-            categories?.map((category) => (
-              <Category
-                category={category}
-                isDestroyPending={isDestroyPending}
-                key={category.id}
-                onDelete={() => destroy(category.id)}
-                onEdit={() => openEdit(category)}
-              />
-            ))}
+          {categories?.map((category) => (
+            <Category
+              category={category}
+              isDestroyPending={isDestroyPending}
+              key={category.id}
+              onDelete={() => destroy(category.id)}
+              onEdit={() => openEdit(category)}
+            />
+          ))}
         </div>
       </div>
 

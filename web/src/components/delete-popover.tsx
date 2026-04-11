@@ -11,8 +11,6 @@ import {
   PopoverTrigger,
 } from '~/components/ui/popover';
 import { Spinner } from '~/components/ui/spinner';
-import { useDebouncedLoading } from '~/hooks/use-debounced-loading';
-
 type DeletePopoverProps = {
   isPending: boolean;
   onDelete: () => void;
@@ -21,8 +19,6 @@ type DeletePopoverProps = {
 
 export function DeletePopover({ isPending, onDelete, type }: DeletePopoverProps) {
   const [isOpen, setIsOpen] = useState(false);
-
-  const showPending = useDebouncedLoading(isPending);
 
   return (
     <Popover onOpenChange={setIsOpen} open={isOpen}>
@@ -52,7 +48,7 @@ export function DeletePopover({ isPending, onDelete, type }: DeletePopoverProps)
             type="button"
             variant="destructive"
           >
-            {showPending && <Spinner />}
+            {isPending && <Spinner />}
             <span>Törlés</span>
           </Button>
         </div>

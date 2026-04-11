@@ -15,7 +15,6 @@ import {
   SheetTitle,
 } from '~/components/ui/sheet';
 import { Spinner } from '~/components/ui/spinner';
-import { useDebouncedLoading } from '~/hooks/use-debounced-loading';
 import { type CreateUpdateUnitSchema, type Unit } from '~/lib/zod/schemas';
 
 const formSchema = z.object({
@@ -59,8 +58,6 @@ export function UnitForm({
     resolver: zodResolver(formSchema),
   });
 
-  const showPending = useDebouncedLoading(isPending);
-
   useEffect(() => {
     reset(selected ?? defaultValues);
   }, [selected, reset, isOpen]);
@@ -90,7 +87,7 @@ export function UnitForm({
 
           <SheetFooter>
             <Button disabled={isPending} size="lg" type="submit">
-              {showPending && <Spinner />}
+              {isPending && <Spinner />}
               <span>Mentés</span>
             </Button>
 

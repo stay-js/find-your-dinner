@@ -10,7 +10,6 @@ import { PaginationComponent } from '~/components/pagination-component';
 import { RecipeCard } from '~/components/recipe-card';
 import { RecipeCardSkeleton } from '~/components/recipe-card-skeleton';
 import { useRecipeFilters } from '~/hooks/filter';
-import { useDebouncedLoading } from '~/hooks/use-debounced-loading';
 import { useMergeQueryString } from '~/hooks/use-merge-query-string';
 import { GET } from '~/lib/api';
 import { pageSchema, paginatedRecipesSchema } from '~/lib/zod';
@@ -58,8 +57,6 @@ export function Recipes() {
     ],
   });
 
-  const showSkeleton = useDebouncedLoading(isLoading);
-
   const currentApiPage = recipes?.meta?.currentPage;
 
   useEffect(() => {
@@ -84,7 +81,7 @@ export function Recipes() {
       )}
 
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {showSkeleton && new Array(3).fill(null).map((_, i) => <RecipeCardSkeleton key={i} />)}
+        {isLoading && new Array(3).fill(null).map((_, i) => <RecipeCardSkeleton key={i} />)}
 
         {recipes?.data.map((recipe) => (
           <RecipeCard key={recipe.recipe.id} pageType="search" recipe={recipe} />

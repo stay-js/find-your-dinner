@@ -16,7 +16,6 @@ import { SelectGroup, SelectItem, SelectLabel } from '~/components/ui/select';
 import { Skeleton } from '~/components/ui/skeleton';
 import { Spinner } from '~/components/ui/spinner';
 import { Toggle } from '~/components/ui/toggle';
-import { useDebouncedLoading } from '~/hooks/use-debounced-loading';
 import { useIsMobile } from '~/hooks/use-mobile';
 import { useMounted } from '~/hooks/use-mounted';
 import { POST, PUT } from '~/lib/api';
@@ -118,7 +117,6 @@ export function RecipeForm({ defaultValues, recipeId }: RecipeFormProps) {
   });
 
   const isPending = isCreatePending || isUpdatePending;
-  const showPending = useDebouncedLoading(isPending);
 
   const onSubmit: SubmitHandler<FormSchema> = (data) => {
     const parsedData = {
@@ -389,7 +387,7 @@ export function RecipeForm({ defaultValues, recipeId }: RecipeFormProps) {
         </Card>
 
         <Button className="self-end" disabled={isPending} size="lg" type="submit">
-          {showPending && <Spinner />}
+          {isPending && <Spinner />}
           Recept {isEdit ? 'szerkesztése' : 'létrehozása'}
         </Button>
       </form>

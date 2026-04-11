@@ -9,7 +9,6 @@ import { NoContent } from '~/components/no-content';
 import { Button } from '~/components/ui/button';
 import { Input } from '~/components/ui/input';
 import { useSearch } from '~/hooks/filter/use-search';
-import { useDebouncedLoading } from '~/hooks/use-debounced-loading';
 import { DELETE, GET, POST, PUT } from '~/lib/api';
 import { type CreateUpdateUnitSchema, unitsSchema, type Unit as UnitType } from '~/lib/zod';
 
@@ -33,8 +32,6 @@ export function Units() {
     },
     queryKey: ['units', { query: debouncedQuery }],
   });
-
-  const showSkeleton = useDebouncedLoading(isLoading);
 
   const { isPending: isStorePending, mutate: store } = useMutation({
     mutationFn: (data: CreateUpdateUnitSchema) => POST('/api/units', data),
@@ -114,18 +111,17 @@ export function Units() {
         )}
 
         <div className="flex flex-col gap-2">
-          {showSkeleton && new Array(3).fill(null).map((_, i) => <UnitSkeleton key={i} />)}
+          {isLoading && new Array(3).fill(null).map((_, i) => <UnitSkeleton key={i} />)}
 
-          {!showSkeleton &&
-            units?.map((unit) => (
-              <Unit
-                isDestroyPending={isDestroyPending}
-                key={unit.id}
-                onDelete={() => destroy(unit.id)}
-                onEdit={() => openEdit(unit)}
-                unit={unit}
-              />
-            ))}
+          {units?.map((unit) => (
+            <Unit
+              isDestroyPending={isDestroyPending}
+              key={unit.id}
+              onDelete={() => destroy(unit.id)}
+              onEdit={() => openEdit(unit)}
+              unit={unit}
+            />
+          ))}
         </div>
       </div>
 

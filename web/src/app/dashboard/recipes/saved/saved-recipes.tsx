@@ -13,7 +13,6 @@ import { RecipeCardSkeleton } from '~/components/recipe-card-skeleton';
 import { Button } from '~/components/ui/button';
 import { useSidebar } from '~/components/ui/sidebar';
 import { useRecipeFilters } from '~/hooks/filter';
-import { useDebouncedLoading } from '~/hooks/use-debounced-loading';
 import { useMergeQueryString } from '~/hooks/use-merge-query-string';
 import { GET } from '~/lib/api';
 import { cn } from '~/lib/utils';
@@ -68,8 +67,6 @@ export function SavedRecipes() {
     ],
   });
 
-  const showSkeleton = useDebouncedLoading(isLoading);
-
   const currentApiPage = savedRecipes?.meta?.currentPage;
 
   useEffect(() => {
@@ -106,7 +103,7 @@ export function SavedRecipes() {
           isSidebarOpen ? 'lg:grid-cols-2 xl:grid-cols-3' : 'sm:grid-cols-2 lg:grid-cols-3',
         )}
       >
-        {showSkeleton && new Array(3).fill(null).map((_, i) => <RecipeCardSkeleton key={i} />)}
+        {isLoading && new Array(3).fill(null).map((_, i) => <RecipeCardSkeleton key={i} />)}
 
         {savedRecipes?.data.map((recipe) => (
           <RecipeCard key={recipe.recipe.id} pageType="saved" recipe={recipe} />

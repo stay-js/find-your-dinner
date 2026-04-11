@@ -9,7 +9,6 @@ import { NoContent } from '~/components/no-content';
 import { Button } from '~/components/ui/button';
 import { Input } from '~/components/ui/input';
 import { useSearch } from '~/hooks/filter/use-search';
-import { useDebouncedLoading } from '~/hooks/use-debounced-loading';
 import { DELETE, GET, POST, PUT } from '~/lib/api';
 import {
   type CreateUpdateIngredientSchema,
@@ -37,8 +36,6 @@ export function Ingredients() {
     },
     queryKey: ['ingredients', { query: debouncedQuery }],
   });
-
-  const showSkeleton = useDebouncedLoading(isLoading);
 
   const { isPending: isStorePending, mutate: store } = useMutation({
     mutationFn: (data: CreateUpdateIngredientSchema) => POST('/api/ingredients', data),
@@ -118,18 +115,17 @@ export function Ingredients() {
         )}
 
         <div className="flex flex-col gap-2">
-          {showSkeleton && new Array(3).fill(null).map((_, i) => <IngredientSkeleton key={i} />)}
+          {isLoading && new Array(3).fill(null).map((_, i) => <IngredientSkeleton key={i} />)}
 
-          {!showSkeleton &&
-            ingredients?.map((ingredient) => (
-              <Ingredient
-                ingredient={ingredient}
-                isDestroyPending={isDestroyPending}
-                key={ingredient.id}
-                onDelete={() => destroy(ingredient.id)}
-                onEdit={() => openEdit(ingredient)}
-              />
-            ))}
+          {ingredients?.map((ingredient) => (
+            <Ingredient
+              ingredient={ingredient}
+              isDestroyPending={isDestroyPending}
+              key={ingredient.id}
+              onDelete={() => destroy(ingredient.id)}
+              onEdit={() => openEdit(ingredient)}
+            />
+          ))}
         </div>
       </div>
 
