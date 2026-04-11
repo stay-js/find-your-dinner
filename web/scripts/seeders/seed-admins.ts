@@ -5,6 +5,7 @@ import { admins } from '~/server/db/schema';
 
 const data = [
   { userId: 'user_38bzMM6AVsxkk7dJNc7n4GLSkDm' }, // znagy, dev
+  { userId: 'user_3CCx7CfdpF5IWcdjVb0DmpUppw5' }, // ppanna, dev
 ] satisfies (typeof admins.$inferInsert)[];
 
 export async function seedAdmins() {
