@@ -101,15 +101,11 @@ export function About() {
             </CardContent>
 
             <CardFooter className="mt-auto flex min-h-20 items-center justify-center gap-2">
-              <div className="bg-secondary rounded-lg border px-3 py-1.5 text-xs font-medium">
-                Tészta 🍝
-              </div>
+              <Badge className="h-8 rounded-lg p-2">🍝 Tészta</Badge>
 
               <span className="text-primary text-sm font-bold">VS</span>
 
-              <div className="bg-secondary rounded-lg border px-3 py-1.5 text-xs font-medium">
-                Wok 🥘
-              </div>
+              <Badge className="h-8 rounded-lg p-2">🥘 Wok</Badge>
             </CardFooter>
           </Card>
         </div>
