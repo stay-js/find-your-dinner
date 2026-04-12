@@ -79,7 +79,7 @@ export function Hero() {
             </div>
 
             <div className="flex items-center justify-center gap-6 py-2">
-              <div className="border-destructive/30 bg-destructive/10 hover:bg-destructive/20 border-2 p-4 transition-colors">
+              <div className="border-destructive/30 bg-destructive/10 hover:bg-destructive/20 rounded-full border-2 p-4 transition-colors">
                 <X className="text-destructive size-6" />
               </div>
 
