@@ -1,7 +1,7 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { ChefHat, Clock, Plus, Trash2, Users, X } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { Controller, type SubmitHandler, useFieldArray, useForm } from 'react-hook-form';
@@ -86,8 +86,14 @@ export function RecipeForm({ defaultValues, recipeId }: RecipeFormProps) {
   const router = useRouter();
   const isMobile = useIsMobile();
   const mounted = useMounted();
+  const utils = useQueryClient();
 
   const isEdit = !!recipeId;
+
+  function invalidate() {
+    utils.invalidateQueries({ queryKey: ['recipes'] });
+    utils.invalidateQueries({ queryKey: ['currentUser', 'recipes'] });
+  }
 
   const { control, handleSubmit, reset } = useForm<FormSchema>({
     defaultValues,
@@ -107,13 +113,19 @@ export function RecipeForm({ defaultValues, recipeId }: RecipeFormProps) {
   const { isPending: isCreatePending, mutateAsync: createRecipe } = useMutation({
     mutationFn: (data: CreateUpdateRecipeSchema) => POST('/api/recipes', data),
     onError: () => toast.error('Hiba történt a recept létrehozása során!'),
-    onSuccess: () => router.push('/dashboard/recipes'),
+    onSuccess: () => {
+      invalidate();
+      router.push('/dashboard/recipes');
+    },
   });
 
   const { isPending: isUpdatePending, mutateAsync: updateRecipe } = useMutation({
     mutationFn: (data: CreateUpdateRecipeSchema) => PUT(`/api/recipes/${recipeId}`, data),
     onError: () => toast.error('Hiba történt a recept szerkesztése során!'),
-    onSuccess: () => router.push('/dashboard/recipes'),
+    onSuccess: () => {
+      invalidate();
+      router.push('/dashboard/recipes');
+    },
   });
 
   const isPending = isCreatePending || isUpdatePending;

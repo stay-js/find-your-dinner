@@ -1,6 +1,6 @@
 'use client';
 
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { AlertTriangle, CheckCircle } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
@@ -17,6 +17,7 @@ type ApproveProps = {
 
 export function Approve({ recipeDataId, visible: initialVisible }: ApproveProps) {
   const router = useRouter();
+  const utils = useQueryClient();
 
   const [visible, setVisible] = useState(initialVisible);
 
@@ -27,6 +28,8 @@ export function Approve({ recipeDataId, visible: initialVisible }: ApproveProps)
     },
     onSuccess: () => {
       setVisible(false);
+
+      utils.invalidateQueries({ queryKey: ['recipes'] });
       router.refresh();
     },
   });
