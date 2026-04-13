@@ -1,4 +1,5 @@
 import { SetRecipeTitle } from '~/contexts/recipe-title-context';
+import { cn } from '~/lib/utils';
 import { type getRecipe } from '~/server/utils/get-recipe';
 
 import { Categories } from './categories';
@@ -13,6 +14,7 @@ type Recipe = Awaited<ReturnType<typeof getRecipe>>;
 
 interface RecipePageProps extends Recipe {
   children?: React.ReactNode;
+  className?: string;
   isAdmin: boolean;
   userId: null | string;
 }
@@ -21,6 +23,7 @@ export function RecipePage({
   author,
   categories,
   children,
+  className,
   ingredients,
   isAdmin,
   recipe,
@@ -31,7 +34,12 @@ export function RecipePage({
     <div className="@container">
       <SetRecipeTitle title={recipeData.title} />
 
-      <div className="container grid gap-6 pt-6 @5xl:grid-cols-[5fr_2fr] @6xl:grid-cols-[3fr_1fr]">
+      <div
+        className={cn(
+          'container grid gap-6 @5xl:grid-cols-[5fr_2fr] @6xl:grid-cols-[3fr_1fr]',
+          className,
+        )}
+      >
         <div className="flex flex-col gap-6">
           {children}
 
