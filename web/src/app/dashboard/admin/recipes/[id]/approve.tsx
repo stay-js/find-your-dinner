@@ -3,21 +3,35 @@
 import { useMutation } from '@tanstack/react-query';
 import { AlertTriangle, CheckCircle } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 import { toast } from 'sonner';
 
 import { Button } from '~/components/ui/button';
+import { Spinner } from '~/components/ui/spinner';
 import { POST } from '~/lib/api';
 
-export function Approve({ recipeDataId }: { recipeDataId: number }) {
+type ApproveProps = {
+  recipeDataId: number;
+  visible: boolean;
+};
+
+export function Approve({ recipeDataId, visible: initialVisible }: ApproveProps) {
   const router = useRouter();
 
-  const { isPending: isApproving, mutate: approveRecipeData } = useMutation({
+  const [visible, setVisible] = useState(initialVisible);
+
+  const { isPending, mutate: approveRecipeData } = useMutation({
     mutationFn: (recipeDataId: number) => POST(`/api/recipe-data/${recipeDataId}/verify`),
     onError: () => {
       toast.error('Hiba történt a recept jóváhagyása során. Kérlek, próbáld újra később.');
     },
-    onSuccess: () => router.refresh(),
+    onSuccess: () => {
+      setVisible(false);
+      router.refresh();
+    },
   });
+
+  if (!visible) return null;
 
   return (
     <div className="bg-accent/30 flex items-center justify-between gap-4 rounded-lg border px-4 py-3">
@@ -32,8 +46,8 @@ export function Approve({ recipeDataId }: { recipeDataId: number }) {
         </div>
       </div>
 
-      <Button disabled={isApproving} onClick={() => approveRecipeData(recipeDataId)} size="sm">
-        <CheckCircle className="size-4" />
+      <Button disabled={isPending} onClick={() => approveRecipeData(recipeDataId)} size="sm">
+        {isPending ? <Spinner /> : <CheckCircle className="size-4" />}
         <span>Recept jóváhagyása</span>
       </Button>
     </div>

@@ -25,7 +25,7 @@ export default async function DashboardAdminRecipePage({
 
   return (
     <RecipePage {...data} isAdmin={true} userId={userId}>
-      {!data.recipeData.verified && <Approve recipeDataId={data.recipeData.id} />}
+      <Approve recipeDataId={data.recipeData.id} visible={!data.recipeData.verified} />
     </RecipePage>
   );
 }
