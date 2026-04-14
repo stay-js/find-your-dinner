@@ -19,7 +19,7 @@ export function getCategories() {
 export function getDefaultIngredients() {
   return queryOptions({
     queryFn: () => GET('/api/user/default-ingredients', defaultIngredientIdsSchema),
-    queryKey: ['currentUser', 'default-ingredients'],
+    queryKey: ['currentUser', 'defaultIngredients'],
     staleTime: Infinity,
   });
 }

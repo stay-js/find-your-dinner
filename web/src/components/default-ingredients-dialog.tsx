@@ -30,7 +30,8 @@ export function DefaultIngredientsDialog({ onOpenChange, open }: DefaultIngredie
   const { data: ingredients } = useQuery(getIngredients());
   const { data: defaultIngredientIds } = useQuery(getDefaultIngredients());
 
-  const [selectedIds, setSelectedIds] = useState<number[]>([]);
+  const [localIds, setLocalIds] = useState<null | number[]>(null);
+  const selectedIds = localIds ?? defaultIngredientIds ?? [];
   const portalContainerRef = useRef<HTMLDivElement>(null);
 
   const options = useMemo(
@@ -43,19 +44,18 @@ export function DefaultIngredientsDialog({ onOpenChange, open }: DefaultIngredie
   );
 
   function handleOpenChange(nextOpen: boolean) {
-    if (nextOpen) {
-      setSelectedIds(defaultIngredientIds ?? []);
-    }
+    if (!nextOpen) setLocalIds(null);
     onOpenChange(nextOpen);
   }
 
   const { isPending, mutate } = useMutation({
-    mutationFn: (ingredientIds: number[]) =>
-      PUT('/api/user/default-ingredients', { ingredientIds }),
+    mutationFn: (ingredientIds: number[]) => {
+      return PUT('/api/user/default-ingredients', { ingredientIds });
+    },
     onError: () => toast.error('Hiba történt a mentés során. Kérlek, próbáld újra később.'),
     onSuccess: () => {
-      onOpenChange(false);
-      queryClient.invalidateQueries({ queryKey: ['currentUser', 'default-ingredients'] });
+      handleOpenChange(false);
+      queryClient.invalidateQueries({ queryKey: ['currentUser', 'defaultIngredients'] });
     },
   });
 
@@ -76,7 +76,7 @@ export function DefaultIngredientsDialog({ onOpenChange, open }: DefaultIngredie
 
         <FilterCombobox
           label="Hozzávalók"
-          onValueChange={setSelectedIds}
+          onValueChange={setLocalIds}
           options={options}
           placeholder="Hozzávalók..."
           portalContainer={portalContainerRef}
