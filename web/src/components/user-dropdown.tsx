@@ -1,9 +1,7 @@
 'use client';
 
 import { useClerk } from '@clerk/nextjs';
-import { LogOut, PanelsTopLeft, Settings } from 'lucide-react';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { LogOut, Settings, UtensilsCrossed } from 'lucide-react';
 
 import {
   DropdownMenuContent,
@@ -18,10 +16,10 @@ import { useIsMobile } from '~/hooks/use-mobile';
 type UserDropdownProps = {
   location: 'left' | 'right';
   onClose?: () => void;
+  onOpenDefaultIngredients: () => void;
 };
 
-export function UserDropdown({ location, onClose }: UserDropdownProps) {
-  const pathname = usePathname();
+export function UserDropdown({ location, onClose, onOpenDefaultIngredients }: UserDropdownProps) {
   const isMobile = useIsMobile();
 
   const { openUserProfile, signOut } = useClerk();
@@ -53,14 +51,18 @@ export function UserDropdown({ location, onClose }: UserDropdownProps) {
           </button>
         </DropdownMenuItem>
 
-        {!pathname.startsWith('/dashboard') && (
-          <DropdownMenuItem asChild className="w-full">
-            <Link className="flex items-center gap-2" href="/dashboard">
-              <PanelsTopLeft />
-              <span>Irányítópult</span>
-            </Link>
-          </DropdownMenuItem>
-        )}
+        <DropdownMenuItem asChild className="w-full">
+          <button
+            className="flex items-center gap-2"
+            onClick={() => {
+              onClose?.();
+              onOpenDefaultIngredients();
+            }}
+          >
+            <UtensilsCrossed />
+            <span>Alapértelmezett hozzávalók</span>
+          </button>
+        </DropdownMenuItem>
 
         <DropdownMenuItem asChild className="w-full">
           <button

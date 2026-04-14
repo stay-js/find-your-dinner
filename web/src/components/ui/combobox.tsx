@@ -15,6 +15,8 @@ import { cn } from '~/lib/utils';
 
 const Combobox = ComboboxPrimitive.Root;
 
+type ComboboxPortalContainer = ComboboxPrimitive.Portal.Props['container'];
+
 function ComboboxChip({
   children,
   className,
@@ -94,16 +96,18 @@ function ComboboxContent({
   alignOffset = 0,
   anchor,
   className,
+  container,
   side = 'bottom',
   sideOffset = 6,
   ...props
-}: ComboboxPrimitive.Popup.Props &
-  Pick<
+}: ComboboxPrimitive.Popup.Props & {
+  container?: ComboboxPrimitive.Portal.Props['container'];
+} & Pick<
     ComboboxPrimitive.Positioner.Props,
     'align' | 'alignOffset' | 'anchor' | 'side' | 'sideOffset'
   >) {
   return (
-    <ComboboxPrimitive.Portal>
+    <ComboboxPrimitive.Portal container={container}>
       <ComboboxPrimitive.Positioner
         align={align}
         alignOffset={alignOffset}
@@ -255,6 +259,7 @@ function useComboboxAnchor() {
   return React.useRef<HTMLDivElement | null>(null);
 }
 
+export type { ComboboxPortalContainer };
 export {
   Combobox,
   ComboboxChip,

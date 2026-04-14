@@ -185,6 +185,9 @@ export const createSavedRecipeSchema = z.object({
 });
 export type CreateSavedRecipeSchema = z.infer<typeof createSavedRecipeSchema>;
 
+export const defaultIngredientIdsSchema = z.array(z.number().int().positive());
+export type DefaultIngredientIds = z.infer<typeof defaultIngredientIdsSchema>;
+
 export const createUpdateCategorySchema = z.object({
   name: z.string().min(1).max(128),
 });

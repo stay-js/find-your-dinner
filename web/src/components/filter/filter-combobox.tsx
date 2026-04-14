@@ -9,6 +9,7 @@ import {
   ComboboxEmpty,
   ComboboxItem,
   ComboboxList,
+  type ComboboxPortalContainer,
   ComboboxValue,
   useComboboxAnchor,
 } from '~/components/ui/combobox';
@@ -21,6 +22,7 @@ type FilterComboboxProps = {
   onValueChange: (value: number[]) => void;
   options: Option[];
   placeholder?: string;
+  portalContainer?: ComboboxPortalContainer;
   value: number[];
 };
 
@@ -33,6 +35,7 @@ export function FilterCombobox({
   onValueChange,
   options,
   placeholder,
+  portalContainer,
   value,
 }: FilterComboboxProps) {
   const id = useId();
@@ -69,7 +72,7 @@ export function FilterCombobox({
           <ComboboxChipsInput id={id} placeholder={placeholder} />
         </ComboboxChips>
 
-        <ComboboxContent anchor={anchor}>
+        <ComboboxContent anchor={anchor} container={portalContainer}>
           <ComboboxEmpty>Nincs találat</ComboboxEmpty>
 
           <ComboboxList>
