@@ -10,12 +10,12 @@ export const metadata = createMetadata({
 
 export default async function PublicLandingPage() {
   return (
-    <main className="flex min-h-screen flex-col">
+    <div className="flex min-h-screen flex-col">
       <Hero />
       <About />
       <Features />
       <Tournament />
       <CTA />
-    </main>
+    </div>
   );
 }

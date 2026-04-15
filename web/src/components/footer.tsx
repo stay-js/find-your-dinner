@@ -112,7 +112,7 @@ export function Footer() {
 
           <Link
             className="text-muted-foreground hover:text-foreground underline-offset-4 transition-colors hover:underline"
-            href="/adatkezelesi-tajekoztato"
+            href="/privacy"
           >
             Adatkezelési tájékoztató
           </Link>
