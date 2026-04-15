@@ -21,7 +21,7 @@ export default function PrivacyPage() {
             A Find Your Dinner. csapata (továbbiakban &quot;mi&quot;) üzemelteti ezt a
             webalkalmazást. Ez a tájékoztató ismerteti, hogy milyen adatokat gyűjtünk, hogyan
             használjuk fel azokat, és milyen jogok illetnek meg az adataiddal kapcsolatban. Csak a
-            szolgáltatás működéséhez szükséges adatokat gyűjtjük, és nem adjuk el azokat!
+            szolgáltatás működéséhez szükséges adatokat gyűjtjük, és NEM adjuk el azokat!
           </p>
         </Section>
 
@@ -59,9 +59,9 @@ export default function PrivacyPage() {
           </p>
           <p>
             <span className="text-foreground font-medium">Beállítások és preferenciák:</span> Az
-            alkalmazásban mentett személyes beállításokat, például az alapértelmezett
-            hozzávalólistádat és a kedvenc receptjeidet a saját adatbázisunkban tároljuk, a Clerk
-            felhasználói azonosítódhoz rendelve.
+            alkalmazásban mentett személyes beállításokat, például: az alapértelmezett hozzávalóidat
+            és a kedvenc recepteidet a saját adatbázisunkban tároljuk, a Clerk felhasználói
+            azonosítódhoz rendelve.
           </p>
           <p>
             <span className="text-foreground font-medium">Használati adatok:</span> A szabványos
@@ -75,7 +75,7 @@ export default function PrivacyPage() {
             >
               Vercel
             </Link>{' '}
-            szerverein. Ezek az adatok nem kapcsolódnak össze a személyes fiókadataiddal, és nem
+            szerverein. Ezek az adatok nincsenek összekapcsolva a felhasználói fiókoddal, és nem
             használjuk őket profilozásra vagy reklámozásra. Ezzel kapcsolatban további
             információkért látogass el a következő oldalra:{' '}
             <Link
@@ -93,14 +93,14 @@ export default function PrivacyPage() {
         <Section title="Az adatok felhasználása">
           <p>Az összegyűjtött adatokat a következő célokra használjuk:</p>
           <ul className="flex list-disc flex-col gap-1 pl-5">
-            <li>Hitelesítés és a fiókod biztonsága (a Clerk szolgáltatásán keresztül).</li>
+            <li>Fiókkezelés (a Clerk szolgáltatásán keresztül).</li>
             <li>A recepteid és mentett tartalmaid tárolása és kiszolgálása.</li>
             <li>Technikai problémák diagnosztizálása és a szolgáltatás fejlesztése.</li>
             <li>Jogszabályi kötelezettségek teljesítése.</li>
           </ul>
           <p>
             Adataidat nem használjuk reklámozáshoz, és nem osztjuk meg harmadik féllel (a Clerk
-            kivételével, amely a hitelesítési szolgáltatást nyújtja).
+            kivételével, ami a felhasználói fiókok kezelését végzi).
           </p>
         </Section>
 
@@ -117,9 +117,9 @@ export default function PrivacyPage() {
           <p>
             A fiókhoz kapcsolódó adataidat (receptek, beállítások, mentett tartalmak) a fiók aktív
             ideje alatt őrizzük meg. A fiókod törlésekor az alkalmazásunkban tárolt személyes
-            adataidat 30 napon belül véglegesen töröljük. A Clerk által tárolt fiókadatok (e-mail,
-            jelszó, név) törlését a fiókkezelő felületen kezdeményezheted, ezeket a Clerk a saját
-            adatmegőrzési szabályzata szerint kezeli.
+            adataidat (a recepteiden kívül) 30 napon belül véglegesen töröljük. A Clerk által tárolt
+            fiókadatok (e-mail, jelszó, név) törlését a fiókkezelő felületen kezdeményezheted,
+            ezeket a Clerk a saját adatmegőrzési szabályzata szerint kezeli.
           </p>
         </Section>
 
@@ -130,8 +130,8 @@ export default function PrivacyPage() {
             <li>
               Pontatlan adatok helyesbítéséhez (a profil szerkesztésével vagy kapcsolatfelvétellel).
             </li>
-            <li>A fiókod és a kapcsolódó adatok törlésének kéréséhez.</li>
-            <li>A recepteid exportálásához az irányítópultról.</li>
+            <li>A fiókod és a kapcsolódó adatok törlésének kérelmezéséhez.</li>
+            <li>A recepteid exportálásához.</li>
           </ul>
           <p>
             A Clerk által kezelt adatokhoz (e-mail, jelszó, profilkép) a fiókbeállítások oldalán
