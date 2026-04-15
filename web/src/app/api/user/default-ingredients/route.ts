@@ -20,7 +20,7 @@ export async function GET() {
     .from(defaultIngredients)
     .where(eq(defaultIngredients.userId, userId));
 
-  return NextResponse.json(result.map((r) => r.ingredientId));
+  return NextResponse.json(result.map(({ ingredientId }) => ingredientId));
 }
 
 export async function PUT(request: NextRequest) {
