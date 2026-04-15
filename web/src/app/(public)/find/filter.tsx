@@ -4,7 +4,7 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { FilterCombobox } from '~/components/filter/filter-combobox';
 import { Button } from '~/components/ui/button';
 import { useMergeQueryString } from '~/hooks/use-merge-query-string';
-import { getIngredients } from '~/lib/queries';
+import { getDefaultIngredients, getIngredients } from '~/lib/queries';
 
 import { type FindPageSetState } from './find';
 
@@ -20,9 +20,16 @@ export function Filter({ ingredientIds, setState }: FilterProps) {
   const mergeQueryString = useMergeQueryString(searchParams);
 
   const { data: ingredients } = useQuery(getIngredients());
+  const { data: defaultIngredients } = useQuery(getDefaultIngredients());
 
   function handleIngredientsChange(values: number[]) {
     router.replace(`${pathname}?${mergeQueryString({ ingredients: JSON.stringify(values) })}`);
+  }
+
+  function handleFillWithDefaults() {
+    if (defaultIngredients && defaultIngredients.length > 0) {
+      handleIngredientsChange([...defaultIngredients, ...ingredientIds]);
+    }
   }
 
   return (
@@ -48,6 +55,12 @@ export function Filter({ ingredientIds, setState }: FilterProps) {
           placeholder="Hozzávalók kiválasztása..."
           value={ingredientIds}
         />
+
+        {defaultIngredients && defaultIngredients.length > 0 && (
+          <Button onClick={handleFillWithDefaults} variant="outline">
+            Feltöltés alapértelmezett hozzávalókkal
+          </Button>
+        )}
 
         <Button disabled={ingredientIds.length === 0} onClick={() => setState('swipe')}>
           Receptek keresése

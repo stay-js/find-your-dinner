@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 import { useMergeQueryString } from '~/hooks/use-merge-query-string';
-import { getIngredients } from '~/lib/queries';
+import { getDefaultIngredients, getIngredients } from '~/lib/queries';
 import { idArraySearchSchema } from '~/lib/zod';
 
 export function useIngredientsFilter() {
@@ -16,6 +16,7 @@ export function useIngredientsFilter() {
   const selectedIngredients = idArraySearchSchema.parse(searchParams.get('ingredients'));
 
   const { data: ingredients } = useQuery(getIngredients());
+  const { data: defaultIngredients } = useQuery(getDefaultIngredients());
 
   function handleIngredientsChange(values: number[]) {
     const params = {
@@ -26,5 +27,17 @@ export function useIngredientsFilter() {
     router.replace(`${pathname}?${mergeQueryString(params)}`);
   }
 
-  return { handleIngredientsChange, ingredients, selectedIngredients };
+  function handleFillWithDefaults() {
+    if (defaultIngredients && defaultIngredients.length > 0) {
+      handleIngredientsChange([...defaultIngredients, ...selectedIngredients]);
+    }
+  }
+
+  return {
+    defaultIngredients,
+    handleFillWithDefaults,
+    handleIngredientsChange,
+    ingredients,
+    selectedIngredients,
+  };
 }
