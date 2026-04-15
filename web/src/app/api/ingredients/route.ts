@@ -13,7 +13,7 @@ export async function GET(request: NextRequest) {
   const { searchParams } = request.nextUrl;
 
   const searchQuery = searchParams.get('query')?.trim();
-  const hasQuery = searchQuery && searchQuery.length >= 3;
+  const hasQuery = searchQuery && searchQuery.length > 0;
 
   const searchWhereClause = hasQuery
     ? sql`(
