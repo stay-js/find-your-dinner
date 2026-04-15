@@ -4,6 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { ChefHat, Clock, Plus, Trash2, Users, X } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import { useMemo } from 'react';
 import { Controller, type SubmitHandler, useFieldArray, useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { z } from 'zod';
@@ -109,6 +110,11 @@ export function RecipeForm({ defaultValues, recipeId }: RecipeFormProps) {
   const { data: categories, isLoading: isCategoriesLoading } = useQuery(getCategories());
   const { data: ingredients } = useQuery(getIngredients());
   const { data: units } = useQuery(getUnits());
+
+  const ingredientOptions = useMemo(
+    () => ingredients?.map(({ id, name }) => ({ label: name, value: id })) ?? [],
+    [ingredients],
+  );
 
   const { isPending: isCreatePending, mutateAsync: createRecipe } = useMutation({
     mutationFn: (data: CreateUpdateRecipeSchema) => POST('/api/recipes', data),
@@ -340,7 +346,7 @@ export function RecipeForm({ defaultValues, recipeId }: RecipeFormProps) {
                     disabled={mounted && !ingredients}
                     label="Hozzávaló"
                     name={`ingredients.${index}.ingredientId`}
-                    options={ingredients?.map(({ id, name }) => ({ label: name, value: id })) ?? []}
+                    options={ingredientOptions}
                     placeholder="Válassz hozzávalót"
                   />
 

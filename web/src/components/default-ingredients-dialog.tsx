@@ -34,7 +34,7 @@ export function DefaultIngredientsDialog({ onOpenChange, open }: DefaultIngredie
   const selectedIds = localIds ?? defaultIngredientIds ?? [];
   const portalContainerRef = useRef<HTMLDivElement>(null);
 
-  const options = useMemo(
+  const ingredientOptions = useMemo(
     () =>
       ingredients?.map((ingredient) => ({
         label: ingredient.name,
@@ -78,7 +78,7 @@ export function DefaultIngredientsDialog({ onOpenChange, open }: DefaultIngredie
         <FilterCombobox
           label="Hozzávalók"
           onValueChange={setLocalIds}
-          options={options}
+          options={ingredientOptions}
           placeholder="Hozzávalók..."
           portalContainer={portalContainerRef}
           value={selectedIds}

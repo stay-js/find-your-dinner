@@ -1,5 +1,7 @@
 'use client';
 
+import { useMemo } from 'react';
+
 import { Button } from '~/components/ui/button';
 import { useIngredientsFilter } from '~/hooks/filter/use-ingredients-filter';
 
@@ -14,17 +16,21 @@ export function IngredientsFilter() {
     selectedIngredients,
   } = useIngredientsFilter();
 
+  const ingredientOptions = useMemo(
+    () =>
+      ingredients?.map((ingredient) => ({
+        label: ingredient.name,
+        value: ingredient.id,
+      })) ?? [],
+    [ingredients],
+  );
+
   return (
     <div className="flex w-full flex-col gap-2">
       <FilterCombobox
         label="Hozzávalók"
         onValueChange={handleIngredientsChange}
-        options={
-          ingredients?.map((ingredient) => ({
-            label: ingredient.name,
-            value: ingredient.id,
-          })) ?? []
-        }
+        options={ingredientOptions}
         placeholder="Szűrés hozzávalók szerint..."
         value={selectedIngredients}
       />

@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useMemo } from 'react';
 
 import { FilterCombobox } from '~/components/filter/filter-combobox';
 import { Button } from '~/components/ui/button';
@@ -21,6 +22,15 @@ export function Filter({ ingredientIds, setState }: FilterProps) {
 
   const { data: ingredients } = useQuery(getIngredients());
   const { data: defaultIngredients } = useQuery(getDefaultIngredients());
+
+  const ingredientOptions = useMemo(
+    () =>
+      ingredients?.map((ingredient) => ({
+        label: ingredient.name,
+        value: ingredient.id,
+      })) ?? [],
+    [ingredients],
+  );
 
   function handleIngredientsChange(values: number[]) {
     router.replace(`${pathname}?${mergeQueryString({ ingredients: JSON.stringify(values) })}`);
@@ -46,12 +56,7 @@ export function Filter({ ingredientIds, setState }: FilterProps) {
         <FilterCombobox
           label="Hozzávalók"
           onValueChange={handleIngredientsChange}
-          options={
-            ingredients?.map((ingredient) => ({
-              label: ingredient.name,
-              value: ingredient.id,
-            })) ?? []
-          }
+          options={ingredientOptions}
           placeholder="Hozzávalók kiválasztása..."
           value={ingredientIds}
         />
