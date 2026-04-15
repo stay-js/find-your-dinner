@@ -46,7 +46,7 @@ export function Stats({
         </div>
       </div>
 
-      {isSignedIn && <SaveButton recipeId={recipeId} variant="outline" />}
+      {isSignedIn && <SaveButton recipeId={recipeId} type="button" variant="outline" />}
     </div>
   );
 }

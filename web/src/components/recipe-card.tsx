@@ -56,6 +56,7 @@ export function RecipeCard({
           <SaveButton
             className="bg-background/80 absolute top-3 right-3 backdrop-blur-sm"
             recipeId={recipe.recipe.id}
+            type="icon"
             variant="ghost"
           />
         )}
