@@ -21,15 +21,16 @@ function Combobox<Value = unknown, Multiple extends boolean | undefined = false>
   onInputValueChange,
   ...props
 }: ComboboxPrimitive.Root.Props<Value, Multiple>) {
-  const [inputValue, setInputValue] = React.useState('');
+  const [query, setQuery] = React.useState('');
 
   const filteredItems = React.useMemo(() => {
-    if (!inputValue || !items || items.length < 1) return [];
+    if (!items || items.length < 1) return [];
+    if (!query) return items;
 
     return new Fuse(items as Value[], { keys: ['label'], threshold: 0.2 })
-      .search(inputValue)
+      .search(query)
       .map(({ item }) => item);
-  }, [items, inputValue]);
+  }, [items, query]);
 
   return (
     <ComboboxPrimitive.Root
@@ -38,7 +39,7 @@ function Combobox<Value = unknown, Multiple extends boolean | undefined = false>
       filteredItems={filteredItems}
       items={items}
       onInputValueChange={(value, details) => {
-        setInputValue(value);
+        setQuery(value);
         onInputValueChange?.(value, details);
       }}
     />
