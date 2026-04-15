@@ -1,7 +1,13 @@
-# 📋 Find Your Dinner. - Dokumentáció
+# Find Your Dinner. - Dokumentáció
 
 Üdvözlünk a **Find Your Dinner.** dokumentációs oldalán!
 Itt megtalálod az alkalmazás különböző komponenseinek leírását, telepítési útmutatókat és fejlesztői információkat.
+
+## 📋 Linkek
+
+- [Find Your Dinner.](https://find-your-dinner.znagy.hu) - Élő alkalmazás
+- [Trello](https://trello.com/b/8IluY86i/vizsgaremek) - Projektmenedzsment és feladatkövetés
+- [Figma](https://www.figma.com/design/zaDlDEk8JzH6Fh6TtaQZbu/Find-Your-Dinner.) - UI/UX design tervezés
 
 ## ⚙️ Fejlesztői dokumentáció
 
@@ -25,7 +31,7 @@ Itt megtalálod az alkalmazás különböző komponenseinek leírását, telepí
 just infra-setup
 ```
 
-2. Ezután futtasd le az `infra-start` receptet, a konténerek elindításához.
+2. Ezután futtasd le az `infra-start` receptet, a containerek elindításához.
 
 ```bash
 just infra-start
@@ -37,7 +43,7 @@ just infra-start
 just setup
 ```
 
-4. Hozz létre egy új [Clerk](https://clerk.com/) projektet (ez az fiókkezeléshez szükséges), majd a kapott API kulcsokkal írd felül a `web/.env` fájlban a következő sorokat:
+4. Hozz létre egy új [Clerk](https://clerk.com/) projektet (ez a fiókkezeléshez szükséges), majd a kapott API kulcsokkal írd felül a `web/.env` fájlban a következő sorokat:
 
 ```bash
 NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=
@@ -50,7 +56,7 @@ CLERK_SECRET_KEY=
 just migrate
 ```
 
-6. Indítsd el a fejlesztői szervert a `just dev` receptettel. Miután a szerver elindult, a böngészőben a <http://localhost:3000> címen érheted el az alkalmazást.
+6. Indítsd el a fejlesztői szervert a `dev` receptettel. Miután a szerver elindult, a böngészőben a <http://localhost:3000> címen érheted el az alkalmazást.
 
 ```bash
 just dev

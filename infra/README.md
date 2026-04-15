@@ -1,43 +1,39 @@
 # Find Your Dinner. - Infrastruktúra / Fejlesztői környezet
 
-## Futtatás
+A receptek futtatásához szükséges a [Just](https://github.com/casey/just) telepítése. (Vagy manuálisan a `justfile`-ból kimásolva is végrehajthatóak a receptek.)
+
+## Indítás
 
 ```bash
-just start-infra
+just infra-start
 ```
 
 ### Első indítás esetén
 
-- Előkészületek:
+1. Futtasd le az `infra-setup` receptet, ez lemásolja az `.env.example` fájlt `.env` néven.
 
 ```bash
-just setup-infra
+just infra-setup
 ```
 
-- Ezt követően, környezeti változók felülírása (amennyiben szükséges) a `.env` fájlban.
+2. Amennyiben szükséges, módosítsd a `.env` fájlban a környezeti változókat.
 
-- Containerek indítása:
-
-```bash
-just start-infra
-```
-
-- Migrációk futtatása:
+3. Ezután futtasd le az `infra-start` receptet, a containerek elindításához.
 
 ```bash
-just migrate
+just infra-start
 ```
 
 ## Leállítás
 
 ```bash
-just stop-infra
+just infra-stop
 ```
 
 ## Eltávolítás
 
 ```bash
-just remove-infra # -v opcionális, a volume-ok törléséhez
+just infra-remove # -v opcionális, a volume-ok törléséhez
 ```
 
 ## Postgres elérése
@@ -50,9 +46,13 @@ just remove-infra # -v opcionális, a volume-ok törléséhez
 
 ## CloudBeaver elérése
 
-- URL: <http://cb.localhost>
+- URL: <http://cb.localhost> vagy <http://cb.vm1.test>
 - Host: `postgres`
 - Port: `5432`
 - Adatbázis: a `.env` fájlban megadott `POSTGRES_DB` érték
 - Felhasználónév: a `.env` fájlban megadott `POSTGRES_USER` érték
 - Jelszó: a `.env` fájlban megadott `POSTGRES_PASSWORD` érték
+
+## Swagger elérése
+
+- URL: <http://swagger.localhost> vagy <http://swagger.vm1.test>
