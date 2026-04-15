@@ -1,6 +1,7 @@
 'use client';
 
 import { Combobox as ComboboxPrimitive } from '@base-ui/react';
+import Fuse from 'fuse.js';
 import { CheckIcon, ChevronDownIcon, XIcon } from 'lucide-react';
 import * as React from 'react';
 
@@ -13,9 +14,36 @@ import {
 } from '~/components/ui/input-group';
 import { cn } from '~/lib/utils';
 
-const Combobox = ComboboxPrimitive.Root;
-
 type ComboboxPortalContainer = ComboboxPrimitive.Portal.Props['container'];
+
+function Combobox<Value = unknown, Multiple extends boolean | undefined = false>({
+  items,
+  onInputValueChange,
+  ...props
+}: ComboboxPrimitive.Root.Props<Value, Multiple>) {
+  const [inputValue, setInputValue] = React.useState('');
+
+  const filteredItems = React.useMemo(() => {
+    if (!inputValue || !items || items.length < 1) return [];
+
+    return new Fuse(items as Value[], { keys: ['label'], threshold: 0.2 })
+      .search(inputValue)
+      .map(({ item }) => item);
+  }, [items, inputValue]);
+
+  return (
+    <ComboboxPrimitive.Root
+      {...props}
+      filter={null}
+      filteredItems={filteredItems}
+      items={items}
+      onInputValueChange={(value, details) => {
+        setInputValue(value);
+        onInputValueChange?.(value, details);
+      }}
+    />
+  );
+}
 
 function ComboboxChip({
   children,
