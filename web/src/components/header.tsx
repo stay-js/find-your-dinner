@@ -7,7 +7,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 
-import { DefaultIngredientsDialog } from '~/components/default-ingredients-dialog';
+import { useDefaultIngredientsDialog } from '~/components/default-ingredients-dialog-context';
 import { Logo } from '~/components/logo';
 import { Button } from '~/components/ui/button';
 import { DropdownMenu, DropdownMenuTrigger } from '~/components/ui/dropdown-menu';
@@ -19,7 +19,7 @@ export function Header() {
   const pathname = usePathname();
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isDefaultIngredientsOpen, setIsDefaultIngredientsOpen] = useState(false);
+  const { setOpen: setDefaultIngredientsOpen } = useDefaultIngredientsDialog();
 
   return (
     <>
@@ -67,7 +67,7 @@ export function Header() {
 
                     <UserDropdown
                       location="right"
-                      onOpenDefaultIngredients={() => setIsDefaultIngredientsOpen(true)}
+                      onOpenDefaultIngredients={() => setDefaultIngredientsOpen(true)}
                     />
                   </DropdownMenu>
                 </>
@@ -95,7 +95,7 @@ export function Header() {
 
                 <UserDropdown
                   location="right"
-                  onOpenDefaultIngredients={() => setIsDefaultIngredientsOpen(true)}
+                  onOpenDefaultIngredients={() => setDefaultIngredientsOpen(true)}
                 />
               </DropdownMenu>
             )}
@@ -153,13 +153,6 @@ export function Header() {
           </nav>
         )}
       </header>
-
-      {isSignedIn && (
-        <DefaultIngredientsDialog
-          onOpenChange={setIsDefaultIngredientsOpen}
-          open={isDefaultIngredientsOpen}
-        />
-      )}
     </>
   );
 }

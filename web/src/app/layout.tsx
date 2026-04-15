@@ -7,6 +7,7 @@ import { Geist, Geist_Mono } from 'next/font/google';
 import { Suspense } from 'react';
 
 import { ReactQueryProvider } from '~/app/react-query-provider';
+import { DefaultIngredientsDialogProvider } from '~/components/default-ingredients-dialog-context';
 import { ThemeProvider } from '~/components/theme-provider';
 import { Toaster } from '~/components/ui/sonner';
 import { TooltipProvider } from '~/components/ui/tooltip';
@@ -49,9 +50,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <ThemeProvider>
             <TooltipProvider>
               <ReactQueryProvider>
-                <Suspense>{children}</Suspense>
+                <DefaultIngredientsDialogProvider>
+                  <Suspense>{children}</Suspense>
 
-                <Toaster />
+                  <Toaster />
+                </DefaultIngredientsDialogProvider>
               </ReactQueryProvider>
             </TooltipProvider>
           </ThemeProvider>
