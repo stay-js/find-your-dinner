@@ -1,20 +1,1329 @@
 openapi: 3.1.1
 info:
-  title: HelloWorld API
+  title: Find Your Dinner API
   version: 1.0.0
+
+servers:
+  - url: http://localhost:3000/api
+  - url: https://find-your-dinner.znagy.hu/api
+
+security: []
+
+components:
+  securitySchemes:
+    clerkAuth:
+      type: http
+      scheme: bearer
+      description: Clerk session token
+
+  schemas:
+    Category:
+      type: object
+      required: [id, name]
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+          minLength: 1
+          maxLength: 128
+
+    Ingredient:
+      type: object
+      required: [id, name]
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+          minLength: 1
+          maxLength: 256
+
+    Unit:
+      type: object
+      required: [id, abbreviation, name]
+      properties:
+        id:
+          type: integer
+        abbreviation:
+          type: string
+          minLength: 1
+          maxLength: 16
+        name:
+          type: string
+          minLength: 1
+          maxLength: 64
+
+    RecipeData:
+      type: object
+      required:
+        - id
+        - recipeId
+        - description
+        - instructions
+        - title
+        - previewImageUrl
+        - cookTimeMinutes
+        - prepTimeMinutes
+        - servings
+        - verified
+        - createdAt
+        - updatedAt
+      properties:
+        id:
+          type: integer
+        recipeId:
+          type: integer
+        description:
+          type: string
+        instructions:
+          type: string
+        title:
+          type: string
+          maxLength: 512
+        previewImageUrl:
+          type: string
+          format: uri
+          maxLength: 2048
+        cookTimeMinutes:
+          type: integer
+          minimum: 1
+        prepTimeMinutes:
+          type: integer
+          minimum: 1
+        servings:
+          type: integer
+          minimum: 1
+        verified:
+          type: boolean
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+
+    Author:
+      type: object
+      required: [id, firstName, lastName]
+      properties:
+        id:
+          type: string
+        firstName:
+          type: string
+          nullable: true
+        lastName:
+          type: string
+          nullable: true
+
+    IngredientWithPivot:
+      type: object
+      required: [ingredient, quantity, unit]
+      properties:
+        ingredient:
+          $ref: '#/components/schemas/Ingredient'
+        quantity:
+          type: number
+          minimum: 0
+          exclusiveMinimum: true
+        unit:
+          $ref: '#/components/schemas/Unit'
+
+    Recipe:
+      type: object
+      required: [recipe, recipeData, categories, hasVerifiedVersion]
+      properties:
+        recipe:
+          type: object
+          required: [id, userId, createdAt]
+          properties:
+            id:
+              type: integer
+            userId:
+              type: string
+            createdAt:
+              type: string
+              format: date-time
+        recipeData:
+          $ref: '#/components/schemas/RecipeData'
+        categories:
+          type: array
+          items:
+            $ref: '#/components/schemas/Category'
+        hasVerifiedVersion:
+          type: boolean
+
+    FullRecipe:
+      allOf:
+        - $ref: '#/components/schemas/Recipe'
+        - type: object
+          required: [author, ingredients]
+          properties:
+            author:
+              $ref: '#/components/schemas/Author'
+            ingredients:
+              type: array
+              items:
+                $ref: '#/components/schemas/IngredientWithPivot'
+
+    PaginationMeta:
+      type: object
+      required: [currentPage, pageCount, perPage, total]
+      properties:
+        currentPage:
+          type: integer
+        pageCount:
+          type: integer
+        perPage:
+          type: integer
+        total:
+          type: integer
+
+    PaginatedRecipes:
+      type: object
+      required: [data, meta]
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Recipe'
+        meta:
+          $ref: '#/components/schemas/PaginationMeta'
+
+    CreateUpdateRecipe:
+      type: object
+      required:
+        - description
+        - instructions
+        - title
+        - previewImageUrl
+        - cookTimeMinutes
+        - prepTimeMinutes
+        - servings
+        - categories
+        - ingredients
+      properties:
+        description:
+          type: string
+          minLength: 1
+        instructions:
+          type: string
+          minLength: 1
+        title:
+          type: string
+          minLength: 1
+          maxLength: 512
+        previewImageUrl:
+          type: string
+          format: uri
+          maxLength: 2048
+          description: Must start with https://
+        cookTimeMinutes:
+          type: integer
+          minimum: 1
+        prepTimeMinutes:
+          type: integer
+          minimum: 1
+        servings:
+          type: integer
+          minimum: 1
+        categories:
+          type: array
+          items:
+            type: integer
+          minItems: 1
+        ingredients:
+          type: array
+          minItems: 1
+          items:
+            type: object
+            required: [ingredientId, quantity, unitId]
+            properties:
+              ingredientId:
+                type: integer
+                minimum: 1
+              quantity:
+                type: integer
+                minimum: 1
+              unitId:
+                type: integer
+                minimum: 1
+
+    ErrorMessage:
+      type: object
+      required: [message]
+      properties:
+        message:
+          type: string
+
 paths:
-  /hello:
+  /units:
     get:
-      operationId: hello.world
-      summary: Returns a greeting
+      operationId: units.list
+      summary: List units
+      tags: [Units]
+      parameters:
+        - name: query
+          in: query
+          schema:
+            type: string
+          description: Full-text search query
       responses:
         '200':
-          description: A friendly greeting
+          description: List of units
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Unit'
+
+    post:
+      operationId: units.create
+      summary: Create a unit
+      tags: [Units]
+      security:
+        - clerkAuth: []
+      description: Admin only
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [abbreviation, name]
+              properties:
+                abbreviation:
+                  type: string
+                  minLength: 1
+                  maxLength: 16
+                name:
+                  type: string
+                  minLength: 1
+                  maxLength: 64
+      responses:
+        '201':
+          description: Unit created
           content:
             application/json:
               schema:
                 type: object
+                required: [message, unitId]
                 properties:
                   message:
                     type: string
-                    example: Hello, world!
+                  unitId:
+                    type: integer
+        '400':
+          description: Invalid request body
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+        '409':
+          description: Unit already exists
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+
+  /units/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+
+    put:
+      operationId: units.update
+      summary: Update a unit
+      tags: [Units]
+      security:
+        - clerkAuth: []
+      description: Admin only
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [abbreviation, name]
+              properties:
+                abbreviation:
+                  type: string
+                  minLength: 1
+                  maxLength: 16
+                name:
+                  type: string
+                  minLength: 1
+                  maxLength: 64
+      responses:
+        '204':
+          description: Unit updated
+        '400':
+          description: Invalid id or request body
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+        '404':
+          description: Unit not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+        '409':
+          description: Unit already exists
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+
+    delete:
+      operationId: units.delete
+      summary: Delete a unit
+      tags: [Units]
+      security:
+        - clerkAuth: []
+      description: Admin only
+      responses:
+        '204':
+          description: Unit deleted
+        '400':
+          description: Invalid id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+        '404':
+          description: Unit not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+
+  /categories:
+    get:
+      operationId: categories.list
+      summary: List categories
+      tags: [Categories]
+      parameters:
+        - name: query
+          in: query
+          schema:
+            type: string
+          description: Full-text search query
+      responses:
+        '200':
+          description: List of categories
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Category'
+
+    post:
+      operationId: categories.create
+      summary: Create a category
+      tags: [Categories]
+      security:
+        - clerkAuth: []
+      description: Admin only
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [name]
+              properties:
+                name:
+                  type: string
+                  minLength: 1
+                  maxLength: 128
+      responses:
+        '201':
+          description: Category created
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [categoryId, message]
+                properties:
+                  categoryId:
+                    type: integer
+                  message:
+                    type: string
+        '400':
+          description: Invalid request body
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+        '409':
+          description: Category already exists
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+
+  /categories/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+
+    put:
+      operationId: categories.update
+      summary: Update a category
+      tags: [Categories]
+      security:
+        - clerkAuth: []
+      description: Admin only
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [name]
+              properties:
+                name:
+                  type: string
+                  minLength: 1
+                  maxLength: 128
+      responses:
+        '204':
+          description: Category updated
+        '400':
+          description: Invalid id or request body
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+        '404':
+          description: Category not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+        '409':
+          description: Category already exists
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+
+    delete:
+      operationId: categories.delete
+      summary: Delete a category
+      tags: [Categories]
+      security:
+        - clerkAuth: []
+      description: Admin only
+      responses:
+        '204':
+          description: Category deleted
+        '400':
+          description: Invalid id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+        '404':
+          description: Category not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+
+  /ingredients:
+    get:
+      operationId: ingredients.list
+      summary: List ingredients
+      tags: [Ingredients]
+      parameters:
+        - name: query
+          in: query
+          schema:
+            type: string
+          description: Full-text search query
+      responses:
+        '200':
+          description: List of ingredients
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Ingredient'
+
+    post:
+      operationId: ingredients.create
+      summary: Create an ingredient
+      tags: [Ingredients]
+      security:
+        - clerkAuth: []
+      description: Admin only
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [name]
+              properties:
+                name:
+                  type: string
+                  minLength: 1
+                  maxLength: 256
+      responses:
+        '201':
+          description: Ingredient created
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [ingredientId, message]
+                properties:
+                  ingredientId:
+                    type: integer
+                  message:
+                    type: string
+        '400':
+          description: Invalid request body
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+        '409':
+          description: Ingredient already exists
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+
+  /ingredients/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+
+    put:
+      operationId: ingredients.update
+      summary: Update an ingredient
+      tags: [Ingredients]
+      security:
+        - clerkAuth: []
+      description: Admin only
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [name]
+              properties:
+                name:
+                  type: string
+                  minLength: 1
+                  maxLength: 256
+      responses:
+        '204':
+          description: Ingredient updated
+        '400':
+          description: Invalid id or request body
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+        '404':
+          description: Ingredient not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+        '409':
+          description: Ingredient already exists
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+
+    delete:
+      operationId: ingredients.delete
+      summary: Delete an ingredient
+      tags: [Ingredients]
+      security:
+        - clerkAuth: []
+      description: Admin only
+      responses:
+        '204':
+          description: Ingredient deleted
+        '400':
+          description: Invalid id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+        '404':
+          description: Ingredient not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+
+  /recipes:
+    get:
+      operationId: recipes.list
+      summary: List recipes
+      tags: [Recipes]
+      parameters:
+        - name: query
+          in: query
+          schema:
+            type: string
+          description: Full-text search query
+        - name: categories
+          in: query
+          schema:
+            type: string
+          description: JSON-encoded array of category IDs to filter by
+          example: '[1,2]'
+        - name: ingredients
+          in: query
+          schema:
+            type: string
+          description: JSON-encoded array of ingredient IDs — returns only recipes that use exclusively these ingredients
+          example: '[3,4]'
+        - name: allow-unverified
+          in: query
+          schema:
+            type: string
+            enum: ['1', 'true', '0', 'false']
+          description: Include unverified recipes (admin only)
+        - name: only-awaiting-verification
+          in: query
+          schema:
+            type: string
+            enum: ['1', 'true', '0', 'false']
+          description: Return only recipes awaiting verification (admin only)
+        - name: per-page
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 9
+        - name: page
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+            default: 1
+      responses:
+        '200':
+          description: Paginated list of recipes
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedRecipes'
+        '400':
+          description: Invalid query parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+        '401':
+          description: Unauthorized (required when allow-unverified or only-awaiting-verification is set)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+
+    post:
+      operationId: recipes.create
+      summary: Create a recipe
+      tags: [Recipes]
+      security:
+        - clerkAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUpdateRecipe'
+      responses:
+        '201':
+          description: Recipe created
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [message, recipeId]
+                properties:
+                  message:
+                    type: string
+                  recipeId:
+                    type: integer
+        '400':
+          description: Invalid request body
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+
+  /recipes/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+
+    get:
+      operationId: recipes.get
+      summary: Get a recipe by id
+      tags: [Recipes]
+      parameters:
+        - name: allow-unverified
+          in: query
+          schema:
+            type: string
+            enum: ['1', 'true', '0', 'false']
+          description: Include unverified versions (admin only)
+      responses:
+        '200':
+          description: Full recipe details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FullRecipe'
+        '400':
+          description: Invalid id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+        '404':
+          description: Recipe not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+
+    put:
+      operationId: recipes.update
+      summary: Update a recipe
+      tags: [Recipes]
+      security:
+        - clerkAuth: []
+      description: Authenticated user who owns the recipe, or admin
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUpdateRecipe'
+      responses:
+        '204':
+          description: Recipe updated
+        '400':
+          description: Invalid id or request body
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+        '404':
+          description: Recipe not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+
+  /recipe-data/{id}/verify:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Recipe data id
+
+    post:
+      operationId: recipe-data.verify
+      summary: Verify a recipe data record
+      tags: [Recipes]
+      security:
+        - clerkAuth: []
+      description: Admin only
+      responses:
+        '204':
+          description: Recipe data verified
+        '400':
+          description: Invalid id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+        '404':
+          description: Recipe data not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+        '409':
+          description: Recipe data already verified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+
+  /user/is-admin:
+    get:
+      operationId: user.isAdmin
+      summary: Check if the current user is an admin
+      tags: [User]
+      security:
+        - clerkAuth: []
+      responses:
+        '200':
+          description: Admin status
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [isAdmin]
+                properties:
+                  isAdmin:
+                    type: boolean
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+
+  /user/recipes:
+    get:
+      operationId: user.recipes.list
+      summary: List the current user's recipes
+      tags: [User]
+      security:
+        - clerkAuth: []
+      parameters:
+        - name: query
+          in: query
+          schema:
+            type: string
+          description: Full-text search query
+        - name: categories
+          in: query
+          schema:
+            type: string
+          description: JSON-encoded array of category IDs
+          example: '[1,2]'
+        - name: ingredients
+          in: query
+          schema:
+            type: string
+          description: JSON-encoded array of ingredient IDs
+          example: '[3,4]'
+        - name: page
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+            default: 1
+      responses:
+        '200':
+          description: Paginated list of the user's recipes
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedRecipes'
+        '400':
+          description: Invalid query parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+
+  /user/saved-recipes:
+    get:
+      operationId: user.savedRecipes.list
+      summary: List the current user's saved recipes
+      tags: [User]
+      security:
+        - clerkAuth: []
+      parameters:
+        - name: include
+          in: query
+          schema:
+            type: string
+            enum: [recipe]
+          description: Pass "recipe" to return full paginated recipes instead of just IDs
+        - name: query
+          in: query
+          schema:
+            type: string
+          description: Full-text search query (only applied when include=recipe)
+        - name: categories
+          in: query
+          schema:
+            type: string
+          description: JSON-encoded array of category IDs (only applied when include=recipe)
+          example: '[1,2]'
+        - name: ingredients
+          in: query
+          schema:
+            type: string
+          description: JSON-encoded array of ingredient IDs (only applied when include=recipe)
+          example: '[3,4]'
+        - name: page
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+            default: 1
+          description: Only applied when include=recipe
+      responses:
+        '200':
+          description: Saved recipe IDs or paginated recipes
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - description: Array of saved recipe IDs with timestamps (default)
+                    type: array
+                    items:
+                      type: object
+                      required: [recipeId, savedAt]
+                      properties:
+                        recipeId:
+                          type: integer
+                        savedAt:
+                          type: string
+                          format: date-time
+                  - description: Paginated recipes (when include=recipe)
+                    $ref: '#/components/schemas/PaginatedRecipes'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+
+    post:
+      operationId: user.savedRecipes.create
+      summary: Save a recipe
+      tags: [User]
+      security:
+        - clerkAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [recipeId]
+              properties:
+                recipeId:
+                  type: integer
+                  minimum: 1
+      responses:
+        '201':
+          description: Recipe saved
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [message, recipeId]
+                properties:
+                  message:
+                    type: string
+                  recipeId:
+                    type: integer
+        '400':
+          description: Invalid request body
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+        '409':
+          description: Recipe already saved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+
+  /user/saved-recipes/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Recipe id
+
+    delete:
+      operationId: user.savedRecipes.delete
+      summary: Unsave a recipe
+      tags: [User]
+      security:
+        - clerkAuth: []
+      responses:
+        '204':
+          description: Recipe unsaved
+        '400':
+          description: Invalid id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+
+  /user/default-ingredients:
+    get:
+      operationId: user.defaultIngredients.get
+      summary: Get the current user's default ingredient IDs
+      tags: [User]
+      security:
+        - clerkAuth: []
+      responses:
+        '200':
+          description: Array of ingredient IDs
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: integer
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+
+    put:
+      operationId: user.defaultIngredients.update
+      summary: Replace the current user's default ingredients
+      tags: [User]
+      security:
+        - clerkAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [ingredientIds]
+              properties:
+                ingredientIds:
+                  type: array
+                  items:
+                    type: integer
+                    minimum: 1
+      responses:
+        '200':
+          description: Default ingredients updated
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [message]
+                properties:
+                  message:
+                    type: string
+        '400':
+          description: Invalid request body
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
