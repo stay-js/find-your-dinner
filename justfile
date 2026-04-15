@@ -117,3 +117,9 @@ studio:
 [working-directory: 'web']
 seed:
     {{runner}} run db:seed
+
+# Generates DBML schema file from Drizzle schema
+[group('drizzle')]
+[working-directory: 'web']
+dbml:
+    {{runner}} run db:generate:dbml
