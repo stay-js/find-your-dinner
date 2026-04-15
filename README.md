@@ -1,4 +1,4 @@
-# 📋 Find Your Dinner. – Dokumentáció
+# 📋 Find Your Dinner. - Dokumentáció
 
 Üdvözlünk a **Find Your Dinner.** dokumentációs oldalán!
 Itt megtalálod az alkalmazás különböző komponenseinek leírását, telepítési útmutatókat és fejlesztői információkat.
@@ -8,7 +8,7 @@ Itt megtalálod az alkalmazás különböző komponenseinek leírását, telepí
 - [Infrastruktúra / Fejlesztői környezet dokumentációja](infra/README.md)
 - [Full-stack web app dokumentációja](web/README.md)
 
-## Justfile
+## Justfile (~ Makefile alternatíva)
 
 [Just](https://github.com/casey/just) telepítése után:
 
@@ -17,40 +17,40 @@ Itt megtalálod az alkalmazás különböző komponenseinek leírását, telepí
 
 ## Első indítás
 
-0. A parancsok futtatásához szükséges a [Just](https://github.com/casey/just).
+0. A receptek futtatásához szükséges a [Just](https://github.com/casey/just) telepítése. (Vagy manuálisan a `justfile`-ból kimásolva is végrehajthatóak a receptek.)
 
-1. Futtasd le az `infra-setup` parancsot, ez lemásolja az `infra/.env.example` fájlt `infra/.env` néven.
+1. Futtasd le az `infra-setup` receptet, ez lemásolja az `infra/.env.example` fájlt `infra/.env` néven.
 
 ```bash
 just infra-setup
 ```
 
-2. Ezután futtasd le a `infra-start` parancsot, a konténerek elindításához.
+2. Ezután futtasd le az `infra-start` receptet, a konténerek elindításához.
 
 ```bash
 just infra-start
 ```
 
-3. Ezt követően futtasd le a `setup` parancsot, ez lemásolja a `web/.env.example` fájlt `web/.env` néven, valamit letölti a szükséges függőségeket.
+3. Ezt követően futtasd le a `setup` receptet, ez lemásolja a `web/.env.example` fájlt `web/.env` néven, valamint letölti a szükséges függőségeket.
 
 ```bash
 just setup
 ```
 
-4. Hozz létre egy új [Clerk](https://clerk.com/) projektet (ez az autentikációhoz szükséges), majd a kapott API kulcsokkal írd felül a `web/.env` fájlban a következő sorokat:
+4. Hozz létre egy új [Clerk](https://clerk.com/) projektet (ez az fiókkezeléshez szükséges), majd a kapott API kulcsokkal írd felül a `web/.env` fájlban a következő sorokat:
 
 ```bash
 NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=
 CLERK_SECRET_KEY=
 ```
 
-5. Futtasd le az adatbázis migrációkat a `migrate` paranccsal.
+5. Futtasd le az adatbázis migrációkat a `migrate` recepttel.
 
 ```bash
 just migrate
 ```
 
-6. Indítsd el a fejlesztői szervert a `just dev` paranccsal. Miután a szerver elindult, a böngészőben a <http://localhost:3000> címen érheted el az alkalmazást.
+6. Indítsd el a fejlesztői szervert a `just dev` receptettel. Miután a szerver elindult, a böngészőben a <http://localhost:3000> címen érheted el az alkalmazást.
 
 ```bash
 just dev
@@ -58,7 +58,7 @@ just dev
 
 7. Hozz létre egy új fiókot, majd a [Clerk dashboard](https://dashboard.clerk.com/)-on keresd meg a létrehozott fiókhoz tartozó azonosítót.
 8. Ezután egészítsd ki a `web/scripts/seeders/seed-admins.ts` fájl `data` tömbjét a felhasználó azonosítójával.
-9. Végezetül futtasd le a `seed` parancsot, az adatbázis feltöltéséhez.
+9. Végezetül futtasd le a `seed` receptet, az adatbázis feltöltéséhez.
 
 ```bash
 just seed
