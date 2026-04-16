@@ -12,6 +12,7 @@ const data = [
   // clerk prod environment
   { userId: 'user_3CPCdO9xP7lG2xuj7xsd466sLdd' }, // znagy
   { userId: 'user_3CPE4WILkIU2vrqElJNKDPZ2GsH' }, // ppanna
+  { userId: 'user_3CQ7B3EpNA02PTL6nI7OmCsrEMA' }, // zsepy
 ] satisfies (typeof admins.$inferInsert)[];
 
 export async function seedAdmins() {
