@@ -38,7 +38,7 @@ export function Filter({ ingredientIds, setState }: FilterProps) {
 
   function handleFillWithDefaults() {
     if (defaultIngredients && defaultIngredients.length > 0) {
-      handleIngredientsChange([...defaultIngredients, ...ingredientIds]);
+      handleIngredientsChange([...new Set([...defaultIngredients, ...ingredientIds])]);
     }
   }
 

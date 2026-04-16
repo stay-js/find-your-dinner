@@ -29,7 +29,7 @@ export function useIngredientsFilter() {
 
   function handleFillWithDefaults() {
     if (defaultIngredients && defaultIngredients.length > 0) {
-      handleIngredientsChange([...defaultIngredients, ...selectedIngredients]);
+      handleIngredientsChange([...new Set([...defaultIngredients, ...selectedIngredients])]);
     }
   }
 
