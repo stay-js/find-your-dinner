@@ -1,6 +1,7 @@
 'use client';
 
 import { useClerk } from '@clerk/nextjs';
+import { useQueryClient } from '@tanstack/react-query';
 import { LogOut, Settings, UtensilsCrossed } from 'lucide-react';
 
 import {
@@ -21,7 +22,7 @@ type UserDropdownProps = {
 
 export function UserDropdown({ location, onClose, onOpenDefaultIngredients }: UserDropdownProps) {
   const isMobile = useIsMobile();
-
+  const utils = useQueryClient();
   const { openUserProfile, signOut } = useClerk();
 
   return (
@@ -69,6 +70,10 @@ export function UserDropdown({ location, onClose, onOpenDefaultIngredients }: Us
             className="flex items-center gap-2"
             onClick={() => {
               onClose?.();
+
+              utils.clear();
+              utils.setQueryData(['currentUser', 'defaultIngredients'], []);
+
               signOut({ redirectUrl: '/' });
             }}
           >

@@ -1,3 +1,4 @@
+import { useAuth } from '@clerk/nextjs';
 import { useQuery } from '@tanstack/react-query';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useMemo } from 'react';
@@ -20,8 +21,13 @@ export function Filter({ ingredientIds, setState }: FilterProps) {
   const searchParams = useSearchParams();
   const mergeQueryString = useMergeQueryString(searchParams);
 
+  const { isSignedIn } = useAuth();
+
   const { data: ingredients } = useQuery(getIngredients());
-  const { data: defaultIngredients } = useQuery(getDefaultIngredients());
+  const { data: defaultIngredients } = useQuery({
+    ...getDefaultIngredients(),
+    enabled: !!isSignedIn,
+  });
 
   const ingredientOptions = useMemo(
     () =>

@@ -1,5 +1,6 @@
 'use client';
 
+import { useAuth } from '@clerk/nextjs';
 import { useQuery } from '@tanstack/react-query';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
@@ -13,10 +14,15 @@ export function useIngredientsFilter() {
   const searchParams = useSearchParams();
   const mergeQueryString = useMergeQueryString(searchParams);
 
+  const { isSignedIn } = useAuth();
+
   const selectedIngredients = idArraySearchSchema.parse(searchParams.get('ingredients'));
 
   const { data: ingredients } = useQuery(getIngredients());
-  const { data: defaultIngredients } = useQuery(getDefaultIngredients());
+  const { data: defaultIngredients } = useQuery({
+    ...getDefaultIngredients(),
+    enabled: !!isSignedIn,
+  });
 
   function handleIngredientsChange(values: number[]) {
     const params = {
