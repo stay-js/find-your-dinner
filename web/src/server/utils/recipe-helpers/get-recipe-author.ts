@@ -5,6 +5,7 @@ export async function getRecipeAuthor(userId: string) {
 
   try {
     const user = await clerk.users.getUser(userId);
+
     return {
       id: user.id,
 
