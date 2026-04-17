@@ -55,8 +55,11 @@ export function DefaultIngredientsDialog({ onOpenChange, open }: DefaultIngredie
     onError: () => toast.error('Hiba történt a mentés során. Kérlek, próbáld újra később.'),
     onSuccess: () => {
       handleOpenChange(false);
+
       toast.success('Alapértelmezett hozzávalók sikeresen frissítve!');
+
       queryClient.invalidateQueries({ queryKey: ['currentUser', 'defaultIngredients'] });
+      queryClient.invalidateQueries({ queryKey: ['ingredients'] });
     },
   });
 

@@ -94,6 +94,10 @@ export function RecipeForm({ defaultValues, recipeId }: RecipeFormProps) {
   function invalidate() {
     utils.invalidateQueries({ queryKey: ['recipes'] });
     utils.invalidateQueries({ queryKey: ['currentUser', 'recipes'] });
+
+    utils.invalidateQueries({ queryKey: ['categories'] });
+    utils.invalidateQueries({ queryKey: ['ingredients'] });
+    utils.invalidateQueries({ queryKey: ['units'] });
   }
 
   const { control, handleSubmit, reset } = useForm<FormSchema>({
