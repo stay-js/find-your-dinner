@@ -26,7 +26,12 @@ export function Unit({ isDestroyPending, onDelete, onEdit, unit }: UnitProps) {
             <Pencil className="size-3.5" />
           </Button>
 
-          <DeletePopover isPending={isDestroyPending} onDelete={onDelete} type="Mértékegység" />
+          <DeletePopover
+            disabled={!unit.canBeDeleted}
+            isPending={isDestroyPending}
+            onDelete={onDelete}
+            type="Mértékegység"
+          />
         </div>
       </CardContent>
     </Card>

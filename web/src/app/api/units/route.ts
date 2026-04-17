@@ -1,10 +1,10 @@
 import { auth } from '@clerk/nextjs/server';
-import { asc, desc, sql } from 'drizzle-orm';
+import { asc, desc, getTableColumns, sql } from 'drizzle-orm';
 import { type NextRequest, NextResponse } from 'next/server';
 
 import { createUpdateUnitSchema } from '~/lib/zod';
 import { db } from '~/server/db';
-import { units } from '~/server/db/schema';
+import { ingredientRecipeData, units } from '~/server/db/schema';
 import { checkIsAdmin } from '~/server/utils/check-is-admin';
 import { forbidden, unauthorized } from '~/server/utils/errors';
 import { isPgUniqueViolation } from '~/server/utils/is-pg-unique-violation';
@@ -30,8 +30,12 @@ export async function GET(request: NextRequest) {
     ? sql<number>`greatest(word_similarity(${units.name}, ${searchQuery}), word_similarity(${units.abbreviation}, ${searchQuery}))`
     : undefined;
 
+  const canBeDeletedExpr = sql<boolean>`
+    NOT EXISTS (SELECT 1 FROM ${ingredientRecipeData} WHERE ${ingredientRecipeData.unitId} = ${units.id})
+  `;
+
   const result = await db
-    .select()
+    .select({ ...getTableColumns(units), canBeDeleted: canBeDeletedExpr })
     .from(units)
     .where(searchWhereClause)
     .orderBy(similarityOrder ? desc(similarityOrder) : asc(units.name));
