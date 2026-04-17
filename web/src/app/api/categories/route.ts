@@ -1,10 +1,10 @@
 import { auth } from '@clerk/nextjs/server';
-import { asc, desc, sql } from 'drizzle-orm';
+import { asc, desc, getTableColumns, sql } from 'drizzle-orm';
 import { type NextRequest, NextResponse } from 'next/server';
 
 import { createUpdateCategorySchema } from '~/lib/zod';
 import { db } from '~/server/db';
-import { categories } from '~/server/db/schema';
+import { categories, categoryRecipe } from '~/server/db/schema';
 import { checkIsAdmin } from '~/server/utils/check-is-admin';
 import { forbidden, unauthorized } from '~/server/utils/errors';
 import { isPgUniqueViolation } from '~/server/utils/is-pg-unique-violation';
@@ -26,8 +26,12 @@ export async function GET(request: NextRequest) {
     ? sql<number>`word_similarity(${categories.name}, ${searchQuery})`
     : undefined;
 
+  const canBeDeletedExpr = sql<boolean>`
+    NOT EXISTS (SELECT 1 FROM ${categoryRecipe} WHERE ${categoryRecipe.categoryId} = ${categories.id})
+  `;
+
   const result = await db
-    .select()
+    .select({ ...getTableColumns(categories), canBeDeleted: canBeDeletedExpr })
     .from(categories)
     .where(searchWhereClause)
     .orderBy(similarityOrder ? desc(similarityOrder) : asc(categories.name));

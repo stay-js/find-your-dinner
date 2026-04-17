@@ -52,6 +52,8 @@ export const categorySchema = z.object({
   id: z.number().int().positive(),
 
   name: z.string().min(1).max(128),
+
+  canBeDeleted: z.boolean(),
 });
 export type Category = z.infer<typeof categorySchema>;
 
@@ -123,7 +125,7 @@ export const recipeSchema = z.object({
 
   recipeData: recipeDataSchema,
 
-  categories: z.array(categorySchema),
+  categories: z.array(categorySchema.omit({ canBeDeleted: true })),
 
   hasVerifiedVersion: z.boolean(),
 });

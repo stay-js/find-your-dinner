@@ -24,7 +24,12 @@ export function Category({ category, isDestroyPending, onDelete, onEdit }: Categ
             <Pencil className="size-3.5" />
           </Button>
 
-          <DeletePopover isPending={isDestroyPending} onDelete={onDelete} type="Kategória" />
+          <DeletePopover
+            disabled={!category.canBeDeleted}
+            isPending={isDestroyPending}
+            onDelete={onDelete}
+            type="Kategória"
+          />
         </div>
       </CardContent>
     </Card>
