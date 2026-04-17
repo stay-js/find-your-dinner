@@ -9,6 +9,37 @@ import { checkIsAdmin } from '~/server/utils/check-is-admin';
 import { forbidden, notFound, unauthorized } from '~/server/utils/errors';
 import { getRecipe } from '~/server/utils/get-recipe';
 
+export async function DELETE(_: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+  const { isAuthenticated, userId } = await auth();
+  if (!isAuthenticated) return unauthorized();
+
+  const result = idParamSchema.safeParse(await params);
+
+  if (!result.success) {
+    return NextResponse.json(
+      { details: result.error, message: 'Invalid recipe id' },
+      { status: 400 },
+    );
+  }
+
+  const { id } = result.data;
+
+  const recipe = await db.query.recipes.findFirst({ where: eq(recipes.id, id) });
+  if (!recipe) return notFound();
+
+  const isAdmin = await checkIsAdmin(userId);
+  if (!isAdmin && recipe.userId !== userId) return forbidden();
+
+  try {
+    await db.delete(recipes).where(eq(recipes.id, id));
+
+    return new NextResponse(null, { status: 204 });
+  } catch (err) {
+    console.error(err);
+    return NextResponse.json({ message: 'Failed to delete recipe' }, { status: 500 });
+  }
+}
+
 export async function GET(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const { searchParams } = request.nextUrl;
 
