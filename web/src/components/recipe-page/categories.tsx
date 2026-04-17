@@ -1,7 +1,7 @@
 import { Badge } from '~/components/ui/badge';
-import { type Categories } from '~/lib/zod';
+import { type Category } from '~/lib/zod';
 
-export function Categories({ categories }: { categories: Categories }) {
+export function Categories({ categories }: { categories: Omit<Category, 'canBeDeleted'>[] }) {
   return (
     <div className="flex flex-wrap gap-2">
       {categories.map((category) => (

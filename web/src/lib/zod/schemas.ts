@@ -86,9 +86,9 @@ export const unitsSchema = z.array(unitSchema);
 export type Units = z.infer<typeof unitsSchema>;
 
 export const ingredientWithPivotSchema = z.object({
-  ingredient: ingredientSchema,
+  ingredient: ingredientSchema.omit({ canBeDeleted: true }),
   quantity: z.number().positive(),
-  unit: unitSchema,
+  unit: unitSchema.omit({ canBeDeleted: true }),
 });
 export type IngredientWithPivot = z.infer<typeof ingredientWithPivotSchema>;
 
