@@ -1,10 +1,10 @@
 import { auth } from '@clerk/nextjs/server';
-import { asc, desc, sql } from 'drizzle-orm';
+import { asc, desc, getTableColumns, sql } from 'drizzle-orm';
 import { type NextRequest, NextResponse } from 'next/server';
 
 import { createUpdateIngredientSchema } from '~/lib/zod';
 import { db } from '~/server/db';
-import { ingredients } from '~/server/db/schema';
+import { defaultIngredients, ingredientRecipeData, ingredients } from '~/server/db/schema';
 import { checkIsAdmin } from '~/server/utils/check-is-admin';
 import { forbidden, unauthorized } from '~/server/utils/errors';
 import { isPgUniqueViolation } from '~/server/utils/is-pg-unique-violation';
@@ -26,8 +26,13 @@ export async function GET(request: NextRequest) {
     ? sql<number>`word_similarity(${ingredients.name}, ${searchQuery})`
     : undefined;
 
+  const canBeDeletedExpr = sql<boolean>`
+    NOT EXISTS (SELECT 1 FROM ${ingredientRecipeData} WHERE ${ingredientRecipeData.ingredientId} = ${ingredients.id})
+    AND NOT EXISTS (SELECT 1 FROM ${defaultIngredients} WHERE ${defaultIngredients.ingredientId} = ${ingredients.id})
+  `;
+
   const result = await db
-    .select()
+    .select({ ...getTableColumns(ingredients), canBeDeleted: canBeDeletedExpr })
     .from(ingredients)
     .where(searchWhereClause)
     .orderBy(similarityOrder ? desc(similarityOrder) : asc(ingredients.name));

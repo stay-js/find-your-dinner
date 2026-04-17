@@ -24,7 +24,12 @@ export function Ingredient({ ingredient, isDestroyPending, onDelete, onEdit }: I
             <Pencil className="size-3.5" />
           </Button>
 
-          <DeletePopover isPending={isDestroyPending} onDelete={onDelete} type="Hozzávaló" />
+          <DeletePopover
+            disabled={!ingredient.canBeDeleted}
+            isPending={isDestroyPending}
+            onDelete={onDelete}
+            type="Hozzávaló"
+          />
         </div>
       </CardContent>
     </Card>

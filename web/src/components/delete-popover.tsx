@@ -11,19 +11,21 @@ import {
   PopoverTrigger,
 } from '~/components/ui/popover';
 import { Spinner } from '~/components/ui/spinner';
+
 type DeletePopoverProps = {
+  disabled?: boolean;
   isPending: boolean;
   onDelete: () => void;
   type: string;
 };
 
-export function DeletePopover({ isPending, onDelete, type }: DeletePopoverProps) {
+export function DeletePopover({ disabled, isPending, onDelete, type }: DeletePopoverProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
     <Popover onOpenChange={setIsOpen} open={isOpen}>
       <PopoverTrigger asChild>
-        <Button size="icon-sm" type="button" variant="destructive">
+        <Button disabled={disabled} size="icon-sm" type="button" variant="destructive">
           <Trash2 className="size-4" />
         </Button>
       </PopoverTrigger>

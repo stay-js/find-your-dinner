@@ -62,6 +62,8 @@ export const ingredientSchema = z.object({
   id: z.number().int().positive(),
 
   name: z.string().min(1).max(256),
+
+  canBeDeleted: z.boolean(),
 });
 export type Ingredient = z.infer<typeof ingredientSchema>;
 
