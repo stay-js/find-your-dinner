@@ -198,80 +198,78 @@ export function RecipeForm({ defaultValues, recipeId }: RecipeFormProps) {
       </div>
 
       <form className="flex flex-col gap-6" onSubmit={handleSubmit(onSubmit)}>
-        <div className="grid grid-cols-1 gap-6 @5xl:grid-cols-[5fr_2fr]">
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-lg">Alapvető információk</CardTitle>
-            </CardHeader>
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-lg">Alapvető információk</CardTitle>
+          </CardHeader>
 
-            <CardContent className="flex flex-col gap-4">
+          <CardContent className="flex flex-col gap-4">
+            <FormInput
+              control={control}
+              label="Recept neve"
+              name="title"
+              placeholder="Add meg a recept nevét..."
+            />
+
+            <FormTextarea
+              className="min-h-25 resize-none"
+              control={control}
+              label="Leírás"
+              name="description"
+              placeholder="Recept rövid leírása..."
+            />
+
+            <FormInput
+              control={control}
+              label="Előnézeti kép URL"
+              name="previewImageUrl"
+              placeholder="https://example.com/image.jpg"
+            />
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-lg">Elkészítési idő és adagok</CardTitle>
+          </CardHeader>
+
+          <CardContent>
+            <div className="flex flex-col gap-4">
               <FormInput
                 control={control}
-                label="Recept neve"
-                name="title"
-                placeholder="Add meg a recept nevét..."
-              />
-
-              <FormTextarea
-                className="min-h-25 resize-none"
-                control={control}
-                label="Leírás"
-                name="description"
-                placeholder="Recept rövid leírása..."
+                icon={<Clock className="size-4" />}
+                label="Előkészítési idő (perc)"
+                min={0}
+                name="prepTimeMinutes"
+                placeholder="15"
+                step={1}
+                type="number"
               />
 
               <FormInput
                 control={control}
-                label="Előnézeti kép URL"
-                name="previewImageUrl"
-                placeholder="https://example.com/image.jpg"
+                icon={<ChefHat className="size-4" />}
+                label="Főzési/Sütési idő (perc)"
+                min={0}
+                name="cookTimeMinutes"
+                placeholder="30"
+                step={1}
+                type="number"
               />
-            </CardContent>
-          </Card>
 
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-lg">Elkészítési idő és adagok</CardTitle>
-            </CardHeader>
-
-            <CardContent>
-              <div className="flex flex-col gap-4">
-                <FormInput
-                  control={control}
-                  icon={<Clock className="size-4" />}
-                  label="Előkészítési idő (perc)"
-                  min={0}
-                  name="prepTimeMinutes"
-                  placeholder="15"
-                  step={1}
-                  type="number"
-                />
-
-                <FormInput
-                  control={control}
-                  icon={<ChefHat className="size-4" />}
-                  label="Főzési/Sütési idő (perc)"
-                  min={0}
-                  name="cookTimeMinutes"
-                  placeholder="30"
-                  step={1}
-                  type="number"
-                />
-
-                <FormInput
-                  control={control}
-                  icon={<Users className="size-4" />}
-                  label="Adagok száma"
-                  min={0}
-                  name="servings"
-                  placeholder="4"
-                  step={1}
-                  type="number"
-                />
-              </div>
-            </CardContent>
-          </Card>
-        </div>
+              <FormInput
+                control={control}
+                icon={<Users className="size-4" />}
+                label="Adagok száma"
+                min={0}
+                name="servings"
+                placeholder="4"
+                step={1}
+                type="number"
+              />
+            </div>
+          </CardContent>
+        </Card>
 
         <Card>
           <CardHeader>
