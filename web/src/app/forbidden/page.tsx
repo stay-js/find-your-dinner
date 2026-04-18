@@ -7,7 +7,7 @@ import { createMetadata } from '~/lib/create-metadata';
 export const metadata = createMetadata({
   path: '/forbidden',
 
-  description: 'Nem vagy jogosult a tartalom megtekintésére',
+  description: 'Nem vagy jogosult a tartalom megtekintésére.',
   title: '403',
 
   noIndex: true,

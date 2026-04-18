@@ -4,7 +4,8 @@ import { createMetadata } from '~/lib/create-metadata';
 export const metadata = createMetadata({
   path: '/',
 
-  description: 'Üdvözöljük a Find Your Dinner. alkalmazásban!',
+  description:
+    'Találd meg a mai vacsorát! Add meg mi van a hűtőben, pörgesd végig a neked ajánlott recepteket, majd bízd a választást egy gyors versenyre. Egy győztes recept, nulla agyalás. Három lépés a vacsoráig!',
   title: 'Főoldal',
 });
 

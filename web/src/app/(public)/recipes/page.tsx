@@ -5,7 +5,8 @@ import { Recipes } from './recipes';
 export const metadata = createMetadata({
   path: '/recipes',
 
-  description: 'Böngéssz recepteink között és találd meg a számodra legmegfelelőbbet.',
+  description:
+    'Böngéssz recepteink között és találd meg a számodra legmegfelelőbbet. Szűrj kategóriák, és hozzávalók szerint. Mentsd el a kedvenceidet.',
   title: 'Receptek',
 });
 
