@@ -1,5 +1,5 @@
 import { Trash2 } from 'lucide-react';
-import { useState } from 'react';
+import { type ComponentProps, useState } from 'react';
 
 import { Button } from '~/components/ui/button';
 import {
@@ -16,17 +16,27 @@ type DeletePopoverProps = {
   disabled?: boolean;
   isPending: boolean;
   onDelete: () => void;
+  showText?: boolean;
+  size?: ComponentProps<typeof Button>['size'];
   type: string;
 };
 
-export function DeletePopover({ disabled, isPending, onDelete, type }: DeletePopoverProps) {
+export function DeletePopover({
+  disabled,
+  isPending,
+  onDelete,
+  showText,
+  size = 'icon-sm',
+  type,
+}: DeletePopoverProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
     <Popover onOpenChange={setIsOpen} open={isOpen}>
       <PopoverTrigger asChild>
-        <Button disabled={disabled} size="icon-sm" type="button" variant="destructive">
+        <Button disabled={disabled} size={size} type="button" variant="destructive">
           <Trash2 className="size-4" />
+          {showText && <span>Törlés</span>}
         </Button>
       </PopoverTrigger>
 

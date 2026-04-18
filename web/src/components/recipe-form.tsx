@@ -9,6 +9,7 @@ import { Controller, type SubmitHandler, useFieldArray, useForm } from 'react-ho
 import { toast } from 'sonner';
 import { z } from 'zod';
 
+import { DeletePopover } from '~/components/delete-popover';
 import { FormCombobox, FormInput, FormSelect, FormTextarea } from '~/components/form';
 import { Button } from '~/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card';
@@ -19,7 +20,7 @@ import { Spinner } from '~/components/ui/spinner';
 import { Toggle } from '~/components/ui/toggle';
 import { useIsMobile } from '~/hooks/use-mobile';
 import { useMounted } from '~/hooks/use-mounted';
-import { POST, PUT } from '~/lib/api';
+import { DELETE, POST, PUT } from '~/lib/api';
 import { getCategories, getIngredients, getUnits } from '~/lib/queries';
 import { cn } from '~/lib/utils';
 import {
@@ -139,6 +140,15 @@ export function RecipeForm({ defaultValues, recipeId }: RecipeFormProps) {
     },
   });
 
+  const { isPending: isDeletePending, mutate: deleteRecipe } = useMutation({
+    mutationFn: () => DELETE(`/api/recipes/${recipeId}`),
+    onError: () => toast.error('Hiba történt a recept törlése során!'),
+    onSuccess: () => {
+      invalidate();
+      router.push('/dashboard/recipes');
+    },
+  });
+
   const isPending = isCreatePending || isUpdatePending;
 
   const onSubmit: SubmitHandler<FormSchema> = (data) => {
@@ -165,14 +175,26 @@ export function RecipeForm({ defaultValues, recipeId }: RecipeFormProps) {
 
   return (
     <div className="@container container flex flex-col gap-8">
-      <div className="flex flex-col gap-1">
-        <h1 className="text-foreground text-2xl font-semibold">
-          Recept {isEdit ? 'szerkesztése' : 'létrehozása'}
-        </h1>
-        <p className="text-muted-foreground text-sm">
-          Töltsd ki az alábbi űrlapot{' '}
-          {isEdit ? 'a recept szerkesztéséhez' : 'egy új recept létrehozásához'}.
-        </p>
+      <div className="flex items-center justify-between gap-4">
+        <div className="flex flex-col gap-1">
+          <h1 className="text-foreground text-2xl font-semibold">
+            Recept {isEdit ? 'szerkesztése' : 'létrehozása'}
+          </h1>
+          <p className="text-muted-foreground text-sm">
+            Töltsd ki az alábbi űrlapot{' '}
+            {isEdit ? 'a recept szerkesztéséhez' : 'egy új recept létrehozásához'}.
+          </p>
+        </div>
+
+        {isEdit && (
+          <DeletePopover
+            isPending={isDeletePending}
+            onDelete={deleteRecipe}
+            showText
+            size="sm"
+            type="Recept"
+          />
+        )}
       </div>
 
       <form className="flex flex-col gap-6" onSubmit={handleSubmit(onSubmit)}>
@@ -411,7 +433,7 @@ export function RecipeForm({ defaultValues, recipeId }: RecipeFormProps) {
 
         <Button className="self-end" disabled={isPending} size="lg" type="submit">
           {isPending && <Spinner />}
-          Recept {isEdit ? 'szerkesztése' : 'létrehozása'}
+          <span>Mentés</span>
         </Button>
       </form>
     </div>
