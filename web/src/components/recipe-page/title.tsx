@@ -1,5 +1,8 @@
+'use client';
+
 import { Pencil } from 'lucide-react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 import { Button } from '~/components/ui/button';
 
@@ -22,6 +25,8 @@ export function Title({
   isAdmin,
   isAuthor,
 }: TitleProps) {
+  const pathname = usePathname();
+
   return (
     <div className="flex flex-col gap-2">
       <div className="flex items-center justify-between gap-4">
@@ -31,9 +36,9 @@ export function Title({
           <Button asChild size="sm" variant="outline">
             <Link
               href={
-                isAuthor
-                  ? `/dashboard/recipes/${recipeId}/edit`
-                  : `/dashboard/admin/recipes/${recipeId}/edit`
+                pathname.includes('admin')
+                  ? `/dashboard/admin/recipes/${recipeId}/edit`
+                  : `/dashboard/recipes/${recipeId}/edit`
               }
             >
               <Pencil className="size-4" />
