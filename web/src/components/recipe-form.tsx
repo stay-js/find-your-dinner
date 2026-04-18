@@ -22,16 +22,19 @@ import { useMounted } from '~/hooks/use-mounted';
 import { POST, PUT } from '~/lib/api';
 import { getCategories, getIngredients, getUnits } from '~/lib/queries';
 import { cn } from '~/lib/utils';
-import { type CreateUpdateRecipeSchema, isIntegerString, isPositiveIntegerString } from '~/lib/zod';
+import {
+  type CreateUpdateRecipeSchema,
+  isNonNegativeIntegerString,
+  isPositiveIntegerString,
+} from '~/lib/zod';
 
 const formSchema = z.object({
   categories: z.array(z.number().int().positive()).min(1, {
     error: 'Válassz legalább egy kategóriát!',
   }),
-  cookTimeMinutes: z
-    .string()
-    .trim()
-    .refine(isIntegerString, { error: 'A főzési/sütési idő csak pozitív egész szám lehet!' }),
+  cookTimeMinutes: z.string().trim().refine(isNonNegativeIntegerString, {
+    error: 'A főzési/sütési idő csak természetes szám lehet!',
+  }),
   description: z.string().trim().min(1, { error: 'Add meg a recept leírását!' }),
   ingredients: z
     .array(
@@ -52,10 +55,9 @@ const formSchema = z.object({
     )
     .min(1, { error: 'Adj hozzá legalább egy hozzávalót!' }),
   instructions: z.string().trim().min(1, { error: 'Add meg az elkészítési utasításokat!' }),
-  prepTimeMinutes: z
-    .string()
-    .trim()
-    .refine(isIntegerString, { error: 'Az előkészítési idő csak pozitív egész szám lehet!' }),
+  prepTimeMinutes: z.string().trim().refine(isNonNegativeIntegerString, {
+    error: 'Az előkészítési idő csak természetes szám lehet!',
+  }),
   previewImageUrl: z
     .url({ error: 'Adj meg egy érvényes URL-t!' })
     .trim()
@@ -65,10 +67,9 @@ const formSchema = z.object({
     .refine((url) => url.startsWith('https://'), {
       error: 'Az URL-nek https:// előtaggal kell kezdődnie!',
     }),
-  servings: z
-    .string()
-    .trim()
-    .refine(isIntegerString, { error: 'Az adagok száma csak pozitív egész szám lehet!' }),
+  servings: z.string().trim().refine(isPositiveIntegerString, {
+    error: 'Az adagok száma csak pozitív egész szám lehet!',
+  }),
   title: z
     .string()
     .trim()

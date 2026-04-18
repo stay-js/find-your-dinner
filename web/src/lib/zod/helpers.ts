@@ -21,6 +21,13 @@ export function isIntegerString(val: string) {
   return Number.isInteger(Number(val));
 }
 
+export function isNonNegativeIntegerString(val: string) {
+  if (!val || val === '') return false;
+
+  const num = Number(val);
+  return Number.isInteger(num) && num >= 0;
+}
+
 export function isPositiveIntegerString(val: string) {
   if (!val || val === '') return false;
 

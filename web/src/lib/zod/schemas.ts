@@ -105,8 +105,8 @@ export const recipeDataSchema = z.object({
 
   previewImageUrl: z.url().trim().max(2048),
 
-  cookTimeMinutes: z.number().int().positive(),
-  prepTimeMinutes: z.number().int().positive(),
+  cookTimeMinutes: z.number().int().nonnegative(),
+  prepTimeMinutes: z.number().int().nonnegative(),
 
   servings: z.number().int().positive(),
 
@@ -167,8 +167,8 @@ export const createUpdateRecipeSchema = z.object({
       error: 'URL must start with https://',
     }),
 
-  cookTimeMinutes: z.number().int().positive(),
-  prepTimeMinutes: z.number().int().positive(),
+  cookTimeMinutes: z.number().int().nonnegative(),
+  prepTimeMinutes: z.number().int().nonnegative(),
 
   servings: z.number().int().positive(),
 
