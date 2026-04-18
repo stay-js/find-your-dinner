@@ -30,6 +30,11 @@ const defaultValues = {
       quantity: '',
       unitId: '',
     },
+    {
+      ingredientId: '',
+      quantity: '',
+      unitId: '',
+    },
   ],
 };
 
