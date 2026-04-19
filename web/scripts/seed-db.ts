@@ -3,6 +3,7 @@ import 'dotenv/config';
 import { seedAdmins } from './seeders/seed-admins';
 import { seedCategories } from './seeders/seed-categories';
 import { seedIngredients } from './seeders/seed-ingredients';
+import { seedRecipes } from './seeders/seed-recipes';
 import { seedUnits } from './seeders/seed-units';
 
 async function seedDB() {
@@ -10,6 +11,7 @@ async function seedDB() {
   await seedCategories();
   await seedIngredients();
   await seedUnits();
+  await seedRecipes();
 }
 
 seedDB()
