@@ -230,21 +230,26 @@ export async function seedRecipes() {
 
       if (item.ingredients.length > 0) {
         await tx.insert(ingredientRecipeData).values(
-          item.ingredients.map((i) => ({
-            ingredientId: ingredientByName[i.name]!,
-            quantity: i.quantity,
-            recipeDataId,
-            unitId: unitByAbbr[i.unit]!,
-          })),
+          item.ingredients.map((i) => {
+            const ingredientId = ingredientByName[i.name];
+            if (!ingredientId) throw new Error(`Ingredient not found: "${i.name}"`);
+
+            const unitId = unitByAbbr[i.unit];
+            if (!unitId) throw new Error(`Unit not found: "${i.unit}"`);
+
+            return { ingredientId, quantity: i.quantity, recipeDataId, unitId };
+          }),
         );
       }
 
       if (item.categories.length > 0) {
         await tx.insert(categoryRecipe).values(
-          item.categories.map((cat) => ({
-            categoryId: categoryByName[cat]!,
-            recipeId,
-          })),
+          item.categories.map((cat) => {
+            const categoryId = categoryByName[cat];
+            if (!categoryId) throw new Error(`Category not found: "${cat}"`);
+
+            return { categoryId, recipeId };
+          }),
         );
       }
     });
