@@ -56,7 +56,7 @@ function PaginationEllipsis({ className, ...props }: React.ComponentProps<'span'
       {...props}
     >
       <MoreHorizontalIcon />
-      <span className="sr-only">More pages</span>
+      <span className="sr-only">További oldalak</span>
     </span>
   );
 }
@@ -72,7 +72,7 @@ function PaginationNext({
 }: { text?: string } & React.ComponentProps<typeof PaginationButton>) {
   return (
     <PaginationButton
-      aria-label="Go to next page"
+      aria-label="Tovább a következő oldalra"
       className={cn('pr-1.5!', className)}
       size="default"
       {...props}
@@ -90,7 +90,7 @@ function PaginationPrevious({
 }: { text?: string } & React.ComponentProps<typeof PaginationButton>) {
   return (
     <PaginationButton
-      aria-label="Go to previous page"
+      aria-label="Vissza az előző oldalra"
       className={cn('pl-1.5!', className)}
       size="default"
       {...props}
