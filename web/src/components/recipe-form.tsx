@@ -25,8 +25,10 @@ import { getCategories, getIngredients, getUnits } from '~/lib/queries';
 import { cn } from '~/lib/utils';
 import {
   type CreateUpdateRecipeSchema,
+  isCultureInvariantFloatString,
   isNonNegativeIntegerString,
   isPositiveIntegerString,
+  parseCultureInvariantFloat,
 } from '~/lib/zod';
 
 const formSchema = z.object({
@@ -47,7 +49,7 @@ const formSchema = z.object({
         quantity: z
           .string()
           .trim()
-          .refine(isPositiveIntegerString, { error: 'A mennyiség csak pozitív egész szám lehet!' }),
+          .refine(isCultureInvariantFloatString, { error: 'A mennyiség csak pozitív szám lehet!' }),
         unitId: z
           .string()
           .trim()
@@ -157,7 +159,7 @@ export function RecipeForm({ defaultValues, recipeId }: RecipeFormProps) {
       cookTimeMinutes: Number(data.cookTimeMinutes),
       ingredients: data.ingredients.map((ingredient) => ({
         ingredientId: Number(ingredient.ingredientId),
-        quantity: Number(ingredient.quantity),
+        quantity: parseCultureInvariantFloat(ingredient.quantity)!,
         unitId: Number(ingredient.unitId),
       })),
       prepTimeMinutes: Number(data.prepTimeMinutes),
@@ -378,11 +380,8 @@ export function RecipeForm({ defaultValues, recipeId }: RecipeFormProps) {
                   <FormInput
                     control={control}
                     label="Mennyiség"
-                    min={0}
                     name={`ingredients.${index}.quantity`}
                     placeholder="250"
-                    step={1}
-                    type="number"
                   />
 
                   <FormSelect

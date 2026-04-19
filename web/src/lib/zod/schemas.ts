@@ -178,7 +178,7 @@ export const createUpdateRecipeSchema = z.object({
     .array(
       z.object({
         ingredientId: z.number().int().positive(),
-        quantity: z.number().int().positive(),
+        quantity: z.number().positive(),
         unitId: z.number().int().positive(),
       }),
     )

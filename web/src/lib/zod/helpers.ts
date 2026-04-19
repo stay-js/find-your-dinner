@@ -15,6 +15,13 @@ export function createPaginatedSchema<T extends ZodType>(dataSchema: T) {
   });
 }
 
+export function isCultureInvariantFloatString(val: string) {
+  const num = parseCultureInvariantFloat(val);
+  if (num === null) return false;
+
+  return !isNaN(num);
+}
+
 export function isIntegerString(val: string) {
   if (!val || val === '') return false;
 
