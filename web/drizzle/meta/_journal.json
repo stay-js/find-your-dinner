@@ -15,6 +15,13 @@
       "when": 1775765914241,
       "tag": "0001_create_default_ingredients_table",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1776680776526,
+      "tag": "0002_non_null_timestamps",
+      "breakpoints": true
     }
   ]
 }

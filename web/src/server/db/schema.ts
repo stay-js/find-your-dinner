@@ -9,7 +9,7 @@ export const recipes = pgTable('recipes', (d) => ({
   id: d.bigint('id', { mode: 'number' }).notNull().primaryKey().generatedAlwaysAsIdentity(),
   userId: d.varchar('user_id', { length: 256 }).notNull(),
 
-  createdAt: d.timestamp('created_at').defaultNow(),
+  createdAt: d.timestamp('created_at').notNull().defaultNow(),
 }));
 
 export const recipeData = pgTable(
@@ -34,9 +34,10 @@ export const recipeData = pgTable(
 
     verified: d.boolean('verified').default(false).notNull(),
 
-    createdAt: d.timestamp('created_at').defaultNow(),
+    createdAt: d.timestamp('created_at').notNull().defaultNow(),
     updatedAt: d
       .timestamp('updated_at')
+      .notNull()
       .defaultNow()
       .$onUpdate(() => new Date()),
   }),
@@ -145,7 +146,7 @@ export const savedRecipes = pgTable(
       .references(() => recipes.id, { onDelete: 'cascade', onUpdate: 'cascade' }),
     userId: d.varchar('user_id', { length: 256 }).notNull(),
 
-    createdAt: d.timestamp('created_at').defaultNow(),
+    createdAt: d.timestamp('created_at').notNull().defaultNow(),
   }),
   (t) => [primaryKey({ columns: [t.userId, t.recipeId] })],
 );
