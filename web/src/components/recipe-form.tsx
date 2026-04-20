@@ -104,7 +104,7 @@ export function RecipeForm({ defaultValues, recipeId }: RecipeFormProps) {
     utils.invalidateQueries({ queryKey: ['units'] });
   }
 
-  const { control, handleSubmit, reset } = useForm<FormSchema>({
+  const { control, handleSubmit } = useForm<FormSchema>({
     defaultValues,
     resolver: zodResolver(formSchema),
   });
@@ -171,8 +171,6 @@ export function RecipeForm({ defaultValues, recipeId }: RecipeFormProps) {
     } else {
       createRecipe(parsedData);
     }
-
-    reset(defaultValues);
   };
 
   return (
