@@ -74,10 +74,10 @@ export function Recipes() {
   const currentApiPage = recipes?.meta?.currentPage;
 
   useEffect(() => {
-    if (!currentApiPage || currentApiPage === page) return;
+    if (isPlaceholderData || !currentApiPage || currentApiPage === page) return;
 
     router.replace(`${pathname}?${mergeQueryString({ page: currentApiPage.toString() })}`);
-  }, [currentApiPage, page, pathname, router, mergeQueryString]);
+  }, [isPlaceholderData, currentApiPage, page, pathname, router, mergeQueryString]);
 
   return (
     <div className="flex h-full flex-col gap-4">
