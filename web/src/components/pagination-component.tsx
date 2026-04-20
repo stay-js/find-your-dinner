@@ -5,7 +5,9 @@ import {
   PaginationButton,
   PaginationContent,
   PaginationEllipsis,
+  PaginationFirst,
   PaginationItem,
+  PaginationLast,
   PaginationNext,
   PaginationPrevious,
 } from '~/components/ui/pagination';
@@ -24,7 +26,10 @@ export function PaginationComponent({ currentPage, pageCount }: PaginationCompon
 
   const hasPrevPage = currentPage > 1;
   const hasNextPage = currentPage < pageCount;
-  const pageNumbers = getPageNumbers(currentPage, pageCount);
+
+  const windowSize = Math.min(3, pageCount);
+  const start = Math.min(Math.max(1, currentPage - 1), pageCount - windowSize + 1);
+  const pages = Array.from({ length: windowSize }, (_, i) => start + i);
 
   function handlePageChange(page: number) {
     router.replace(`${pathname}?${mergeQueryString({ page: page.toString() })}`);
@@ -36,24 +41,34 @@ export function PaginationComponent({ currentPage, pageCount }: PaginationCompon
     <Pagination>
       <PaginationContent>
         <PaginationItem>
+          <PaginationFirst disabled={!hasPrevPage} onClick={() => handlePageChange(1)} />
+        </PaginationItem>
+
+        <PaginationItem>
           <PaginationPrevious
             disabled={!hasPrevPage}
             onClick={() => handlePageChange(currentPage - 1)}
           />
         </PaginationItem>
 
-        {pageNumbers.map((p, i) =>
-          p === 'ellipsis' ? (
-            <PaginationItem key={`ellipsis-${i}`}>
-              <PaginationEllipsis />
-            </PaginationItem>
-          ) : (
-            <PaginationItem key={p}>
-              <PaginationButton isActive={p === currentPage} onClick={() => handlePageChange(p)}>
-                {p}
-              </PaginationButton>
-            </PaginationItem>
-          ),
+        {start > 1 && (
+          <PaginationItem>
+            <PaginationEllipsis />
+          </PaginationItem>
+        )}
+
+        {pages.map((p) => (
+          <PaginationItem key={p}>
+            <PaginationButton isActive={p === currentPage} onClick={() => handlePageChange(p)}>
+              {p}
+            </PaginationButton>
+          </PaginationItem>
+        ))}
+
+        {start + windowSize - 1 < pageCount && (
+          <PaginationItem>
+            <PaginationEllipsis />
+          </PaginationItem>
         )}
 
         <PaginationItem>
@@ -62,30 +77,11 @@ export function PaginationComponent({ currentPage, pageCount }: PaginationCompon
             onClick={() => handlePageChange(currentPage + 1)}
           />
         </PaginationItem>
+
+        <PaginationItem>
+          <PaginationLast disabled={!hasNextPage} onClick={() => handlePageChange(pageCount)} />
+        </PaginationItem>
       </PaginationContent>
     </Pagination>
   );
-}
-
-function getPageNumbers(currentPage: number, pageCount: number): Array<'ellipsis' | number> {
-  if (pageCount <= 7) {
-    return Array.from({ length: pageCount }, (_, i) => i + 1);
-  }
-
-  const pages: Array<'ellipsis' | number> = [1];
-
-  if (currentPage > 3) pages.push('ellipsis');
-
-  const start = Math.max(2, currentPage - 1);
-  const end = Math.min(pageCount - 1, currentPage + 1);
-
-  for (let i = start; i <= end; i++) {
-    pages.push(i);
-  }
-
-  if (currentPage < pageCount - 2) pages.push('ellipsis');
-
-  pages.push(pageCount);
-
-  return pages;
 }

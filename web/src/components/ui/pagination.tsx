@@ -1,4 +1,10 @@
-import { ChevronLeftIcon, ChevronRightIcon, MoreHorizontalIcon } from 'lucide-react';
+import {
+  ChevronFirstIcon,
+  ChevronLastIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  MoreHorizontalIcon,
+} from 'lucide-react';
 import * as React from 'react';
 
 import { Button } from '~/components/ui/button';
@@ -61,13 +67,31 @@ function PaginationEllipsis({ className, ...props }: React.ComponentProps<'span'
   );
 }
 
+function PaginationFirst({ className, ...props }: React.ComponentProps<typeof PaginationButton>) {
+  return (
+    <PaginationButton aria-label="Első oldal" className={className} size="icon" {...props}>
+      <ChevronFirstIcon />
+      <span className="sr-only">Első oldal</span>
+    </PaginationButton>
+  );
+}
+
 function PaginationItem({ ...props }: React.ComponentProps<'li'>) {
   return <li data-slot="pagination-item" {...props} />;
 }
 
+function PaginationLast({ className, ...props }: React.ComponentProps<typeof PaginationButton>) {
+  return (
+    <PaginationButton aria-label="Utolsó oldal" className={className} size="icon" {...props}>
+      <ChevronLastIcon />
+      <span className="sr-only">Utolsó oldal</span>
+    </PaginationButton>
+  );
+}
+
 function PaginationNext({
   className,
-  text = 'Next',
+  text = 'Következő',
   ...props
 }: { text?: string } & React.ComponentProps<typeof PaginationButton>) {
   return (
@@ -85,7 +109,7 @@ function PaginationNext({
 
 function PaginationPrevious({
   className,
-  text = 'Previous',
+  text = 'Előző',
   ...props
 }: { text?: string } & React.ComponentProps<typeof PaginationButton>) {
   return (
@@ -106,7 +130,9 @@ export {
   PaginationButton,
   PaginationContent,
   PaginationEllipsis,
+  PaginationFirst,
   PaginationItem,
+  PaginationLast,
   PaginationNext,
   PaginationPrevious,
 };
