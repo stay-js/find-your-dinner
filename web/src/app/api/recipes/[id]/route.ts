@@ -1,5 +1,5 @@
 import { auth } from '@clerk/nextjs/server';
-import { eq } from 'drizzle-orm';
+import { and, desc, eq, notInArray } from 'drizzle-orm';
 import { type NextRequest, NextResponse } from 'next/server';
 
 import { createUpdateRecipeSchema, idParamSchema } from '~/lib/zod';
@@ -105,6 +105,22 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
 
   try {
     await db.transaction(async (tx) => {
+      const latestVerifiedSubquery = tx
+        .select({ id: recipeData.id })
+        .from(recipeData)
+        .where(and(eq(recipeData.recipeId, recipe.id), eq(recipeData.verified, true)))
+        .orderBy(desc(recipeData.id))
+        .limit(1);
+
+      await tx
+        .delete(recipeData)
+        .where(
+          and(
+            eq(recipeData.recipeId, recipe.id),
+            notInArray(recipeData.id, latestVerifiedSubquery),
+          ),
+        );
+
       const insertResult = await tx
         .insert(recipeData)
         .values({ recipeId: recipe.id, ...data })
