@@ -25,6 +25,7 @@ services:
   postgres:
     image: postgres:18.2-alpine3.23
     volumes:
+      - ./docker/postgres:/docker-entrypoint-initdb.d:ro
       - postgres_data:/var/lib/postgresql
     environment:
       - TZ=${TZ}
