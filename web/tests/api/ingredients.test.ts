@@ -21,7 +21,6 @@ afterEach(truncateAll);
 describe('GET /api/ingredients', () => {
   it('returns 200 with empty array when no ingredients exist', async () => {
     const res = await GET(new NextRequest('http://localhost/api/ingredients'));
-
     expect(res.status).toBe(200);
 
     const data = ingredientsSchema.parse(await res.json());
@@ -56,8 +55,8 @@ describe('GET /api/ingredients', () => {
     });
 
     const res = await GET(new NextRequest('http://localhost/api/ingredients'));
-    const [item] = ingredientsSchema.parse(await res.json());
 
+    const [item] = ingredientsSchema.parse(await res.json());
     expect(item?.canBeDeleted).toBe(false);
   });
 
@@ -68,8 +67,8 @@ describe('GET /api/ingredients', () => {
     await seedDefaultIngredients(USER_ID, [ingredient.id]);
 
     const res = await GET(new NextRequest('http://localhost/api/ingredients'));
-    const [item] = ingredientsSchema.parse(await res.json());
 
+    const [item] = ingredientsSchema.parse(await res.json());
     expect(item?.canBeDeleted).toBe(false);
   });
 
@@ -80,7 +79,6 @@ describe('GET /api/ingredients', () => {
     const res = await GET(new NextRequest('http://localhost/api/ingredients?query=tomato'));
 
     const data = ingredientsSchema.parse(await res.json());
-
     expect(data.at(0)?.name).toBe('Tomato');
   });
 });

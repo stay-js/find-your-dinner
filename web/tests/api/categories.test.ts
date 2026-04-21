@@ -14,7 +14,6 @@ afterEach(truncateAll);
 describe('GET /api/categories', () => {
   it('returns 200 with empty array when no categories exist', async () => {
     const res = await GET(new NextRequest('http://localhost/api/categories'));
-
     expect(res.status).toBe(200);
 
     const data = categoriesSchema.parse(await res.json());
@@ -46,8 +45,8 @@ describe('GET /api/categories', () => {
     });
 
     const res = await GET(new NextRequest('http://localhost/api/categories'));
-    const [category] = categoriesSchema.parse(await res.json());
 
+    const [category] = categoriesSchema.parse(await res.json());
     expect(category?.canBeDeleted).toBe(false);
   });
 
@@ -58,7 +57,6 @@ describe('GET /api/categories', () => {
     const res = await GET(new NextRequest('http://localhost/api/categories?query=soup'));
 
     const data = categoriesSchema.parse(await res.json());
-
     expect(data.at(0)?.name).toBe('Soup');
   });
 });

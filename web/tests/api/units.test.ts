@@ -20,7 +20,6 @@ afterEach(truncateAll);
 describe('GET /api/units', () => {
   it('returns 200 with empty array when no units exist', async () => {
     const res = await GET(new NextRequest('http://localhost/api/units'));
-
     expect(res.status).toBe(200);
 
     const data = unitsSchema.parse(await res.json());
@@ -55,8 +54,8 @@ describe('GET /api/units', () => {
     });
 
     const res = await GET(new NextRequest('http://localhost/api/units'));
-    const [item] = unitsSchema.parse(await res.json());
 
+    const [item] = unitsSchema.parse(await res.json());
     expect(item?.canBeDeleted).toBe(false);
   });
 
@@ -67,7 +66,6 @@ describe('GET /api/units', () => {
     const res = await GET(new NextRequest('http://localhost/api/units?query=kilogramm'));
 
     const data = unitsSchema.parse(await res.json());
-
     expect(data.at(0)?.name).toBe('Kilogramm');
   });
 });
