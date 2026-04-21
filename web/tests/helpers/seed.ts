@@ -1,3 +1,4 @@
+import { db } from '~/server/db';
 import {
   admins,
   categories,
@@ -11,27 +12,25 @@ import {
   units,
 } from '~/server/db/schema';
 
-import { testDb } from './db';
-
 export async function seedAdmin(userId: string) {
-  await testDb.insert(admins).values({ userId }).onConflictDoNothing();
+  await db.insert(admins).values({ userId }).onConflictDoNothing();
 }
 
 export async function seedCategory(name: string) {
-  const [category] = await testDb.insert(categories).values({ name }).returning();
+  const [category] = await db.insert(categories).values({ name }).returning();
   return category;
 }
 
 export async function seedDefaultIngredients(userId: string, ingredientIds: number[]) {
   if (ingredientIds.length === 0) return;
 
-  await testDb
+  await db
     .insert(defaultIngredients)
     .values(ingredientIds.map((ingredientId) => ({ ingredientId, userId })));
 }
 
 export async function seedIngredient(name: string) {
-  const [ingredient] = await testDb.insert(ingredients).values({ name }).returning();
+  const [ingredient] = await db.insert(ingredients).values({ name }).returning();
   return ingredient;
 }
 
@@ -41,7 +40,7 @@ export async function seedRecipe(
   categoryIds: number[],
   ingredientEntries: Omit<typeof ingredientRecipeData.$inferInsert, 'recipeDataId'>[],
 ) {
-  return testDb.transaction(async (tx) => {
+  return db.transaction(async (tx) => {
     const [recipe] = await tx.insert(recipes).values({ userId }).returning();
     if (!recipe) throw new Error('Failed to insert recipe');
 
@@ -70,11 +69,11 @@ export async function seedRecipe(
 }
 
 export async function seedSavedRecipe(userId: string, recipeId: number) {
-  await testDb.insert(savedRecipes).values({ recipeId, userId });
+  await db.insert(savedRecipes).values({ recipeId, userId });
 }
 
 export async function seedUnit(name: string, abbreviation = name.at(0) ?? 'u') {
-  const [unit] = await testDb.insert(units).values({ abbreviation, name }).returning();
+  const [unit] = await db.insert(units).values({ abbreviation, name }).returning();
   return unit;
 }
 

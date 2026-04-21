@@ -1,16 +1,9 @@
 import { sql } from 'drizzle-orm';
-import { drizzle } from 'drizzle-orm/node-postgres';
-import { Pool } from 'pg';
 
-import { env } from '~/env';
-import * as schema from '~/server/db/schema';
-
-const pool = new Pool({ connectionString: env.TEST_DATABASE_URL });
-
-export const testDb = drizzle(pool, { schema });
+import { db } from '~/server/db';
 
 export async function truncateAll() {
-  await testDb.execute(
+  await db.execute(
     sql.raw(`
     TRUNCATE TABLE
       "admins",
