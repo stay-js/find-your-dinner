@@ -9,7 +9,7 @@ const nextConfig: NextConfig = {
     return [
       {
         headers: [
-          { key: 'Access-Control-Allow-Origin', value: 'http://swagger.localhost' },
+          { key: 'Access-Control-Allow-Origin', value: '*' },
           { key: 'Access-Control-Allow-Methods', value: 'GET, POST, PUT, PATCH, DELETE, OPTIONS' },
           { key: 'Access-Control-Allow-Headers', value: 'Content-Type, Authorization' },
         ],

@@ -212,6 +212,27 @@ components:
         meta:
           $ref: '#/components/schemas/PaginationMeta'
 
+    SavedRecipe:
+      allOf:
+        - $ref: '#/components/schemas/Recipe'
+        - type: object
+          required: [savedAt]
+          properties:
+            savedAt:
+              type: string
+              format: date-time
+
+    PaginatedSavedRecipes:
+      type: object
+      required: [data, meta]
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SavedRecipe'
+        meta:
+          $ref: '#/components/schemas/PaginationMeta'
+
     CreateUpdateRecipe:
       type: object
       required:
@@ -1242,8 +1263,8 @@ paths:
                         savedAt:
                           type: string
                           format: date-time
-                  - description: Paginated recipes (when include=recipe)
-                    $ref: '#/components/schemas/PaginatedRecipes'
+                  - description: Paginated saved recipes with savedAt (when include=recipe)
+                    $ref: '#/components/schemas/PaginatedSavedRecipes'
         '401':
           description: Unauthorized
           content:
@@ -1349,6 +1370,7 @@ paths:
                 type: array
                 items:
                   type: integer
+                  minimum: 1
         '401':
           description: Unauthorized
           content:
