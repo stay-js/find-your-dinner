@@ -103,3 +103,8 @@ export const SAMPLE_RECIPE_DATA = {
 
   verified: true,
 } satisfies Omit<typeof recipeData.$inferInsert, 'recipeId'>;
+
+export const UNVERIFIED_SAMPLE_RECIPE_DATA = {
+  ...SAMPLE_RECIPE_DATA,
+  verified: false,
+};
