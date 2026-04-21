@@ -250,6 +250,37 @@ const data = [
       { name: 'Olívaolaj', quantity: 5, unit: 'cl' },
     ],
   },
+  {
+    userId: 'user_3CPE4WILkIU2vrqElJNKDPZ2GsH',
+
+    data: {
+      title: 'Nokedli',
+
+      description:
+        'Egy jól bevált nokedli alaprecept elengedhetetlen egy magyar ember életében!\n\nkép forrása:pexels',
+      instructions:
+        'Egy nagy fazékba felteszünk nagyon sós vizet forrni!\n\nA nokedlihez mindent egy tálba teszünk és összekeverjük. \nÉrdemes fakanállal keverni, vagy legalábbis nem kézi géppel, mert így könnyen túl tudjuk keverni a tésztát.\nA tésztát pihentetni sem érdemes, ezért jobb már mielőtt belekezdünk a tésztába feltenni forrni a vizet. \nAmint forr a víz, keverünk rajta egyet hogy majd ne tapadjon le a fazék aljára a tészta, és máris szaggathatjuk bele a nokedlit. Néhány perc alatt feljön a víz tetejére, ekkor főtt meg. \n\nNagymamámnál ilyenkor a nokedliből az első étel sajtos nokedli volt, amihez szalonnát is sütött, ennek kisült zsírjába forgatta bele a nokedlit hogy ne ragadjon össze, majd sajttal, tejföllel, korábban sült szalonnával tálalta. Persze ha éppen nem szeretnénk ezzel bajlódni vajjal, vagy bármilyen zsiradékkal működik ez a trükk, az összeragadás ellen.',
+
+      previewImageUrl: 'https://images.pexels.com/photos/116721/pexels-photo-116721.jpeg',
+
+      cookTimeMinutes: 5,
+      prepTimeMinutes: 15,
+
+      servings: 4,
+
+      verified: true,
+    },
+
+    categories: ['Köret'],
+
+    ingredients: [
+      { name: 'Búzaliszt', quantity: 500, unit: 'g' },
+      { name: 'Só', quantity: 1, unit: 'ek' },
+      { name: 'Napraforgóolaj', quantity: 1, unit: 'ek' },
+      { name: 'Tojás', quantity: 1, unit: 'db' },
+      { name: 'Víz', quantity: 1, unit: 'dl' },
+    ],
+  },
 ] satisfies Recipe[];
 
 export async function seedRecipes() {
