@@ -59,9 +59,12 @@ export async function POST(request: NextRequest) {
   const { name } = result.data;
 
   try {
-    const insertResult = await db.insert(categories).values({ name }).returning();
-    const categoryId = insertResult.at(0)?.id;
+    const [insertResult] = await db
+      .insert(categories)
+      .values({ name })
+      .returning({ id: categories.id });
 
+    const categoryId = insertResult?.id;
     if (!categoryId) throw new Error('Failed to insert category');
 
     return NextResponse.json({ categoryId, message: 'Created' }, { status: 201 });

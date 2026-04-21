@@ -60,9 +60,12 @@ export async function POST(request: NextRequest) {
   const { name } = result.data;
 
   try {
-    const insertResult = await db.insert(ingredients).values({ name }).returning();
-    const ingredientId = insertResult.at(0)?.id;
+    const [insertResult] = await db
+      .insert(ingredients)
+      .values({ name })
+      .returning({ id: ingredients.id });
 
+    const ingredientId = insertResult?.id;
     if (!ingredientId) throw new Error('Failed to insert ingredient');
 
     return NextResponse.json({ ingredientId, message: 'Created' }, { status: 201 });

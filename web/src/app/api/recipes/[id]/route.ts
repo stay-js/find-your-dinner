@@ -121,12 +121,12 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
           ),
         );
 
-      const insertResult = await tx
+      const [insertResult] = await tx
         .insert(recipeData)
         .values({ recipeId: recipe.id, ...data })
         .returning({ id: recipeData.id });
 
-      const recipeDataId = insertResult.at(0)?.id;
+      const recipeDataId = insertResult?.id;
       if (!recipeDataId) throw new Error('Failed to insert recipe data');
 
       await tx.delete(categoryRecipe).where(eq(categoryRecipe.recipeId, recipe.id));

@@ -212,20 +212,20 @@ export async function seedRecipes() {
 
   for (const item of data) {
     await db.transaction(async (tx) => {
-      const recipeInsertResult = await tx
+      const [recipeInsertResult] = await tx
         .insert(recipes)
         .values({ userId: item.userId })
         .returning({ id: recipes.id });
 
-      const recipeId = recipeInsertResult.at(0)?.id;
+      const recipeId = recipeInsertResult?.id;
       if (!recipeId) throw new Error('Failed to insert recipe');
 
-      const recipeDataInsertResult = await tx
+      const [recipeDataInsertResult] = await tx
         .insert(recipeData)
         .values({ recipeId, ...item.data })
         .returning({ id: recipeData.id });
 
-      const recipeDataId = recipeDataInsertResult.at(0)?.id;
+      const recipeDataId = recipeDataInsertResult?.id;
       if (!recipeDataId) throw new Error('Failed to insert recipe data');
 
       if (item.ingredients.length > 0) {

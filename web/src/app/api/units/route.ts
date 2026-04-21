@@ -63,9 +63,12 @@ export async function POST(request: NextRequest) {
   const { abbreviation, name } = result.data;
 
   try {
-    const insertResult = await db.insert(units).values({ abbreviation, name }).returning();
-    const unitId = insertResult.at(0)?.id;
+    const [insertResult] = await db
+      .insert(units)
+      .values({ abbreviation, name })
+      .returning({ id: units.id });
 
+    const unitId = insertResult?.id;
     if (!unitId) throw new Error('Failed to insert unit');
 
     return NextResponse.json({ message: 'Created', unitId }, { status: 201 });
