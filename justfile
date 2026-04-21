@@ -123,3 +123,15 @@ seed:
 [working-directory: 'web']
 dbml:
     {{runner}} run db:generate:dbml
+
+# Runs API tests with Vitest
+[group('tests')]
+[working-directory: 'web']
+test-api:
+    {{runner}} run test:api
+
+# Runs API tests with Vitest and generates coverage report
+[group('tests')]
+[working-directory: 'web']
+test-api-coverage:
+    {{runner}} run test:api:coverage
