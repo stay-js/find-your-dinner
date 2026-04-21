@@ -21,9 +21,10 @@ export async function EditPage({ params }: { params: Promise<{ id: string }> }) 
   if (!isAdmin && author.id !== userId) notFound();
 
   const defaultValues = {
+    title: recipeData.title,
+
     description: recipeData.description,
     instructions: recipeData.instructions,
-    title: recipeData.title,
 
     previewImageUrl: recipeData.previewImageUrl,
 

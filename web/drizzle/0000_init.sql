@@ -34,9 +34,9 @@ CREATE TABLE "ingredients" (
 CREATE TABLE "recipe_data" (
 	"id" bigint PRIMARY KEY GENERATED ALWAYS AS IDENTITY (sequence name "recipe_data_id_seq" INCREMENT BY 1 MINVALUE 1 MAXVALUE 9223372036854775807 START WITH 1 CACHE 1),
 	"recipe_id" bigint NOT NULL,
+	"title" varchar(512) NOT NULL,
 	"description" text NOT NULL,
 	"instructions" text NOT NULL,
-	"title" varchar(512) NOT NULL,
 	"preview_image_url" varchar(2048) NOT NULL,
 	"cook_time_minutes" integer NOT NULL,
 	"prep_time_minutes" integer NOT NULL,

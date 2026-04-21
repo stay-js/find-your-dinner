@@ -88,6 +88,7 @@ export const SAMPLE_RECIPE_DATA = {
 
   cookTimeMinutes: 30,
   prepTimeMinutes: 15,
+
   servings: 4,
 
   verified: true,

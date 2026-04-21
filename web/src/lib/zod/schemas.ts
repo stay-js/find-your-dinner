@@ -99,9 +99,10 @@ export const recipeDataSchema = z.object({
   id: z.number().int().positive(),
   recipeId: z.number().int().positive(),
 
+  title: z.string().trim().min(1).max(512),
+
   description: z.string().trim().min(1),
   instructions: z.string().trim().min(1),
-  title: z.string().trim().min(1).max(512),
 
   previewImageUrl: z.url().trim().max(2048),
 
@@ -155,9 +156,10 @@ export const savedRecipeIdsSchema = z.array(
 export type SavedRecipeIds = z.infer<typeof savedRecipeIdsSchema>;
 
 export const createUpdateRecipeSchema = z.object({
+  title: z.string().trim().min(1).max(512),
+
   description: z.string().trim().min(1),
   instructions: z.string().trim().min(1),
-  title: z.string().trim().min(1).max(512),
 
   previewImageUrl: z
     .url()

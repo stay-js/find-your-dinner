@@ -21,9 +21,10 @@ export const recipeData = pgTable(
       .notNull()
       .references(() => recipes.id, { onDelete: 'cascade', onUpdate: 'cascade' }),
 
+    title: d.varchar('title', { length: 512 }).notNull(),
+
     description: d.text('description').notNull(),
     instructions: d.text('instructions').notNull(),
-    title: d.varchar('title', { length: 512 }).notNull(),
 
     previewImageUrl: d.varchar('preview_image_url', { length: 2048 }).notNull(),
 

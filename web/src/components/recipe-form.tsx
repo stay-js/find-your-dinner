@@ -32,13 +32,40 @@ import {
 } from '~/lib/zod';
 
 const formSchema = z.object({
-  categories: z.array(z.number().int().positive()).min(1, {
-    error: 'Válassz legalább egy kategóriát!',
-  }),
+  title: z
+    .string()
+    .trim()
+    .min(1, { error: 'Add meg a recept nevét!' })
+    .max(512, { error: 'A recept neve legfeljebb 512 karakter lehet!' }),
+
+  description: z.string().trim().min(1, { error: 'Add meg a recept leírását!' }),
+  instructions: z.string().trim().min(1, { error: 'Add meg az elkészítési utasításokat!' }),
+
+  previewImageUrl: z
+    .url({ error: 'Adj meg egy érvényes URL-t!' })
+    .trim()
+    .max(2048, {
+      error: 'Az URL hossza legfeljebb 2048 karakter lehet!',
+    })
+    .refine((url) => url.startsWith('https://'), {
+      error: 'Az URL-nek https:// előtaggal kell kezdődnie!',
+    }),
+
   cookTimeMinutes: z.string().trim().refine(isNonNegativeIntegerString, {
     error: 'A főzési/sütési idő csak természetes szám lehet!',
   }),
-  description: z.string().trim().min(1, { error: 'Add meg a recept leírását!' }),
+  prepTimeMinutes: z.string().trim().refine(isNonNegativeIntegerString, {
+    error: 'Az előkészítési idő csak természetes szám lehet!',
+  }),
+
+  servings: z.string().trim().refine(isPositiveIntegerString, {
+    error: 'Az adagok száma csak pozitív egész szám lehet!',
+  }),
+
+  categories: z.array(z.number().int().positive()).min(1, {
+    error: 'Válassz legalább egy kategóriát!',
+  }),
+
   ingredients: z
     .array(
       z.object({
@@ -57,27 +84,6 @@ const formSchema = z.object({
       }),
     )
     .min(1, { error: 'Adj hozzá legalább egy hozzávalót!' }),
-  instructions: z.string().trim().min(1, { error: 'Add meg az elkészítési utasításokat!' }),
-  prepTimeMinutes: z.string().trim().refine(isNonNegativeIntegerString, {
-    error: 'Az előkészítési idő csak természetes szám lehet!',
-  }),
-  previewImageUrl: z
-    .url({ error: 'Adj meg egy érvényes URL-t!' })
-    .trim()
-    .max(2048, {
-      error: 'Az URL hossza legfeljebb 2048 karakter lehet!',
-    })
-    .refine((url) => url.startsWith('https://'), {
-      error: 'Az URL-nek https:// előtaggal kell kezdődnie!',
-    }),
-  servings: z.string().trim().refine(isPositiveIntegerString, {
-    error: 'Az adagok száma csak pozitív egész szám lehet!',
-  }),
-  title: z
-    .string()
-    .trim()
-    .min(1, { error: 'Add meg a recept nevét!' })
-    .max(512, { error: 'A recept neve legfeljebb 512 karakter lehet!' }),
 });
 
 type FormSchema = z.infer<typeof formSchema>;
