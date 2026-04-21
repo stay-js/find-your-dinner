@@ -142,6 +142,17 @@ export type Recipes = z.infer<typeof recipesSchema>;
 export const paginatedRecipesSchema = createPaginatedSchema(recipeSchema);
 export type PaginatedRecipes = z.infer<typeof paginatedRecipesSchema>;
 
+export const savedRecipeSchema = recipeSchema.extend({
+  savedAt: z.coerce.date(),
+});
+export type SavedRecipe = z.infer<typeof savedRecipeSchema>;
+
+export const savedRecipesSchema = z.array(savedRecipeSchema);
+export type SavedRecipes = z.infer<typeof savedRecipesSchema>;
+
+export const paginatedSavedRecipesSchema = createPaginatedSchema(savedRecipeSchema);
+export type PaginatedSavedRecipes = z.infer<typeof paginatedSavedRecipesSchema>;
+
 export const fullRecipeSchema = recipeSchema.extend({
   author: authorSchema,
   ingredients: ingredientsWithPivotSchema,

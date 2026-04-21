@@ -14,7 +14,7 @@ import {
 
 import { DELETE } from '~/app/api/user/saved-recipes/[id]/route';
 import { GET, POST } from '~/app/api/user/saved-recipes/route';
-import { paginatedRecipesSchema, savedRecipeIdsSchema } from '~/lib/zod';
+import { paginatedSavedRecipesSchema, savedRecipeIdsSchema } from '~/lib/zod';
 
 afterEach(truncateAll);
 
@@ -106,7 +106,7 @@ describe('GET /api/user/saved-recipes?include=recipe', () => {
     );
     expect(res.status).toBe(200);
 
-    const body = paginatedRecipesSchema.parse(await res.json());
+    const body = paginatedSavedRecipesSchema.parse(await res.json());
 
     expect(body.data).toHaveLength(0);
     expect(body.meta.total).toBe(0);
@@ -130,7 +130,7 @@ describe('GET /api/user/saved-recipes?include=recipe', () => {
     );
     expect(res.status).toBe(200);
 
-    const body = paginatedRecipesSchema.parse(await res.json());
+    const body = paginatedSavedRecipesSchema.parse(await res.json());
 
     expect(body.data).toHaveLength(1);
     expect(body.data.at(0)?.recipeData.title).toBe(SAMPLE_RECIPE_DATA.title);
@@ -151,7 +151,7 @@ describe('GET /api/user/saved-recipes?include=recipe', () => {
     );
     expect(res.status).toBe(200);
 
-    const body = paginatedRecipesSchema.parse(await res.json());
+    const body = paginatedSavedRecipesSchema.parse(await res.json());
     expect(body.data).toHaveLength(0);
   });
 
@@ -172,7 +172,7 @@ describe('GET /api/user/saved-recipes?include=recipe', () => {
     );
     expect(res.status).toBe(200);
 
-    const body = paginatedRecipesSchema.parse(await res.json());
+    const body = paginatedSavedRecipesSchema.parse(await res.json());
     expect(body.data).toHaveLength(0);
   });
 
@@ -193,7 +193,7 @@ describe('GET /api/user/saved-recipes?include=recipe', () => {
     );
     expect(res.status).toBe(200);
 
-    const body = paginatedRecipesSchema.parse(await res.json());
+    const body = paginatedSavedRecipesSchema.parse(await res.json());
     expect(body.data).toHaveLength(0);
   });
 
@@ -228,7 +228,7 @@ describe('GET /api/user/saved-recipes?include=recipe', () => {
     );
     expect(res.status).toBe(200);
 
-    const body = paginatedRecipesSchema.parse(await res.json());
+    const body = paginatedSavedRecipesSchema.parse(await res.json());
 
     expect(body.data).toHaveLength(1);
     expect(body.data.at(0)?.recipeData.title).toBe(SAMPLE_RECIPE_DATA.title);
@@ -269,7 +269,7 @@ describe('GET /api/user/saved-recipes?include=recipe', () => {
     );
     expect(res.status).toBe(200);
 
-    const body = paginatedRecipesSchema.parse(await res.json());
+    const body = paginatedSavedRecipesSchema.parse(await res.json());
 
     expect(body.data).toHaveLength(1);
     expect(body.data.at(0)?.recipeData.title).toBe(SAMPLE_RECIPE_DATA.title);
@@ -300,7 +300,7 @@ describe('GET /api/user/saved-recipes?include=recipe', () => {
     );
     expect(res.status).toBe(200);
 
-    const body = paginatedRecipesSchema.parse(await res.json());
+    const body = paginatedSavedRecipesSchema.parse(await res.json());
 
     expect(body.data).toHaveLength(1);
     expect(body.data.at(0)?.recipeData.title).toBe('Chicken Soup');
@@ -324,7 +324,7 @@ describe('GET /api/user/saved-recipes?include=recipe', () => {
     );
     expect(res.status).toBe(200);
 
-    const body = paginatedRecipesSchema.parse(await res.json());
+    const body = paginatedSavedRecipesSchema.parse(await res.json());
 
     expect(body.meta.total).toBe(10);
     expect(body.meta.currentPage).toBe(2);

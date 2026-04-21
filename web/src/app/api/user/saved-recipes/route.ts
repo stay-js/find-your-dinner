@@ -96,7 +96,10 @@ export async function GET(request: NextRequest) {
     .$dynamic();
 
   const baseRecipesQuery = db
-    .select({ recipe: recipes })
+    .select({
+      recipe: recipes,
+      savedAt: savedRecipes.createdAt,
+    })
     .from(savedRecipes)
     .innerJoin(recipes, eq(savedRecipes.recipeId, recipes.id))
     .innerJoin(latestRd, eq(latestRd.recipeId, recipes.id))

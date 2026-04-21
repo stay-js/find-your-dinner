@@ -6,7 +6,10 @@ import { recipeData, type recipes } from '~/server/db/schema';
 import { getHasVerifiedVersion } from './get-has-verified-version';
 import { getRecipeCategories } from './get-recipe-categories';
 
-type RecipeRecord = { recipe: typeof recipes.$inferSelect };
+type RecipeRecord = {
+  recipe: typeof recipes.$inferSelect;
+  savedAt?: Date | null;
+};
 
 export function buildFtsClause(query: null | string | undefined) {
   return query && query.length >= 3
@@ -56,7 +59,7 @@ export async function enrichRecipes(
   } = {},
 ) {
   return Promise.all(
-    recipeRecords.map(async ({ recipe }) => {
+    recipeRecords.map(async ({ recipe, savedAt }) => {
       const recipeDataWhere = opts.onlyAwaitingVerification
         ? and(eq(recipeData.recipeId, recipe.id), eq(recipeData.verified, false))
         : opts.verifiedOnly
@@ -77,6 +80,7 @@ export async function enrichRecipes(
         hasVerifiedVersion,
         recipe,
         recipeData: recipeDataRecord,
+        savedAt,
       };
     }),
   );

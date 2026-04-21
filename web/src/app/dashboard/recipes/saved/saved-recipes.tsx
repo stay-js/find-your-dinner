@@ -16,7 +16,7 @@ import { useRecipeFilters } from '~/hooks/filter';
 import { useMergeQueryString } from '~/hooks/use-merge-query-string';
 import { GET } from '~/lib/api';
 import { cn } from '~/lib/utils';
-import { pageSchema, paginatedRecipesSchema } from '~/lib/zod';
+import { pageSchema, paginatedSavedRecipesSchema } from '~/lib/zod';
 
 export function SavedRecipes() {
   const { open: isSidebarOpen } = useSidebar();
@@ -55,7 +55,7 @@ export function SavedRecipes() {
         params.set('ingredients', JSON.stringify(selectedIngredients));
       }
 
-      return GET(`/api/user/saved-recipes?${params}`, paginatedRecipesSchema);
+      return GET(`/api/user/saved-recipes?${params}`, paginatedSavedRecipesSchema);
     },
     queryKey: [
       'currentUser',
