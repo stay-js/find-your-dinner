@@ -31,6 +31,7 @@ describe('GET /api/ingredients', () => {
     await seedIngredient('Tomato');
 
     const res = await GET(new NextRequest('http://localhost/api/ingredients'));
+    expect(res.status).toBe(200);
 
     const [ingredient] = ingredientsSchema.parse(await res.json());
 
@@ -55,6 +56,7 @@ describe('GET /api/ingredients', () => {
     });
 
     const res = await GET(new NextRequest('http://localhost/api/ingredients'));
+    expect(res.status).toBe(200);
 
     const [item] = ingredientsSchema.parse(await res.json());
     expect(item?.canBeDeleted).toBe(false);
@@ -67,6 +69,7 @@ describe('GET /api/ingredients', () => {
     await seedDefaultIngredients(USER_ID, [ingredient.id]);
 
     const res = await GET(new NextRequest('http://localhost/api/ingredients'));
+    expect(res.status).toBe(200);
 
     const [item] = ingredientsSchema.parse(await res.json());
     expect(item?.canBeDeleted).toBe(false);
@@ -77,6 +80,7 @@ describe('GET /api/ingredients', () => {
     await seedIngredient('Potato');
 
     const res = await GET(new NextRequest('http://localhost/api/ingredients?query=tomato'));
+    expect(res.status).toBe(200);
 
     const data = ingredientsSchema.parse(await res.json());
     expect(data.at(0)?.name).toBe('Tomato');

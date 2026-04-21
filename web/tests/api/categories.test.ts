@@ -24,6 +24,7 @@ describe('GET /api/categories', () => {
     await seedCategory('Soup');
 
     const res = await GET(new NextRequest('http://localhost/api/categories'));
+    expect(res.status).toBe(200);
 
     const [category] = categoriesSchema.parse(await res.json());
 
@@ -45,6 +46,7 @@ describe('GET /api/categories', () => {
     });
 
     const res = await GET(new NextRequest('http://localhost/api/categories'));
+    expect(res.status).toBe(200);
 
     const [category] = categoriesSchema.parse(await res.json());
     expect(category?.canBeDeleted).toBe(false);
@@ -55,6 +57,7 @@ describe('GET /api/categories', () => {
     await seedCategory('Pasta');
 
     const res = await GET(new NextRequest('http://localhost/api/categories?query=soup'));
+    expect(res.status).toBe(200);
 
     const data = categoriesSchema.parse(await res.json());
     expect(data.at(0)?.name).toBe('Soup');

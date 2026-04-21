@@ -30,6 +30,7 @@ describe('GET /api/units', () => {
     await seedUnit('Kilogramm', 'kg');
 
     const res = await GET(new NextRequest('http://localhost/api/units'));
+    expect(res.status).toBe(200);
 
     const [unit] = unitsSchema.parse(await res.json());
 
@@ -54,6 +55,7 @@ describe('GET /api/units', () => {
     });
 
     const res = await GET(new NextRequest('http://localhost/api/units'));
+    expect(res.status).toBe(200);
 
     const [item] = unitsSchema.parse(await res.json());
     expect(item?.canBeDeleted).toBe(false);
@@ -64,6 +66,7 @@ describe('GET /api/units', () => {
     await seedUnit('Liter', 'l');
 
     const res = await GET(new NextRequest('http://localhost/api/units?query=kilogramm'));
+    expect(res.status).toBe(200);
 
     const data = unitsSchema.parse(await res.json());
     expect(data.at(0)?.name).toBe('Kilogramm');
