@@ -280,7 +280,7 @@ describe('GET /api/recipes', () => {
       userId: USER_ID,
     });
 
-    const res = await GET(new NextRequest('http://localhost/api/recipes?query=Chicken'));
+    const res = await GET(new NextRequest('http://localhost/api/recipes?query=chicken'));
     expect(res.status).toBe(200);
 
     const body = paginatedRecipesSchema.parse(await res.json());
