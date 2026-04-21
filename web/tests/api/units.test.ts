@@ -186,7 +186,7 @@ describe('PUT /api/units/[id]', () => {
       method: 'PUT',
     });
 
-    const res = await PUT(req, { params: Promise.resolve({ id: String(unit.id) }) });
+    const res = await PUT(req, { params: Promise.resolve({ id: unit.id.toString() }) });
     expect(res.status).toBe(204);
   });
 
@@ -218,7 +218,7 @@ describe('PUT /api/units/[id]', () => {
       method: 'PUT',
     });
 
-    const res = await PUT(req, { params: Promise.resolve({ id: String(unit.id) }) });
+    const res = await PUT(req, { params: Promise.resolve({ id: unit.id.toString() }) });
     expect(res.status).toBe(409);
   });
 
@@ -235,7 +235,7 @@ describe('PUT /api/units/[id]', () => {
       method: 'PUT',
     });
 
-    const res = await PUT(req, { params: Promise.resolve({ id: String(unit.id) }) });
+    const res = await PUT(req, { params: Promise.resolve({ id: unit.id.toString() }) });
     expect(res.status).toBe(400);
   });
 });
@@ -270,7 +270,7 @@ describe('DELETE /api/units/[id]', () => {
 
     const res = await DELETE(
       new NextRequest(`http://localhost/api/units/${unit.id}`, { method: 'DELETE' }),
-      { params: Promise.resolve({ id: String(unit.id) }) },
+      { params: Promise.resolve({ id: unit.id.toString() }) },
     );
 
     expect(res.status).toBe(204);

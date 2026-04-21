@@ -177,7 +177,7 @@ describe('PUT /api/categories/[id]', () => {
       method: 'PUT',
     });
 
-    const res = await PUT(req, { params: Promise.resolve({ id: String(cat.id) }) });
+    const res = await PUT(req, { params: Promise.resolve({ id: cat.id.toString() }) });
     expect(res.status).toBe(204);
   });
 
@@ -210,7 +210,7 @@ describe('PUT /api/categories/[id]', () => {
       method: 'PUT',
     });
 
-    const res = await PUT(req, { params: Promise.resolve({ id: String(cat.id) }) });
+    const res = await PUT(req, { params: Promise.resolve({ id: cat.id.toString() }) });
     expect(res.status).toBe(409);
   });
 
@@ -227,7 +227,7 @@ describe('PUT /api/categories/[id]', () => {
       method: 'PUT',
     });
 
-    const res = await PUT(req, { params: Promise.resolve({ id: String(cat.id) }) });
+    const res = await PUT(req, { params: Promise.resolve({ id: cat.id.toString() }) });
     expect(res.status).toBe(400);
   });
 });
@@ -262,7 +262,7 @@ describe('DELETE /api/categories/[id]', () => {
 
     const res = await DELETE(
       new NextRequest(`http://localhost/api/categories/${cat.id}`, { method: 'DELETE' }),
-      { params: Promise.resolve({ id: String(cat.id) }) },
+      { params: Promise.resolve({ id: cat.id.toString() }) },
     );
 
     expect(res.status).toBe(204);

@@ -199,7 +199,7 @@ describe('PUT /api/ingredients/[id]', () => {
       method: 'PUT',
     });
 
-    const res = await PUT(req, { params: Promise.resolve({ id: String(ingredient.id) }) });
+    const res = await PUT(req, { params: Promise.resolve({ id: ingredient.id.toString() }) });
     expect(res.status).toBe(204);
   });
 
@@ -231,7 +231,7 @@ describe('PUT /api/ingredients/[id]', () => {
       method: 'PUT',
     });
 
-    const res = await PUT(req, { params: Promise.resolve({ id: String(ingredient.id) }) });
+    const res = await PUT(req, { params: Promise.resolve({ id: ingredient.id.toString() }) });
     expect(res.status).toBe(409);
   });
 
@@ -248,7 +248,7 @@ describe('PUT /api/ingredients/[id]', () => {
       method: 'PUT',
     });
 
-    const res = await PUT(req, { params: Promise.resolve({ id: String(ingredient.id) }) });
+    const res = await PUT(req, { params: Promise.resolve({ id: ingredient.id.toString() }) });
     expect(res.status).toBe(400);
   });
 });
@@ -283,7 +283,7 @@ describe('DELETE /api/ingredients/[id]', () => {
 
     const res = await DELETE(
       new NextRequest(`http://localhost/api/ingredients/${ingredient.id}`, { method: 'DELETE' }),
-      { params: Promise.resolve({ id: String(ingredient.id) }) },
+      { params: Promise.resolve({ id: ingredient.id.toString() }) },
     );
 
     expect(res.status).toBe(204);

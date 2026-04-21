@@ -80,7 +80,7 @@ describe('POST /api/recipe-data/[id]/verify', () => {
       new NextRequest(`http://localhost/api/recipe-data/${recipeData.id}/verify`, {
         method: 'POST',
       }),
-      { params: Promise.resolve({ id: String(recipeData.id) }) },
+      { params: Promise.resolve({ id: recipeData.id.toString() }) },
     );
 
     expect(res.status).toBe(409);
@@ -101,7 +101,7 @@ describe('POST /api/recipe-data/[id]/verify', () => {
       new NextRequest(`http://localhost/api/recipe-data/${recipeData.id}/verify`, {
         method: 'POST',
       }),
-      { params: Promise.resolve({ id: String(recipeData.id) }) },
+      { params: Promise.resolve({ id: recipeData.id.toString() }) },
     );
 
     expect(res.status).toBe(204);
