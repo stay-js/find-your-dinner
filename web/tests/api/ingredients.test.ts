@@ -234,6 +234,23 @@ describe('PUT /api/ingredients/[id]', () => {
     const res = await PUT(req, { params: Promise.resolve({ id: String(ingredient.id) }) });
     expect(res.status).toBe(409);
   });
+
+  it('returns 400 for invalid body', async () => {
+    mockUser(ADMIN_ID);
+    await seedAdmin(ADMIN_ID);
+
+    const ingredient = await seedIngredient('Tomato');
+    if (!ingredient) throw new Error('Failed to seed ingredient');
+
+    const req = new NextRequest(`http://localhost/api/ingredients/${ingredient.id}`, {
+      body: JSON.stringify({ name: '' }),
+      headers: { 'Content-Type': 'application/json' },
+      method: 'PUT',
+    });
+
+    const res = await PUT(req, { params: Promise.resolve({ id: String(ingredient.id) }) });
+    expect(res.status).toBe(400);
+  });
 });
 
 describe('DELETE /api/ingredients/[id]', () => {
@@ -282,5 +299,17 @@ describe('DELETE /api/ingredients/[id]', () => {
     );
 
     expect(res.status).toBe(404);
+  });
+
+  it('returns 400 for invalid id', async () => {
+    mockUser(ADMIN_ID);
+    await seedAdmin(ADMIN_ID);
+
+    const res = await DELETE(
+      new NextRequest('http://localhost/api/ingredients/not-a-number', { method: 'DELETE' }),
+      { params: Promise.resolve({ id: 'not-a-number' }) },
+    );
+
+    expect(res.status).toBe(400);
   });
 });

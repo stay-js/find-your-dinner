@@ -213,6 +213,23 @@ describe('PUT /api/categories/[id]', () => {
     const res = await PUT(req, { params: Promise.resolve({ id: String(cat.id) }) });
     expect(res.status).toBe(409);
   });
+
+  it('returns 400 for invalid body', async () => {
+    mockUser(ADMIN_ID);
+    await seedAdmin(ADMIN_ID);
+
+    const cat = await seedCategory('Soup');
+    if (!cat) throw new Error('Failed to seed category');
+
+    const req = new NextRequest(`http://localhost/api/categories/${cat.id}`, {
+      body: JSON.stringify({ name: '' }),
+      headers: { 'Content-Type': 'application/json' },
+      method: 'PUT',
+    });
+
+    const res = await PUT(req, { params: Promise.resolve({ id: String(cat.id) }) });
+    expect(res.status).toBe(400);
+  });
 });
 
 describe('DELETE /api/categories/[id]', () => {
@@ -261,5 +278,17 @@ describe('DELETE /api/categories/[id]', () => {
     );
 
     expect(res.status).toBe(404);
+  });
+
+  it('returns 400 for invalid id', async () => {
+    mockUser(ADMIN_ID);
+    await seedAdmin(ADMIN_ID);
+
+    const res = await DELETE(
+      new NextRequest('http://localhost/api/categories/not-a-number', { method: 'DELETE' }),
+      { params: Promise.resolve({ id: 'not-a-number' }) },
+    );
+
+    expect(res.status).toBe(400);
   });
 });

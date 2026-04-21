@@ -221,6 +221,23 @@ describe('PUT /api/units/[id]', () => {
     const res = await PUT(req, { params: Promise.resolve({ id: String(unit.id) }) });
     expect(res.status).toBe(409);
   });
+
+  it('returns 400 for invalid body', async () => {
+    mockUser(ADMIN_ID);
+    await seedAdmin(ADMIN_ID);
+
+    const unit = await seedUnit('Kilogramm', 'kg');
+    if (!unit) throw new Error('Failed to seed unit');
+
+    const req = new NextRequest(`http://localhost/api/units/${unit.id}`, {
+      body: JSON.stringify({ abbreviation: 'nn', name: '' }),
+      headers: { 'Content-Type': 'application/json' },
+      method: 'PUT',
+    });
+
+    const res = await PUT(req, { params: Promise.resolve({ id: String(unit.id) }) });
+    expect(res.status).toBe(400);
+  });
 });
 
 describe('DELETE /api/units/[id]', () => {
@@ -269,5 +286,17 @@ describe('DELETE /api/units/[id]', () => {
     );
 
     expect(res.status).toBe(404);
+  });
+
+  it('returns 400 for invalid id', async () => {
+    mockUser(ADMIN_ID);
+    await seedAdmin(ADMIN_ID);
+
+    const res = await DELETE(
+      new NextRequest('http://localhost/api/units/not-a-number', { method: 'DELETE' }),
+      { params: Promise.resolve({ id: 'not-a-number' }) },
+    );
+
+    expect(res.status).toBe(400);
   });
 });
