@@ -10,7 +10,7 @@ import { PreviewImage } from './preview-image';
 import { Stats } from './stats';
 import { Title } from './title';
 
-type Recipe = Awaited<ReturnType<typeof getRecipe>>;
+type Recipe = NonNullable<Awaited<ReturnType<typeof getRecipe>>>;
 
 interface RecipePageProps extends Recipe {
   children?: React.ReactNode;
