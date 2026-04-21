@@ -67,11 +67,8 @@ describe('GET /api/recipes', () => {
   });
 
   it('returns verified recipes with pagination meta', async () => {
-    const cat = await seedCategory('Soup');
-    if (!cat) throw new Error('Failed to seed category');
-
     await seedRecipe({
-      categoryIds: [cat.id],
+      categoryIds: [],
       data: SAMPLE_RECIPE_DATA,
       ingredientEntries: [],
       userId: USER_ID,
@@ -88,11 +85,8 @@ describe('GET /api/recipes', () => {
   });
 
   it('does not return unverified recipes by default', async () => {
-    const cat = await seedCategory('Soup');
-    if (!cat) throw new Error('Failed to seed category');
-
     await seedRecipe({
-      categoryIds: [cat.id],
+      categoryIds: [],
       data: UNVERIFIED_SAMPLE_RECIPE_DATA,
       ingredientEntries: [],
       userId: USER_ID,
@@ -123,11 +117,8 @@ describe('GET /api/recipes', () => {
     mockUser(ADMIN_ID);
     await seedAdmin(ADMIN_ID);
 
-    const cat = await seedCategory('Soup');
-    if (!cat) throw new Error('Failed to seed category');
-
     await seedRecipe({
-      categoryIds: [cat.id],
+      categoryIds: [],
       data: UNVERIFIED_SAMPLE_RECIPE_DATA,
       ingredientEntries: [],
       userId: USER_ID,
@@ -166,18 +157,15 @@ describe('GET /api/recipes', () => {
     mockUser(ADMIN_ID);
     await seedAdmin(ADMIN_ID);
 
-    const cat = await seedCategory('Soup');
-    if (!cat) throw new Error('Failed to seed category');
-
     await seedRecipe({
-      categoryIds: [cat.id],
+      categoryIds: [],
       data: SAMPLE_RECIPE_DATA,
       ingredientEntries: [],
       userId: USER_ID,
     });
 
     await seedRecipe({
-      categoryIds: [cat.id],
+      categoryIds: [],
       data: UNVERIFIED_SAMPLE_RECIPE_DATA,
       ingredientEntries: [],
       userId: USER_ID,
@@ -227,21 +215,20 @@ describe('GET /api/recipes', () => {
   });
 
   it('filters recipes by ingredients', async () => {
-    const cat = await seedCategory('Soup');
     const ing1 = await seedIngredient('Tomato');
     const ing2 = await seedIngredient('Onion');
     const unit = await seedUnit('gramm', 'g');
-    if (!cat || !ing1 || !ing2 || !unit) throw new Error('Failed to seed data');
+    if (!ing1 || !ing2 || !unit) throw new Error('Failed to seed data');
 
     await seedRecipe({
-      categoryIds: [cat.id],
+      categoryIds: [],
       data: SAMPLE_RECIPE_DATA,
       ingredientEntries: [{ ingredientId: ing1.id, quantity: 100, unitId: unit.id }],
       userId: USER_ID,
     });
 
     await seedRecipe({
-      categoryIds: [cat.id],
+      categoryIds: [],
       data: { ...SAMPLE_RECIPE_DATA, title: 'Onion Recipe' },
       ingredientEntries: [
         { ingredientId: ing1.id, quantity: 50, unitId: unit.id },
@@ -263,18 +250,15 @@ describe('GET /api/recipes', () => {
   });
 
   it('filters recipes by search query', async () => {
-    const cat = await seedCategory('Soup');
-    if (!cat) throw new Error('Failed to seed category');
-
     await seedRecipe({
-      categoryIds: [cat.id],
+      categoryIds: [],
       data: SAMPLE_RECIPE_DATA,
       ingredientEntries: [],
       userId: USER_ID,
     });
 
     await seedRecipe({
-      categoryIds: [cat.id],
+      categoryIds: [],
       data: { ...SAMPLE_RECIPE_DATA, title: 'Chicken Soup' },
       ingredientEntries: [],
       userId: USER_ID,
@@ -290,12 +274,9 @@ describe('GET /api/recipes', () => {
   });
 
   it('paginates results correctly', async () => {
-    const cat = await seedCategory('Soup');
-    if (!cat) throw new Error('Failed to seed category');
-
     for (let i = 0; i < 3; i++) {
       await seedRecipe({
-        categoryIds: [cat.id],
+        categoryIds: [],
         data: { ...SAMPLE_RECIPE_DATA, title: `Recipe ${i}` },
         ingredientEntries: [],
         userId: USER_ID,
@@ -508,11 +489,8 @@ describe('GET /api/recipes/[id]', () => {
   });
 
   it('returns 404 for unverified recipe without allow-unverified flag', async () => {
-    const cat = await seedCategory('Soup');
-    if (!cat) throw new Error('Failed to seed category');
-
     const { recipe } = await seedRecipe({
-      categoryIds: [cat.id],
+      categoryIds: [],
       data: UNVERIFIED_SAMPLE_RECIPE_DATA,
       ingredientEntries: [],
       userId: USER_ID,
@@ -551,11 +529,8 @@ describe('GET /api/recipes/[id]', () => {
     mockUser(ADMIN_ID);
     await seedAdmin(ADMIN_ID);
 
-    const cat = await seedCategory('Soup');
-    if (!cat) throw new Error('Failed to seed category');
-
     const { recipe } = await seedRecipe({
-      categoryIds: [cat.id],
+      categoryIds: [],
       data: UNVERIFIED_SAMPLE_RECIPE_DATA,
       ingredientEntries: [],
       userId: USER_ID,
@@ -628,11 +603,8 @@ describe('PUT /api/recipes/[id]', () => {
   it('returns 403 when user tries to update another user recipe', async () => {
     mockUser(USER_ID);
 
-    const cat = await seedCategory('Soup');
-    if (!cat) throw new Error('Failed to seed category');
-
     const { recipe } = await seedRecipe({
-      categoryIds: [cat.id],
+      categoryIds: [],
       data: SAMPLE_RECIPE_DATA,
       ingredientEntries: [],
       userId: 'other_user',
@@ -655,11 +627,8 @@ describe('PUT /api/recipes/[id]', () => {
   it('returns 400 for invalid body', async () => {
     mockUser(USER_ID);
 
-    const cat = await seedCategory('Soup');
-    if (!cat) throw new Error('Failed to seed category');
-
     const { recipe } = await seedRecipe({
-      categoryIds: [cat.id],
+      categoryIds: [],
       data: SAMPLE_RECIPE_DATA,
       ingredientEntries: [],
       userId: USER_ID,
@@ -680,11 +649,8 @@ describe('PUT /api/recipes/[id]', () => {
   it('returns 204 when owner updates own recipe', async () => {
     mockUser(USER_ID);
 
-    const cat = await seedCategory('Soup');
-    if (!cat) throw new Error('Failed to seed category');
-
     const { recipe } = await seedRecipe({
-      categoryIds: [cat.id],
+      categoryIds: [],
       data: SAMPLE_RECIPE_DATA,
       ingredientEntries: [],
       userId: USER_ID,
@@ -708,11 +674,8 @@ describe('PUT /api/recipes/[id]', () => {
     mockUser(ADMIN_ID);
     await seedAdmin(ADMIN_ID);
 
-    const cat = await seedCategory('Soup');
-    if (!cat) throw new Error('Failed to seed category');
-
     const { recipe } = await seedRecipe({
-      categoryIds: [cat.id],
+      categoryIds: [],
       data: SAMPLE_RECIPE_DATA,
       ingredientEntries: [],
       userId: USER_ID,
