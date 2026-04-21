@@ -7,7 +7,7 @@ import { categoriesSchema, idSchema } from '~/lib/zod';
 
 import { ADMIN_ID, mockUnauthenticated, mockUser, USER_ID } from '../helpers/auth';
 import { truncateAll } from '../helpers/db';
-import { seedAdmin, seedCategory } from '../helpers/seed';
+import { SAMPLE_RECIPE_DATA, seedAdmin, seedCategory, seedRecipe } from '../helpers/seed';
 
 afterEach(truncateAll);
 
@@ -30,6 +30,25 @@ describe('GET /api/categories', () => {
 
     expect(category?.name).toBe('Soup');
     expect(category?.canBeDeleted).toBe(true);
+  });
+
+  it('returns canBeDeleted false when category is used by a recipe', async () => {
+    const cat = await seedCategory('Soup');
+    if (!cat) throw new Error('Failed to seed category');
+
+    await seedRecipe({
+      userId: USER_ID,
+
+      data: SAMPLE_RECIPE_DATA,
+
+      categoryIds: [cat.id],
+      ingredientEntries: [],
+    });
+
+    const res = await GET(new NextRequest('http://localhost/api/categories'));
+    const [category] = categoriesSchema.parse(await res.json());
+
+    expect(category?.canBeDeleted).toBe(false);
   });
 
   it('filters by query param', async () => {

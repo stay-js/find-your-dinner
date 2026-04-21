@@ -12,6 +12,15 @@ import {
   units,
 } from '~/server/db/schema';
 
+type SeedRecipeParams = {
+  userId: string;
+
+  data: Omit<typeof recipeData.$inferInsert, 'recipeId'>;
+
+  categoryIds: number[];
+  ingredientEntries: Omit<typeof ingredientRecipeData.$inferInsert, 'recipeDataId'>[];
+};
+
 export async function seedAdmin(userId: string) {
   await db.insert(admins).values({ userId }).onConflictDoNothing();
 }
@@ -34,12 +43,14 @@ export async function seedIngredient(name: string) {
   return ingredient;
 }
 
-export async function seedRecipe(
-  userId: string,
-  data: Omit<typeof recipeData.$inferInsert, 'recipeId'>,
-  categoryIds: number[],
-  ingredientEntries: Omit<typeof ingredientRecipeData.$inferInsert, 'recipeDataId'>[],
-) {
+export async function seedRecipe({
+  userId,
+
+  data,
+
+  categoryIds,
+  ingredientEntries,
+}: SeedRecipeParams) {
   return db.transaction(async (tx) => {
     const [recipe] = await tx.insert(recipes).values({ userId }).returning();
     if (!recipe) throw new Error('Failed to insert recipe');

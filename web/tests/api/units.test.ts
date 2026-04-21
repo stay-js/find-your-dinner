@@ -7,7 +7,13 @@ import { idSchema, unitsSchema } from '~/lib/zod';
 
 import { ADMIN_ID, mockUnauthenticated, mockUser, USER_ID } from '../helpers/auth';
 import { truncateAll } from '../helpers/db';
-import { seedAdmin, seedUnit } from '../helpers/seed';
+import {
+  SAMPLE_RECIPE_DATA,
+  seedAdmin,
+  seedIngredient,
+  seedRecipe,
+  seedUnit,
+} from '../helpers/seed';
 
 afterEach(truncateAll);
 
@@ -30,6 +36,28 @@ describe('GET /api/units', () => {
 
     expect(unit?.name).toBe('Kilogramm');
     expect(unit?.canBeDeleted).toBe(true);
+  });
+
+  it('returns canBeDeleted false when unit is used by a recipe', async () => {
+    const ingredient = await seedIngredient('Tomato');
+    if (!ingredient) throw new Error('Failed to seed ingredient');
+
+    const unit = await seedUnit('Kilogramm', 'kg');
+    if (!unit) throw new Error('Failed to seed unit');
+
+    await seedRecipe({
+      userId: USER_ID,
+
+      data: SAMPLE_RECIPE_DATA,
+
+      categoryIds: [],
+      ingredientEntries: [{ ingredientId: ingredient.id, quantity: 1, unitId: unit.id }],
+    });
+
+    const res = await GET(new NextRequest('http://localhost/api/units'));
+    const [item] = unitsSchema.parse(await res.json());
+
+    expect(item?.canBeDeleted).toBe(false);
   });
 
   it('filters by query param', async () => {
