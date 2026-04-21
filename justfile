@@ -127,11 +127,17 @@ dbml:
 # Runs API tests with Vitest
 [group('tests')]
 [working-directory: 'web']
-test-api:
-    {{runner}} run test:api
+test-api *ARGS:
+    {{runner}} run test:api {{ARGS}}
 
 # Runs API tests with Vitest and generates coverage report
 [group('tests')]
 [working-directory: 'web']
-test-api-coverage:
-    {{runner}} run test:api:coverage
+test-api-coverage *ARGS:
+    {{runner}} run test:api:coverage {{ARGS}}
+
+# Runs API tests with Vitest in watch mode
+[group('tests')]
+[working-directory: 'web']
+test-api-watch:
+    {{runner}} run test:api:watch

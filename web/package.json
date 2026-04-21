@@ -16,6 +16,7 @@
     "db:push": "drizzle-kit push",
     "db:studio": "drizzle-kit studio",
     "test:api": "vitest run",
+    "test:api:watch": "vitest",
     "test:api:coverage": "vitest run --coverage"
   },
   "dependencies": {
