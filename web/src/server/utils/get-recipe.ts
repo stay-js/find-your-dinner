@@ -1,5 +1,4 @@
 import { and, desc, eq } from 'drizzle-orm';
-import { notFound } from 'next/navigation';
 
 import { db } from '~/server/db';
 import { recipeData, recipes } from '~/server/db/schema';
@@ -23,7 +22,7 @@ export async function getRecipe(id: number, allowUnverified: boolean = false) {
     }),
   ]);
 
-  if (!recipe || !recipeDataRecord) notFound();
+  if (!recipe || !recipeDataRecord) return null;
 
   const [categories, ingredients, author, hasVerifiedVersion] = await Promise.all([
     getRecipeCategories(recipe.id),

@@ -38,7 +38,8 @@ export default async function PublicRecipePage({ params }: { params: Promise<{ i
 
   const { id } = result.data;
 
-  const data = await getRecipe(id);
+  const recipe = await getRecipe(id);
+  if (!recipe) notFound();
 
-  return <RecipePage className="pt-6" {...data} isAdmin={isAdmin} userId={userId} />;
+  return <RecipePage className="pt-6" {...recipe} isAdmin={isAdmin} userId={userId} />;
 }

@@ -17,9 +17,10 @@ export default async function DashboardRecipePage({ params }: { params: Promise<
 
   const { id } = result.data;
 
-  const data = await getRecipe(id);
+  const recipe = await getRecipe(id);
+  if (!recipe) notFound();
 
-  return <RecipePage {...data} isAdmin={isAdmin} userId={userId} />;
+  return <RecipePage {...recipe} isAdmin={isAdmin} userId={userId} />;
 }
 
 export async function generateMetadata({

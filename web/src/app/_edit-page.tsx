@@ -16,7 +16,10 @@ export async function EditPage({ params }: { params: Promise<{ id: string }> }) 
 
   const { id } = result.data;
 
-  const { author, categories, ingredients, recipe, recipeData } = await getRecipe(id, true);
+  const recipeResult = await getRecipe(id, true);
+  if (!recipeResult) notFound();
+
+  const { author, categories, ingredients, recipe, recipeData } = recipeResult;
 
   if (!isAdmin && author.id !== userId) notFound();
 

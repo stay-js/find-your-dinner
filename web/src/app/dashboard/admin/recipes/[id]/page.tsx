@@ -21,11 +21,12 @@ export default async function DashboardAdminRecipePage({
 
   const { id } = result.data;
 
-  const data = await getRecipe(id, true);
+  const recipe = await getRecipe(id, true);
+  if (!recipe) notFound();
 
   return (
-    <RecipePage {...data} isAdmin={true} userId={userId}>
-      <Approve recipeDataId={data.recipeData.id} visible={!data.recipeData.verified} />
+    <RecipePage {...recipe} isAdmin={true} userId={userId}>
+      <Approve recipeDataId={recipe.recipeData.id} visible={!recipe.recipeData.verified} />
     </RecipePage>
   );
 }
