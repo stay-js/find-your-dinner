@@ -7,6 +7,7 @@ export const env = createEnv({
   },
   runtimeEnv: {
     DATABASE_URL: process.env.DATABASE_URL,
+    TEST_DATABASE_URL: process.env.TEST_DATABASE_URL,
 
     CLERK_SECRET_KEY: process.env.CLERK_SECRET_KEY,
     NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY,
@@ -15,6 +16,7 @@ export const env = createEnv({
   },
   server: {
     DATABASE_URL: z.url(),
+    TEST_DATABASE_URL: z.url().optional(),
 
     CLERK_SECRET_KEY: z.string(),
 
