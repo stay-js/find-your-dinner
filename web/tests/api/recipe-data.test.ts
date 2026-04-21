@@ -1,16 +1,15 @@
 import { NextRequest } from 'next/server';
 import { afterEach, describe, expect, it } from 'vitest';
-
-import { POST } from '~/app/api/recipe-data/[id]/verify/route';
-
-import { ADMIN_ID, mockUnauthenticated, mockUser, USER_ID } from '../helpers/auth';
-import { truncateAll } from '../helpers/db';
+import { ADMIN_ID, mockUnauthenticated, mockUser, USER_ID } from '~tests/helpers/auth';
+import { truncateAll } from '~tests/helpers/db';
 import {
   SAMPLE_RECIPE_DATA,
   seedAdmin,
   seedRecipe,
   UNVERIFIED_SAMPLE_RECIPE_DATA,
-} from '../helpers/seed';
+} from '~tests/helpers/seed';
+
+import { POST } from '~/app/api/recipe-data/[id]/verify/route';
 
 afterEach(truncateAll);
 

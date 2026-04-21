@@ -18,7 +18,8 @@
     "plugins": [{ "name": "next" }],
     "incremental": true,
     "paths": {
-      "~/*": ["./src/*"]
+      "~/*": ["./src/*"],
+      "~tests/*": ["./tests/*"]
     }
   },
   "include": [

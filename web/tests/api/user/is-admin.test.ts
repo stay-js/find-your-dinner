@@ -1,11 +1,10 @@
 import { afterEach, describe, expect, it } from 'vitest';
+import { ADMIN_ID, mockUnauthenticated, mockUser, USER_ID } from '~tests/helpers/auth';
+import { truncateAll } from '~tests/helpers/db';
+import { seedAdmin } from '~tests/helpers/seed';
 
 import { GET } from '~/app/api/user/is-admin/route';
 import { isAdminSchema } from '~/lib/zod';
-
-import { ADMIN_ID, mockUnauthenticated, mockUser, USER_ID } from '../../helpers/auth';
-import { truncateAll } from '../../helpers/db';
-import { seedAdmin } from '../../helpers/seed';
 
 afterEach(truncateAll);
 

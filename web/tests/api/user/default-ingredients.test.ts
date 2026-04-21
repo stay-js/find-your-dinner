@@ -1,12 +1,11 @@
 import { NextRequest } from 'next/server';
 import { afterEach, describe, expect, it } from 'vitest';
+import { mockUnauthenticated, mockUser, USER_ID } from '~tests/helpers/auth';
+import { truncateAll } from '~tests/helpers/db';
+import { seedDefaultIngredients, seedIngredient } from '~tests/helpers/seed';
 
 import { GET, PUT } from '~/app/api/user/default-ingredients/route';
 import { defaultIngredientIdsSchema } from '~/lib/zod';
-
-import { mockUnauthenticated, mockUser, USER_ID } from '../../helpers/auth';
-import { truncateAll } from '../../helpers/db';
-import { seedDefaultIngredients, seedIngredient } from '../../helpers/seed';
 
 afterEach(truncateAll);
 

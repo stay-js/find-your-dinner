@@ -1,13 +1,12 @@
 import { NextRequest } from 'next/server';
 import { afterEach, describe, expect, it } from 'vitest';
+import { ADMIN_ID, mockUnauthenticated, mockUser, USER_ID } from '~tests/helpers/auth';
+import { truncateAll } from '~tests/helpers/db';
+import { SAMPLE_RECIPE_DATA, seedAdmin, seedCategory, seedRecipe } from '~tests/helpers/seed';
 
 import { DELETE, PUT } from '~/app/api/categories/[id]/route';
 import { GET, POST } from '~/app/api/categories/route';
 import { categoriesSchema, idSchema } from '~/lib/zod';
-
-import { ADMIN_ID, mockUnauthenticated, mockUser, USER_ID } from '../helpers/auth';
-import { truncateAll } from '../helpers/db';
-import { SAMPLE_RECIPE_DATA, seedAdmin, seedCategory, seedRecipe } from '../helpers/seed';
 
 afterEach(truncateAll);
 

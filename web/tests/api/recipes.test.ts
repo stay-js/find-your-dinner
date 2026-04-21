@@ -1,12 +1,7 @@
 import { NextRequest } from 'next/server';
 import { afterEach, describe, expect, it } from 'vitest';
-
-import { DELETE, GET as GET_BY_ID, PUT } from '~/app/api/recipes/[id]/route';
-import { GET, POST } from '~/app/api/recipes/route';
-import { fullRecipeSchema, idSchema, paginatedRecipesSchema } from '~/lib/zod';
-
-import { ADMIN_ID, mockUnauthenticated, mockUser, USER_ID } from '../helpers/auth';
-import { truncateAll } from '../helpers/db';
+import { ADMIN_ID, mockUnauthenticated, mockUser, USER_ID } from '~tests/helpers/auth';
+import { truncateAll } from '~tests/helpers/db';
 import {
   SAMPLE_RECIPE_DATA,
   seedAdmin,
@@ -15,7 +10,11 @@ import {
   seedRecipe,
   seedUnit,
   UNVERIFIED_SAMPLE_RECIPE_DATA,
-} from '../helpers/seed';
+} from '~tests/helpers/seed';
+
+import { DELETE, GET as GET_BY_ID, PUT } from '~/app/api/recipes/[id]/route';
+import { GET, POST } from '~/app/api/recipes/route';
+import { fullRecipeSchema, idSchema, paginatedRecipesSchema } from '~/lib/zod';
 
 afterEach(truncateAll);
 
