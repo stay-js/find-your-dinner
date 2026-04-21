@@ -9,6 +9,8 @@ export const findPageStateSchema = z
   .catch('filter');
 export type FindPageState = z.infer<typeof findPageStateSchema>;
 
+export const idSchema = z.number().int().positive();
+
 export const idParamSchema = z.object({
   id: z.coerce.number().int().positive(),
 });

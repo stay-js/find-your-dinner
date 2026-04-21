@@ -8,3 +8,6 @@ export function mockUnauthenticated() {
 export function mockUser(userId: string) {
   vi.mocked(auth).mockResolvedValue({ isAuthenticated: true, userId } as never);
 }
+
+export const ADMIN_ID = 'user_admin';
+export const USER_ID = 'user_regular';
