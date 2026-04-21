@@ -10,6 +10,7 @@ import { truncateAll } from '../helpers/db';
 import {
   SAMPLE_RECIPE_DATA,
   seedAdmin,
+  seedDefaultIngredients,
   seedIngredient,
   seedRecipe,
   seedUnit,
@@ -53,6 +54,18 @@ describe('GET /api/ingredients', () => {
       categoryIds: [],
       ingredientEntries: [{ ingredientId: ingredient.id, quantity: 1, unitId: unit.id }],
     });
+
+    const res = await GET(new NextRequest('http://localhost/api/ingredients'));
+    const [item] = ingredientsSchema.parse(await res.json());
+
+    expect(item?.canBeDeleted).toBe(false);
+  });
+
+  it('returns canBeDeleted false when ingredient is used in default ingredients', async () => {
+    const ingredient = await seedIngredient('Tomato');
+    if (!ingredient) throw new Error('Failed to seed ingredient');
+
+    await seedDefaultIngredients(USER_ID, [ingredient.id]);
 
     const res = await GET(new NextRequest('http://localhost/api/ingredients'));
     const [item] = ingredientsSchema.parse(await res.json());
