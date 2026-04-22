@@ -5,6 +5,7 @@ import { Plus } from 'lucide-react';
 import { useState } from 'react';
 import { toast } from 'sonner';
 
+import { Info } from '~/components/info';
 import { NoContent } from '~/components/no-content';
 import { Button } from '~/components/ui/button';
 import { Input } from '~/components/ui/input';
@@ -91,6 +92,10 @@ export function Units() {
         </div>
 
         <Input onChange={handleQueryChange} placeholder="Keresés..." value={query} />
+
+        <Info>
+          Csak azok a mértékegységek törölhetőek, amelyek egy recepthez sincsenek hozzárendelve.
+        </Info>
 
         {!isLoading && units?.length === 0 && (
           <NoContent
