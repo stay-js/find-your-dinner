@@ -44,7 +44,7 @@ just infra-start
 just setup
 ```
 
-4. Hozz létre egy új [Clerk](https://clerk.com/) projektet (ez a fiókkezeléshez szükséges), majd a kapott API kulcsokkal írd felül a `web/.env` fájlban a következő sorokat:
+4. Hozz létre egy új [Clerk](https://clerk.com/) projektet (ez a felhasználókezeléshez szükséges), majd a kapott API kulcsokkal írd felül a `web/.env` fájlban a következő sorokat:
 
 ```bash
 NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=
