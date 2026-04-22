@@ -1,14 +1,35 @@
 # Find Your Dinner. - Infrastruktúra / Fejlesztői környezet
 
-A receptek futtatásához szükséges a [Just](https://github.com/casey/just) telepítése. (Vagy manuálisan a `justfile`-ból kimásolva is végrehajthatóak a receptek.)
+Előfeltételek: [Find Your Dinner. - Dokumentáció, Előfeltételek](../README.md#előfeltételek)
 
-## Indítás
+## 1. Környezeti változók
+
+Az `infra/.env` fájlban (a `infra/.env.example` alapján) az alábbi változók konfigurálhatók:
+
+| Változó neve           | Leírás                                                        |
+| ---------------------- | ------------------------------------------------------------- |
+| `COMPOSE_PROJECT_NAME` | Docker Compose projekt neve (konténerek és volume-ok prefixe) |
+| `TZ`                   | Időzóna a Postgres konténer számára                           |
+| `POSTGRES_USER`        | Postgres felhasználónév                                       |
+| `POSTGRES_PASSWORD`    | Postgres jelszó                                               |
+| `POSTGRES_DB`          | Postgres adatbázis neve                                       |
+
+## 2. Szolgáltatások
+
+| Szolgáltatás  | Leírás                                                                      |
+| ------------- | --------------------------------------------------------------------------- |
+| `caddy`       | [Caddy](https://caddyserver.com/) reverse proxy                             |
+| `postgres`    | [PostgreSQL](https://www.postgresql.org/) adatbázis                         |
+| `cloudbeaver` | [CloudBeaver](https://dbeaver.com/docs/cloudbeaver/) webes adatbázis-kezelő |
+| `swagger`     | [Swagger UI](https://swagger.io/tools/swagger-ui/) API dokumentáció         |
+
+## 3. Indítás
 
 ```bash
 just infra-start
 ```
 
-### Első indítás esetén
+### 3.1. Első indítás esetén
 
 1. Futtasd az `infra-setup` receptet, ez lemásolja az `.env.example` fájlt `.env` néven.
 
@@ -24,19 +45,21 @@ just infra-setup
 just infra-start
 ```
 
-## Leállítás
+## 4. Leállítás
 
 ```bash
 just infra-stop
 ```
 
-## Eltávolítás
+## 5. Eltávolítás
 
 ```bash
 just infra-remove # -v opcionális, a volume-ok törléséhez
 ```
 
-## Postgres elérése
+## 6. Szolgáltatások elérése
+
+### 6.1. Postgres
 
 - Host: `localhost`
 - Port: `5432`
@@ -44,7 +67,7 @@ just infra-remove # -v opcionális, a volume-ok törléséhez
 - Jelszó: a `.env` fájlban megadott `POSTGRES_PASSWORD` érték
 - Adatbázis: a `.env` fájlban megadott `POSTGRES_DB` érték
 
-## CloudBeaver elérése
+### 6.2. CloudBeaver
 
 - URL: <http://cb.localhost> vagy <http://cb.vm1.test>
 - Host: `postgres`
@@ -53,7 +76,7 @@ just infra-remove # -v opcionális, a volume-ok törléséhez
 - Felhasználónév: a `.env` fájlban megadott `POSTGRES_USER` érték
 - Jelszó: a `.env` fájlban megadott `POSTGRES_PASSWORD` érték
 
-## Swagger elérése
+### 6.3. Swagger
 
 - URL: <http://swagger.localhost> vagy <http://swagger.vm1.test>
 
