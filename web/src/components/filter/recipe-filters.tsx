@@ -1,6 +1,6 @@
 'use client';
 
-import { Eye, EyeOff } from 'lucide-react';
+import { ChevronDown, ChevronUp } from 'lucide-react';
 import { useState } from 'react';
 
 import { Button } from '~/components/ui/button';
@@ -32,8 +32,8 @@ export function RecipeFilters({ children, extraFilterActive }: RecipeFiltersProp
 
         <CollapsibleTrigger asChild>
           <Button onClick={() => setShowFilters((val) => !val)} variant="outline">
-            {showFilters ? <EyeOff /> : <Eye />}
             <span>Szűrők</span>
+            {showFilters ? <ChevronUp /> : <ChevronDown />}
           </Button>
         </CollapsibleTrigger>
       </div>
