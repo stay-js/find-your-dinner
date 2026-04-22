@@ -15,6 +15,12 @@ Itt megtalálod az alkalmazás különböző komponenseinek leírását, telepí
 - [Full-stack web app dokumentációja](web/README.md)
 - [Tesztelési jegyzőkönyv](docs/testing_report.md)
 
+## Előfeltételek
+
+- [Docker](https://www.docker.com/) - Az infra konténerek futtatásához.
+- [Node.js](https://nodejs.org/) (LTS) + [pnpm](https://pnpm.io/) vagy npm - A full-stack web app függőségeinek kezeléséhez és futtatásához.
+- [Just](https://github.com/casey/just) - A receptek futtatásához. (Vagy manuálisan a `justfile`-ból kimásolva is végrehajthatóak a receptek.)
+
 ## Justfile (~ Makefile alternatíva)
 
 [Just](https://github.com/casey/just) telepítése után:
@@ -23,8 +29,6 @@ Itt megtalálod az alkalmazás különböző komponenseinek leírását, telepí
 - Alapértelmezett recept futtatása: `just` vagy `just default`
 
 ## Első indítás
-
-0. A receptek futtatásához szükséges a [Just](https://github.com/casey/just) telepítése. (Vagy manuálisan a `justfile`-ból kimásolva is végrehajthatóak a receptek.)
 
 1. Futtasd az `infra-setup` receptet, ez lemásolja az `infra/.env.example` fájlt `infra/.env` néven.
 
