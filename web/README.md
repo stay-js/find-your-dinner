@@ -21,11 +21,13 @@
 - **Adatbázis**: [PlanetScale](https://planetscale.com/)
 - **Felhasználókezelés**: [Clerk](https://clerk.com/)
 
-## 3. Adatbázis séma
+## 3. Adatbázis
+
+A projektben [PostgreSQL](https://www.postgresql.org/) adatbázist használunk, [Drizzle ORM](https://orm.drizzle.team/) segítségével. Az adatbázis séma a `web/src/server/db/schema.ts` fájlban van definiálva, a migrációk pedig a `web/drizzle/` könyvtárban találhatóak.
 
 ![Adatbázis séma](docs/media/db.png)
 
-### 3.1. Adatbázis séma generálása
+### 3.1. Ábra generálása
 
 1. Futtasd a `dbml` receptet, ami létrehozza a `web/schema.dbml` fájlt az adatbázis séma alapján.
 
@@ -34,6 +36,40 @@ just dbml
 ```
 
 2. Ezután töltsd fel a `web/schema.dbml` fájlt a [dbdiagram.io](https://dbdiagram.io/) oldalra, majd töltsd le a generált képet és írd felül a `docs/media/db.png`-t.
+
+### 3.2. Migrációk
+
+A migrációk kezeléséhez `drizzle-kit`-et használunk.
+
+#### 3.2.1. Migrációs munkafolyamat
+
+1. Módosítsd az adatbázis sémát a `web/src/server/db/schema.ts` fájlban.
+2. Generálj egy új migrációt a váloztatások alapján a `generate` recepttel.
+
+```bash
+just generate --name=<migráció_neve>
+```
+
+3. Ellenőrizd a generált SQL fájlt a `web/drizzle/` könyvtárban.
+4. Ezután futtasd a függőben lévő migráció(ka)t a `migrate` recepttel.
+
+```bash
+just migrate
+```
+
+5. ‼️ Végül pedig, generáld újra az adatbázis sémát a `dbml` recepttel, majd frissítsd a `docs/media/db.png` fájlt a [3.1. Ábra generálása](#31-ábra-generálása) szakaszban leírtak alapján. ‼️
+
+> Amennyiben szükséges a migrációk futtathatóak az adatbázis visszaállítása után is. Ezt a `migrate-fresh` recept futtatásával teheted meg.
+
+### 3.3. Seedelés
+
+A seederek a `web/scripts/seeders` könyvtárban találhatóak, és a `seed` recepttel futtathatóak.
+
+```bash
+just seed
+```
+
+Amennyiben a seederek futtatása már megtörtént az adatbázis visszaállítása után futtathatóak újra. (`migrate-fresh`)
 
 ## 4. API dokumentáció (Swagger)
 
