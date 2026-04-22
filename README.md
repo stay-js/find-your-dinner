@@ -13,7 +13,7 @@ Itt megtalálod az alkalmazás különböző komponenseinek leírását, telepí
 
 - [Infrastruktúra / Fejlesztői környezet dokumentációja](infra/README.md)
 - [Full-stack web app dokumentációja](web/README.md)
-- [Tesztelési jegyzőkönyv](web/docs/testing_report.md)
+- [Tesztelési jegyzőkönyv](docs/testing_report.md)
 
 ## Justfile (~ Makefile alternatíva)
 

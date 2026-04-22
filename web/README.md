@@ -25,7 +25,7 @@
 
 A projektben [PostgreSQL](https://www.postgresql.org/) adatbázist használunk, [Drizzle ORM](https://orm.drizzle.team/) segítségével. Az adatbázis séma a `web/src/server/db/schema.ts` fájlban van definiálva, a migrációk pedig a `web/drizzle/` könyvtárban találhatóak.
 
-![Adatbázis séma](docs/media/db.png)
+![Adatbázis séma](../docs/media/db.png)
 
 ### 3.1. Ábra generálása
 
