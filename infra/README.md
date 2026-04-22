@@ -6,7 +6,7 @@ Előfeltételek: [Find Your Dinner. - Dokumentáció, Előfeltételek](../README
 
 Az `infra/.env` fájlban (a `infra/.env.example` alapján) az alábbi változók konfigurálhatók:
 
-| Változó neve           | Leírás                                                        |
+| Változó                | Leírás                                                        |
 | ---------------------- | ------------------------------------------------------------- |
 | `COMPOSE_PROJECT_NAME` | Docker Compose projekt neve (konténerek és volume-ok prefixe) |
 | `TZ`                   | Időzóna a Postgres konténer számára                           |
@@ -80,4 +80,4 @@ just infra-remove # -v opcionális, a volume-ok törléséhez
 
 - URL: <http://swagger.localhost> vagy <http://swagger.vm1.test>
 
-[Full-stack web app dokumentációja - API dokumentáció (Swagger)](../web/README.md#api-dokumentáció-swagger)
+[Full-stack web app dokumentációja - 5. API dokumentáció (Swagger)](../web/README.md#5-api-dokumentáció-swagger)
