@@ -10,7 +10,7 @@ just infra-start
 
 ### Első indítás esetén
 
-1. Futtasd le az `infra-setup` receptet, ez lemásolja az `.env.example` fájlt `.env` néven.
+1. Futtasd az `infra-setup` receptet, ez lemásolja az `.env.example` fájlt `.env` néven.
 
 ```bash
 just infra-setup
@@ -18,7 +18,7 @@ just infra-setup
 
 2. Amennyiben szükséges, módosítsd a `.env` fájlban a környezeti változókat.
 
-3. Ezután futtasd le az `infra-start` receptet, a containerek elindításához.
+3. Ezután futtasd az `infra-start` receptet, a containerek elindításához.
 
 ```bash
 just infra-start
@@ -56,3 +56,5 @@ just infra-remove # -v opcionális, a volume-ok törléséhez
 ## Swagger elérése
 
 - URL: <http://swagger.localhost> vagy <http://swagger.vm1.test>
+
+[Full-stack web app dokumentációja - API dokumentáció (Swagger)](../web/README.md#api-dokumentáció-swagger)
