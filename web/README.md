@@ -134,6 +134,53 @@ check the zod schemas and set propper minimum, and maximum values, exclusiveMini
 
 _Claude Code - Claude Opus 4.6_
 
+### 5.2. Válaszformátumok
+
+Az API végpontok az alábbi egységes válaszformátumokat alkalmazzák.
+
+#### 5.2.1. Paginált válasz
+
+A receptek lekérdezésekor (`/api/recipes`, `/api/user/recipes`, `/api/user/saved-recipes?include=recipe`) paginált válasz kerül visszaadásra:
+
+```json
+{
+  "data": ["..."],
+  "meta": {
+    "currentPage": 1,
+    "pageCount": 5,
+    "perPage": 9,
+    "total": 42
+  }
+}
+```
+
+| `meta` mező   | Leírás                                  |
+| ------------- | --------------------------------------- |
+| `currentPage` | Az aktuális oldal száma (1-től indulva) |
+| `pageCount`   | Az összes oldal száma                   |
+| `perPage`     | Az oldalankénti elemek száma            |
+| `total`       | Az összes találat száma                 |
+
+#### 5.2.2. Módosítási és törlési válaszok
+
+- **POST (létrehozás)**: `201 Created` státuszkód, `{ "message": "Created", "<resourceId>": <id> }` törzzsel (pl.: `categoryId`, `ingredientId`, `unitId`, `recipeId`)
+- **PUT (módosítás)**: `204 No Content` státuszkód, üres törzzsel
+- **DELETE (törlés)**: `204 No Content` státuszkód, üres törzzsel
+
+#### 5.2.3. `canBeDeleted` mező
+
+A következő végpontok (`/api/categories`, `/api/ingredients`, `/api/units`) minden eleménél szerepel a `canBeDeleted` logikai mező, amely jelzi, hogy az adott elem törölhető-e. Az adminisztrátori felületen ezen mező alapján engedélyezett vagy tiltott a törlés gomb.
+
+| Végpont            | `canBeDeleted: false` feltétele                                                                |
+| ------------------ | ---------------------------------------------------------------------------------------------- |
+| `/api/categories`  | A kategória legalább egy recepthez hozzá van rendelve                                          |
+| `/api/ingredients` | A hozzávaló legalább egy receptben szerepel, vagy be van állítva alapértelmezett hozzávalóként |
+| `/api/units`       | A mértékegységet legalább egy recept valamelyik hozzávalója használja                          |
+
+#### 5.2.4. Hibaválaszok
+
+Az API végpontok egységes hibaválaszokat adnak vissza, a `web/src/server/utils/errors.ts` fájlban található segédfüggvények segítségével. (lsd.: [7.2.1. HTTP hibaválaszok](#721-http-hibaválaszok-websrcserverutilserrorsts))
+
 ## 6. Autentikáció és jogosultságkezelés
 
 Felhasználókezeléshez a [Clerk](https://clerk.com/) szolgáltatást használjuk.
@@ -174,7 +221,7 @@ Típusbiztos HTTP kérések küldéséhez használt wrapper. GET metódus estén
 | `GET<T>(url, schema)`          | GET kérés küldése, Zod validációval                                          |
 | `POST<T>(url, body?, schema?)` | POST kérés küldése, opcionális JSON törzzsel, és opcionális Zod validációval |
 | `PUT<T>(url, body?, schema?)`  | PUT kérés küldése, opcionális JSON törzzsel, és opcionális Zod validációval  |
-| `DELETE<T>(url, schema?)`      | DELETE kérés küldése, opcionális Zod validációval                         |
+| `DELETE<T>(url, schema?)`      | DELETE kérés küldése, opcionális Zod validációval                            |
 
 Hibakezelésre az `ApiError` osztályt használjuk, amelyet a fenti függvények dobnak HTTP hibakód esetén.
 
