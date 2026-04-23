@@ -2,6 +2,19 @@
 
 Előfeltételek: [Find Your Dinner. - Dokumentáció, Előfeltételek](../README.md#előfeltételek)
 
+## Tartalomjegyzék
+
+- [1. Környezeti változók](#1-környezeti-változók)
+- [2. Szolgáltatások](#2-szolgáltatások)
+- [3. Indítás](#3-indítás)
+  - [3.1. Első indítás](#31-első-indítás)
+- [4. Leállítás](#4-leállítás)
+- [5. Eltávolítás](#5-eltávolítás)
+- [6. Szolgáltatások elérése](#6-szolgáltatások-elérése)
+  - [6.1. Postgres](#61-postgres)
+  - [6.2. CloudBeaver](#62-cloudbeaver)
+  - [6.3. Swagger](#63-swagger)
+
 ## 1. Környezeti változók
 
 Az `infra/.env` fájlban (a `infra/.env.example` alapján) az alábbi változók konfigurálhatók:
@@ -29,7 +42,7 @@ Az `infra/.env` fájlban (a `infra/.env.example` alapján) az alábbi változók
 just infra-start
 ```
 
-### 3.1. Első indítás esetén
+### 3.1. Első indítás
 
 1. Futtasd az `infra-setup` receptet, ez lemásolja az `.env.example` fájlt `.env` néven.
 
