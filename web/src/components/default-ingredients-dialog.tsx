@@ -65,7 +65,7 @@ export function DefaultIngredientsDialog({ onOpenChange, open }: DefaultIngredie
 
   return (
     <Dialog onOpenChange={handleOpenChange} open={open}>
-      <DialogContent className="sm:max-w-lg">
+      <DialogContent className="max-h-[90vh] overflow-y-auto sm:max-w-lg">
         <DialogHeader>
           <DialogTitle>Alapértelmezett hozzávalók</DialogTitle>
 
