@@ -199,7 +199,7 @@ A receptek lekérdezésekor (`/api/recipes`, `/api/user/recipes`, `/api/user/sav
 
 #### 5.2.2. Módosítási és törlési válaszok
 
-- **POST (létrehozás)**: `201 Created` státuszkód, `{ "message": "Created", "<resourceId>": <id> }` törzzsel (pl.: `categoryId`, `ingredientId`, `unitId`, `recipeId`)
+- **POST (létrehozás)**: `201 Created` státuszkód, `{ "message": "Created", "<resourceId>": <id> }` törzzsel (pl.: `categoryId`, `ingredientId`, `unitId`, `recipeId`), kivéve az `/api/recipe-data/[id]/verify` végpontot, ami`204 No Content` státuszkóddal, és üres törzzsel válaszol.
 - **PUT (módosítás)**: `204 No Content` státuszkód, üres törzzsel
 - **DELETE (törlés)**: `204 No Content` státuszkód, üres törzzsel
 
