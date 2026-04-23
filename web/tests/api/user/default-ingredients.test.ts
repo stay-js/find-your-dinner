@@ -120,7 +120,7 @@ describe('PUT /api/user/default-ingredients', () => {
     expect(res.status).toBe(400);
   });
 
-  it('returns 200 and sets default ingredients', async () => {
+  it('returns 204 and sets default ingredients', async () => {
     mockUser(USER_ID);
 
     const ing1 = await seedIngredient('Tomato');
@@ -134,7 +134,7 @@ describe('PUT /api/user/default-ingredients', () => {
     });
 
     const putRes = await PUT(req);
-    expect(putRes.status).toBe(200);
+    expect(putRes.status).toBe(204);
 
     const getRes = await GET();
     expect(getRes.status).toBe(200);
@@ -146,7 +146,7 @@ describe('PUT /api/user/default-ingredients', () => {
     expect(data).toContain(ing2.id);
   });
 
-  it('returns 200 and clears default ingredients when empty array is provided', async () => {
+  it('returns 204 and clears default ingredients when empty array is provided', async () => {
     mockUser(USER_ID);
 
     const ingredient = await seedIngredient('Tomato');
@@ -161,7 +161,7 @@ describe('PUT /api/user/default-ingredients', () => {
     });
 
     const putRes = await PUT(req);
-    expect(putRes.status).toBe(200);
+    expect(putRes.status).toBe(204);
 
     const getRes = await GET();
     expect(getRes.status).toBe(200);
@@ -170,7 +170,7 @@ describe('PUT /api/user/default-ingredients', () => {
     expect(data).toHaveLength(0);
   });
 
-  it('returns 200 and replaces existing default ingredients', async () => {
+  it('returns 204 and replaces existing default ingredients', async () => {
     mockUser(USER_ID);
 
     const ing1 = await seedIngredient('Tomato');
@@ -186,7 +186,7 @@ describe('PUT /api/user/default-ingredients', () => {
     });
 
     const putRes = await PUT(req);
-    expect(putRes.status).toBe(200);
+    expect(putRes.status).toBe(204);
 
     const getRes = await GET();
     expect(getRes.status).toBe(200);

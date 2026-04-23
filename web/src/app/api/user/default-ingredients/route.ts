@@ -49,5 +49,5 @@ export async function PUT(request: NextRequest) {
     }
   });
 
-  return NextResponse.json({ message: 'Default ingredients updated' });
+  return new NextResponse(null, { status: 204 });
 }
