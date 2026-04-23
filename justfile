@@ -68,7 +68,7 @@ build:
 [group('web')]
 [working-directory: 'web']
 start:
-    {{runner}} run start
+    -{{runner}} run start
 
 # Lints web project
 [group('web')]
@@ -110,7 +110,7 @@ migrate-fresh:
 [group('drizzle')]
 [working-directory: 'web']
 studio:
-    {{runner}} run db:studio
+    -{{runner}} run db:studio
 
 # Seeds the database with initial data
 [group('drizzle')]
@@ -140,4 +140,4 @@ test-api-coverage *ARGS:
 [group('tests')]
 [working-directory: 'web']
 test-api-watch:
-    {{runner}} run test:api:watch
+    -{{runner}} run test:api:watch
