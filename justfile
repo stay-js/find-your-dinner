@@ -124,7 +124,12 @@ seed:
 dbml:
     {{runner}} run db:generate:dbml
 
-# Runs API tests with Vitest
+# Runs API tests and E2E tests
+[group('tests')]
+[working-directory: 'web']
+test: test-api
+
+# Runs all tests (API and E2E)
 [group('tests')]
 [working-directory: 'web']
 test-api *ARGS:

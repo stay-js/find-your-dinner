@@ -334,7 +334,13 @@ A receptek lekérdezéséhez használt további segédfüggvények a `web/src/se
 
 ## 8. Tesztelés
 
-A tesztek futtatásának eredményeit a [Find Your Dinner. - Tesztelési jegyzőkönyv](../docs/testing_report.md) dokumentumban találod.
+A tesztek futtatásának eredményei a [Find Your Dinner. - Tesztelési jegyzőkönyv](../docs/testing_report.md) dokumentumban találhatóak.
+
+Az összes tesztet a `test` recepttel futtathatod:
+
+```bash
+just test
+```
 
 ### 8.1. API tesztek (Vitest)
 
@@ -354,8 +360,8 @@ A tesztek `fileParallelism: false` beállítással futnak, hogy az adatbázis-m�
 **Segédfájlok (`web/tests/helpers/`):**
 
 - **`web/tests/helpers/auth.ts`** - Clerk Autentikáció mockolása
-  - `mockUnauthenticated()` - Azonosítatlan állapotot szimulál (`userId: null`)
-  - `mockUser(userId)` - Bejelentkezett felhasználót szimulál a megadott azonosítóval
+  - `mockUnauthenticated()` - Azonosítatlan állapotot szimulál (`userId: null`).
+  - `mockUser(userId)` - Bejelentkezett felhasználót szimulál a megadott azonosítóval.
   - `ADMIN_ID` konstans - Adminisztrátor tesztfelhasználó azonosítója: `'user_admin'`
   - `USER_ID` konstans - Normál tesztfelhasználó azonosítója: `'user_regular'`
 
@@ -363,19 +369,19 @@ A tesztek `fileParallelism: false` beállítással futnak, hogy az adatbázis-m�
   - `truncateAll()` - Az összes tábla adatát törli (`TRUNCATE TABLE ... RESTART IDENTITY CASCADE`).
 
 - **`web/tests/helpers/seed.ts`** - Adatbázis feltöltése tesztadatokkal
-  - `seedAdmin(userId)` - Hozáadja a felhasználó azonosítóját az `admins` táblához
-  - `seedCategory(name)` - Kategóriát hoz létre, visszaadja a beszúrt sort
-  - `seedIngredient(name)` - Hozzávalót hoz létre, visszaadja a beszúrt sort
-  - `seedUnit(name, abbreviation?)` - Mértékegységet hoz létre, visszaadja a beszúrt sort
-  - `seedRecipe({ userId, data, categoryIds, ingredientEntries })` - Receptet hoz létre annak minden adatával (recept, recept adat, kategória- és hozzávaló-kapcsolatok)
-  - `seedSavedRecipe(userId, recipeId)` - Hozzáadja a receptet a felhasználó mentett recepteihez
-  - `seedDefaultIngredients(userId, ingredientIds)` - Hozzáadja a megadott hozzávalókat a felhasználó alapértelmezett hozzávalóihoz
-  - `SAMPLE_RECIPE_DATA` konstans - Jóváhagyott (`verified: true`) minta recept adat
-  - `UNVERIFIED_SAMPLE_RECIPE_DATA` konstans - Jóváhagyásra váró (`verified: false`) minta recept adat
+  - `seedAdmin(userId)` - Hozáadja a felhasználó azonosítóját az `admins` táblához.
+  - `seedCategory(name)` - Kategóriát hoz létre, visszaadja a beszúrt sort.
+  - `seedIngredient(name)` - Hozzávalót hoz létre, visszaadja a beszúrt sort.
+  - `seedUnit(name, abbreviation?)` - Mértékegységet hoz létre, visszaadja a beszúrt sort.
+  - `seedRecipe({ userId, data, categoryIds, ingredientEntries })` - Receptet hoz létre annak minden adatával (recept, recept adat, kategória- és hozzávaló-kapcsolatok).
+  - `seedSavedRecipe(userId, recipeId)` - Hozzáadja a receptet a felhasználó mentett recepteihez.
+  - `seedDefaultIngredients(userId, ingredientIds)` - Hozzáadja a megadott hozzávalókat a felhasználó alapértelmezett hozzávalóihoz.
+  - `SAMPLE_RECIPE_DATA` konstans - Jóváhagyott (`verified: true`) minta recept adat.
+  - `UNVERIFIED_SAMPLE_RECIPE_DATA` konstans - Jóváhagyásra váró (`verified: false`) minta recept adat.
 
 #### 8.1.2. Tesztek futtatása
 
-Az összes API tesztet a `test-api` recepttel futtathatod.
+Az összes API tesztet a `test-api` recepttel futtathatod:
 
 ```bash
 just test-api
