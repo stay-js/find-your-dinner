@@ -286,17 +286,13 @@ const data = [
 export async function seedRecipes() {
   console.log('⏳ Seeding recipes...');
 
-  const allIngredients = await db
-    .select({ id: ingredients.id, name: ingredients.name })
-    .from(ingredients);
+  const allIngredients = await db.select().from(ingredients);
   const ingredientByName = Object.fromEntries(allIngredients.map(({ id, name }) => [name, id]));
 
   const allUnits = await db.select({ abbreviation: units.abbreviation, id: units.id }).from(units);
   const unitByAbbr = Object.fromEntries(allUnits.map(({ abbreviation, id }) => [abbreviation, id]));
 
-  const allCategories = await db
-    .select({ id: categories.id, name: categories.name })
-    .from(categories);
+  const allCategories = await db.select().from(categories);
   const categoryByName = Object.fromEntries(allCategories.map(({ id, name }) => [name, id]));
 
   const existingTitles = new Set(
