@@ -42,7 +42,7 @@ export function Find() {
   }, [state, ingredients, setState]);
 
   return (
-    <div className="container flex flex-col items-center gap-6 overflow-hidden pt-16">
+    <div className="container flex flex-col items-center gap-6 overflow-hidden py-16">
       {state === 'filter' && <Filter ingredientIds={ingredients} setState={setState} />}
 
       {state === 'swipe' && (
