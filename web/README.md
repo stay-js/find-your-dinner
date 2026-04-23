@@ -104,7 +104,7 @@ A `studio` recept elindítja a Drizzle Studio webes adatbázis-kezelőjét, amel
 just studio
 ```
 
-Természetesen erre a célra a CloudBeaver is használható, lsd.: [Infrastruktúra / Fejlesztői környezet dokumentációja, 6.2. CloudBeaver](../infra/README.md#62-cloudbeaver).
+Természetesen erre a célra a CloudBeaver is használható. (lsd.: [Infrastruktúra / Fejlesztői környezet dokumentációja, 6.2. CloudBeaver](../infra/README.md#62-cloudbeaver))
 
 ## 5. API dokumentáció (Swagger)
 
