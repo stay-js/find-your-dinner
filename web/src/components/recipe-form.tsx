@@ -3,7 +3,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { ChefHat, Clock, Plus, Trash2, Users, X } from 'lucide-react';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useMemo } from 'react';
 import { Controller, type SubmitHandler, useFieldArray, useForm } from 'react-hook-form';
 import { toast } from 'sonner';
@@ -95,6 +95,7 @@ type RecipeFormProps = {
 
 export function RecipeForm({ defaultValues, recipeId }: RecipeFormProps) {
   const router = useRouter();
+  const pathname = usePathname();
   const isMobile = useIsMobile();
   const mounted = useMounted();
   const utils = useQueryClient();
@@ -130,12 +131,17 @@ export function RecipeForm({ defaultValues, recipeId }: RecipeFormProps) {
     [ingredients],
   );
 
+  const redirectPath = useMemo(
+    () => (pathname.includes('admin') ? '/dashboard/admin/recipes' : '/dashboard/recipes'),
+    [pathname],
+  );
+
   const { isPending: isCreatePending, mutateAsync: createRecipe } = useMutation({
     mutationFn: (data: CreateUpdateRecipeSchema) => POST('/api/recipes', data),
     onError: () => toast.error('Hiba történt a recept létrehozása során!'),
     onSuccess: () => {
       invalidate();
-      router.push('/dashboard/recipes');
+      router.push(redirectPath);
     },
   });
 
@@ -144,7 +150,7 @@ export function RecipeForm({ defaultValues, recipeId }: RecipeFormProps) {
     onError: () => toast.error('Hiba történt a recept szerkesztése során!'),
     onSuccess: () => {
       invalidate();
-      router.push('/dashboard/recipes');
+      router.push(redirectPath);
     },
   });
 
@@ -153,7 +159,7 @@ export function RecipeForm({ defaultValues, recipeId }: RecipeFormProps) {
     onError: () => toast.error('Hiba történt a recept törlése során!'),
     onSuccess: () => {
       invalidate();
-      router.push('/dashboard/recipes');
+      router.push(redirectPath);
     },
   });
 
