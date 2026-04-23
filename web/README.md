@@ -39,6 +39,13 @@ Előfeltételek: [Find Your Dinner. - Dokumentáció, Előfeltételek](../README
     - [7.2.3. Paginálás](#723-paginálás-websrcserverutilsget-paginationts)
     - [7.2.4. PostgreSQL hibakezelés](#724-postgresql-hibakezelés-websrcserverutilsis-pg-unique-violationts)
     - [7.2.5. Recept lekérdezése](#725-recept-lekérdezése-websrcserverutilsrecipe-helpersget-recipets)
+- [8. Tesztelés](#8-tesztelés)
+  - [8.1. API tesztek (Vitest)](#81-api-tesztek-vitest)
+    - [8.1.1. Tesztinfrastruktúra](#811-tesztinfrastruktúra)
+    - [8.1.2. Tesztek futtatása](#812-tesztek-futtatása)
+    - [8.1.3. Lefedettségi jelentés](#813-lefedettségi-jelentés)
+  - [8.2. E2E tesztek (Playwright)](#82-e2e-tesztek-playwright)
+  - [8.3. Manuális tesztek](#83-manuális-tesztek)
 
 ## 1. Használt technológiák
 
@@ -54,7 +61,7 @@ Előfeltételek: [Find Your Dinner. - Dokumentáció, Előfeltételek](../README
 - **Adatbázis**: [PostgreSQL](https://www.postgresql.org/)
 - **ORM**: [Drizzle](https://orm.drizzle.team/)
 - **Felhasználókezelés**: [Clerk](https://clerk.com/)
-- **Automatizált API tesztelés**: [Vitest](https://vitest.dev/)
+- **API tesztelés**: [Vitest](https://vitest.dev/)
 - **E2E tesztelés**: [Playwright](https://playwright.dev/)
 
 ## 2. Production környezet
@@ -324,3 +331,78 @@ Egységes HTTP hibaválaszok generálásához használt függvények. Mindegyik 
 **`getRecipe(id, allowUnverified?)`** - A receptet az összes kapcsolódó adatával (recept adatok, kategóriák, hozzávalók, szerző) együtt adja vissza. Amennyiben a recept nem található, `null`-t ad vissza. `allowUnverified` flag nélkül csak a jóváhagyott recepteket között keres!
 
 A receptek lekérdezéséhez használt további segédfüggvények a `web/src/server/utils/recipe-helpers/` könyvtárban találhatóak.
+
+## 8. Tesztelés
+
+A tesztek futtatásának eredményeit a [Find Your Dinner. - Tesztelési jegyzőkönyv](../docs/testing_report.md) dokumentumban találod.
+
+### 8.1. API tesztek (Vitest)
+
+Az API tesztek [Vitest](https://vitest.dev/) segítségével készültek, a teszt fájlok a `web/tests/api/` könyvtárban találhatóak.
+
+‼️ A tesztek futtatásához szükséges a `TEST_DATABASE_URL` környezeti változó beállítása. (lsd.: [3. Környezeti változók](#3-környezeti-változók))
+
+A tesztek `fileParallelism: false` beállítással futnak, hogy az adatbázis-műveletek ne ütközzenek. (Vitest konfiguráció: `web/vitest.config.ts`)
+
+#### 8.1.1. Tesztinfrastruktúra
+
+**Setup fájlok (`web/tests/setup/`):**
+
+- **`web/tests/setup/global-setup.ts`** - Egyszer, az összes teszt előtt fut. Csatlakozik az adatbázishoz, és lefuttatja a `web/drizzle/` könyvtárban található migrációkat.
+- **`web/tests/setup/test-setup.ts`** - Minden tesztfájl előtt fut. Mockolja a `@clerk/nextjs/server` modult.
+
+**Segédfájlok (`web/tests/helpers/`):**
+
+- **`web/tests/helpers/auth.ts`** - Clerk Autentikáció mockolása
+  - `mockUnauthenticated()` - Azonosítatlan állapotot szimulál (`userId: null`)
+  - `mockUser(userId)` - Bejelentkezett felhasználót szimulál a megadott azonosítóval
+  - `ADMIN_ID` konstans - Adminisztrátor tesztfelhasználó azonosítója: `'user_admin'`
+  - `USER_ID` konstans - Normál tesztfelhasználó azonosítója: `'user_regular'`
+
+- **`web/tests/helpers/db.ts`** - Adatbázis tisztítás
+  - `truncateAll()` - Az összes tábla adatát törli (`TRUNCATE TABLE ... RESTART IDENTITY CASCADE`).
+
+- **`web/tests/helpers/seed.ts`** - Adatbázis feltöltése tesztadatokkal
+  - `seedAdmin(userId)` - Hozáadja a felhasználó azonosítóját az `admins` táblához
+  - `seedCategory(name)` - Kategóriát hoz létre, visszaadja a beszúrt sort
+  - `seedIngredient(name)` - Hozzávalót hoz létre, visszaadja a beszúrt sort
+  - `seedUnit(name, abbreviation?)` - Mértékegységet hoz létre, visszaadja a beszúrt sort
+  - `seedRecipe({ userId, data, categoryIds, ingredientEntries })` - Receptet hoz létre annak minden adatával (recept, recept adat, kategória- és hozzávaló-kapcsolatok)
+  - `seedSavedRecipe(userId, recipeId)` - Hozzáadja a receptet a felhasználó mentett recepteihez
+  - `seedDefaultIngredients(userId, ingredientIds)` - Hozzáadja a megadott hozzávalókat a felhasználó alapértelmezett hozzávalóihoz
+  - `SAMPLE_RECIPE_DATA` konstans - Jóváhagyott (`verified: true`) minta recept adat
+  - `UNVERIFIED_SAMPLE_RECIPE_DATA` konstans - Jóváhagyásra váró (`verified: false`) minta recept adat
+
+#### 8.1.2. Tesztek futtatása
+
+Az összes API tesztet a `test-api` recepttel futtathatod.
+
+```bash
+just test-api
+```
+
+Amennyiben csak egyetlen tesztfájlt szeretnél futtatni, add meg a fájl elérési útvonalát argumentumként:
+
+```bash
+just test-api tests/api/recipes.test.ts
+```
+
+Ha fejlesztés közben szeretnéd, hogy a tesztek fájlváltozás esetén automatikusan újrafussanak, futtasd a `test-api-watch` receptet:
+
+```bash
+just test-api-watch
+```
+
+#### 8.1.3. Lefedettségi jelentés
+
+Lefedettségi jelentés generálásához futtasd a `test-api-coverage` receptet:
+
+```bash
+just test-api-coverage
+```
+
+Az elkészült jelentést a `web/coverage/index.html` fájl megnyitásával tekintheted meg.
+
+### 8.2. E2E tesztek (Playwright)
+
+### 8.3. Manuális tesztek

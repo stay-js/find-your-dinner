@@ -2,7 +2,7 @@
 
 ## Tartalomjegyzék
 
-- [Automatizált API tesztek](#automatizált-api-tesztek)
+- [API tesztek](#automatizált-api-tesztek)
   - [/api/categories](#apicategories)
   - [/api/ingredients](#apiingredients)
   - [/api/units](#apiunits)
@@ -12,10 +12,10 @@
   - [/api/user/is-admin](#apiuseris-admin)
   - [/api/user/recipes](#apiuserrecipes)
   - [/api/user/saved-recipes](#apiusersaved-recipes)
-- [Playwright end-to-end tesztek](#playwright-end-to-end-tesztek)
+- [E2E tesztek](#e2e-tesztek)
 - [Manuális tesztek](#manuális-tesztek)
 
-## Automatizált API tesztek
+## API tesztek
 
 ### /api/categories
 
@@ -341,6 +341,6 @@
 | 25  | returns 204 even when the recipe was not saved         | 2026.04.21. 21:22       | 2026.04.23. 14:37         | Nagy Zétény       | Sikeres  |
 | 26  | does not delete saved recipes belonging to other users | 2026.04.21. 21:22       | 2026.04.23. 14:37         | Nagy Zétény       | Sikeres  |
 
-## Playwright end-to-end tesztek
+## E2E tesztek
 
 ## Manuális tesztek
