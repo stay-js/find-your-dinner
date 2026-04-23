@@ -17,6 +17,6 @@ const data = [
 
 export async function seedCategories() {
   console.log('⏳ Seeding categories...');
-  await db.insert(categories).values(data);
+  await db.insert(categories).values(data).onConflictDoNothing();
   console.log('✅ Categories seeded.');
 }

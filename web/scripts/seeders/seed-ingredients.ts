@@ -256,6 +256,6 @@ const data = [
 
 export async function seedIngredients() {
   console.log('⏳ Seeding ingredients...');
-  await db.insert(ingredients).values(data);
+  await db.insert(ingredients).values(data).onConflictDoNothing();
   console.log('✅ Ingredients seeded.');
 }

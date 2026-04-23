@@ -299,7 +299,13 @@ export async function seedRecipes() {
     .from(categories);
   const categoryByName = Object.fromEntries(allCategories.map(({ id, name }) => [name, id]));
 
+  const existingTitles = new Set(
+    (await db.select({ title: recipeData.title }).from(recipeData)).map(({ title }) => title),
+  );
+
   for (const item of data) {
+    if (existingTitles.has(item.data.title)) continue;
+
     await db.transaction(async (tx) => {
       const [recipeInsertResult] = await tx
         .insert(recipes)
@@ -318,28 +324,34 @@ export async function seedRecipes() {
       if (!recipeDataId) throw new Error('Failed to insert recipe data');
 
       if (item.ingredients.length > 0) {
-        await tx.insert(ingredientRecipeData).values(
-          item.ingredients.map((i) => {
-            const ingredientId = ingredientByName[i.name];
-            if (!ingredientId) throw new Error(`Ingredient not found: "${i.name}"`);
+        await tx
+          .insert(ingredientRecipeData)
+          .values(
+            item.ingredients.map((i) => {
+              const ingredientId = ingredientByName[i.name];
+              if (!ingredientId) throw new Error(`Ingredient not found: "${i.name}"`);
 
-            const unitId = unitByAbbr[i.unit];
-            if (!unitId) throw new Error(`Unit not found: "${i.unit}"`);
+              const unitId = unitByAbbr[i.unit];
+              if (!unitId) throw new Error(`Unit not found: "${i.unit}"`);
 
-            return { ingredientId, quantity: i.quantity, recipeDataId, unitId };
-          }),
-        );
+              return { ingredientId, quantity: i.quantity, recipeDataId, unitId };
+            }),
+          )
+          .onConflictDoNothing();
       }
 
       if (item.categories.length > 0) {
-        await tx.insert(categoryRecipe).values(
-          item.categories.map((cat) => {
-            const categoryId = categoryByName[cat];
-            if (!categoryId) throw new Error(`Category not found: "${cat}"`);
+        await tx
+          .insert(categoryRecipe)
+          .values(
+            item.categories.map((cat) => {
+              const categoryId = categoryByName[cat];
+              if (!categoryId) throw new Error(`Category not found: "${cat}"`);
 
-            return { categoryId, recipeId };
-          }),
-        );
+              return { categoryId, recipeId };
+            }),
+          )
+          .onConflictDoNothing();
       }
     });
   }

@@ -132,8 +132,6 @@ A seederek a `web/scripts/seeders` könyvtárban találhatóak, és a `seed` rec
 just seed
 ```
 
-Amennyiben a seederek futtatása már megtörtént az adatbázis visszaállítása után futtathatók újra. (`migrate-fresh`)
-
 ### 4.4. Drizzle Studio
 
 A `studio` recept elindítja a Drizzle Studio webes adatbázis-kezelőjét, amelyen keresztül közvetlenül megtekintheted és szerkesztheted az adatbázis tartalmát.

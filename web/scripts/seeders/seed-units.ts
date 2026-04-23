@@ -32,6 +32,6 @@ const data = [
 
 export async function seedUnits() {
   console.log('⏳ Seeding units...');
-  await db.insert(units).values(data);
+  await db.insert(units).values(data).onConflictDoNothing();
   console.log('✅ Units seeded.');
 }

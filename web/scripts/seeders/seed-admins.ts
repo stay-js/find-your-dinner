@@ -17,6 +17,6 @@ const data = [
 
 export async function seedAdmins() {
   console.log('⏳ Seeding admins...');
-  await db.insert(admins).values(data);
+  await db.insert(admins).values(data).onConflictDoNothing();
   console.log('✅ Admins seeded.');
 }
