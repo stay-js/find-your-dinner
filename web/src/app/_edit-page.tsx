@@ -5,7 +5,7 @@ import { RecipeForm } from '~/components/recipe-form';
 import { SetRecipeTitle } from '~/contexts/recipe-title-context';
 import { idParamSchema } from '~/lib/zod';
 import { checkIsAdmin } from '~/server/utils/check-is-admin';
-import { getRecipe } from '~/server/utils/get-recipe';
+import { getRecipe } from '~/server/utils/recipe-helpers';
 
 export async function EditPage({ params }: { params: Promise<{ id: string }> }) {
   const { userId } = await auth();

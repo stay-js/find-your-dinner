@@ -2,12 +2,13 @@ import { and, desc, eq } from 'drizzle-orm';
 
 import { db } from '~/server/db';
 import { recipeData, recipes } from '~/server/db/schema';
+
 import {
   getHasVerifiedVersion,
   getRecipeAuthor,
   getRecipeCategories,
   getRecipeIngredients,
-} from '~/server/utils/recipe-helpers';
+} from './index';
 
 export async function getRecipe(id: number, allowUnverified: boolean = false) {
   const whereClause = allowUnverified

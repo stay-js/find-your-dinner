@@ -1,6 +1,6 @@
 import { SetRecipeTitle } from '~/contexts/recipe-title-context';
 import { cn } from '~/lib/utils';
-import { type getRecipe } from '~/server/utils/get-recipe';
+import { type getRecipe } from '~/server/utils/recipe-helpers';
 
 import { Categories } from './categories';
 import { Ingredients } from './ingredients';

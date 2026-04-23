@@ -7,7 +7,7 @@ import { db } from '~/server/db';
 import { categoryRecipe, ingredientRecipeData, recipeData, recipes } from '~/server/db/schema';
 import { checkIsAdmin } from '~/server/utils/check-is-admin';
 import { forbidden, notFound, unauthorized } from '~/server/utils/errors';
-import { getRecipe } from '~/server/utils/get-recipe';
+import { getRecipe } from '~/server/utils/recipe-helpers';
 
 export async function DELETE(_: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const { isAuthenticated, userId } = await auth();

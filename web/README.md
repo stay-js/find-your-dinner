@@ -38,7 +38,7 @@ Előfeltételek: [Find Your Dinner. - Dokumentáció, Előfeltételek](../README
     - [7.2.2. Adminisztrátori jogosultság ellenőrzése](#722-adminisztrátori-jogosultság-ellenőrzése-websrcserverutilscheck-is-admints)
     - [7.2.3. Paginálás](#723-paginálás-websrcserverutilsget-paginationts)
     - [7.2.4. PostgreSQL hibakezelés](#724-postgresql-hibakezelés-websrcserverutilsis-pg-unique-violationts)
-    - [7.2.5. Recept lekérdezése](#725-recept-lekérdezése-websrcserverutilsget-recipets)
+    - [7.2.5. Recept lekérdezése](#725-recept-lekérdezése-websrcserverutilsrecipe-helpersget-recipets)
 
 ## 1. Használt technológiák
 
@@ -319,7 +319,7 @@ Egységes HTTP hibaválaszok generálásához használt függvények. Mindegyik 
 
 **`isPgUniqueViolation(err)`** - Megvizsgálja, hogy a hiba PostgreSQL unique violation-e (`23505` hibakód).
 
-#### 7.2.5. Recept lekérdezése (`web/src/server/utils/get-recipe.ts`)
+#### 7.2.5. Recept lekérdezése (`web/src/server/utils/recipe-helpers/get-recipe.ts`)
 
 **`getRecipe(id, allowUnverified?)`** - A receptet az összes kapcsolódó adatával (recept adatok, kategóriák, hozzávalók, szerző) együtt adja vissza. Amennyiben a recept nem található, `null`-t ad vissza. `allowUnverified` flag nélkül csak a jóváhagyott recepteket között keres!
 

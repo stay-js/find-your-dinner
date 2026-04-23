@@ -6,7 +6,7 @@ import { RecipePage } from '~/components/recipe-page';
 import { createMetadata } from '~/lib/create-metadata';
 import { idParamSchema } from '~/lib/zod';
 import { checkIsAdmin } from '~/server/utils/check-is-admin';
-import { getRecipe } from '~/server/utils/get-recipe';
+import { getRecipe } from '~/server/utils/recipe-helpers';
 
 export default async function DashboardRecipePage({ params }: { params: Promise<{ id: string }> }) {
   const { userId } = await auth();

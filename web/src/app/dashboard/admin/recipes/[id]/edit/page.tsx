@@ -4,7 +4,7 @@ import { notFound } from 'next/navigation';
 import { EditPage as DashboardAdminEditRecipePage } from '~/app/_edit-page';
 import { createMetadata } from '~/lib/create-metadata';
 import { idParamSchema } from '~/lib/zod';
-import { getRecipe } from '~/server/utils/get-recipe';
+import { getRecipe } from '~/server/utils/recipe-helpers';
 
 export async function generateMetadata({
   params,

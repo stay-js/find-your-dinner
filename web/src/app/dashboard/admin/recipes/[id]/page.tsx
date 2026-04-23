@@ -5,7 +5,7 @@ import { notFound } from 'next/navigation';
 import { RecipePage } from '~/components/recipe-page';
 import { createMetadata } from '~/lib/create-metadata';
 import { idParamSchema } from '~/lib/zod';
-import { getRecipe } from '~/server/utils/get-recipe';
+import { getRecipe } from '~/server/utils/recipe-helpers';
 
 import { Approve } from './approve';
 
