@@ -127,7 +127,7 @@ dbml:
 # Runs API tests and E2E tests
 [group('tests')]
 [working-directory: 'web']
-test: test-api
+test: test-api test-e2e
 
 # Runs all tests (API and E2E)
 [group('tests')]
@@ -146,3 +146,21 @@ test-api-coverage *ARGS:
 [working-directory: 'web']
 test-api-watch:
     -{{runner}} run test:api:watch
+
+# Runs E2E tests with Playwright
+[group('tests')]
+[working-directory: 'web']
+test-e2e:
+    {{runner}} run test:e2e
+
+# Runs E2E tests with Playwright in headed mode
+[group('tests')]
+[working-directory: 'web']
+test-e2e-headed:
+    {{runner}} run test:e2e:headed
+
+# Runs E2E tests with Playwright UI mode
+[group('tests')]
+[working-directory: 'web']
+test-e2e-ui:
+    {{runner}} run test:e2e:ui
