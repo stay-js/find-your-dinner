@@ -36,7 +36,7 @@ export function Title({
           <Button asChild size="sm" variant="outline">
             <Link
               href={
-                pathname.includes('admin')
+                pathname.includes('admin') || !isAuthor
                   ? `/dashboard/admin/recipes/${recipeId}/edit`
                   : `/dashboard/recipes/${recipeId}/edit`
               }
