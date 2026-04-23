@@ -158,5 +158,86 @@ Az adminisztrátorok Clerk által generált egyedi azonosítója az `admins` tá
 
 #### 6.1.2. Adminisztrátori jogosultág ellenőrzése
 
-- Szerver oldalon a `web/src/server/utils/check-is-admin.ts` fájlban található `checkIsAdmin` segédfüggvénnyel tehető meg.
+- Szerver oldalon a `web/src/server/utils/check-is-admin.ts` fájlban található `checkIsAdmin` segédfüggvénnyel tehető meg. (lsd.: [7.2.2. Adminisztrátori jogosultság ellenőrzése](#722-adminisztrátori-jogosultság-ellenőrzése-websrcserverutilscheck-is-admints))
 - Egyéb esetben az `/api/user/is-admin` végpont hívásával ellenőrizhető.
+
+## 7. Segédfüggvények
+
+### 7.1. Kliens oldali segédfüggvények (`web/src/lib/`)
+
+#### 7.1.1. HTTP kliens (`web/src/lib/api.ts`)
+
+Típusbiztos HTTP kérések küldéséhez használt wrapper. GET metódus estén kötelezően, minden más metódus esetében opcionálisan fogad egy Zod sémát a válasz validálásához és típusosításához, 204-es válasz esetén `null`-t ad vissza. POST és PUT metódusok esetén opcionálisan fogad egy JSON törzset is.
+
+| Függvény                       | Leírás                                                                       |
+| ------------------------------ | ---------------------------------------------------------------------------- |
+| `GET<T>(url, schema)`          | GET kérés küldése, Zod validációval                                          |
+| `POST<T>(url, body?, schema?)` | POST kérés küldése, opcionális JSON törzzsel, és opcionális Zod validációval |
+| `PUT<T>(url, body?, schema?)`  | PUT kérés küldése, opcionális JSON törzzsel, és opcionális Zod validációval  |
+| `DELETE<T>(url, schema?)`      | DELETE kérés küldése, opcionális Zod validációval                         |
+
+Hibakezelésre az `ApiError` osztályt használjuk, amelyet a fenti függvények dobnak HTTP hibakód esetén.
+
+#### 7.1.2. React Query konfigurációk (`web/src/lib/queries.ts`)
+
+Globális általános adatok (kategóriák, hozzávalók, mértékegységek, alapértelmezett hozzávalók) lekérdezéséhez használt `QueryOptions` objektumok. A lekérdezések `staleTime: Infinity` beállítással rendelkeznek, így csak invalidácó esetén frissülnek.
+
+| Függvény                  | Végpont                         |
+| ------------------------- | ------------------------------- |
+| `getCategories()`         | `/api/categories`               |
+| `getIngredients()`        | `/api/ingredients`              |
+| `getUnits()`              | `/api/units`                    |
+| `getDefaultIngredients()` | `/api/user/default-ingredients` |
+
+#### 7.1.3. Zod sémák és validáció (`web/src/lib/zod/`)
+
+- **`schemas.ts`** - Az alkalmazásban használt Zod sémák és belőlük származó típusok.
+- **`helpers.ts`** - Általános validációs segédfüggvények:
+
+| Függvény / Séma                        | Leírás                                                                             |
+| -------------------------------------- | ---------------------------------------------------------------------------------- |
+| `createPaginatedSchema<T>(dataSchema)` | Paginált séma elkészítése                                                          |
+| `paginationMetaSchema`                 | Paginációs metaadatok sémája (currentPage, pageCount, perPage, total)              |
+| `parseCultureInvariantFloat(value)`    | Lebegőpontos szám string értelmezése (vesszőt és pontot is elfogad tizedesjelként) |
+| `isCultureInvariantFloatString(val)`   | Ellenőrzi, hogy a string lebegőpontos szám-e                                       |
+| `isIntegerString(val)`                 | Ellenőrzi, hogy a string egész szám-e                                              |
+| `isNonNegativeIntegerString(val)`      | Ellenőrzi, hogy a string nem-negatív egész szám-e                                  |
+| `isPositiveIntegerString(val)`         | Ellenőrzi, hogy a string pozitív egész szám-e                                      |
+
+#### 7.1.4. Egyéb segédfüggvények (`web/src/lib/`)
+
+| Fájl                         | Függvény                     | Leírás                                                                                 |
+| ---------------------------- | ---------------------------- | -------------------------------------------------------------------------------------- |
+| `utils.ts`                   | `cn(...inputs)`              | Tailwind CSS osztályok összefűzése, ütközések feloldásával (`clsx` + `tailwind-merge`) |
+| `create-date-only-string.ts` | `createDateOnlyString(date)` | Dátum formázása `YYYY-MM-DD` formátumba                                                |
+| `create-metadata.ts`         | `createMetadata(params)`     | Next.js `Metadata` objektum generálása (SEO, közösségi megosztás)                      |
+
+### 7.2. Szerver oldali segédfüggvények (`web/src/server/utils/`)
+
+#### 7.2.1. HTTP hibaválaszok (`web/src/server/utils/errors.ts`)
+
+Egységes HTTP hibaválaszok generálásához használt függvények. Mindegyik opcionálisan fogad egy objektumot, amelyet a válasz JSON törzsébe merge-el.
+
+| Függvény              | HTTP státusz     |
+| --------------------- | ---------------- |
+| `unauthorized(json?)` | 401 Unauthorized |
+| `forbidden(json?)`    | 403 Forbidden    |
+| `notFound(json?)`     | 404 Not Found    |
+
+#### 7.2.2. Adminisztrátori jogosultság ellenőrzése (`web/src/server/utils/check-is-admin.ts`)
+
+**`checkIsAdmin(userId)`** - Megvizsgálja, hogy a megadott Clerk felhasználói azonosító szerepel-e az `admins` táblában. `null` vagy `undefined` bemenet esetén `false`-t ad vissza.
+
+#### 7.2.3. Paginálás (`web/src/server/utils/get-pagination.ts`)
+
+**`getPagination(pageString, total, pageSize)`** - Kiszámítja az aktuális oldal számot és az oladalak számát az összes elem száma és az oldalankénti elemszám alapján. Az oldalszámot Zod-dal validálja és érvényes tartományba szorítja.
+
+#### 7.2.4. PostgreSQL hibakezelés (`web/src/server/utils/is-pg-unique-violation.ts`)
+
+**`isPgUniqueViolation(err)`** - Megvizsgálja, hogy a hiba PostgreSQL unique violation-e (`23505` hibakód).
+
+#### 7.2.5. Recept lekérdezése (`web/src/server/utils/get-recipe.ts`)
+
+**`getRecipe(id, allowUnverified?)`** - A receptet az összes kapcsolódó adatával (recept adatok, kategóriák, hozzávalók, szerző) együtt adja vissza. Amennyiben a recept nem található, `null`-t ad vissza. `allowUnverified` flag nélkül csak a jóváhagyott recepteket között keres!
+
+A receptek lekérdezéséhez használt további segédfüggvények a `web/src/server/utils/recipe-helpers/` könyvtárban találhatóak.
