@@ -16,7 +16,7 @@ components:
       description: Clerk session token
 
   schemas:
-    Category:
+    CategoryBase:
       type: object
       required: [id, name]
       properties:
@@ -27,10 +27,16 @@ components:
           type: string
           minLength: 1
           maxLength: 128
-        canBeDeleted:
-          type: boolean
 
-    Ingredient:
+    Category:
+      allOf:
+        - $ref: '#/components/schemas/CategoryBase'
+        - type: object
+          properties:
+            canBeDeleted:
+              type: boolean
+
+    IngredientBase:
       type: object
       required: [id, name]
       properties:
@@ -41,10 +47,16 @@ components:
           type: string
           minLength: 1
           maxLength: 256
-        canBeDeleted:
-          type: boolean
 
-    Unit:
+    Ingredient:
+      allOf:
+        - $ref: '#/components/schemas/IngredientBase'
+        - type: object
+          properties:
+            canBeDeleted:
+              type: boolean
+
+    UnitBase:
       type: object
       required: [id, abbreviation, name]
       properties:
@@ -59,8 +71,14 @@ components:
           type: string
           minLength: 1
           maxLength: 64
-        canBeDeleted:
-          type: boolean
+
+    Unit:
+      allOf:
+        - $ref: '#/components/schemas/UnitBase'
+        - type: object
+          properties:
+            canBeDeleted:
+              type: boolean
 
     RecipeData:
       type: object
@@ -98,7 +116,6 @@ components:
           type: string
           format: uri
           maxLength: 2048
-          pattern: '^https://'
         cookTimeMinutes:
           type: integer
           minimum: 0
@@ -136,13 +153,13 @@ components:
       required: [ingredient, quantity, unit]
       properties:
         ingredient:
-          $ref: '#/components/schemas/Ingredient'
+          $ref: '#/components/schemas/IngredientBase'
         quantity:
           type: number
           format: double
           exclusiveMinimum: 0
         unit:
-          $ref: '#/components/schemas/Unit'
+          $ref: '#/components/schemas/UnitBase'
 
     Recipe:
       type: object
@@ -166,7 +183,7 @@ components:
         categories:
           type: array
           items:
-            $ref: '#/components/schemas/Category'
+            $ref: '#/components/schemas/CategoryBase'
         hasVerifiedVersion:
           type: boolean
 
@@ -192,7 +209,7 @@ components:
           minimum: 1
         pageCount:
           type: integer
-          minimum: 0
+          minimum: 1
         perPage:
           type: integer
           minimum: 1
@@ -289,6 +306,7 @@ components:
                 minimum: 1
               quantity:
                 type: number
+                format: double
                 exclusiveMinimum: 0
               unitId:
                 type: integer
@@ -950,6 +968,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorMessage'
+        '500':
+          description: Failed to create recipe
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
 
   /recipes/{id}:
     parameters:
@@ -1321,6 +1345,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorMessage'
+        '500':
+          description: Failed to save recipe
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
 
   /user/saved-recipes/{id}:
     parameters:
@@ -1398,16 +1428,8 @@ paths:
                     type: integer
                     minimum: 1
       responses:
-        '200':
+        '204':
           description: Default ingredients updated
-          content:
-            application/json:
-              schema:
-                type: object
-                required: [message]
-                properties:
-                  message:
-                    type: string
         '400':
           description: Invalid request body
           content:

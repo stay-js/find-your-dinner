@@ -153,7 +153,7 @@ Az `infra/swagger/openapi.yaml` fájl **AI generált**!
 #### 5.1.1. Első generáláshoz használt prompt:
 
 ```
-scan all the api endpoints inside the web/api folder and generate an OpenAPI 3.1 specification, override the infra/openapi.yaml file with the generated specification
+scan all the api endpoints inside the web/src/app/api/ directory and generate an OpenAPI 3.1 specification, override the infra/openapi.yaml file with the generated specification
 
 check the zod schemas and set propper minimum, and maximum values, exclusiveMinimum and format for number fields, set string minimum and maximum length, and enum values if possible
 ```
@@ -163,7 +163,7 @@ _Claude Code - Claude Opus 4.6_
 #### 5.1.2. Frissítéshez használt prompt:
 
 ```
-scan the web/api folder and update the infra/openapi.yaml accordingly
+scan the web/src/app/api/ directory and update the infra/openapi.yaml accordingly
 
 check the zod schemas and set propper minimum, and maximum values, exclusiveMinimum and format for number fields, set string minimum and maximum length, and enum values if possible
 ```
