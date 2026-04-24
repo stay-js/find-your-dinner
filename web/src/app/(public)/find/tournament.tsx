@@ -5,12 +5,19 @@ import { type Recipe } from '~/lib/zod/schemas';
 
 export function Tournament({ likedRecipes }: { likedRecipes: Recipe[] }) {
   const [remaining, setRemaining] = useState<Recipe[]>(likedRecipes);
-  console.log(remaining);
 
   function handlePick(selectedId: number) {
     setRemaining((prev) => {
-      const loserIndex = prev[0]?.recipe.id === selectedId ? 1 : 0;
-      return prev.filter((_, index) => index !== loserIndex);
+      const rightSelected = prev[1]?.recipe.id === selectedId;
+
+      const loserIndex = rightSelected ? 0 : 1;
+      const next = prev.filter((_, index) => index !== loserIndex);
+
+      if (rightSelected && next.length >= 2) {
+        return [next[1]!, next[0]!, ...next.slice(2)];
+      }
+
+      return next;
     });
   }
 
