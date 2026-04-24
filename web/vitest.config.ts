@@ -16,7 +16,7 @@ export default defineConfig({
     environment: 'node',
     exclude: [...configDefaults.exclude, './tests/e2e/**'],
     fileParallelism: false,
-    globalSetup: ['./tests/setup/global-setup.ts'],
-    setupFiles: ['./tests/setup/test-setup.ts'],
+    globalSetup: ['./tests/setup/global.setup.ts'],
+    setupFiles: ['./tests/setup/test.setup.ts'],
   },
 });

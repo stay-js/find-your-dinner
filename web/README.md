@@ -354,14 +354,14 @@ A tesztek `fileParallelism: false` beállítással futnak, hogy az adatbázis-m�
 
 **Setup fájlok (`web/tests/setup/`):**
 
-- **`web/tests/setup/global-setup.ts`** - Egyszer, az összes teszt előtt fut. Csatlakozik az adatbázishoz, és lefuttatja a `web/drizzle/` könyvtárban található migrációkat.
-- **`web/tests/setup/test-setup.ts`** - Minden tesztfájl előtt fut. Mockolja a `@clerk/nextjs/server` modult.
+- **`web/tests/setup/global.setup.ts`** - Egyszer, az összes teszt előtt fut. Csatlakozik az adatbázishoz, és lefuttatja a `web/drizzle/` könyvtárban található migrációkat.
+- **`web/tests/setup/test.setup.ts`** - Minden tesztfájl előtt fut. Mockolja a `@clerk/nextjs/server` modult.
 
 **Segédfájlok (`web/tests/helpers/`):**
 
 - **`web/tests/helpers/auth.ts`** - Clerk Autentikáció mockolása
   - `mockUnauthenticated()` - Azonosítatlan állapotot szimulál (`userId: null`).
-  - `mockUser(userId)` - Bejelentkezett felhasználót szimulál a megadott azonosítóval.
+  - `mockUser(userId)` - Bejelentkezett felhasgloználót szimulál a megadott azonosítóval.
   - `ADMIN_ID` konstans - Adminisztrátor tesztfelhasználó azonosítója: `'user_admin'`
   - `USER_ID` konstans - Normál tesztfelhasználó azonosítója: `'user_regular'`
 
