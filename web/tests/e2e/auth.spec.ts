@@ -134,4 +134,21 @@ test.describe('authenticated', () => {
     await expect(page).toHaveURL('/');
     await expect(page.getByRole('button', { name: 'Bejelentkezés' })).toBeVisible();
   });
+
+  test('should redirect the user back to the previous page after signing in', async ({
+    baseURL,
+    context,
+    page,
+  }) => {
+    await setupClerkTestingToken({ context, page });
+
+    await page.goto('/recipes');
+
+    await clerk.signIn({ page, signInParams: userCredentials });
+
+    await page.waitForURL(`${baseURL}/**`, { timeout: 20_000 });
+    await page.waitForLoadState('networkidle');
+
+    await expect(page).toHaveURL('/recipes');
+  });
 });

@@ -352,18 +352,19 @@
 
 | #   | Teszteset                         | Első futtatás időpontja | Utolsó futtatás időpontja | Utoljára futtatta | Eredmény |
 | --- | --------------------------------- | ----------------------- | ------------------------- | ----------------- | -------- |
-| 1   | shows sign in and sign up buttons | 2026.04.24. 10:23       | 2026.04.24. 13:05         | Polyák Panna      | Sikeres  |
-| 2   | does not show user button         | 2026.04.24. 10:23       | 2026.04.24. 13:05         | Polyák Panna      | Sikeres  |
+| 1   | shows sign in and sign up buttons | 2026.04.24. 10:23       | 2026.04.24. 13:15         | Polyák Panna      | Sikeres  |
+| 2   | does not show user button         | 2026.04.24. 10:23       | 2026.04.24. 13:15         | Polyák Panna      | Sikeres  |
 
 #### Azonosított állapotot (Bejelentkezett felhasználó)
 
-| #   | Teszteset                                    | Első futtatás időpontja | Utolsó futtatás időpontja | Utoljára futtatta | Eredmény |
-| --- | -------------------------------------------- | ----------------------- | ------------------------- | ----------------- | -------- |
-| 1   | signs in successfully via email and password | 2026.04.24. 12:24       | 2026.04.24. 13:05         | Polyák Panna      | Sikeres  |
-| 2   | signs in successfully via clerk helper       | 2026.04.24. 12:24       | 2026.04.24. 13:05         | Polyák Panna      | Sikeres  |
-| 3   | hides sign in and sign up buttons            | 2026.04.24. 12:59       | 2026.04.24. 13:05         | Polyák Panna      | Sikeres  |
-| 4   | shows dashboard link                         | 2026.04.24. 13:04       | 2026.04.24. 13:05         | Polyák Panna      | Sikeres  |
-| 5   | sign out via ui redirects to "/"             | 2026.04.24. 12:59       | 2026.04.24. 13:05         | Polyák Panna      | Sikeres  |
-| 6   | sign out via clerk helper redirects to "/"   | 2026.04.24. 12:59       | 2026.04.24. 13:05         | Polyák Panna      | Sikeres  |
+| #   | Teszteset                                                           | Első futtatás időpontja | Utolsó futtatás időpontja | Utoljára futtatta | Eredmény |
+| --- | ------------------------------------------------------------------- | ----------------------- | ------------------------- | ----------------- | -------- |
+| 1   | signs in successfully via email and password                        | 2026.04.24. 12:24       | 2026.04.24. 13:15         | Polyák Panna      | Sikeres  |
+| 2   | signs in successfully via clerk helper                              | 2026.04.24. 12:24       | 2026.04.24. 13:15         | Polyák Panna      | Sikeres  |
+| 3   | hides sign in and sign up buttons                                   | 2026.04.24. 12:59       | 2026.04.24. 13:15         | Polyák Panna      | Sikeres  |
+| 4   | shows dashboard link                                                | 2026.04.24. 13:04       | 2026.04.24. 13:15         | Polyák Panna      | Sikeres  |
+| 5   | sign out via ui redirects to "/"                                    | 2026.04.24. 12:59       | 2026.04.24. 13:15         | Polyák Panna      | Sikeres  |
+| 6   | sign out via clerk helper redirects to "/"                          | 2026.04.24. 12:59       | 2026.04.24. 13:15         | Polyák Panna      | Sikeres  |
+| 7   | should redirect the user back to the previous page after signing in | 2026.04.24. 13:15       | 2026.04.24. 13:15         | Polyák Panna      | Sikeres  |
 
 ## Manuális tesztek
