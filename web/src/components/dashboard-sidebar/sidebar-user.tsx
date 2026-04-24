@@ -24,6 +24,7 @@ export function SidebarUser() {
           <DropdownMenuTrigger asChild>
             <SidebarMenuButton
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+              data-testid="user-button"
               size="lg"
             >
               <User />

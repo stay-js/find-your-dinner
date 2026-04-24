@@ -66,4 +66,57 @@ test.describe('authenticated', () => {
 
     await expect(page.getByTestId('user-button')).toBeVisible();
   });
+
+  test('hides sign in and sign up buttons', async ({ baseURL, context, page }) => {
+    await setupClerkTestingToken({ context, page });
+
+    await page.goto('/');
+
+    await clerk.signIn({ page, signInParams: userCredentials });
+
+    await page.waitForURL(`${baseURL}/**`, { timeout: 20_000 });
+    await page.waitForLoadState('networkidle');
+
+    await page.goto('/');
+
+    await expect(page.getByRole('button', { name: 'Bejelentkezés' })).not.toBeVisible();
+    await expect(page.getByRole('button', { name: 'Regisztráció' })).not.toBeVisible();
+  });
+
+  test('sign out via ui redirects to "/"', async ({ baseURL, context, page }) => {
+    await setupClerkTestingToken({ context, page });
+
+    await page.goto('/');
+
+    await clerk.signIn({ page, signInParams: userCredentials });
+
+    await page.waitForURL(`${baseURL}/**`, { timeout: 20_000 });
+    await page.waitForLoadState('networkidle');
+
+    await page.goto('/dashboard');
+
+    await page.getByTestId('user-button').click();
+    await page.getByRole('menuitem', { name: 'Kijelentkezés' }).click();
+
+    await expect(page).toHaveURL('/');
+    await expect(page.getByRole('button', { name: 'Bejelentkezés' })).toBeVisible();
+  });
+
+  test('sign out via clerk helper redirects to "/"', async ({ baseURL, context, page }) => {
+    await setupClerkTestingToken({ context, page });
+
+    await page.goto('/');
+
+    await clerk.signIn({ page, signInParams: userCredentials });
+
+    await page.waitForURL(`${baseURL}/**`, { timeout: 20_000 });
+    await page.waitForLoadState('networkidle');
+
+    await page.goto('/dashboard');
+
+    await clerk.signOut({ page });
+
+    await expect(page).toHaveURL('/');
+    await expect(page.getByRole('button', { name: 'Bejelentkezés' })).toBeVisible();
+  });
 });
