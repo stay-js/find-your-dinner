@@ -45,6 +45,9 @@ Előfeltételek: [Find Your Dinner. - Dokumentáció, Előfeltételek](../README
     - [8.1.2. Tesztek futtatása](#812-tesztek-futtatása)
     - [8.1.3. Lefedettségi jelentés](#813-lefedettségi-jelentés)
   - [8.2. E2E tesztek (Playwright)](#82-e2e-tesztek-playwright)
+    - [8.2.1. Tesztinfrastruktúra](#821-tesztinfrastruktúra)
+    - [8.2.2. Tesztek futtatása](#822-tesztek-futtatása)
+    - [8.2.3. Teszt riport](#823-teszt-riport)
   - [8.3. Manuális tesztek](#83-manuális-tesztek)
 
 ## 1. Használt technológiák
@@ -74,14 +77,18 @@ Előfeltételek: [Find Your Dinner. - Dokumentáció, Előfeltételek](../README
 
 A `web/.env` fájlban (a `web/.env.example` alapján) az alábbi változók konfigurálhatók:
 
-| Változó                             | Leírás                                                                                                                            |
-| ----------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
-| `DATABASE_URL`                      | Postgres kapcsolati string                                                                                                        |
-| `TEST_DATABASE_URL`                 | Postgres kapcsolati string az API tesztek által használt "testing" adatbázishoz (opcionális, de a tesztek futtatásához szükséges) |
-| `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY` | Clerk projekt publikus kulcsa ([Clerk Dashboard](https://dashboard.clerk.com/))                                                   |
-| `CLERK_SECRET_KEY`                  | Clerk projekt titkos kulcsa ([Clerk Dashboard](https://dashboard.clerk.com/))                                                     |
+| Változó                             | Leírás                                                                                                                                 |
+| ----------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+| `DATABASE_URL`                      | Postgres kapcsolati string                                                                                                             |
+| `TEST_DATABASE_URL`                 | Postgres kapcsolati string az API tesztek által használt "testing" adatbázishoz (opcionális, de az API tesztek futtatásához szükséges) |
+| `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY` | Clerk projekt publikus kulcsa ([Clerk Dashboard](https://dashboard.clerk.com/))                                                        |
+| `CLERK_SECRET_KEY`                  | Clerk projekt titkos kulcsa ([Clerk Dashboard](https://dashboard.clerk.com/))                                                          |
+| `TEST_E2E_CLERK_USER_USERNAME`      | E2E teszteléshez használt normál Clerk fiók felhasználóneve (opcionális, de az E2E tesztek futtatásához szükséges)                     |
+| `TEST_E2E_CLERK_USER_PASSWORD`      | E2E teszteléshez használt normál Clerk fiók jelszava (opcionális, de az E2E tesztek futtatásához szükséges)                            |
+| `TEST_E2E_CLERK_ADMIN_USERNAME`     | E2E teszteléshez használt adminisztrátor Clerk fiók felhasználóneve (opcionális, de az E2E tesztek futtatásához szükséges)             |
+| `TEST_E2E_CLERK_ADMIN_PASSWORD`     | E2E teszteléshez használt adminisztrátor Clerk fiók jelszava (opcionális, de az E2E tesztek futtatásához szükséges)                    |
 
-A környezeti változók validálását a `web/src/env.js` végzi a fájlban meghatározott Zod séma alapján. Amennyiben hiányzó vagy érvénytelen környezeti változó(ka)t észlel, a szerver indításakor hibaüzenetet fog dobni.
+A környezeti változók validálását a `web/src/env.js` végzi a fájlban meghatározott Zod séma alapján. Amennyiben hiányzó vagy érvénytelen környezeti változó(ka)t észlel, a szerver indításakor hibaüzenetet fog dobni. (Kivéve opcionális változók!)
 
 ## 4. Adatbázis
 
@@ -344,7 +351,7 @@ just test
 
 ### 8.1. API tesztek (Vitest)
 
-Az API tesztek [Vitest](https://vitest.dev/) segítségével készültek, a teszt fájlok a `web/tests/api/` könyvtárban találhatóak.
+Az API tesztek [Vitest](https://vitest.dev/) segítségével készültek, a tesztfájlok a `web/tests/api/` könyvtárban találhatóak.
 
 ‼️ A tesztek futtatásához szükséges a `TEST_DATABASE_URL` környezeti változó beállítása. (lsd.: [3. Környezeti változók](#3-környezeti-változók))
 
@@ -355,13 +362,13 @@ A tesztek `fileParallelism: false` beállítással futnak, hogy az adatbázis-m�
 **Setup fájlok (`web/tests/setup/`):**
 
 - **`web/tests/setup/global.setup.ts`** - Egyszer, az összes teszt előtt fut. Csatlakozik az adatbázishoz, és lefuttatja a `web/drizzle/` könyvtárban található migrációkat.
-- **`web/tests/setup/test.setup.ts`** - Minden tesztfájl előtt fut. Mockolja a `@clerk/nextjs/server` modult.
+- **`web/tests/setup/test.setup.ts`** - Minden tesztfájl előtt fut. Mockolja a `@clerk/nextjs/server` csomagot.
 
 **Segédfájlok (`web/tests/helpers/`):**
 
 - **`web/tests/helpers/auth.ts`** - Clerk Autentikáció mockolása
   - `mockUnauthenticated()` - Azonosítatlan állapotot szimulál (`userId: null`).
-  - `mockUser(userId)` - Bejelentkezett felhasgloználót szimulál a megadott azonosítóval.
+  - `mockUser(userId)` - Bejelentkezett felhasználót szimulál a megadott azonosítóval.
   - `ADMIN_ID` konstans - Adminisztrátor tesztfelhasználó azonosítója: `'user_admin'`
   - `USER_ID` konstans - Normál tesztfelhasználó azonosítója: `'user_regular'`
 
@@ -410,5 +417,43 @@ just test-api-coverage
 Az elkészült jelentést a `web/coverage/index.html` fájl megnyitásával tekintheted meg.
 
 ### 8.2. E2E tesztek (Playwright)
+
+Az E2E tesztek [Playwright](https://playwright.dev/) segítségével készültek, a tesztfájlok a `web/tests/e2e/` könyvtárban találhatóak.
+
+‼️ A tesztek futtatásához szükséges a `TEST_E2E_CLERK_USER_USERNAME`, `TEST_E2E_CLERK_USER_PASSWORD`, `TEST_E2E_CLERK_ADMIN_USERNAME` és `TEST_E2E_CLERK_ADMIN_PASSWORD` környezeti változók beállítása. (lsd.: [3. Környezeti változók](#3-környezeti-változók))
+
+‼️ Ezek valós Clerk fiókokra hivatkoznak, amelyeket a [Clerk Dashboard](https://dashboard.clerk.com/)-on kell létrehozni a tesztek futtatása előtt. ‼️
+
+A tesztek futtatásához szükséges Next.js dev szervert a Playwright automatikusan elindítja (`pnpm dev`). (Playwright konfiguráció: `web/playwright.config.ts`)
+
+#### 8.2.1. Tesztinfrastruktúra
+
+**Setup fájlok:**
+
+- **`web/tests/e2e/global.setup.ts`** - Egyszer, az összes teszt előtt fut. Inicializálja a Clerk tesztkörnyezetet a `@clerk/testing/playwright` csomag `clerkSetup()` függvényével.
+
+#### 8.2.2. Tesztek futtatása
+
+Az összes E2E tesztet a `test-e2e` recepttel futtathatod (headless módban):
+
+```bash
+just test-e2e
+```
+
+Headed módban (látható böngészőablakkal) történő futtatáshoz futtasd a `test-e2e-headed` receptet:
+
+```bash
+just test-e2e-headed
+```
+
+Playwright UI módban (interaktív tesztfuttató felülettel) történő futtatáshoz pedig futtasd a `test-e2e-ui` receptet:
+
+```bash
+just test-e2e-ui
+```
+
+#### 8.2.3. Teszt riport
+
+Az elkészült riportot a futtatás után a terminálban megjelenő parancs futtatásával tekintheted meg (A parancsot a `web` könyvtárban futtasd!). Sikertelen teszt/Hiba esetén automatikusan megnyílik.
 
 ### 8.3. Manuális tesztek
