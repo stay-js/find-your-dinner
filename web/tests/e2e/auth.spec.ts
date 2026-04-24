@@ -52,8 +52,8 @@ test.describe('authenticated', () => {
     await expect(page.getByTestId('user-button')).toBeVisible();
   });
 
-  test('signs in successfully via clerk helper', async ({ baseURL, context, page }) => {
-    await setupClerkTestingToken({ context, page });
+  test('signs in successfully via clerk helper', async ({ baseURL, page }) => {
+    await setupClerkTestingToken({ page });
 
     await page.goto('/');
 
@@ -67,8 +67,8 @@ test.describe('authenticated', () => {
     await expect(page.getByTestId('user-button')).toBeVisible();
   });
 
-  test('hides sign in and sign up buttons', async ({ baseURL, context, page }) => {
-    await setupClerkTestingToken({ context, page });
+  test('hides sign in and sign up buttons', async ({ baseURL, page }) => {
+    await setupClerkTestingToken({ page });
 
     await page.goto('/');
 
@@ -83,8 +83,8 @@ test.describe('authenticated', () => {
     await expect(page.getByRole('button', { name: 'Regisztráció' })).not.toBeVisible();
   });
 
-  test('shows dashboard link', async ({ baseURL, context, page }) => {
-    await setupClerkTestingToken({ context, page });
+  test('shows dashboard link', async ({ baseURL, page }) => {
+    await setupClerkTestingToken({ page });
 
     await page.goto('/');
 
@@ -98,8 +98,8 @@ test.describe('authenticated', () => {
     await expect(page.getByRole('link', { name: 'Irányítópult' })).toBeVisible();
   });
 
-  test('sign out via ui redirects to "/"', async ({ baseURL, context, page }) => {
-    await setupClerkTestingToken({ context, page });
+  test('sign out via ui redirects to "/"', async ({ baseURL, page }) => {
+    await setupClerkTestingToken({ page });
 
     await page.goto('/');
 
@@ -117,8 +117,8 @@ test.describe('authenticated', () => {
     await expect(page.getByRole('button', { name: 'Bejelentkezés' })).toBeVisible();
   });
 
-  test('sign out via clerk helper redirects to "/"', async ({ baseURL, context, page }) => {
-    await setupClerkTestingToken({ context, page });
+  test('sign out via clerk helper redirects to "/"', async ({ baseURL, page }) => {
+    await setupClerkTestingToken({ page });
 
     await page.goto('/');
 
@@ -137,10 +137,9 @@ test.describe('authenticated', () => {
 
   test('should redirect the user back to the previous page after signing in', async ({
     baseURL,
-    context,
     page,
   }) => {
-    await setupClerkTestingToken({ context, page });
+    await setupClerkTestingToken({ page });
 
     await page.goto('/recipes');
 

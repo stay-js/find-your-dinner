@@ -15,10 +15,12 @@ const adminCredentials = {
   strategy: 'password' as const,
 };
 
-test('redirects "/dashboard" to sign in when unauthenticated', async ({ page }) => {
-  await page.goto('/dashboard');
+test.describe('unauthenticated', () => {
+  test('redirects "/dashboard" to sign in when unauthenticated', async ({ page }) => {
+    await page.goto('/dashboard');
 
-  await expect(page).toHaveURL(/sign-in/);
+    await expect(page).toHaveURL(/sign-in/);
+  });
 });
 
 test.describe('regular user', () => {
