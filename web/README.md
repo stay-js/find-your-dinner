@@ -422,7 +422,7 @@ Az E2E tesztek [Playwright](https://playwright.dev/) segítségével készültek
 
 ‼️ A tesztek futtatásához szükséges a `TEST_E2E_CLERK_USER_USERNAME`, `TEST_E2E_CLERK_USER_PASSWORD`, `TEST_E2E_CLERK_ADMIN_USERNAME` és `TEST_E2E_CLERK_ADMIN_PASSWORD` környezeti változók beállítása. (lsd.: [3. Környezeti változók](#3-környezeti-változók))
 
-‼️ Ezek valós Clerk fiókokra hivatkoznak, amelyeket a [Clerk Dashboard](https://dashboard.clerk.com/)-on kell létrehozni a tesztek futtatása előtt. ‼️
+‼️ Ezek valós Clerk fiókokra hivatkoznak, amelyeket a [Clerk Dashboard](https://dashboard.clerk.com/)-on kell létrehozni a tesztek futtatása előtt. Valamint a fiókoknál a `Settings` fülön be kell kapcsolni a `Bypass Client Trust` opciót! ‼️
 
 A tesztek futtatásához szükséges Next.js dev szervert a Playwright automatikusan elindítja (`pnpm dev`). (Playwright konfiguráció: `web/playwright.config.ts`)
 

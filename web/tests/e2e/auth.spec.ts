@@ -1,4 +1,13 @@
+import { clerk, setupClerkTestingToken } from '@clerk/testing/playwright';
 import { expect, test } from '@playwright/test';
+
+import { env } from '~/env';
+
+const userCredentials = {
+  identifier: env.TEST_E2E_CLERK_USER_USERNAME!,
+  password: env.TEST_E2E_CLERK_USER_PASSWORD!,
+  strategy: 'password' as const,
+};
 
 test.describe('unauthenticated', () => {
   test('shows sign in and sign up buttons', async ({ page }) => {
@@ -17,6 +26,44 @@ test.describe('unauthenticated', () => {
 
     await page.waitForSelector('button:has-text("Bejelentkezés")', { timeout: 5_000 });
 
-    await expect(page.getByTestId('user-menu-button')).not.toBeVisible();
+    await expect(page.getByTestId('user-button')).not.toBeVisible();
+  });
+});
+
+test.describe('authenticated', () => {
+  test('signs in successfully via email and password', async ({ baseURL, page }) => {
+    await setupClerkTestingToken({ page });
+
+    await page.goto('/');
+
+    await page.getByRole('button', { name: 'Bejelentkezés' }).click();
+
+    await page.fill('input#identifier-field', userCredentials.identifier);
+    await page.getByRole('button', { exact: true, name: 'Continue' }).click();
+
+    await page.fill('input#password-field', userCredentials.password);
+    await page.getByRole('button', { exact: true, name: 'Continue' }).click();
+
+    await page.waitForURL(`${baseURL}/**`, { timeout: 20_000 });
+    await page.waitForLoadState('networkidle');
+
+    await page.goto('/');
+
+    await expect(page.getByTestId('user-button')).toBeVisible();
+  });
+
+  test('signs in successfully via clerk helper', async ({ baseURL, context, page }) => {
+    await setupClerkTestingToken({ context, page });
+
+    await page.goto('/');
+
+    await clerk.signIn({ page, signInParams: userCredentials });
+
+    await page.waitForURL(`${baseURL}/**`, { timeout: 20_000 });
+    await page.waitForLoadState('networkidle');
+
+    await page.goto('/');
+
+    await expect(page.getByTestId('user-button')).toBeVisible();
   });
 });
