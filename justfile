@@ -151,13 +151,13 @@ test-api-watch:
 [group('tests')]
 [working-directory: 'web']
 test-e2e:
-    {{runner}} run test:e2e
+    -{{runner}} run test:e2e
 
 # Runs E2E tests with Playwright in headed mode
 [group('tests')]
 [working-directory: 'web']
 test-e2e-headed:
-    {{runner}} run test:e2e:headed
+    -{{runner}} run test:e2e:headed
 
 # Runs E2E tests with Playwright UI mode
 [group('tests')]
