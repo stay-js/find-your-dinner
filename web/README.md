@@ -251,7 +251,7 @@ Az adminisztrátorok Clerk által generált egyedi azonosítója az `admins` tá
 
 #### 6.1.1. Adminisztrátor hozzáadása
 
-Új adminisztrátor hozzáadásához az `admins` táblába kell felvenni a felhasználó egyedi azonosítóját. Seedelés előtt ez a `web/scripts/seeders/seed-admins.ts` fájl `data` tömbjének kiegészítésével tehető meg. (lsd.: [Első indítás](../README.md#első-indítás))
+Új adminisztrátor hozzáadásához az `admins` táblába kell felvenni a felhasználó egyedi azonosítóját. Ez a `web/scripts/seeders/seed-admins.ts` fájl `data` tömbjének kiegészítésével, majd a seederek újrafuttatásával (`just seed`) tehető meg.
 
 #### 6.1.2. Adminisztrátori jogosultág ellenőrzése
 
@@ -422,7 +422,7 @@ Az E2E tesztek [Playwright](https://playwright.dev/) segítségével készültek
 
 ‼️ A tesztek futtatásához szükséges a `TEST_E2E_CLERK_USER_USERNAME`, `TEST_E2E_CLERK_USER_PASSWORD`, `TEST_E2E_CLERK_ADMIN_USERNAME` és `TEST_E2E_CLERK_ADMIN_PASSWORD` környezeti változók beállítása. (lsd.: [3. Környezeti változók](#3-környezeti-változók))
 
-‼️ Ezek valós Clerk fiókokra hivatkoznak, amelyeket a [Clerk Dashboard](https://dashboard.clerk.com/)-on kell létrehozni a tesztek futtatása előtt. Valamint a fiókoknál a `Settings` fülön be kell kapcsolni a `Bypass Client Trust` opciót! ‼️
+‼️ Ezek valós Clerk fiókokra hivatkoznak, amelyeket a [Clerk Dashboard](https://dashboard.clerk.com/)-on kell létrehozni a tesztek futtatása előtt. Valamint a fiókoknál a `Settings` fülön be kell kapcsolni a `Bypass Client Trust` opciót! Illetve az **Adminisztrátor** fiók azonosítáját hozzá kell adni az `admins` táblához! (lsd.: [6.1.1 Adminisztrátor hozzáadása](#611-adminisztrátor-hozzáadása)) ‼️
 
 A tesztek futtatásához szükséges Next.js dev szervert a Playwright automatikusan elindítja (`pnpm dev`). (Playwright konfiguráció: `web/playwright.config.ts`)
 
