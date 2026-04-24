@@ -83,6 +83,21 @@ test.describe('authenticated', () => {
     await expect(page.getByRole('button', { name: 'Regisztráció' })).not.toBeVisible();
   });
 
+  test('shows dashboard link', async ({ baseURL, context, page }) => {
+    await setupClerkTestingToken({ context, page });
+
+    await page.goto('/');
+
+    await clerk.signIn({ page, signInParams: userCredentials });
+
+    await page.waitForURL(`${baseURL}/**`, { timeout: 20_000 });
+    await page.waitForLoadState('networkidle');
+
+    await page.goto('/');
+
+    await expect(page.getByRole('link', { name: 'Irányítópult' })).toBeVisible();
+  });
+
   test('sign out via ui redirects to "/"', async ({ baseURL, context, page }) => {
     await setupClerkTestingToken({ context, page });
 
