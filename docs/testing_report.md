@@ -499,14 +499,14 @@
 
 **Fájl:** `web/tests/e2e/auth.spec.ts`
 
-#### Azonosítatlan állapotot (Nem bejelentkezett felhasználó)
+#### Azonosítatlan állapot (Nem bejelentkezett felhasználó)
 
 | #   | Teszteset                         | Első futtatás időpontja | Utolsó futtatás időpontja | Utoljára futtatta | Eredmény |
 | --- | --------------------------------- | ----------------------- | ------------------------- | ----------------- | -------- |
 | 1   | shows sign in and sign up buttons | 2026.04.24. 10:23       | 2026.04.24. 14:26         | Nagy Zétény       | Sikeres  |
 | 2   | does not show user button         | 2026.04.24. 10:23       | 2026.04.24. 14:26         | Nagy Zétény       | Sikeres  |
 
-#### Azonosított állapotot (Bejelentkezett felhasználó)
+#### Azonosított állapot (Bejelentkezett felhasználó)
 
 | #   | Teszteset                                                           | Első futtatás időpontja | Utolsó futtatás időpontja | Utoljára futtatta | Eredmény |
 | --- | ------------------------------------------------------------------- | ----------------------- | ------------------------- | ----------------- | -------- |
@@ -525,7 +525,7 @@
 
 **Fájl:** `web/tests/e2e/dashboard.spec.ts`
 
-#### Azonosítatlan állapotot (Nem bejelentkezett felhasználó)
+#### Azonosítatlan állapot (Nem bejelentkezett felhasználó)
 
 | #   | Teszteset                                              | Első futtatás időpontja | Utolsó futtatás időpontja | Utoljára futtatta | Eredmény |
 | --- | ------------------------------------------------------ | ----------------------- | ------------------------- | ----------------- | -------- |
