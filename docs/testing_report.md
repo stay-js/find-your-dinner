@@ -20,6 +20,9 @@
   - [Dashboard](#dashboard)
 - [Manuális tesztek](#manuális-tesztek)
 
+<br>
+<br>
+
 ## API tesztek
 
 ### /api/categories
@@ -67,6 +70,9 @@
 | 20  | returns 404 for non-existent category   | 2026.04.21. 14:34       | 2026.04.25. 13:35         | Nagy Zétény       | Sikeres  |
 | 21  | returns 400 for invalid id              | 2026.04.21. 14:34       | 2026.04.25. 13:35         | Nagy Zétény       | Sikeres  |
 
+<br>
+<br>
+
 ### /api/ingredients
 
 **Fájl:** `web/tests/api/ingredients.test.ts`
@@ -113,6 +119,9 @@
 | 21  | returns 404 for non-existent ingredient   | 2026.04.21. 14:57       | 2026.04.25. 13:35         | Nagy Zétény       | Sikeres  |
 | 22  | returns 400 for invalid id                | 2026.04.25. 12:49       | 2026.04.25. 13:35         | Nagy Zétény       | Sikeres  |
 
+<br>
+<br>
+
 ### /api/units
 
 **Fájl:** `web/tests/api/units.test.ts`
@@ -158,6 +167,9 @@
 | 20  | returns 404 for non-existent unit   | 2026.04.21. 15:34       | 2026.04.25. 13:35         | Nagy Zétény       | Sikeres  |
 | 21  | returns 400 for invalid id          | 2026.04.21. 15:34       | 2026.04.25. 13:35         | Nagy Zétény       | Sikeres  |
 
+<br>
+<br>
+
 ### /api/recipe-data/[id]/verify
 
 **Fájl:** `web/tests/api/recipe-data.test.ts`
@@ -172,6 +184,9 @@
 | 4   | returns 404 for non-existent recipe data               | 2026.04.21. 16:09       | 2026.04.25. 13:35         | Nagy Zétény       | Sikeres  |
 | 5   | returns 409 when recipe data is already verified       | 2026.04.21. 16:09       | 2026.04.25. 13:35         | Nagy Zétény       | Sikeres  |
 | 6   | returns 204 when admin verifies unverified recipe data | 2026.04.21. 16:09       | 2026.04.25. 13:35         | Nagy Zétény       | Sikeres  |
+
+<br>
+<br>
 
 ### /api/recipes
 
@@ -244,6 +259,9 @@
 | 41  | returns 204 when owner deletes own recipe                 | 2026.04.21. 19:27       | 2026.04.25. 13:35         | Nagy Zétény       | Sikeres  |
 | 42  | returns 204 when admin deletes any recipe                 | 2026.04.21. 19:27       | 2026.04.25. 13:35         | Nagy Zétény       | Sikeres  |
 
+<br>
+<br>
+
 ### /api/user/default-ingredients
 
 **Fájl:** `web/tests/api/user/default-ingredients.test.ts`
@@ -269,6 +287,9 @@
 | 10  | returns 204 and clears default ingredients when empty array is provided | 2026.04.21. 20:07       | 2026.04.25. 13:35         | Nagy Zétény       | Sikeres  |
 | 11  | returns 204 and replaces existing default ingredients                   | 2026.04.21. 20:07       | 2026.04.25. 13:35         | Nagy Zétény       | Sikeres  |
 
+<br>
+<br>
+
 ### /api/user/is-admin
 
 **Fájl:** `web/tests/api/user/is-admin.test.ts`
@@ -280,6 +301,9 @@
 | 1   | returns 401 when unauthenticated         | 2026.04.21. 20:17       | 2026.04.25. 13:35         | Nagy Zétény       | Sikeres  |
 | 2   | returns isAdmin false for a regular user | 2026.04.21. 20:17       | 2026.04.25. 13:35         | Nagy Zétény       | Sikeres  |
 | 3   | returns isAdmin true for an admin user   | 2026.04.21. 20:17       | 2026.04.25. 13:35         | Nagy Zétény       | Sikeres  |
+
+<br>
+<br>
 
 ### /api/user/recipes
 
@@ -298,6 +322,9 @@
 | 7   | filters recipes by search query                           | 2026.04.21. 20:47       | 2026.04.25. 13:35         | Nagy Zétény       | Sikeres  |
 | 8   | paginates results correctly                               | 2026.04.21. 20:47       | 2026.04.25. 13:35         | Nagy Zétény       | Sikeres  |
 | 9   | does not return recipes from other users when filtering   | 2026.04.21. 20:47       | 2026.04.25. 13:35         | Nagy Zétény       | Sikeres  |
+
+<br>
+<br>
 
 ### /api/user/saved-recipes
 
@@ -349,6 +376,11 @@
 | 25  | returns 204 even when the recipe was not saved         | 2026.04.21. 21:22       | 2026.04.25. 13:35         | Nagy Zétény       | Sikeres  |
 | 26  | does not delete saved recipes belonging to other users | 2026.04.21. 21:22       | 2026.04.25. 13:35         | Nagy Zétény       | Sikeres  |
 
+<br>
+<br>
+<br>
+<br>
+
 ## Unit tesztek
 
 ### createDateOnlyString
@@ -361,6 +393,9 @@
 | 2   | pads single-digit month and day with zeros | 2026.04.25. 13:35       | 2026.04.25. 13:35         | Nagy Zétény       | Sikeres  |
 | 3   | handles December 31                        | 2026.04.25. 13:35       | 2026.04.25. 13:35         | Nagy Zétény       | Sikeres  |
 | 4   | handles January 1                          | 2026.04.25. 13:35       | 2026.04.25. 13:35         | Nagy Zétény       | Sikeres  |
+
+<br>
+<br>
 
 ### Zod segédfüggvények és sémák
 
@@ -453,6 +488,11 @@
 | 6   | returns false for empty string     | 2026.04.25. 13:35       | 2026.04.25. 13:35         | Nagy Zétény       | Sikeres  |
 | 7   | returns false for arbitrary string | 2026.04.25. 13:35       | 2026.04.25. 13:35         | Nagy Zétény       | Sikeres  |
 
+<br>
+<br>
+<br>
+<br>
+
 ## E2E tesztek
 
 ### Autentikáció
@@ -477,6 +517,9 @@
 | 5   | sign out via ui redirects to "/"                                    | 2026.04.24. 12:59       | 2026.04.24. 14:26         | Nagy Zétény       | Sikeres  |
 | 6   | sign out via clerk helper redirects to "/"                          | 2026.04.24. 12:59       | 2026.04.24. 14:26         | Nagy Zétény       | Sikeres  |
 | 7   | should redirect the user back to the previous page after signing in | 2026.04.24. 13:15       | 2026.04.24. 14:26         | Nagy Zétény       | Sikeres  |
+
+<br>
+<br>
 
 ### Dashboard
 
@@ -503,5 +546,10 @@
 | 1   | shows admin nav section in dashboard sidebar      | 2026.04.24. 14:16       | 2026.04.24. 14:26         | Nagy Zétény       | Sikeres  |
 | 2   | shows admin nav section in dashboard landing page | 2026.04.24. 14:16       | 2026.04.24. 14:26         | Nagy Zétény       | Sikeres  |
 | 3   | can access admin routes                           | 2026.04.24. 14:16       | 2026.04.24. 14:26         | Nagy Zétény       | Sikeres  |
+
+<br>
+<br>
+<br>
+<br>
 
 ## Manuális tesztek
