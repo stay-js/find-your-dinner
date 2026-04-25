@@ -28,6 +28,10 @@ const data = [
   { abbreviation: 'gerezd', name: 'Gerezd' },
 
   { abbreviation: 'szelet', name: 'Szelet' },
+
+  { abbreviation: 'konzerv', name: 'Konzerv' },
+
+  { abbreviation: 'csokor', name: 'Csokor' },
 ] satisfies (typeof units.$inferInsert)[];
 
 export async function seedUnits() {
