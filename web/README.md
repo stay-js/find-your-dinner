@@ -25,8 +25,8 @@ Előfeltételek: [Find Your Dinner. - Dokumentáció, Előfeltételek](../README
     - [5.2.4. Hibaválaszok](#524-hibaválaszok)
 - [6. Autentikáció és jogosultságkezelés](#6-autentikáció-és-jogosultságkezelés)
   - [6.1. Jogosultsági szintek](#61-jogosultsági-szintek)
-    - [6.1.1. Adminisztrátor hozzáadása](#611-adminisztrátor-hozzáadása)
-    - [6.1.2. Adminisztrátori jogosultág ellenőrzése](#612-adminisztrátori-jogosultág-ellenőrzése)
+  - [6.2. Adminisztrátor hozzáadása](#62-adminisztrátor-hozzáadása)
+  - [6.3. Adminisztrátori jogosultág ellenőrzése](#63-adminisztrátori-jogosultág-ellenőrzése)
 - [7. Segédfüggvények](#7-segédfüggvények)
   - [7.1. Kliens oldali segédfüggvények](#71-kliens-oldali-segédfüggvények-websrclib)
     - [7.1.1. HTTP kliens](#711-http-kliens-websrclibapits)
@@ -283,11 +283,15 @@ Bejelentkezett státusz ellenőrzéséhez, felhasználók adatainak lekérdezés
 
 Az adminisztrátorok Clerk által generált egyedi azonosítója az `admins` táblában van eltárolva. Ez alapján ellenőrizzük, hogy a felhasználó adminisztrátor-e vagy sem.
 
-#### 6.1.1. Adminisztrátor hozzáadása
+<br>
+
+### 6.2. Adminisztrátor hozzáadása
 
 Új adminisztrátor hozzáadásához az `admins` táblába kell felvenni a felhasználó egyedi azonosítóját. Ez a `web/scripts/seeders/seed-admins.ts` fájl `data` tömbjének kiegészítésével, majd a seederek újrafuttatásával (`just seed`) tehető meg.
 
-#### 6.1.2. Adminisztrátori jogosultág ellenőrzése
+<br>
+
+### 6.3. Adminisztrátori jogosultág ellenőrzése
 
 - Szerver oldalon a `web/src/server/utils/check-is-admin.ts` fájlban található `checkIsAdmin` segédfüggvénnyel tehető meg. (lsd.: [7.2.2. Adminisztrátori jogosultság ellenőrzése](#722-adminisztrátori-jogosultság-ellenőrzése-websrcserverutilscheck-is-admints))
 - Egyéb esetben az `/api/user/is-admin` végpont hívásával ellenőrizhető.
@@ -494,7 +498,7 @@ Az E2E tesztek [Playwright](https://playwright.dev/) segítségével készültek
 
 ‼️ A tesztek futtatásához szükséges a `TEST_E2E_CLERK_USER_USERNAME`, `TEST_E2E_CLERK_USER_PASSWORD`, `TEST_E2E_CLERK_ADMIN_USERNAME` és `TEST_E2E_CLERK_ADMIN_PASSWORD` környezeti változók beállítása. (lsd.: [3. Környezeti változók](#3-környezeti-változók))
 
-‼️ Ezek valós Clerk fiókokra hivatkoznak, amelyeket a [Clerk Dashboard](https://dashboard.clerk.com/)-on kell létrehozni a tesztek futtatása előtt. Valamint a fiókoknál a `Settings` fülön be kell kapcsolni a `Bypass Client Trust` opciót! Illetve az **Adminisztrátor** fiók azonosítáját hozzá kell adni az `admins` táblához! (lsd.: [6.1.1 Adminisztrátor hozzáadása](#611-adminisztrátor-hozzáadása)) ‼️
+‼️ Ezek valós Clerk fiókokra hivatkoznak, amelyeket a [Clerk Dashboard](https://dashboard.clerk.com/)-on kell létrehozni a tesztek futtatása előtt. Valamint a fiókoknál a `Settings` fülön be kell kapcsolni a `Bypass Client Trust` opciót! Illetve az **Adminisztrátor** fiók azonosítáját hozzá kell adni az `admins` táblához! (lsd.: [6.2 Adminisztrátor hozzáadása](#62-adminisztrátor-hozzáadása)) ‼️
 
 A tesztek futtatásához szükséges Next.js dev szervert a Playwright automatikusan elindítja (`pnpm dev`). (Playwright konfiguráció: `web/playwright.config.ts`)
 
