@@ -49,6 +49,7 @@ export function RecipeCard({
           className="w-full object-cover transition-transform duration-300 hover:scale-105"
           draggable={false}
           fill
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
           src={recipe.recipeData.previewImageUrl || '/placeholder.png'}
         />
 
