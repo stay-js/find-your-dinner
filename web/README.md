@@ -44,11 +44,13 @@ Előfeltételek: [Find Your Dinner. - Dokumentáció, Előfeltételek](../README
     - [8.1.1. Tesztinfrastruktúra](#811-tesztinfrastruktúra)
     - [8.1.2. Tesztek futtatása](#812-tesztek-futtatása)
     - [8.1.3. Lefedettségi jelentés](#813-lefedettségi-jelentés)
-  - [8.2. E2E tesztek (Playwright)](#82-e2e-tesztek-playwright)
-    - [8.2.1. Tesztinfrastruktúra](#821-tesztinfrastruktúra)
-    - [8.2.2. Tesztek futtatása](#822-tesztek-futtatása)
-    - [8.2.3. Teszt riport](#823-teszt-riport)
-  - [8.3. Manuális tesztek](#83-manuális-tesztek)
+  - [8.2. Unit tesztek (Vitest)](#82-unit-tesztek-vitest)
+    - [8.2.1. Tesztek futtatása](#821-tesztek-futtatása)
+  - [8.3. E2E tesztek (Playwright)](#83-e2e-tesztek-playwright)
+    - [8.3.1. Tesztinfrastruktúra](#831-tesztinfrastruktúra)
+    - [8.3.2. Tesztek futtatása](#832-tesztek-futtatása)
+    - [8.3.3. Teszt riport](#833-teszt-riport)
+  - [8.4. Manuális tesztek](#84-manuális-tesztek)
 
 ## 1. Használt technológiák
 
@@ -400,10 +402,10 @@ Amennyiben csak egyetlen tesztfájlt szeretnél futtatni, add meg a fájl elér�
 just test-api tests/api/recipes.test.ts
 ```
 
-Ha fejlesztés közben szeretnéd, hogy a tesztek fájlváltozás esetén automatikusan újrafussanak, futtasd a `test-api-watch` receptet:
+Ha fejlesztés közben szeretnéd, hogy a tesztek fájlváltozás esetén automatikusan újrafussanak, futtasd a `test-watch` receptet (ez a Unit és API teszteket egyaránt futtatja):
 
 ```bash
-just test-api-watch
+just test-watch
 ```
 
 #### 8.1.3. Lefedettségi jelentés
@@ -416,7 +418,31 @@ just test-api-coverage
 
 Az elkészült jelentést a `web/coverage/index.html` fájl megnyitásával tekintheted meg.
 
-### 8.2. E2E tesztek (Playwright)
+### 8.2. Unit tesztek (Vitest)
+
+Az Unit tesztek szintén [Vitest](https://vitest.dev/) segítségével készültek, a tesztfájlok a `web/tests/unit/` könyvtárban találhatóak.
+
+#### 8.2.1. Tesztek futtatása
+
+Az összes Unit tesztet a `test-unit` recepttel futtathatod:
+
+```bash
+just test-unit
+```
+
+Amennyiben csak egyetlen tesztfájlt szeretnél futtatni, add meg a fájl elérési útvonalát argumentumként:
+
+```bash
+just test-unit tests/unit/create-date-only-string.test.ts
+```
+
+Ha fejlesztés közben szeretnéd, hogy a tesztek fájlváltozás esetén automatikusan újrafussanak, futtasd a `test-watch` receptet (ez a Unit és API teszteket egyaránt futtatja):
+
+```bash
+just test-watch
+```
+
+### 8.3. E2E tesztek (Playwright)
 
 Az E2E tesztek [Playwright](https://playwright.dev/) segítségével készültek, a tesztfájlok a `web/tests/e2e/` könyvtárban találhatóak.
 
@@ -426,13 +452,13 @@ Az E2E tesztek [Playwright](https://playwright.dev/) segítségével készültek
 
 A tesztek futtatásához szükséges Next.js dev szervert a Playwright automatikusan elindítja (`pnpm dev`). (Playwright konfiguráció: `web/playwright.config.ts`)
 
-#### 8.2.1. Tesztinfrastruktúra
+#### 8.3.1. Tesztinfrastruktúra
 
 **Setup fájlok:**
 
 - **`web/tests/e2e/global.setup.ts`** - Egyszer, az összes teszt előtt fut. Inicializálja a Clerk tesztkörnyezetet a `@clerk/testing/playwright` csomag `clerkSetup()` függvényével.
 
-#### 8.2.2. Tesztek futtatása
+#### 8.3.2. Tesztek futtatása
 
 Az összes E2E tesztet a `test-e2e` recepttel futtathatod (headless módban):
 
@@ -452,8 +478,8 @@ Playwright UI módban (interaktív tesztfuttató felülettel) történő futtat�
 just test-e2e-ui
 ```
 
-#### 8.2.3. Teszt riport
+#### 8.3.3. Teszt riport
 
 Az elkészült riportot a futtatás után a terminálban megjelenő parancs futtatásával tekintheted meg (A parancsot a `web` könyvtárban futtasd!). Sikertelen teszt/Hiba esetén automatikusan megnyílik.
 
-### 8.3. Manuális tesztek
+### 8.4. Manuális tesztek
