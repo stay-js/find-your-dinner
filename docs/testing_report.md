@@ -21,6 +21,12 @@
   - [Autentikáció](#autentikáció)
   - [Dashboard](#dashboard)
 - [Manuális tesztek](#manuális-tesztek)
+  - [Autentikáció](#autentikáció-1)
+  - [Receptek](#receptek)
+  - [Adminisztráció](#adminisztráció)
+  - [Recept mentés](#recept-mentés)
+  - [Keresés oldal](#keresés-oldal)
+  - [Alapértelmezett hozzávalók](#alapértelmezett-hozzávalók)
 
 <br>
 <br>
@@ -539,3 +545,72 @@
 <br>
 
 ## Manuális tesztek
+
+### Autentikáció
+
+| #   | Teszteset                                | Első futtatás időpontja | Utolsó futtatás időpontja | Utoljára futtatta | Eredmény |
+| --- | ---------------------------------------- | ----------------------- | ------------------------- | ----------------- | -------- |
+| 1   | sign-up with email and password succeeds |                         |                           |                   |          |
+| 2   | sign-up with Google OAuth succeeds       |                         |                           |                   |          |
+| 3   | sign-in with email and password succeeds |                         |                           |                   |          |
+| 4   | sign-in with Google OAuth succeeds       |                         |                           |                   |          |
+
+<br>
+
+### Receptek
+
+| #   | Teszteset                                                                                                  | Első futtatás időpontja | Utolsó futtatás időpontja | Utoljára futtatta | Eredmény |
+| --- | ---------------------------------------------------------------------------------------------------------- | ----------------------- | ------------------------- | ----------------- | -------- |
+| 1   | creating, editing, and deleting a recipe works end-to-end                                                  |                         |                           |                   |          |
+| 2   | recipe creation form redirects to "/dashboard/recipes" on success                                          |                         |                           |                   |          |
+| 3   | admin can edit any user's recipe                                                                           |                         |                           |                   |          |
+| 4   | user cannot access the edit page of another user's recipe                                                  |                         |                           |                   |          |
+| 5   | edit button on admin routes points to the admin edit page, even when the current user is the recipe author |                         |                           |                   |          |
+| 6   | user recipe edit form redirects to "/dashboard/recipes" on success                                         |                         |                           |                   |          |
+| 7   | admin recipe edit form redirects to "/dashboard/admin/recipes" on success                                  |                         |                           |                   |          |
+| 8   | user recipes page only shows recipes belonging to the current user                                         |                         |                           |                   |          |
+| 9   | public recipes page only displays verified recipes                                                         |                         |                           |                   |          |
+| 10  | public recipe page returns 404 for unverified recipes                                                      |                         |                           |                   |          |
+| 11  | filters work correctly on the public, user, user saved and admin recipe pages                              |                         |                           |                   |          |
+
+<br>
+
+### Adminisztráció
+
+| #   | Teszteset                                                                     | Első futtatás időpontja | Utolsó futtatás időpontja | Utoljára futtatta | Eredmény |
+| --- | ----------------------------------------------------------------------------- | ----------------------- | ------------------------- | ----------------- | -------- |
+| 1   | creating, editing, and deleting a category works end-to-end                   |                         |                           |                   |          |
+| 2   | creating, editing, and deleting an ingredient works end-to-end                |                         |                           |                   |          |
+| 3   | creating, editing, and deleting a unit works end-to-end                       |                         |                           |                   |          |
+| 4   | search filter works correctly on the categories, ingredients, and units pages |                         |                           |                   |          |
+| 5   | approving a pending recipe marks it as verified and makes it publicly visible |                         |                           |                   |          |
+
+<br>
+
+### Recept mentés
+
+| #   | Teszteset                                                      | Első futtatás időpontja | Utolsó futtatás időpontja | Utoljára futtatta | Eredmény |
+| --- | -------------------------------------------------------------- | ----------------------- | ------------------------- | ----------------- | -------- |
+| 1   | saving and unsaving a recipe updates the saved state correctly |                         |                           |                   |          |
+| 2   | saved recipes are displayed correctly on the user's dashboard  |                         |                           |                   |          |
+| 3   | saved recipes page only displays verified recipes              |                         |                           |                   |          |
+
+<br>
+
+### Keresés oldal
+
+| #   | Teszteset                                                                                | Első futtatás időpontja | Utolsó futtatás időpontja | Utoljára futtatta | Eredmény |
+| --- | ---------------------------------------------------------------------------------------- | ----------------------- | ------------------------- | ----------------- | -------- |
+| 1   | filter stage correctly narrows the recipe pool based on selected criteria                |                         |                           |                   |          |
+| 2   | swipe stage allows dismissing and selecting recipes                                      |                         |                           |                   |          |
+| 3   | tournament stage correctly determines the winning recipe                                 |                         |                           |                   |          |
+| 4   | swipe and tournament stages are skipped when only one recipe matches the applied filters |                         |                           |                   |          |
+
+<br>
+
+### Alapértelmezett hozzávalók
+
+| #   | Teszteset                                                                                                                   | Első futtatás időpontja | Utolsó futtatás időpontja | Utoljára futtatta | Eredmény |
+| --- | --------------------------------------------------------------------------------------------------------------------------- | ----------------------- | ------------------------- | ----------------- | -------- |
+| 1   | updating default ingredients saves the new selection correctly                                                              |                         |                           |                   |          |
+| 2   | the "Feltöltés alapértelmezett hozzávalókkal" button is only shown in the filters when the user has default ingredients set |                         |                           |                   |          |
