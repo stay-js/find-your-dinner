@@ -124,28 +124,34 @@ seed:
 dbml:
     {{runner}} run db:generate:dbml
 
-# Runs API tests and E2E tests
+# Runs unit tests, API tests and E2E tests
 [group('tests')]
 [working-directory: 'web']
-test: test-api test-e2e
+test: test-unit test-api test-e2e
 
-# Runs all tests (API and E2E)
+# Runs unit tests with Vitest
 [group('tests')]
 [working-directory: 'web']
-test-api *ARGS:
-    {{runner}} run test:api {{ARGS}}
+test-unit +ARGS="tests/unit":
+    {{runner}} run test {{ARGS}}
+
+# Runs API tests with Vitest
+[group('tests')]
+[working-directory: 'web']
+test-api +ARGS="tests/api":
+    {{runner}} run test {{ARGS}}
 
 # Runs API tests with Vitest and generates coverage report
 [group('tests')]
 [working-directory: 'web']
-test-api-coverage *ARGS:
-    {{runner}} run test:api:coverage {{ARGS}}
+test-api-coverage +ARGS="tests/api":
+    {{runner}} run test:coverage {{ARGS}}
 
-# Runs API tests with Vitest in watch mode
+# Runs API and unit tests with Vitest in watch mode
 [group('tests')]
 [working-directory: 'web']
-test-api-watch:
-    -{{runner}} run test:api:watch
+test-watch:
+    -{{runner}} run test:watch
 
 # Runs E2E tests with Playwright
 [group('tests')]
