@@ -4,7 +4,7 @@
 
 ## Tartalomjegyzék
 
-- [API tesztek](#automatizált-api-tesztek)
+- [API tesztek](#api-tesztek)
   - [/api/categories](#apicategories)
   - [/api/ingredients](#apiingredients)
   - [/api/units](#apiunits)
