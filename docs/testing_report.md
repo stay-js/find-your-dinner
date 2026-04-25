@@ -561,17 +561,19 @@
 
 | #   | Teszteset                                                                                                     | Első futtatás időpontja | Utolsó futtatás időpontja | Utoljára futtatta | Eredmény |
 | --- | ------------------------------------------------------------------------------------------------------------- | ----------------------- | ------------------------- | ----------------- | -------- |
-| 1   | creating, editing, and deleting a recipe works end-to-end                                                     |                         |                           |                   |          |
-| 2   | recipe creation form redirects to "/dashboard/recipes" on success                                             |                         |                           |                   |          |
-| 3   | admin can edit any user's recipe                                                                              |                         |                           |                   |          |
-| 4   | user cannot access the edit page of another user's recipe                                                     |                         |                           |                   |          |
-| 5   | edit button on admin routes redirects to the admin edit page, even when the current user is the recipe author |                         |                           |                   |          |
-| 6   | user recipe edit form redirects to "/dashboard/recipes" on success                                            |                         |                           |                   |          |
-| 7   | admin recipe edit form redirects to "/dashboard/admin/recipes" on success                                     |                         |                           |                   |          |
-| 8   | user recipes page only shows recipes belonging to the current user                                            |                         |                           |                   |          |
-| 9   | public recipes page only displays verified recipes                                                            |                         |                           |                   |          |
-| 10  | public recipe page returns 404 for unverified recipes                                                         |                         |                           |                   |          |
-| 11  | filters work correctly on the public, user, user saved and admin recipe pages                                 |                         |                           |                   |          |
+| 1   | creating, editing, and deleting a recipe works end-to-end                                                     | 2026.04.25. 22:55       | 2026.04.25. 22:55         | Nagy Zétény       | Sikeres  |
+| 2   | recipe creation form redirects to "/dashboard/recipes" on success                                             | 2026.04.25. 22:55       | 2026.04.25. 22:55         | Nagy Zétény       | Sikeres  |
+| 3   | admin can edit and delete any recipe                                                                          | 2026.04.25. 22:58       | 2026.04.25. 22:58         | Nagy Zétény       | Sikeres  |
+| 4   | user cannot access the edit page of another user's recipe                                                     | 2026.04.25. 23:00       | 2026.04.25. 23:00         | Nagy Zétény       | Sikeres  |
+| 5   | edit button on admin routes redirects to the admin edit page, even when the current user is the recipe author | 2026.04.25. 23:02       | 2026.04.25. 23:02         | Nagy Zétény       | Sikeres  |
+| 6   | user recipe edit form redirects to "/dashboard/recipes" on success                                            | 2026.04.25. 23:04       | 2026.04.25. 23:04         | Nagy Zétény       | Sikeres  |
+| 7   | admin recipe edit form redirects to "/dashboard/admin/recipes" on success                                     | 2026.04.25. 23:04       | 2026.04.25. 23:04         | Nagy Zétény       | Sikeres  |
+| 8   | edit button on public page redirects to user edit page if user is the author, even if admin                   | 2026.04.25. 23:05       | 2026.04.25. 23:05         | Nagy Zétény       | Sikeres  |
+| 9   | edit button on public page redirects to admin edit page if user is not the author                             | 2026.04.25. 23:06       | 2026.04.25. 23:06         | Nagy Zétény       | Sikeres  |
+| 10  | user recipes page only shows recipes belonging to the current user                                            | 2026.04.25. 23:06       | 2026.04.25. 23:06         | Nagy Zétény       | Sikeres  |
+| 11  | public recipes page only displays verified recipes                                                            | 2026.04.25. 23:06       | 2026.04.25. 23:06         | Nagy Zétény       | Sikeres  |
+| 12  | public recipe page returns 404 for unverified recipes                                                         | 2026.04.25. 23:09       | 2026.04.25. 23:09         | Nagy Zétény       | Sikeres  |
+| 13  | filters work correctly on the public, user, user saved and admin recipe pages                                 | 2026.04.25. 23:14       | 2026.04.25. 23:14         | Nagy Zétény       | Sikeres  |
 
 <br>
 
