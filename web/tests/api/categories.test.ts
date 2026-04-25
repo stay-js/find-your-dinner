@@ -214,6 +214,20 @@ describe('PUT /api/categories/[id]', () => {
     expect(res.status).toBe(409);
   });
 
+  it('returns 400 for invalid id', async () => {
+    mockUser(ADMIN_ID);
+    await seedAdmin(ADMIN_ID);
+
+    const req = new NextRequest('http://localhost/api/categories/not-a-number', {
+      body: JSON.stringify({ name: 'New Name' }),
+      headers: { 'Content-Type': 'application/json' },
+      method: 'PUT',
+    });
+
+    const res = await PUT(req, { params: Promise.resolve({ id: 'not-a-number' }) });
+    expect(res.status).toBe(400);
+  });
+
   it('returns 400 for invalid body', async () => {
     mockUser(ADMIN_ID);
     await seedAdmin(ADMIN_ID);
