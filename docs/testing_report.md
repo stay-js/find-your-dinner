@@ -1,5 +1,7 @@
 # Find Your Dinner. - Tesztelési jegyzőkönyv
 
+<br>
+
 ## Tartalomjegyzék
 
 - [API tesztek](#automatizált-api-tesztek)
@@ -71,7 +73,6 @@
 | 21  | returns 400 for invalid id              | 2026.04.21. 14:34       | 2026.04.25. 13:35         | Nagy Zétény       | Sikeres  |
 
 <br>
-<br>
 
 ### /api/ingredients
 
@@ -120,7 +121,6 @@
 | 22  | returns 400 for invalid id                | 2026.04.25. 12:49       | 2026.04.25. 13:35         | Nagy Zétény       | Sikeres  |
 
 <br>
-<br>
 
 ### /api/units
 
@@ -168,7 +168,6 @@
 | 21  | returns 400 for invalid id          | 2026.04.21. 15:34       | 2026.04.25. 13:35         | Nagy Zétény       | Sikeres  |
 
 <br>
-<br>
 
 ### /api/recipe-data/[id]/verify
 
@@ -185,7 +184,6 @@
 | 5   | returns 409 when recipe data is already verified       | 2026.04.21. 16:09       | 2026.04.25. 13:35         | Nagy Zétény       | Sikeres  |
 | 6   | returns 204 when admin verifies unverified recipe data | 2026.04.21. 16:09       | 2026.04.25. 13:35         | Nagy Zétény       | Sikeres  |
 
-<br>
 <br>
 
 ### /api/recipes
@@ -260,7 +258,6 @@
 | 42  | returns 204 when admin deletes any recipe                 | 2026.04.21. 19:27       | 2026.04.25. 13:35         | Nagy Zétény       | Sikeres  |
 
 <br>
-<br>
 
 ### /api/user/default-ingredients
 
@@ -288,7 +285,6 @@
 | 11  | returns 204 and replaces existing default ingredients                   | 2026.04.21. 20:07       | 2026.04.25. 13:35         | Nagy Zétény       | Sikeres  |
 
 <br>
-<br>
 
 ### /api/user/is-admin
 
@@ -302,7 +298,6 @@
 | 2   | returns isAdmin false for a regular user | 2026.04.21. 20:17       | 2026.04.25. 13:35         | Nagy Zétény       | Sikeres  |
 | 3   | returns isAdmin true for an admin user   | 2026.04.21. 20:17       | 2026.04.25. 13:35         | Nagy Zétény       | Sikeres  |
 
-<br>
 <br>
 
 ### /api/user/recipes
@@ -323,7 +318,6 @@
 | 8   | paginates results correctly                               | 2026.04.21. 20:47       | 2026.04.25. 13:35         | Nagy Zétény       | Sikeres  |
 | 9   | does not return recipes from other users when filtering   | 2026.04.21. 20:47       | 2026.04.25. 13:35         | Nagy Zétény       | Sikeres  |
 
-<br>
 <br>
 
 ### /api/user/saved-recipes
@@ -378,8 +372,6 @@
 
 <br>
 <br>
-<br>
-<br>
 
 ## Unit tesztek
 
@@ -394,7 +386,6 @@
 | 3   | handles December 31                        | 2026.04.25. 13:35       | 2026.04.25. 13:35         | Nagy Zétény       | Sikeres  |
 | 4   | handles January 1                          | 2026.04.25. 13:35       | 2026.04.25. 13:35         | Nagy Zétény       | Sikeres  |
 
-<br>
 <br>
 
 ### Zod segédfüggvények és sémák
@@ -490,8 +481,6 @@
 
 <br>
 <br>
-<br>
-<br>
 
 ## E2E tesztek
 
@@ -518,7 +507,6 @@
 | 6   | sign out via clerk helper redirects to "/"                          | 2026.04.24. 12:59       | 2026.04.24. 14:26         | Nagy Zétény       | Sikeres  |
 | 7   | should redirect the user back to the previous page after signing in | 2026.04.24. 13:15       | 2026.04.24. 14:26         | Nagy Zétény       | Sikeres  |
 
-<br>
 <br>
 
 ### Dashboard
@@ -547,8 +535,6 @@
 | 2   | shows admin nav section in dashboard landing page | 2026.04.24. 14:16       | 2026.04.24. 14:26         | Nagy Zétény       | Sikeres  |
 | 3   | can access admin routes                           | 2026.04.24. 14:16       | 2026.04.24. 14:26         | Nagy Zétény       | Sikeres  |
 
-<br>
-<br>
 <br>
 <br>
 

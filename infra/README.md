@@ -2,6 +2,8 @@
 
 Előfeltételek: [Find Your Dinner. - Dokumentáció, Előfeltételek](../README.md#előfeltételek)
 
+<br>
+
 ## Tartalomjegyzék
 
 - [1. Környezeti változók](#1-környezeti-változók)
@@ -15,6 +17,9 @@ Előfeltételek: [Find Your Dinner. - Dokumentáció, Előfeltételek](../README
   - [6.2. CloudBeaver](#62-cloudbeaver)
   - [6.3. Swagger](#63-swagger)
 
+<br>
+<br>
+
 ## 1. Környezeti változók
 
 Az `infra/.env` fájlban (a `infra/.env.example` alapján) az alábbi változók konfigurálhatók:
@@ -27,6 +32,9 @@ Az `infra/.env` fájlban (a `infra/.env.example` alapján) az alábbi változók
 | `POSTGRES_PASSWORD`    | Postgres jelszó                                               |
 | `POSTGRES_DB`          | Postgres adatbázis neve                                       |
 
+<br>
+<br>
+
 ## 2. Szolgáltatások
 
 | Szolgáltatás  | Leírás                                                                      |
@@ -36,11 +44,16 @@ Az `infra/.env` fájlban (a `infra/.env.example` alapján) az alábbi változók
 | `cloudbeaver` | [CloudBeaver](https://dbeaver.com/docs/cloudbeaver/) webes adatbázis-kezelő |
 | `swagger`     | [Swagger UI](https://swagger.io/tools/swagger-ui/) API dokumentáció         |
 
+<br>
+<br>
+
 ## 3. Indítás
 
 ```bash
 just infra-start
 ```
+
+<br>
 
 ### 3.1. Első indítás
 
@@ -58,17 +71,26 @@ just infra-setup
 just infra-start
 ```
 
+<br>
+<br>
+
 ## 4. Leállítás
 
 ```bash
 just infra-stop
 ```
 
+<br>
+<br>
+
 ## 5. Eltávolítás
 
 ```bash
 just infra-remove # -v opcionális, a volume-ok törléséhez
 ```
+
+<br>
+<br>
 
 ## 6. Szolgáltatások elérése
 
@@ -80,6 +102,8 @@ just infra-remove # -v opcionális, a volume-ok törléséhez
 - Jelszó: a `.env` fájlban megadott `POSTGRES_PASSWORD` érték
 - Adatbázis: a `.env` fájlban megadott `POSTGRES_DB` érték
 
+<br>
+
 ### 6.2. CloudBeaver
 
 - URL: <http://cb.localhost> vagy <http://cb.vm1.test>
@@ -88,6 +112,8 @@ just infra-remove # -v opcionális, a volume-ok törléséhez
 - Adatbázis: a `.env` fájlban megadott `POSTGRES_DB` érték
 - Felhasználónév: a `.env` fájlban megadott `POSTGRES_USER` érték
 - Jelszó: a `.env` fájlban megadott `POSTGRES_PASSWORD` érték
+
+<br>
 
 ### 6.3. Swagger
 

@@ -2,6 +2,8 @@
 
 Előfeltételek: [Find Your Dinner. - Dokumentáció, Előfeltételek](../README.md#előfeltételek)
 
+<br>
+
 ## Tartalomjegyzék
 
 - [1. Használt technológiák](#1-használt-technológiák)
