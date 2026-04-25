@@ -256,8 +256,7 @@ const data = [
     data: {
       title: 'Nokedli',
 
-      description:
-        'Egy jól bevált nokedli alaprecept elengedhetetlen egy magyar ember életében!\n\nkép forrása:pexels',
+      description: 'Egy jól bevált nokedli alaprecept elengedhetetlen egy magyar ember életében!',
       instructions:
         'Egy nagy fazékba felteszünk nagyon sós vizet forrni!\n\nA nokedlihez mindent egy tálba teszünk és összekeverjük. \nÉrdemes fakanállal keverni, vagy legalábbis nem kézi géppel, mert így könnyen túl tudjuk keverni a tésztát.\nA tésztát pihentetni sem érdemes, ezért jobb már mielőtt belekezdünk a tésztába feltenni forrni a vizet. \nAmint forr a víz, keverünk rajta egyet hogy majd ne tapadjon le a fazék aljára a tészta, és máris szaggathatjuk bele a nokedlit. Néhány perc alatt feljön a víz tetejére, ekkor főtt meg. \n\nNagymamámnál ilyenkor a nokedliből az első étel sajtos nokedli volt, amihez szalonnát is sütött, ennek kisült zsírjába forgatta bele a nokedlit hogy ne ragadjon össze, majd sajttal, tejföllel, korábban sült szalonnával tálalta. Persze ha éppen nem szeretnénk ezzel bajlódni vajjal, vagy bármilyen zsiradékkal működik ez a trükk, az összeragadás ellen.',
 
@@ -279,6 +278,113 @@ const data = [
       { name: 'Napraforgóolaj', quantity: 1, unit: 'ek' },
       { name: 'Tojás', quantity: 1, unit: 'db' },
       { name: 'Víz', quantity: 1, unit: 'dl' },
+    ],
+  },
+  {
+    userId: 'user_3CPE4WILkIU2vrqElJNKDPZ2GsH',
+
+    data: {
+      title: 'Tonhalkrém (Panna-féle)',
+
+      description: 'Tonhalkrém tésztához, salátához akár pirítósra.',
+      instructions:
+        'A hagymát apró kockákra vágjuk.\nEgy tálba beletesszük a tejfölt, majonézt, fél citrom levét és a tonhalkonzervet (előtte öntsük le a levét, hogy ne áztassa el a krémet).\nHozzáadjuk a hagymát és felaprítjuk a petrezselymet is, végül ezt is a krémhez keverjük. \nSózzuk, borsozzuk és kész is. Ha áll egy kicsit jobban összeérnek az ízek, de azonnal is fogyaszthatjuk.\n\nPetrezselyem helyett használhatunk koriandert is különlegesebb ízélményért. Lilahagyma helyett használhatunk újhagymát vagy salottahagymát is.',
+
+      previewImageUrl: 'https://images.pexels.com/photos/30910213/pexels-photo-30910213.jpeg',
+
+      cookTimeMinutes: 0,
+      prepTimeMinutes: 15,
+
+      servings: 1,
+
+      verified: true,
+    },
+
+    categories: ['Előétel', 'Főétel', 'Saláta', 'Szendvics/Wrap'],
+
+    ingredients: [
+      { name: 'Tonhal', quantity: 1, unit: 'konzerv' },
+      { name: 'Petrezselyem', quantity: 1, unit: 'csokor' },
+      { name: 'Tejföl', quantity: 4, unit: 'ek' },
+      { name: 'Majonéz', quantity: 1, unit: 'ek' },
+      { name: 'Lilahagyma', quantity: 0.5, unit: 'dl' },
+      { name: 'Só', quantity: 1, unit: 'tk' },
+      { name: 'Fekete bors', quantity: 0.5, unit: 'tk' },
+      { name: 'Citrom', quantity: 0.5, unit: 'dl' },
+    ],
+  },
+  {
+    userId: 'user_3CPE4WILkIU2vrqElJNKDPZ2GsH',
+
+    data: {
+      title: 'Tonhalkrém (Zétény-féle)',
+
+      description: 'Tonhalkrém mascarponéval és paradicsomszósszal, a mediteránabb ízekért.',
+      instructions:
+        'Először apró kockákra vágjuk a hagymát, majd egy tálba tesszük.\nTálba mérjük a paradicsomszószt, és hozzátesszük a többi hozzávalót is. \nAlaposan összekeverjük és ehetjük is.',
+
+      previewImageUrl: 'https://images.pexels.com/photos/5640048/pexels-photo-5640048.jpeg',
+
+      cookTimeMinutes: 0,
+      prepTimeMinutes: 15,
+
+      servings: 1,
+
+      verified: true,
+    },
+
+    categories: ['Szendvics/Wrap', 'Tízórai/Snack', 'Saláta', 'Előétel'],
+
+    ingredients: [
+      { name: 'Krémsajt', quantity: 250, unit: 'g' },
+      { name: 'Paradicsomszósz', quantity: 1, unit: 'dkg' },
+      { name: 'Tonhal', quantity: 1, unit: 'konzerv' },
+      { name: 'Só', quantity: 1, unit: 'tk' },
+      { name: 'Fekete bors', quantity: 0.5, unit: 'tk' },
+      { name: 'Oregánó', quantity: 1, unit: 'tk' },
+      { name: 'Lilahagyma', quantity: 0.5, unit: 'db' },
+    ],
+  },
+  {
+    userId: 'user_3CPE4WILkIU2vrqElJNKDPZ2GsH',
+
+    data: {
+      title: 'Bolognai ragu',
+
+      description: 'Legjobb bolognai recept!',
+      instructions:
+        'A hagymát apróra vágjuk, vagy aprítóban összeaprítjuk. \nNagy edényben hevített olajra dobjuk a hagymát, hagyjuk amíg üveges nem lesz.\nA szárzellert és a répát is a kívánt módon aprítjuk és a hagymához adjuk a fokhagymával együtt. Folyamatosan kevergessük a zöldségeket (mirepoix) hogy ne piruljanak túl. \nNéhány perc után hozzáadjuk a paradicsompürét hagyjuk kicsit pirulni, keverjük át majd a darált húsokat. Ahogy a lábasba tesszük, ne kevergessük sűrűn, hagyjuk hogy piruljon a hús. \n\nHa színt kapott a hús, hozzáadjuk a fűszereket (kivéve a babérlevelet és a bazsalikomot ha friss bazsalikomot használunk) és a vörösbort. Mindenképpen száraz bort használjunk, és testesebb, bort hiszen ezekből kapjuk meg a megfelelő aromákat. A szép savszerkezeteket hagyjuk meg a nyári estékre, most válasszuk inkább a tanninokat.  Cabernet Sauvignon, Shiraz. Utóbbiból inkább déli borvidékről válasszunk. Amennyiben 5 évnél idősebb a bor, érdemes kitölteni és állni hagyni mielőtt felhasználjuk egy széles szájú üvegben hogy kapjon elég oxigént.\n\nAlacsony lángon hagyjuk rotyogni a ragút, majd ha elforrt az alkohol, adjuk hozzá az alaplevet. Majd a babérlevelet a száránál gyújtsuk meg néhány pillanatra, így sokkal kellemesebb és erősebb lesz az íze. A friss bazsalikomot csak az utolsó néhány percbe adjuk hozzá a raguhoz, ne vágjuk apróra, csak tépkedjük el kissé, majd csapjuk össze kezünkkel, így több ízt fog adni a ragunak. \n\nFedjük le a ragut, és hagyjuk rotyogni amíg időnk engedi. \n\nMikor főzzük a tésztát az ételhez, egy merőkanállal adjuk a raguhoz a főzővízből hogy a tésztából kifőtt keményítőtől besűrüsödjön a ragu, így jobban odatapadjon a tésztához. \n\nExtra tipp: Ha van otthon valamilyen kérges keménysajtunk (Parmezán, pecorino, grana padano) a kérgét amit egyébként kidobnánk, tegyük bele a raguba főni, ezzel egyrészt kevesebb ételt pazarolunk, másrészt kitűnő ízt ad a ragunak.',
+
+      previewImageUrl: 'https://images.pexels.com/photos/6287523/pexels-photo-6287523.jpeg',
+
+      cookTimeMinutes: 40,
+      prepTimeMinutes: 30,
+
+      servings: 3,
+
+      verified: true,
+    },
+
+    categories: ['Főétel'],
+
+    ingredients: [
+      { name: 'Paradicsompüré', quantity: 100, unit: 'g' },
+      { name: 'Darált marhahús', quantity: 250, unit: 'g' },
+      { name: 'Darált sertéshús', quantity: 250, unit: 'g' },
+      { name: 'Szárzeller', quantity: 2, unit: 'db' },
+      { name: 'Sárgarépa', quantity: 2, unit: 'db' },
+      { name: 'Zöldségalaplé', quantity: 4, unit: 'dl' },
+      { name: 'Vörösbor', quantity: 1, unit: 'dkg' },
+      { name: 'Babérlevél', quantity: 2, unit: 'db' },
+      { name: 'Vöröshagyma', quantity: 1, unit: 'db' },
+      { name: 'Oregánó', quantity: 2, unit: 'tk' },
+      { name: 'Rozmaring', quantity: 1, unit: 'tk' },
+      { name: 'Bazsalikom', quantity: 1, unit: 'tk' },
+      { name: 'Kakukkfű', quantity: 1, unit: 'tk' },
+      { name: 'Fokhagyma', quantity: 3, unit: 'gerezd' },
+      { name: 'Olívaolaj', quantity: 1, unit: 'ek' },
+      { name: 'Só', quantity: 1, unit: 'tk' },
+      { name: 'Fekete bors', quantity: 0.5, unit: 'tk' },
     ],
   },
 ] satisfies Recipe[];
