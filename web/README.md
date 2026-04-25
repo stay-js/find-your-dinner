@@ -146,7 +146,7 @@ just generate --name=<migráció_neve>
 just migrate
 ```
 
-5. ‼️ Végül pedig, generáld újra az adatbázis sémát a `dbml` recepttel, majd frissítsd a `docs/media/db.png` fájlt a [3.1. Ábra generálása](#31-ábra-generálása) szakaszban leírtak alapján. ‼️
+5. ‼️ Végül pedig, generáld újra az adatbázis sémát a `dbml` recepttel, majd frissítsd a `docs/media/db.png` fájlt a [4.1. Ábra generálása](#41-ábra-generálása) szakaszban leírtak alapján. ‼️
 
 > Amennyiben szükséges a migrációk futtathatók az adatbázis visszaállításával is. Ezt a `migrate-fresh` recept futtatásával teheted meg.
 
