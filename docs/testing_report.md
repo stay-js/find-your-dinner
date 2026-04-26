@@ -42,42 +42,42 @@
 
 | #   | Teszteset                                                    | Első futtatás időpontja | Utolsó futtatás időpontja | Utoljára futtatta | Eredmény |
 | --- | ------------------------------------------------------------ | ----------------------- | ------------------------- | ----------------- | -------- |
-| 1   | returns 200 with empty array when no categories exist        | 2026.04.21. 14:34       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 2   | returns seeded categories with canBeDeleted field            | 2026.04.21. 14:34       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 3   | returns canBeDeleted false when category is used by a recipe | 2026.04.21. 14:34       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 4   | filters by query param                                       | 2026.04.21. 14:34       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
+| 1   | returns 200 with empty array when no categories exist        | 2026.04.21. 14:34       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 2   | returns seeded categories with canBeDeleted field            | 2026.04.21. 14:34       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 3   | returns canBeDeleted false when category is used by a recipe | 2026.04.21. 14:34       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 4   | filters by query param                                       | 2026.04.21. 14:34       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
 
 #### POST /api/categories
 
 | #   | Teszteset                                    | Első futtatás időpontja | Utolsó futtatás időpontja | Utoljára futtatta | Eredmény |
 | --- | -------------------------------------------- | ----------------------- | ------------------------- | ----------------- | -------- |
-| 1   | returns 401 when unauthenticated             | 2026.04.21. 14:34       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 2   | returns 403 when authenticated but not admin | 2026.04.21. 14:34       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 3   | returns 201 when admin creates category      | 2026.04.21. 14:34       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 4   | returns 409 for duplicate name               | 2026.04.21. 14:34       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 5   | returns 400 for empty name                   | 2026.04.21. 14:34       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
+| 1   | returns 401 when unauthenticated             | 2026.04.21. 14:34       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 2   | returns 403 when authenticated but not admin | 2026.04.21. 14:34       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 3   | returns 201 when admin creates category      | 2026.04.21. 14:34       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 4   | returns 409 for duplicate name               | 2026.04.21. 14:34       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 5   | returns 400 for empty name                   | 2026.04.21. 14:34       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
 
 #### PUT /api/categories/[id]
 
 | #   | Teszteset                               | Első futtatás időpontja | Utolsó futtatás időpontja | Utoljára futtatta | Eredmény |
 | --- | --------------------------------------- | ----------------------- | ------------------------- | ----------------- | -------- |
-| 1   | returns 401 when unauthenticated        | 2026.04.21. 14:34       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 2   | returns 403 when not admin              | 2026.04.21. 14:34       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 3   | returns 204 when admin updates category | 2026.04.21. 14:34       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 4   | returns 404 for non-existent category   | 2026.04.21. 14:34       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 5   | returns 409 for duplicate name          | 2026.04.21. 14:34       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 6   | returns 400 for invalid id              | 2026.04.25. 12:49       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 7   | returns 400 for invalid body            | 2026.04.21. 14:34       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
+| 1   | returns 401 when unauthenticated        | 2026.04.21. 14:34       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 2   | returns 403 when not admin              | 2026.04.21. 14:34       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 3   | returns 204 when admin updates category | 2026.04.21. 14:34       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 4   | returns 404 for non-existent category   | 2026.04.21. 14:34       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 5   | returns 409 for duplicate name          | 2026.04.21. 14:34       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 6   | returns 400 for invalid id              | 2026.04.25. 12:49       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 7   | returns 400 for invalid body            | 2026.04.21. 14:34       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
 
 #### DELETE /api/categories/[id]
 
 | #   | Teszteset                               | Első futtatás időpontja | Utolsó futtatás időpontja | Utoljára futtatta | Eredmény |
 | --- | --------------------------------------- | ----------------------- | ------------------------- | ----------------- | -------- |
-| 1   | returns 401 when unauthenticated        | 2026.04.21. 14:34       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 2   | returns 403 when not admin              | 2026.04.21. 14:34       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 3   | returns 204 when admin deletes category | 2026.04.21. 14:34       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 4   | returns 404 for non-existent category   | 2026.04.21. 14:34       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 5   | returns 400 for invalid id              | 2026.04.21. 14:34       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
+| 1   | returns 401 when unauthenticated        | 2026.04.21. 14:34       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 2   | returns 403 when not admin              | 2026.04.21. 14:34       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 3   | returns 204 when admin deletes category | 2026.04.21. 14:34       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 4   | returns 404 for non-existent category   | 2026.04.21. 14:34       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 5   | returns 400 for invalid id              | 2026.04.21. 14:34       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
 
 <br>
 
@@ -89,43 +89,43 @@
 
 | #   | Teszteset                                                                 | Első futtatás időpontja | Utolsó futtatás időpontja | Utoljára futtatta | Eredmény |
 | --- | ------------------------------------------------------------------------- | ----------------------- | ------------------------- | ----------------- | -------- |
-| 1   | returns 200 with empty array when no ingredients exist                    | 2026.04.21. 14:57       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 2   | returns seeded ingredients with canBeDeleted field                        | 2026.04.21. 14:57       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 3   | returns canBeDeleted false when ingredient is used by a recipe            | 2026.04.21. 14:57       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 4   | returns canBeDeleted false when ingredient is used in default ingredients | 2026.04.21. 14:57       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 5   | filters by query param                                                    | 2026.04.21. 14:57       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
+| 1   | returns 200 with empty array when no ingredients exist                    | 2026.04.21. 14:57       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 2   | returns seeded ingredients with canBeDeleted field                        | 2026.04.21. 14:57       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 3   | returns canBeDeleted false when ingredient is used by a recipe            | 2026.04.21. 14:57       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 4   | returns canBeDeleted false when ingredient is used in default ingredients | 2026.04.21. 14:57       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 5   | filters by query param                                                    | 2026.04.21. 14:57       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
 
 #### POST /api/ingredients
 
 | #   | Teszteset                                    | Első futtatás időpontja | Utolsó futtatás időpontja | Utoljára futtatta | Eredmény |
 | --- | -------------------------------------------- | ----------------------- | ------------------------- | ----------------- | -------- |
-| 1   | returns 401 when unauthenticated             | 2026.04.21. 14:57       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 2   | returns 403 when authenticated but not admin | 2026.04.21. 14:57       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 3   | returns 201 when admin creates ingredient    | 2026.04.21. 14:57       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 4   | returns 409 for duplicate name               | 2026.04.21. 14:57       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 5   | returns 400 for empty name                   | 2026.04.21. 14:57       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
+| 1   | returns 401 when unauthenticated             | 2026.04.21. 14:57       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 2   | returns 403 when authenticated but not admin | 2026.04.21. 14:57       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 3   | returns 201 when admin creates ingredient    | 2026.04.21. 14:57       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 4   | returns 409 for duplicate name               | 2026.04.21. 14:57       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 5   | returns 400 for empty name                   | 2026.04.21. 14:57       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
 
 #### PUT /api/ingredients/[id]
 
 | #   | Teszteset                                 | Első futtatás időpontja | Utolsó futtatás időpontja | Utoljára futtatta | Eredmény |
 | --- | ----------------------------------------- | ----------------------- | ------------------------- | ----------------- | -------- |
-| 1   | returns 401 when unauthenticated          | 2026.04.21. 14:57       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 2   | returns 403 when not admin                | 2026.04.21. 14:57       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 3   | returns 204 when admin updates ingredient | 2026.04.21. 14:57       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 4   | returns 404 for non-existent ingredient   | 2026.04.21. 14:57       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 5   | returns 409 for duplicate name            | 2026.04.21. 14:57       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 6   | returns 400 for invalid id                | 2026.04.25. 12:49       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 7   | returns 400 for invalid body              | 2026.04.21. 14:57       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
+| 1   | returns 401 when unauthenticated          | 2026.04.21. 14:57       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 2   | returns 403 when not admin                | 2026.04.21. 14:57       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 3   | returns 204 when admin updates ingredient | 2026.04.21. 14:57       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 4   | returns 404 for non-existent ingredient   | 2026.04.21. 14:57       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 5   | returns 409 for duplicate name            | 2026.04.21. 14:57       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 6   | returns 400 for invalid id                | 2026.04.25. 12:49       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 7   | returns 400 for invalid body              | 2026.04.21. 14:57       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
 
 #### DELETE /api/ingredients/[id]
 
 | #   | Teszteset                                 | Első futtatás időpontja | Utolsó futtatás időpontja | Utoljára futtatta | Eredmény |
 | --- | ----------------------------------------- | ----------------------- | ------------------------- | ----------------- | -------- |
-| 1   | returns 401 when unauthenticated          | 2026.04.21. 14:57       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 2   | returns 403 when not admin                | 2026.04.21. 14:57       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 3   | returns 204 when admin deletes ingredient | 2026.04.21. 14:57       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 4   | returns 404 for non-existent ingredient   | 2026.04.21. 14:57       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 5   | returns 400 for invalid id                | 2026.04.25. 12:49       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
+| 1   | returns 401 when unauthenticated          | 2026.04.21. 14:57       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 2   | returns 403 when not admin                | 2026.04.21. 14:57       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 3   | returns 204 when admin deletes ingredient | 2026.04.21. 14:57       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 4   | returns 404 for non-existent ingredient   | 2026.04.21. 14:57       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 5   | returns 400 for invalid id                | 2026.04.25. 12:49       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
 
 <br>
 
@@ -137,42 +137,42 @@
 
 | #   | Teszteset                                                | Első futtatás időpontja | Utolsó futtatás időpontja | Utoljára futtatta | Eredmény |
 | --- | -------------------------------------------------------- | ----------------------- | ------------------------- | ----------------- | -------- |
-| 1   | returns 200 with empty array when no units exist         | 2026.04.21. 15:34       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 2   | returns seeded units with canBeDeleted field             | 2026.04.21. 15:34       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 3   | returns canBeDeleted false when unit is used by a recipe | 2026.04.21. 15:34       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 4   | filters by query param                                   | 2026.04.21. 15:34       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
+| 1   | returns 200 with empty array when no units exist         | 2026.04.21. 15:34       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 2   | returns seeded units with canBeDeleted field             | 2026.04.21. 15:34       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 3   | returns canBeDeleted false when unit is used by a recipe | 2026.04.21. 15:34       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 4   | filters by query param                                   | 2026.04.21. 15:34       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
 
 #### POST /api/units
 
 | #   | Teszteset                                    | Első futtatás időpontja | Utolsó futtatás időpontja | Utoljára futtatta | Eredmény |
 | --- | -------------------------------------------- | ----------------------- | ------------------------- | ----------------- | -------- |
-| 1   | returns 401 when unauthenticated             | 2026.04.21. 15:34       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 2   | returns 403 when authenticated but not admin | 2026.04.21. 15:34       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 3   | returns 201 when admin creates unit          | 2026.04.21. 15:34       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 4   | returns 409 for duplicate name               | 2026.04.21. 15:34       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 5   | returns 400 for empty name                   | 2026.04.21. 15:34       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
+| 1   | returns 401 when unauthenticated             | 2026.04.21. 15:34       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 2   | returns 403 when authenticated but not admin | 2026.04.21. 15:34       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 3   | returns 201 when admin creates unit          | 2026.04.21. 15:34       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 4   | returns 409 for duplicate name               | 2026.04.21. 15:34       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 5   | returns 400 for empty name                   | 2026.04.21. 15:34       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
 
 #### PUT /api/units/[id]
 
 | #   | Teszteset                           | Első futtatás időpontja | Utolsó futtatás időpontja | Utoljára futtatta | Eredmény |
 | --- | ----------------------------------- | ----------------------- | ------------------------- | ----------------- | -------- |
-| 1   | returns 401 when unauthenticated    | 2026.04.21. 15:34       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 2   | returns 403 when not admin          | 2026.04.21. 15:34       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 3   | returns 204 when admin updates unit | 2026.04.21. 15:34       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 4   | returns 404 for non-existent unit   | 2026.04.21. 15:34       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 5   | returns 409 for duplicate name      | 2026.04.21. 15:34       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 6   | returns 400 for invalid id          | 2026.04.25. 12:49       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 7   | returns 400 for invalid body        | 2026.04.21. 15:34       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
+| 1   | returns 401 when unauthenticated    | 2026.04.21. 15:34       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 2   | returns 403 when not admin          | 2026.04.21. 15:34       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 3   | returns 204 when admin updates unit | 2026.04.21. 15:34       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 4   | returns 404 for non-existent unit   | 2026.04.21. 15:34       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 5   | returns 409 for duplicate name      | 2026.04.21. 15:34       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 6   | returns 400 for invalid id          | 2026.04.25. 12:49       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 7   | returns 400 for invalid body        | 2026.04.21. 15:34       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
 
 #### DELETE /api/units/[id]
 
 | #   | Teszteset                           | Első futtatás időpontja | Utolsó futtatás időpontja | Utoljára futtatta | Eredmény |
 | --- | ----------------------------------- | ----------------------- | ------------------------- | ----------------- | -------- |
-| 1   | returns 401 when unauthenticated    | 2026.04.21. 15:34       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 2   | returns 403 when not admin          | 2026.04.21. 15:34       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 3   | returns 204 when admin deletes unit | 2026.04.21. 15:34       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 4   | returns 404 for non-existent unit   | 2026.04.21. 15:34       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 5   | returns 400 for invalid id          | 2026.04.21. 15:34       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
+| 1   | returns 401 when unauthenticated    | 2026.04.21. 15:34       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 2   | returns 403 when not admin          | 2026.04.21. 15:34       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 3   | returns 204 when admin deletes unit | 2026.04.21. 15:34       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 4   | returns 404 for non-existent unit   | 2026.04.21. 15:34       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 5   | returns 400 for invalid id          | 2026.04.21. 15:34       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
 
 <br>
 
@@ -184,12 +184,12 @@
 
 | #   | Teszteset                                              | Első futtatás időpontja | Utolsó futtatás időpontja | Utoljára futtatta | Eredmény |
 | --- | ------------------------------------------------------ | ----------------------- | ------------------------- | ----------------- | -------- |
-| 1   | returns 401 when unauthenticated                       | 2026.04.21. 16:09       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 2   | returns 403 when authenticated but not admin           | 2026.04.21. 16:09       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 3   | returns 400 for invalid id                             | 2026.04.21. 16:09       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 4   | returns 404 for non-existent recipe data               | 2026.04.21. 16:09       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 5   | returns 409 when recipe data is already verified       | 2026.04.21. 16:09       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 6   | returns 204 when admin verifies unverified recipe data | 2026.04.21. 16:09       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
+| 1   | returns 401 when unauthenticated                       | 2026.04.21. 16:09       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 2   | returns 403 when authenticated but not admin           | 2026.04.21. 16:09       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 3   | returns 400 for invalid id                             | 2026.04.21. 16:09       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 4   | returns 404 for non-existent recipe data               | 2026.04.21. 16:09       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 5   | returns 409 when recipe data is already verified       | 2026.04.21. 16:09       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 6   | returns 204 when admin verifies unverified recipe data | 2026.04.21. 16:09       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
 
 <br>
 
@@ -201,68 +201,68 @@
 
 | #   | Teszteset                                                                        | Első futtatás időpontja | Utolsó futtatás időpontja | Utoljára futtatta | Eredmény |
 | --- | -------------------------------------------------------------------------------- | ----------------------- | ------------------------- | ----------------- | -------- |
-| 1   | returns 200 with empty data and pagination meta when no recipes exist            | 2026.04.21. 19:27       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 2   | returns verified recipes with pagination meta                                    | 2026.04.21. 19:27       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 3   | does not return unverified recipes by default                                    | 2026.04.21. 19:27       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 4   | returns 401 when unauthenticated and allow-unverified is set                     | 2026.04.21. 19:27       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 5   | returns 403 when non-admin and allow-unverified is set                           | 2026.04.21. 19:27       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 6   | returns unverified recipes when admin and allow-unverified is set                | 2026.04.21. 19:27       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 7   | returns 401 when unauthenticated and only-awaiting-verification is set           | 2026.04.21. 19:27       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 8   | returns 403 when non-admin and only-awaiting-verification is set                 | 2026.04.21. 19:27       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 9   | returns only unverified recipes when admin and only-awaiting-verification is set | 2026.04.21. 19:27       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 10  | filters recipes by category                                                      | 2026.04.21. 19:27       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 11  | filters recipes by ingredients                                                   | 2026.04.21. 19:27       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 12  | filters recipes by search query                                                  | 2026.04.21. 19:27       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 13  | paginates results correctly                                                      | 2026.04.21. 19:27       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
+| 1   | returns 200 with empty data and pagination meta when no recipes exist            | 2026.04.21. 19:27       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 2   | returns verified recipes with pagination meta                                    | 2026.04.21. 19:27       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 3   | does not return unverified recipes by default                                    | 2026.04.21. 19:27       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 4   | returns 401 when unauthenticated and allow-unverified is set                     | 2026.04.21. 19:27       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 5   | returns 403 when non-admin and allow-unverified is set                           | 2026.04.21. 19:27       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 6   | returns unverified recipes when admin and allow-unverified is set                | 2026.04.21. 19:27       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 7   | returns 401 when unauthenticated and only-awaiting-verification is set           | 2026.04.21. 19:27       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 8   | returns 403 when non-admin and only-awaiting-verification is set                 | 2026.04.21. 19:27       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 9   | returns only unverified recipes when admin and only-awaiting-verification is set | 2026.04.21. 19:27       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 10  | filters recipes by category                                                      | 2026.04.21. 19:27       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 11  | filters recipes by ingredients                                                   | 2026.04.21. 19:27       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 12  | filters recipes by search query                                                  | 2026.04.21. 19:27       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 13  | paginates results correctly                                                      | 2026.04.21. 19:27       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
 
 #### POST /api/recipes
 
 | #   | Teszteset                                                       | Első futtatás időpontja | Utolsó futtatás időpontja | Utoljára futtatta | Eredmény |
 | --- | --------------------------------------------------------------- | ----------------------- | ------------------------- | ----------------- | -------- |
-| 1   | returns 401 when unauthenticated                                | 2026.04.21. 19:27       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 2   | returns 201 and recipeId when authenticated user creates recipe | 2026.04.21. 19:27       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 3   | returns 400 for missing required fields                         | 2026.04.21. 19:27       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 4   | returns 400 for empty title                                     | 2026.04.21. 19:27       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 5   | returns 400 for empty categories array                          | 2026.04.21. 19:27       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 6   | returns 400 for empty ingredients array                         | 2026.04.21. 19:27       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 7   | returns 400 for non-https previewImageUrl                       | 2026.04.21. 19:27       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 8   | returns 400 for negative cookTimeMinutes                        | 2026.04.21. 19:27       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 9   | returns 400 for zero servings                                   | 2026.04.21. 19:27       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
+| 1   | returns 401 when unauthenticated                                | 2026.04.21. 19:27       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 2   | returns 201 and recipeId when authenticated user creates recipe | 2026.04.21. 19:27       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 3   | returns 400 for missing required fields                         | 2026.04.21. 19:27       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 4   | returns 400 for empty title                                     | 2026.04.21. 19:27       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 5   | returns 400 for empty categories array                          | 2026.04.21. 19:27       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 6   | returns 400 for empty ingredients array                         | 2026.04.21. 19:27       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 7   | returns 400 for non-https previewImageUrl                       | 2026.04.21. 19:27       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 8   | returns 400 for negative cookTimeMinutes                        | 2026.04.21. 19:27       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 9   | returns 400 for zero servings                                   | 2026.04.21. 19:27       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
 
 #### GET /api/recipes/[id]
 
 | #   | Teszteset                                                        | Első futtatás időpontja | Utolsó futtatás időpontja | Utoljára futtatta | Eredmény |
 | --- | ---------------------------------------------------------------- | ----------------------- | ------------------------- | ----------------- | -------- |
-| 1   | returns 200 with full recipe data for a verified recipe          | 2026.04.21. 19:27       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 2   | returns 404 for non-existent recipe                              | 2026.04.21. 19:27       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 3   | returns 400 for invalid id                                       | 2026.04.21. 19:27       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 4   | returns 404 for unverified recipe without allow-unverified flag  | 2026.04.21. 19:27       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 5   | returns 401 when unauthenticated and allow-unverified is set     | 2026.04.21. 19:27       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 6   | returns 403 when non-admin and allow-unverified is set           | 2026.04.21. 19:27       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 7   | returns unverified recipe when admin and allow-unverified is set | 2026.04.21. 19:27       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
+| 1   | returns 200 with full recipe data for a verified recipe          | 2026.04.21. 19:27       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 2   | returns 404 for non-existent recipe                              | 2026.04.21. 19:27       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 3   | returns 400 for invalid id                                       | 2026.04.21. 19:27       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 4   | returns 404 for unverified recipe without allow-unverified flag  | 2026.04.21. 19:27       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 5   | returns 401 when unauthenticated and allow-unverified is set     | 2026.04.21. 19:27       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 6   | returns 403 when non-admin and allow-unverified is set           | 2026.04.21. 19:27       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 7   | returns unverified recipe when admin and allow-unverified is set | 2026.04.21. 19:27       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
 
 #### PUT /api/recipes/[id]
 
 | #   | Teszteset                                                 | Első futtatás időpontja | Utolsó futtatás időpontja | Utoljára futtatta | Eredmény |
 | --- | --------------------------------------------------------- | ----------------------- | ------------------------- | ----------------- | -------- |
-| 1   | returns 401 when unauthenticated                          | 2026.04.21. 19:27       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 2   | returns 400 for invalid id                                | 2026.04.21. 19:27       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 3   | returns 404 for non-existent recipe                       | 2026.04.21. 19:27       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 4   | returns 403 when user tries to update another user recipe | 2026.04.21. 19:27       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 5   | returns 400 for invalid body                              | 2026.04.21. 19:27       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 6   | returns 204 when owner updates own recipe                 | 2026.04.21. 19:27       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 7   | returns 204 when admin updates any recipe                 | 2026.04.21. 19:27       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
+| 1   | returns 401 when unauthenticated                          | 2026.04.21. 19:27       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 2   | returns 400 for invalid id                                | 2026.04.21. 19:27       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 3   | returns 404 for non-existent recipe                       | 2026.04.21. 19:27       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 4   | returns 403 when user tries to update another user recipe | 2026.04.21. 19:27       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 5   | returns 400 for invalid body                              | 2026.04.21. 19:27       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 6   | returns 204 when owner updates own recipe                 | 2026.04.21. 19:27       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 7   | returns 204 when admin updates any recipe                 | 2026.04.21. 19:27       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
 
 #### DELETE /api/recipes/[id]
 
 | #   | Teszteset                                                 | Első futtatás időpontja | Utolsó futtatás időpontja | Utoljára futtatta | Eredmény |
 | --- | --------------------------------------------------------- | ----------------------- | ------------------------- | ----------------- | -------- |
-| 1   | returns 401 when unauthenticated                          | 2026.04.21. 19:27       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 2   | returns 400 for invalid id                                | 2026.04.21. 19:27       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 3   | returns 404 for non-existent recipe                       | 2026.04.21. 19:27       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 4   | returns 403 when user tries to delete another user recipe | 2026.04.21. 19:27       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 5   | returns 204 when owner deletes own recipe                 | 2026.04.21. 19:27       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 6   | returns 204 when admin deletes any recipe                 | 2026.04.21. 19:27       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
+| 1   | returns 401 when unauthenticated                          | 2026.04.21. 19:27       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 2   | returns 400 for invalid id                                | 2026.04.21. 19:27       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 3   | returns 404 for non-existent recipe                       | 2026.04.21. 19:27       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 4   | returns 403 when user tries to delete another user recipe | 2026.04.21. 19:27       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 5   | returns 204 when owner deletes own recipe                 | 2026.04.21. 19:27       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 6   | returns 204 when admin deletes any recipe                 | 2026.04.21. 19:27       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
 
 <br>
 
@@ -274,22 +274,22 @@
 
 | #   | Teszteset                                                         | Első futtatás időpontja | Utolsó futtatás időpontja | Utoljára futtatta | Eredmény |
 | --- | ----------------------------------------------------------------- | ----------------------- | ------------------------- | ----------------- | -------- |
-| 1   | returns 401 when unauthenticated                                  | 2026.04.21. 20:07       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 2   | returns 204 with empty array when user has no default ingredients | 2026.04.21. 20:07       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 3   | returns ingredient ids for the authenticated user                 | 2026.04.21. 20:07       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 4   | returns only the authenticated user's default ingredients         | 2026.04.21. 20:07       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
+| 1   | returns 401 when unauthenticated                                  | 2026.04.21. 20:07       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 2   | returns 204 with empty array when user has no default ingredients | 2026.04.21. 20:07       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 3   | returns ingredient ids for the authenticated user                 | 2026.04.21. 20:07       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 4   | returns only the authenticated user's default ingredients         | 2026.04.21. 20:07       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
 
 #### PUT /api/user/default-ingredients
 
 | #   | Teszteset                                                               | Első futtatás időpontja | Utolsó futtatás időpontja | Utoljára futtatta | Eredmény |
 | --- | ----------------------------------------------------------------------- | ----------------------- | ------------------------- | ----------------- | -------- |
-| 1   | returns 401 when unauthenticated                                        | 2026.04.21. 20:07       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 2   | returns 400 for invalid body                                            | 2026.04.21. 20:07       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 3   | returns 400 for negative ingredient ids                                 | 2026.04.21. 20:07       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 4   | returns 400 for non-integer ingredient ids                              | 2026.04.21. 20:07       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 5   | returns 204 and sets default ingredients                                | 2026.04.21. 20:07       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 6   | returns 204 and clears default ingredients when empty array is provided | 2026.04.21. 20:07       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 7   | returns 204 and replaces existing default ingredients                   | 2026.04.21. 20:07       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
+| 1   | returns 401 when unauthenticated                                        | 2026.04.21. 20:07       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 2   | returns 400 for invalid body                                            | 2026.04.21. 20:07       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 3   | returns 400 for negative ingredient ids                                 | 2026.04.21. 20:07       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 4   | returns 400 for non-integer ingredient ids                              | 2026.04.21. 20:07       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 5   | returns 204 and sets default ingredients                                | 2026.04.21. 20:07       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 6   | returns 204 and clears default ingredients when empty array is provided | 2026.04.21. 20:07       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 7   | returns 204 and replaces existing default ingredients                   | 2026.04.21. 20:07       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
 
 <br>
 
@@ -301,9 +301,9 @@
 
 | #   | Teszteset                                | Első futtatás időpontja | Utolsó futtatás időpontja | Utoljára futtatta | Eredmény |
 | --- | ---------------------------------------- | ----------------------- | ------------------------- | ----------------- | -------- |
-| 1   | returns 401 when unauthenticated         | 2026.04.21. 20:17       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 2   | returns isAdmin false for a regular user | 2026.04.21. 20:17       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 3   | returns isAdmin true for an admin user   | 2026.04.21. 20:17       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
+| 1   | returns 401 when unauthenticated         | 2026.04.21. 20:17       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 2   | returns isAdmin false for a regular user | 2026.04.21. 20:17       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 3   | returns isAdmin true for an admin user   | 2026.04.21. 20:17       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
 
 <br>
 
@@ -315,15 +315,15 @@
 
 | #   | Teszteset                                                 | Első futtatás időpontja | Utolsó futtatás időpontja | Utoljára futtatta | Eredmény |
 | --- | --------------------------------------------------------- | ----------------------- | ------------------------- | ----------------- | -------- |
-| 1   | returns 401 when unauthenticated                          | 2026.04.21. 20:47       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 2   | returns 200 with empty data when user has no recipes      | 2026.04.21. 20:47       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 3   | returns only the authenticated user's recipes             | 2026.04.21. 20:47       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 4   | returns both verified and unverified recipes for the user | 2026.04.21. 20:47       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 5   | filters recipes by category                               | 2026.04.21. 20:47       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 6   | filters recipes by ingredients                            | 2026.04.21. 20:47       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 7   | filters recipes by search query                           | 2026.04.21. 20:47       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 8   | paginates results correctly                               | 2026.04.21. 20:47       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 9   | does not return recipes from other users when filtering   | 2026.04.21. 20:47       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
+| 1   | returns 401 when unauthenticated                          | 2026.04.21. 20:47       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 2   | returns 200 with empty data when user has no recipes      | 2026.04.21. 20:47       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 3   | returns only the authenticated user's recipes             | 2026.04.21. 20:47       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 4   | returns both verified and unverified recipes for the user | 2026.04.21. 20:47       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 5   | filters recipes by category                               | 2026.04.21. 20:47       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 6   | filters recipes by ingredients                            | 2026.04.21. 20:47       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 7   | filters recipes by search query                           | 2026.04.21. 20:47       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 8   | paginates results correctly                               | 2026.04.21. 20:47       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 9   | does not return recipes from other users when filtering   | 2026.04.21. 20:47       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
 
 <br>
 
@@ -335,47 +335,47 @@
 
 | #   | Teszteset                                            | Első futtatás időpontja | Utolsó futtatás időpontja | Utoljára futtatta | Eredmény |
 | --- | ---------------------------------------------------- | ----------------------- | ------------------------- | ----------------- | -------- |
-| 1   | returns 401 when unauthenticated                     | 2026.04.21. 21:22       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 2   | returns empty array when user has no saved recipes   | 2026.04.21. 21:22       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 3   | returns saved recipe ids and timestamps for the user | 2026.04.21. 21:22       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 4   | returns only the authenticated user's saved recipes  | 2026.04.21. 21:22       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
+| 1   | returns 401 when unauthenticated                     | 2026.04.21. 21:22       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 2   | returns empty array when user has no saved recipes   | 2026.04.21. 21:22       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 3   | returns saved recipe ids and timestamps for the user | 2026.04.21. 21:22       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 4   | returns only the authenticated user's saved recipes  | 2026.04.21. 21:22       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
 
 #### GET /api/user/saved-recipes?include=recipe
 
 | #   | Teszteset                                                  | Első futtatás időpontja | Utolsó futtatás időpontja | Utoljára futtatta | Eredmény |
 | --- | ---------------------------------------------------------- | ----------------------- | ------------------------- | ----------------- | -------- |
-| 1   | returns 401 when unauthenticated                           | 2026.04.21. 21:22       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 2   | returns 200 with empty data when user has no saved recipes | 2026.04.21. 21:22       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 3   | returns saved recipes with full recipe data                | 2026.04.21. 21:22       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 4   | does not return unsaved recipes                            | 2026.04.21. 21:22       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 5   | does not return unverified saved recipes                   | 2026.04.21. 21:22       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 6   | does not return other users' saved recipes                 | 2026.04.21. 21:22       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 7   | filters saved recipes by category                          | 2026.04.21. 21:22       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 8   | filters saved recipes by ingredients                       | 2026.04.21. 21:22       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 9   | filters saved recipes by search query                      | 2026.04.21. 21:22       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 10  | paginates saved recipes correctly                          | 2026.04.21. 21:22       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
+| 1   | returns 401 when unauthenticated                           | 2026.04.21. 21:22       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 2   | returns 200 with empty data when user has no saved recipes | 2026.04.21. 21:22       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 3   | returns saved recipes with full recipe data                | 2026.04.21. 21:22       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 4   | does not return unsaved recipes                            | 2026.04.21. 21:22       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 5   | does not return unverified saved recipes                   | 2026.04.21. 21:22       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 6   | does not return other users' saved recipes                 | 2026.04.21. 21:22       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 7   | filters saved recipes by category                          | 2026.04.21. 21:22       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 8   | filters saved recipes by ingredients                       | 2026.04.21. 21:22       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 9   | filters saved recipes by search query                      | 2026.04.21. 21:22       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 10  | paginates saved recipes correctly                          | 2026.04.21. 21:22       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
 
 #### POST /api/user/saved-recipes
 
 | #   | Teszteset                                | Első futtatás időpontja | Utolsó futtatás időpontja | Utoljára futtatta | Eredmény |
 | --- | ---------------------------------------- | ----------------------- | ------------------------- | ----------------- | -------- |
-| 1   | returns 401 when unauthenticated         | 2026.04.21. 21:22       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 2   | returns 400 for missing recipeId         | 2026.04.21. 21:22       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 3   | returns 400 for invalid recipeId         | 2026.04.21. 21:22       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 4   | returns 400 for non-integer recipeId     | 2026.04.21. 21:22       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 5   | returns 201 and saves the recipe         | 2026.04.21. 21:22       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 6   | returns 409 when recipe is already saved | 2026.04.21. 21:22       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
+| 1   | returns 401 when unauthenticated         | 2026.04.21. 21:22       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 2   | returns 400 for missing recipeId         | 2026.04.21. 21:22       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 3   | returns 400 for invalid recipeId         | 2026.04.21. 21:22       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 4   | returns 400 for non-integer recipeId     | 2026.04.21. 21:22       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 5   | returns 201 and saves the recipe         | 2026.04.21. 21:22       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 6   | returns 409 when recipe is already saved | 2026.04.21. 21:22       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
 
 #### DELETE /api/user/saved-recipes/[id]
 
 | #   | Teszteset                                              | Első futtatás időpontja | Utolsó futtatás időpontja | Utoljára futtatta | Eredmény |
 | --- | ------------------------------------------------------ | ----------------------- | ------------------------- | ----------------- | -------- |
-| 1   | returns 401 when unauthenticated                       | 2026.04.21. 21:22       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 2   | returns 400 for a non-numeric id                       | 2026.04.21. 21:22       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 3   | returns 400 for a non-positive id                      | 2026.04.21. 21:22       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 4   | returns 204 when the saved recipe is deleted           | 2026.04.21. 21:22       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 5   | returns 204 even when the recipe was not saved         | 2026.04.21. 21:22       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 6   | does not delete saved recipes belonging to other users | 2026.04.21. 21:22       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
+| 1   | returns 401 when unauthenticated                       | 2026.04.21. 21:22       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 2   | returns 400 for a non-numeric id                       | 2026.04.21. 21:22       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 3   | returns 400 for a non-positive id                      | 2026.04.21. 21:22       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 4   | returns 204 when the saved recipe is deleted           | 2026.04.21. 21:22       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 5   | returns 204 even when the recipe was not saved         | 2026.04.21. 21:22       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 6   | does not delete saved recipes belonging to other users | 2026.04.21. 21:22       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
 
 <br>
 <br>
@@ -388,10 +388,10 @@
 
 | #   | Teszteset                                  | Első futtatás időpontja | Utolsó futtatás időpontja | Utoljára futtatta | Eredmény |
 | --- | ------------------------------------------ | ----------------------- | ------------------------- | ----------------- | -------- |
-| 1   | formats a date as YYYY-MM-DD               | 2026.04.25. 13:35       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 2   | pads single-digit month and day with zeros | 2026.04.25. 13:35       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 3   | handles December 31                        | 2026.04.25. 13:35       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 4   | handles January 1                          | 2026.04.25. 13:35       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
+| 1   | formats a date as YYYY-MM-DD               | 2026.04.25. 13:35       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 2   | pads single-digit month and day with zeros | 2026.04.25. 13:35       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 3   | handles December 31                        | 2026.04.25. 13:35       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 4   | handles January 1                          | 2026.04.25. 13:35       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
 
 <br>
 
@@ -403,88 +403,88 @@
 
 | #   | Teszteset                                        | Első futtatás időpontja | Utolsó futtatás időpontja | Utoljára futtatta | Eredmény |
 | --- | ------------------------------------------------ | ----------------------- | ------------------------- | ----------------- | -------- |
-| 1   | returns null for null                            | 2026.04.25. 13:35       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 2   | returns null for undefined                       | 2026.04.25. 13:35       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 3   | returns null for empty string                    | 2026.04.25. 13:35       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 4   | returns null for whitespace-only string          | 2026.04.25. 13:35       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 5   | parses dot-separated float                       | 2026.04.25. 13:35       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 6   | parses comma-separated float (culture-invariant) | 2026.04.25. 13:35       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 7   | parses integer string                            | 2026.04.25. 13:35       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 8   | parses negative float                            | 2026.04.25. 13:35       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 9   | parses float with surrounding whitespace         | 2026.04.25. 13:35       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 10  | returns NaN for non-numeric string               | 2026.04.25. 13:35       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
+| 1   | returns null for null                            | 2026.04.25. 13:35       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 2   | returns null for undefined                       | 2026.04.25. 13:35       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 3   | returns null for empty string                    | 2026.04.25. 13:35       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 4   | returns null for whitespace-only string          | 2026.04.25. 13:35       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 5   | parses dot-separated float                       | 2026.04.25. 13:35       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 6   | parses comma-separated float (culture-invariant) | 2026.04.25. 13:35       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 7   | parses integer string                            | 2026.04.25. 13:35       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 8   | parses negative float                            | 2026.04.25. 13:35       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 9   | parses float with surrounding whitespace         | 2026.04.25. 13:35       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 10  | returns NaN for non-numeric string               | 2026.04.25. 13:35       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
 
 #### isCultureInvariantFloatString
 
 | #   | Teszteset                                | Első futtatás időpontja | Utolsó futtatás időpontja | Utoljára futtatta | Eredmény |
 | --- | ---------------------------------------- | ----------------------- | ------------------------- | ----------------- | -------- |
-| 1   | returns true for dot-separated float     | 2026.04.25. 13:35       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 2   | returns true for comma-separated float   | 2026.04.25. 13:35       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 3   | returns true for integer string          | 2026.04.25. 13:35       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 4   | returns true for negative float string   | 2026.04.25. 13:35       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 5   | returns false for non-numeric string     | 2026.04.25. 13:35       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 6   | returns false for empty string           | 2026.04.25. 13:35       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 7   | returns false for whitespace-only string | 2026.04.25. 13:35       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
+| 1   | returns true for dot-separated float     | 2026.04.25. 13:35       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 2   | returns true for comma-separated float   | 2026.04.25. 13:35       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 3   | returns true for integer string          | 2026.04.25. 13:35       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 4   | returns true for negative float string   | 2026.04.25. 13:35       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 5   | returns false for non-numeric string     | 2026.04.25. 13:35       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 6   | returns false for empty string           | 2026.04.25. 13:35       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 7   | returns false for whitespace-only string | 2026.04.25. 13:35       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
 
 #### isIntegerString
 
 | #   | Teszteset                                | Első futtatás időpontja | Utolsó futtatás időpontja | Utoljára futtatta | Eredmény |
 | --- | ---------------------------------------- | ----------------------- | ------------------------- | ----------------- | -------- |
-| 1   | returns true for positive integer string | 2026.04.25. 13:35       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 2   | returns true for zero                    | 2026.04.25. 13:35       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 3   | returns true for negative integer string | 2026.04.25. 13:35       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 4   | returns false for float string           | 2026.04.25. 13:35       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 5   | returns false for empty string           | 2026.04.25. 13:35       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 6   | returns false for non-numeric string     | 2026.04.25. 13:35       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
+| 1   | returns true for positive integer string | 2026.04.25. 13:35       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 2   | returns true for zero                    | 2026.04.25. 13:35       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 3   | returns true for negative integer string | 2026.04.25. 13:35       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 4   | returns false for float string           | 2026.04.25. 13:35       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 5   | returns false for empty string           | 2026.04.25. 13:35       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 6   | returns false for non-numeric string     | 2026.04.25. 13:35       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
 
 #### isNonNegativeIntegerString
 
 | #   | Teszteset                            | Első futtatás időpontja | Utolsó futtatás időpontja | Utoljára futtatta | Eredmény |
 | --- | ------------------------------------ | ----------------------- | ------------------------- | ----------------- | -------- |
-| 1   | returns true for zero                | 2026.04.25. 13:35       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 2   | returns true for positive integer    | 2026.04.25. 13:35       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 3   | returns false for negative integer   | 2026.04.25. 13:35       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 4   | returns false for float string       | 2026.04.25. 13:35       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 5   | returns false for empty string       | 2026.04.25. 13:35       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 6   | returns false for non-numeric string | 2026.04.25. 13:35       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
+| 1   | returns true for zero                | 2026.04.25. 13:35       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 2   | returns true for positive integer    | 2026.04.25. 13:35       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 3   | returns false for negative integer   | 2026.04.25. 13:35       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 4   | returns false for float string       | 2026.04.25. 13:35       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 5   | returns false for empty string       | 2026.04.25. 13:35       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 6   | returns false for non-numeric string | 2026.04.25. 13:35       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
 
 #### isPositiveIntegerString
 
 | #   | Teszteset                               | Első futtatás időpontja | Utolsó futtatás időpontja | Utoljára futtatta | Eredmény |
 | --- | --------------------------------------- | ----------------------- | ------------------------- | ----------------- | -------- |
-| 1   | returns true for positive integer       | 2026.04.25. 13:35       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 2   | returns true for large positive integer | 2026.04.25. 13:35       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 3   | returns false for zero                  | 2026.04.25. 13:35       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 4   | returns false for negative integer      | 2026.04.25. 13:35       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 5   | returns false for float string          | 2026.04.25. 13:35       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 6   | returns false for empty string          | 2026.04.25. 13:35       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 7   | returns false for non-numeric string    | 2026.04.25. 13:35       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
+| 1   | returns true for positive integer       | 2026.04.25. 13:35       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 2   | returns true for large positive integer | 2026.04.25. 13:35       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 3   | returns false for zero                  | 2026.04.25. 13:35       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 4   | returns false for negative integer      | 2026.04.25. 13:35       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 5   | returns false for float string          | 2026.04.25. 13:35       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 6   | returns false for empty string          | 2026.04.25. 13:35       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 7   | returns false for non-numeric string    | 2026.04.25. 13:35       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
 
 #### idArraySearchSchema
 
 | #   | Teszteset                                            | Első futtatás időpontja | Utolsó futtatás időpontja | Utoljára futtatta | Eredmény |
 | --- | ---------------------------------------------------- | ----------------------- | ------------------------- | ----------------- | -------- |
-| 1   | parses valid JSON array of positive integers         | 2026.04.25. 13:35       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 2   | returns empty array for null                         | 2026.04.25. 13:35       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 3   | returns empty array for empty string                 | 2026.04.25. 13:35       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 4   | returns empty array for invalid JSON                 | 2026.04.25. 13:35       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 5   | returns empty array for JSON with non-integer values | 2026.04.25. 13:35       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 6   | returns empty array for JSON with negative integers  | 2026.04.25. 13:35       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 7   | returns empty array for JSON array of strings        | 2026.04.25. 13:35       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 8   | returns empty array for a JSON non-array             | 2026.04.25. 13:35       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 9   | parses a single-element array                        | 2026.04.25. 13:35       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
+| 1   | parses valid JSON array of positive integers         | 2026.04.25. 13:35       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 2   | returns empty array for null                         | 2026.04.25. 13:35       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 3   | returns empty array for empty string                 | 2026.04.25. 13:35       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 4   | returns empty array for invalid JSON                 | 2026.04.25. 13:35       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 5   | returns empty array for JSON with non-integer values | 2026.04.25. 13:35       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 6   | returns empty array for JSON with negative integers  | 2026.04.25. 13:35       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 7   | returns empty array for JSON array of strings        | 2026.04.25. 13:35       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 8   | returns empty array for a JSON non-array             | 2026.04.25. 13:35       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 9   | parses a single-element array                        | 2026.04.25. 13:35       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
 
 #### boolFlagSearchSchema
 
 | #   | Teszteset                          | Első futtatás időpontja | Utolsó futtatás időpontja | Utoljára futtatta | Eredmény |
 | --- | ---------------------------------- | ----------------------- | ------------------------- | ----------------- | -------- |
-| 1   | returns true for "1"               | 2026.04.25. 13:35       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 2   | returns true for "true"            | 2026.04.25. 13:35       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 3   | returns false for "0"              | 2026.04.25. 13:35       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 4   | returns false for "false"          | 2026.04.25. 13:35       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 5   | returns false for null             | 2026.04.25. 13:35       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 6   | returns false for empty string     | 2026.04.25. 13:35       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 7   | returns false for arbitrary string | 2026.04.25. 13:35       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
+| 1   | returns true for "1"               | 2026.04.25. 13:35       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 2   | returns true for "true"            | 2026.04.25. 13:35       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 3   | returns false for "0"              | 2026.04.25. 13:35       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 4   | returns false for "false"          | 2026.04.25. 13:35       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 5   | returns false for null             | 2026.04.25. 13:35       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 6   | returns false for empty string     | 2026.04.25. 13:35       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 7   | returns false for arbitrary string | 2026.04.25. 13:35       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
 
 <br>
 <br>
@@ -499,20 +499,20 @@
 
 | #   | Teszteset                         | Első futtatás időpontja | Utolsó futtatás időpontja | Utoljára futtatta | Eredmény |
 | --- | --------------------------------- | ----------------------- | ------------------------- | ----------------- | -------- |
-| 1   | shows sign in and sign up buttons | 2026.04.24. 10:23       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 2   | does not show user button         | 2026.04.24. 10:23       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
+| 1   | shows sign in and sign up buttons | 2026.04.24. 10:23       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 2   | does not show user button         | 2026.04.24. 10:23       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
 
 #### Azonosított állapot (Bejelentkezett felhasználó)
 
 | #   | Teszteset                                                           | Első futtatás időpontja | Utolsó futtatás időpontja | Utoljára futtatta | Eredmény |
 | --- | ------------------------------------------------------------------- | ----------------------- | ------------------------- | ----------------- | -------- |
-| 1   | signs in successfully via email and password                        | 2026.04.24. 12:24       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 2   | signs in successfully via clerk helper                              | 2026.04.24. 12:24       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 3   | hides sign in and sign up buttons                                   | 2026.04.24. 12:59       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 4   | shows dashboard link                                                | 2026.04.24. 13:04       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 5   | sign out via ui redirects to "/"                                    | 2026.04.24. 12:59       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 6   | sign out via clerk helper redirects to "/"                          | 2026.04.24. 12:59       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 7   | should redirect the user back to the previous page after signing in | 2026.04.24. 13:15       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
+| 1   | signs in successfully via email and password                        | 2026.04.24. 12:24       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 2   | signs in successfully via clerk helper                              | 2026.04.24. 12:24       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 3   | hides sign in and sign up buttons                                   | 2026.04.24. 12:59       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 4   | shows dashboard link                                                | 2026.04.24. 13:04       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 5   | sign out via ui redirects to "/"                                    | 2026.04.24. 12:59       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 6   | sign out via clerk helper redirects to "/"                          | 2026.04.24. 12:59       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 7   | should redirect the user back to the previous page after signing in | 2026.04.24. 13:15       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
 
 <br>
 
@@ -524,23 +524,23 @@
 
 | #   | Teszteset                                              | Első futtatás időpontja | Utolsó futtatás időpontja | Utoljára futtatta | Eredmény |
 | --- | ------------------------------------------------------ | ----------------------- | ------------------------- | ----------------- | -------- |
-| 1   | redirects "/dashboard" to sign in when unauthenticated | 2026.04.24. 14:16       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
+| 1   | redirects "/dashboard" to sign in when unauthenticated | 2026.04.24. 14:16       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
 
 #### Normál felhasználó (Regular user)
 
 | #   | Teszteset                                                 | Első futtatás időpontja | Utolsó futtatás időpontja | Utoljára futtatta | Eredmény |
 | --- | --------------------------------------------------------- | ----------------------- | ------------------------- | ----------------- | -------- |
-| 1   | does not show admin nav section in dashboard sidebar      | 2026.04.24. 14:16       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 2   | does not show admin nav section in dashboard landing page | 2026.04.24. 14:16       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 3   | shows forbidden page when accessing admin routes          | 2026.04.24. 14:16       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
+| 1   | does not show admin nav section in dashboard sidebar      | 2026.04.24. 14:16       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 2   | does not show admin nav section in dashboard landing page | 2026.04.24. 14:16       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 3   | shows forbidden page when accessing admin routes          | 2026.04.24. 14:16       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
 
 #### Adminisztrátor felhasználó (Admin user)
 
 | #   | Teszteset                                         | Első futtatás időpontja | Utolsó futtatás időpontja | Utoljára futtatta | Eredmény |
 | --- | ------------------------------------------------- | ----------------------- | ------------------------- | ----------------- | -------- |
-| 1   | shows admin nav section in dashboard sidebar      | 2026.04.24. 14:16       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 2   | shows admin nav section in dashboard landing page | 2026.04.24. 14:16       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
-| 3   | can access admin routes                           | 2026.04.24. 14:16       | 2026.04.25. 22:43         | Nagy Zétény       | Sikeres  |
+| 1   | shows admin nav section in dashboard sidebar      | 2026.04.24. 14:16       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 2   | shows admin nav section in dashboard landing page | 2026.04.24. 14:16       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
+| 3   | can access admin routes                           | 2026.04.24. 14:16       | 2026.04.26. 16:04         | Nagy Zétény       | Sikeres  |
 
 <br>
 <br>
@@ -611,15 +611,15 @@
 
 ### Keresés oldal
 
-| #   | Teszteset                                                                                                   | Első futtatás időpontja | Utolsó futtatás időpontja | Utoljára futtatta | Eredmény   |
-| --- | ----------------------------------------------------------------------------------------------------------- | ----------------------- | ------------------------- | ----------------- | ---------- |
-| 1   | filter stage correctly narrows the recipe pool based on selected criteria                                   | 2026.04.26. 13:37       | 2026.04.26. 13:37         | Polyák Panna      | Sikeres    |
-| 2   | swipe stage allows dismissing and selecting recipes                                                         | 2026.04.26. 13:37       | 2026.04.26. 13:37         | Polyák Panna      | Sikeres    |
-| 3   | tournament stage correctly determines the winning recipe                                                    | 2026.04.26. 13:37       | 2026.04.26. 13:37         | Polyák Panna      | Sikeres    |
-| 4   | swipe and tournament stages are skipped when only one recipe matches the applied filters                    | 2026.04.26. 13:37       | 2026.04.26. 13:37         | Polyák Panna      | Sikeres    |
-| 5   | when no recipes match the selected ingredients, an empty state is shown                                     | 2026.04.26. 15:06       | 2026.04.26. 15:06         | Polyák Panna      | Sikeres    |
-| 6   | when all recipes are dismissed (swiped left), the tournament is skipped and an appropriate message is shown | 2026.04.26. 15:07       | 2026.04.26. 15:07         | Polyák Panna      | Sikertelen |
-| 7   | navigating back to "/find" resets to filter stage                                                           | 2026.04.26. 15:07       | 2026.04.26. 15:07         | Polyák Panna      | Sikeres    |
+| #   | Teszteset                                                                                                   | Első futtatás időpontja | Utolsó futtatás időpontja | Utoljára futtatta | Eredmény |
+| --- | ----------------------------------------------------------------------------------------------------------- | ----------------------- | ------------------------- | ----------------- | -------- |
+| 1   | filter stage correctly narrows the recipe pool based on selected criteria                                   | 2026.04.26. 13:37       | 2026.04.26. 16:03         | Nagy Zétény       | Sikeres  |
+| 2   | swipe stage allows dismissing and selecting recipes                                                         | 2026.04.26. 13:37       | 2026.04.26. 16:03         | Nagy Zétény       | Sikeres  |
+| 3   | tournament stage correctly determines the winning recipe                                                    | 2026.04.26. 13:37       | 2026.04.26. 16:03         | Nagy Zétény       | Sikeres  |
+| 4   | swipe and tournament stages are skipped when only one recipe matches the applied filters                    | 2026.04.26. 13:37       | 2026.04.26. 16:03         | Nagy Zétény       | Sikeres  |
+| 5   | when no recipes match the selected ingredients, an empty state is shown                                     | 2026.04.26. 15:06       | 2026.04.26. 16:03         | Nagy Zétény       | Sikeres  |
+| 6   | when all recipes are dismissed (swiped left), the tournament is skipped and an appropriate message is shown | 2026.04.26. 15:07       | 2026.04.26. 16:03         | Nagy Zétény       | Sikeres  |
+| 7   | navigating back to "/find" resets to filter stage                                                           | 2026.04.26. 15:07       | 2026.04.26. 16:03         | Nagy Zétény       | Sikeres  |
 
 <br>
 
