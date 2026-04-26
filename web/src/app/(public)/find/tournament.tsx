@@ -1,9 +1,18 @@
 import { useState } from 'react';
 
+import { NoContent } from '~/components/no-content';
 import { RecipeCard } from '~/components/recipe-card';
+import { Button } from '~/components/ui/button';
 import { type Recipe } from '~/lib/zod/schemas';
 
-export function Tournament({ likedRecipes }: { likedRecipes: Recipe[] }) {
+import { type FindPageSetState } from './find';
+
+type TournamentProps = {
+  likedRecipes: Recipe[];
+  setState: FindPageSetState;
+};
+
+export function Tournament({ likedRecipes, setState }: TournamentProps) {
   const [remaining, setRemaining] = useState<Recipe[]>(likedRecipes);
 
   function handlePick(selectedId: number) {
@@ -21,10 +30,22 @@ export function Tournament({ likedRecipes }: { likedRecipes: Recipe[] }) {
     });
   }
 
-  const winner = remaining.length === 1 ? remaining[0] : null;
+  if (likedRecipes.length === 0) {
+    return (
+      <div className="flex w-full max-w-md flex-col gap-8">
+        <h1 className="text-center text-2xl font-bold">Úgy tűnik, egyetlen recept sem tetszett</h1>
 
-  const left = remaining.at(0);
-  const right = remaining.at(1);
+        <NoContent
+          action={<Button onClick={() => setState('swipe')}>Vissza egy lépessel</Button>}
+          className="py-12"
+          description="Úgy tűnik, egyetlen recept sem tetszett. Kattints a lenti gombra, és próbáld újra!"
+          title="Nincsenek receptek"
+        />
+      </div>
+    );
+  }
+
+  const winner = remaining.length === 1 ? remaining[0] : null;
 
   if (winner) {
     return (
@@ -36,14 +57,12 @@ export function Tournament({ likedRecipes }: { likedRecipes: Recipe[] }) {
     );
   }
 
-  if (!left || !right) return null;
-
   return (
     <div className="flex w-full max-w-4xl flex-col gap-8">
       <h1 className="text-center text-2xl font-bold">Versenyezzenek a kedvenceid</h1>
 
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-        {[left, right].map((recipe) => (
+        {remaining.slice(0, 2).map((recipe) => (
           <RecipeCard
             key={recipe.recipe.id}
             onSelect={handlePick}

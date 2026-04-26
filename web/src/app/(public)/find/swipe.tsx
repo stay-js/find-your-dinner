@@ -79,7 +79,9 @@ export function Swipe({ ingredientIds, setLikedRecipes, setState }: SwipeProps) 
 
   return (
     <div className="flex w-full max-w-md flex-col gap-8">
-      <h1 className="text-center text-2xl font-bold">Húzd jobbra, ha tetszik</h1>
+      <h1 className="text-center text-2xl font-bold">
+        {!isLoading && noRecipes ? 'Nincs megfelelő recept' : 'Húzd jobbra, ha tetszik'}
+      </h1>
 
       {isLoading && <RecipeCardSkeleton />}
 
@@ -87,10 +89,8 @@ export function Swipe({ ingredientIds, setLikedRecipes, setState }: SwipeProps) 
         <NoContent
           action={<Button onClick={handleReset}>Vissza a hozzávalókhoz</Button>}
           className="py-12"
-          description={
-            'Úgy tűnik, nincs egyetlen recept sem, ami megfelelne a keresési feltételeidnek. Próbáld meg módosítani a keresési feltételeidet.'
-          }
-          title={'Nincsenek receptek'}
+          description="Úgy tűnik, nincs egyetlen recept sem, ami megfelelne a keresési feltételeidnek. Próbáld meg módosítani a keresési feltételeidet."
+          title="Nincsenek receptek"
         />
       )}
 

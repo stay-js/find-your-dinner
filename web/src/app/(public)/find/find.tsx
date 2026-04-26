@@ -49,7 +49,7 @@ export function Find() {
         <Swipe ingredientIds={ingredients} setLikedRecipes={setLikedRecipes} setState={setState} />
       )}
 
-      {state === 'tournament' && <Tournament likedRecipes={likedRecipes} />}
+      {state === 'tournament' && <Tournament likedRecipes={likedRecipes} setState={setState} />}
     </div>
   );
 }
