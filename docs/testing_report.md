@@ -27,6 +27,7 @@
   - [Recept mentés](#recept-mentés)
   - [Keresés oldal](#keresés-oldal)
   - [Alapértelmezett hozzávalók](#alapértelmezett-hozzávalók)
+  - [UI / Általános](#ui--általános)
 
 <br>
 <br>
@@ -548,65 +549,77 @@
 
 ### Autentikáció
 
-| #   | Teszteset                                | Első futtatás időpontja | Utolsó futtatás időpontja | Utoljára futtatta | Eredmény |
-| --- | ---------------------------------------- | ----------------------- | ------------------------- | ----------------- | -------- |
-| 1   | sign-up with email and password succeeds | 2026.04.25. 22:39       | 2026.04.25. 22:39         | Nagy Zétény       | Sikeres  |
-| 2   | sign-up with Google OAuth succeeds       | 2026.04.25. 22:35       | 2026.04.25. 22:35         | Nagy Zétény       | Sikeres  |
-| 3   | sign-in with email and password succeeds | 2026.04.25. 22:40       | 2026.04.25. 22:40         | Nagy Zétény       | Sikeres  |
-| 4   | sign-in with Google OAuth succeeds       | 2026.04.25. 22:36       | 2026.04.25. 22:36         | Nagy Zétény       | Sikeres  |
+| #   | Teszteset                                                             | Első futtatás időpontja | Utolsó futtatás időpontja | Utoljára futtatta | Eredmény |
+| --- | --------------------------------------------------------------------- | ----------------------- | ------------------------- | ----------------- | -------- |
+| 1   | sign-up with email and password succeeds                              | 2026.04.25. 22:39       | 2026.04.25. 22:39         | Nagy Zétény       | Sikeres  |
+| 2   | sign-up with Google OAuth succeeds                                    | 2026.04.25. 22:35       | 2026.04.25. 22:35         | Nagy Zétény       | Sikeres  |
+| 3   | sign-in with email and password succeeds                              | 2026.04.25. 22:40       | 2026.04.25. 22:40         | Nagy Zétény       | Sikeres  |
+| 4   | sign-in with Google OAuth succeeds                                    | 2026.04.25. 22:36       | 2026.04.25. 22:36         | Nagy Zétény       | Sikeres  |
+| 5   | sign-out clears session and redirects to "/"                          | 2026.04.26. 14:05       | 2026.04.26. 14:05         | Nagy Zétény       | Sikeres  |
+| 6   | navigating to "/dashboard" while unauthenticated redirects to sign-in | 2026.04.26. 14:05       | 2026.04.26. 14:05         | Nagy Zétény       | Sikeres  |
 
 <br>
 
 ### Receptek
 
-| #   | Teszteset                                                                                                     | Első futtatás időpontja | Utolsó futtatás időpontja | Utoljára futtatta | Eredmény |
-| --- | ------------------------------------------------------------------------------------------------------------- | ----------------------- | ------------------------- | ----------------- | -------- |
-| 1   | creating, editing, and deleting a recipe works end-to-end                                                     | 2026.04.25. 22:55       | 2026.04.25. 22:55         | Nagy Zétény       | Sikeres  |
-| 2   | recipe creation form redirects to "/dashboard/recipes" on success                                             | 2026.04.25. 22:55       | 2026.04.25. 22:55         | Nagy Zétény       | Sikeres  |
-| 3   | admin can edit and delete any recipe                                                                          | 2026.04.25. 22:58       | 2026.04.25. 22:58         | Nagy Zétény       | Sikeres  |
-| 4   | user cannot access the edit page of another user's recipe                                                     | 2026.04.25. 23:00       | 2026.04.25. 23:00         | Nagy Zétény       | Sikeres  |
-| 5   | edit button on admin routes redirects to the admin edit page, even when the current user is the recipe author | 2026.04.25. 23:02       | 2026.04.25. 23:02         | Nagy Zétény       | Sikeres  |
-| 6   | user recipe edit form redirects to "/dashboard/recipes" on success                                            | 2026.04.25. 23:04       | 2026.04.25. 23:04         | Nagy Zétény       | Sikeres  |
-| 7   | admin recipe edit form redirects to "/dashboard/admin/recipes" on success                                     | 2026.04.25. 23:04       | 2026.04.25. 23:04         | Nagy Zétény       | Sikeres  |
-| 8   | edit button on public page redirects to user edit page if user is the author, even if admin                   | 2026.04.25. 23:05       | 2026.04.25. 23:05         | Nagy Zétény       | Sikeres  |
-| 9   | edit button on public page redirects to admin edit page if user is not the author                             | 2026.04.25. 23:06       | 2026.04.25. 23:06         | Nagy Zétény       | Sikeres  |
-| 10  | user recipes page only shows recipes belonging to the current user                                            | 2026.04.25. 23:06       | 2026.04.25. 23:06         | Nagy Zétény       | Sikeres  |
-| 11  | public recipes page only displays verified recipes                                                            | 2026.04.25. 23:06       | 2026.04.25. 23:06         | Nagy Zétény       | Sikeres  |
-| 12  | public recipe page returns 404 for unverified recipes                                                         | 2026.04.25. 23:09       | 2026.04.25. 23:09         | Nagy Zétény       | Sikeres  |
-| 13  | filters work correctly on the public, user, user saved and admin recipe pages                                 | 2026.04.25. 23:14       | 2026.04.25. 23:14         | Nagy Zétény       | Sikeres  |
+| #   | Teszteset                                                                                                                                                  | Első futtatás időpontja | Utolsó futtatás időpontja | Utoljára futtatta | Eredmény |
+| --- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------- | ------------------------- | ----------------- | -------- |
+| 1   | creating, editing, and deleting a recipe works end-to-end                                                                                                  | 2026.04.25. 22:55       | 2026.04.25. 22:55         | Nagy Zétény       | Sikeres  |
+| 2   | recipe creation form redirects to "/dashboard/recipes" on success                                                                                          | 2026.04.25. 22:55       | 2026.04.25. 22:55         | Nagy Zétény       | Sikeres  |
+| 3   | recipe created by a user is initially unverified and does not appear on the public recipes page                                                            | 2026.04.26. 14:10       | 2026.04.26. 14:10         | Nagy Zétény       | Sikeres  |
+| 4   | editing an already-verified recipe creates a new unverified version; the previous version remains publicly visible until the new version is approved       | 2026.04.26. 14:12       | 2026.04.26. 14:12         | Nagy Zétény       | Sikeres  |
+| 5   | admin can view, edit and delete any recipe                                                                                                                 | 2026.04.25. 22:58       | 2026.04.25. 22:58         | Nagy Zétény       | Sikeres  |
+| 6   | user cannot access the edit page of another user's recipe                                                                                                  | 2026.04.25. 23:00       | 2026.04.25. 23:00         | Nagy Zétény       | Sikeres  |
+| 7   | edit button on admin routes redirects to the admin edit page, even when the current user is the recipe author                                              | 2026.04.25. 23:02       | 2026.04.25. 23:02         | Nagy Zétény       | Sikeres  |
+| 8   | user recipe edit form redirects to "/dashboard/recipes" on success                                                                                         | 2026.04.25. 23:04       | 2026.04.25. 23:04         | Nagy Zétény       | Sikeres  |
+| 9   | admin recipe edit form redirects to "/dashboard/admin/recipes" on success                                                                                  | 2026.04.25. 23:04       | 2026.04.25. 23:04         | Nagy Zétény       | Sikeres  |
+| 10  | edit button on public page redirects to user edit page if user is the author, even if admin                                                                | 2026.04.25. 23:05       | 2026.04.25. 23:05         | Nagy Zétény       | Sikeres  |
+| 11  | edit button on public page redirects to admin edit page if user is not the author                                                                          | 2026.04.25. 23:06       | 2026.04.25. 23:06         | Nagy Zétény       | Sikeres  |
+| 12  | user recipes page only shows recipes belonging to the current user                                                                                         | 2026.04.25. 23:06       | 2026.04.25. 23:06         | Nagy Zétény       | Sikeres  |
+| 13  | public recipes page only displays verified recipes                                                                                                         | 2026.04.25. 23:06       | 2026.04.25. 23:06         | Nagy Zétény       | Sikeres  |
+| 14  | public recipe page returns 404 for unverified recipes                                                                                                      | 2026.04.25. 23:09       | 2026.04.25. 23:09         | Nagy Zétény       | Sikeres  |
+| 15  | filters work correctly on the public, user, user saved and admin recipe pages                                                                              | 2026.04.25. 23:14       | 2026.04.25. 23:14         | Nagy Zétény       | Sikeres  |
+| 16  | recipe detail page displays all fields correctly: image, categories, prep/cook time, servings, ingredients with quantities and units, instructions, author | 2026.04.26. 14:14       | 2026.04.26. 14:14         | Nagy Zétény       | Sikeres  |
+| 18  | recipe form shows validation errors for invalid inputs (e.g. empty title, missing category, etc...)                                                        | 2026.04.26. 14:13       | 2026.04.26. 14:13         | Nagy Zétény       | Sikeres  |
+| 19  | adding and removing ingredient in the recipe form works correctly                                                                                          | 2026.04.26. 14:13       | 2026.04.26. 14:13         | Nagy Zétény       | Sikeres  |
 
 <br>
 
 ### Adminisztráció
 
-| #   | Teszteset                                                                     | Első futtatás időpontja | Utolsó futtatás időpontja | Utoljára futtatta | Eredmény |
-| --- | ----------------------------------------------------------------------------- | ----------------------- | ------------------------- | ----------------- | -------- |
-| 1   | creating, editing, and deleting a category works end-to-end                   | 2026.04.26. 12:25       | 2026.04.26. 12:25         | K. Papp Benjámin  | Sikeres  |
-| 2   | creating, editing, and deleting an ingredient works end-to-end                | 2026.04.26. 12:28       | 2026.04.26. 12:28         | K. Papp Benjámin  | Sikeres  |
-| 3   | creating, editing, and deleting a unit works end-to-end                       | 2026.04.26. 12:30       | 2026.04.26. 12:30         | K. Papp Benjámin  | Sikeres  |
-| 4   | search filter works correctly on the categories, ingredients, and units pages | 2026.04.26. 12:33       | 2026.04.26. 12:33         | K. Papp Benjámin  | Sikeres  |
-| 5   | approving a pending recipe marks it as verified and makes it publicly visible | 2026.04.26. 12:35       | 2026.04.26. 12:35         | K. Papp Benjámin  | Sikeres  |
+| #   | Teszteset                                                                                                                                  | Első futtatás időpontja | Utolsó futtatás időpontja | Utoljára futtatta | Eredmény |
+| --- | ------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------- | ------------------------- | ----------------- | -------- |
+| 1   | creating, editing, and deleting a category works end-to-end                                                                                | 2026.04.26. 12:25       | 2026.04.26. 12:25         | K. Papp Benjámin  | Sikeres  |
+| 2   | creating, editing, and deleting an ingredient works end-to-end                                                                             | 2026.04.26. 12:28       | 2026.04.26. 12:28         | K. Papp Benjámin  | Sikeres  |
+| 3   | creating, editing, and deleting a unit works end-to-end                                                                                    | 2026.04.26. 12:30       | 2026.04.26. 12:30         | K. Papp Benjámin  | Sikeres  |
+| 4   | search filter works correctly on the categories, ingredients, and units pages                                                              | 2026.04.26. 12:33       | 2026.04.26. 12:33         | K. Papp Benjámin  | Sikeres  |
+| 5   | approving a pending recipe marks it as verified and makes it publicly visible                                                              | 2026.04.26. 12:35       | 2026.04.26. 12:35         | K. Papp Benjámin  | Sikeres  |
+| 6   | delete button is disabled on category, ingredient, unit manage pages if the item is referenced by a recipe, or saved as default ingredient |                         |                           |                   |          |
 
 <br>
 
 ### Recept mentés
 
-| #   | Teszteset                                                      | Első futtatás időpontja | Utolsó futtatás időpontja | Utoljára futtatta | Eredmény |
-| --- | -------------------------------------------------------------- | ----------------------- | ------------------------- | ----------------- | -------- |
-| 1   | saving and unsaving a recipe updates the saved state correctly | 2026.04.26. 12:38       | 2026.04.26. 12:38         | K. Papp Benjámin  | Sikeres  |
-| 2   | saved recipes are displayed correctly on the user's dashboard  | 2026.04.26. 12:38       | 2026.04.26. 12:38         | K. Papp Benjámin  | Sikeres  |
-| 3   | saved recipes page only displays verified recipes              | 2026.04.26. 12:38       | 2026.04.26. 12:38         | K. Papp Benjámin  | Sikeres  |
+| #   | Teszteset                                                                                                   | Első futtatás időpontja | Utolsó futtatás időpontja | Utoljára futtatta | Eredmény |
+| --- | ----------------------------------------------------------------------------------------------------------- | ----------------------- | ------------------------- | ----------------- | -------- |
+| 1   | saving and unsaving a recipe updates the saved state correctly via recipe page and recipe card save buttons | 2026.04.26. 12:38       | 2026.04.26. 12:38         | K. Papp Benjámin  | Sikeres  |
+| 2   | saved recipes are displayed correctly on the user's dashboard                                               | 2026.04.26. 12:38       | 2026.04.26. 12:38         | K. Papp Benjámin  | Sikeres  |
+| 3   | saved recipes page only displays verified recipes                                                           | 2026.04.26. 12:38       | 2026.04.26. 12:38         | K. Papp Benjámin  | Sikeres  |
+| 5   | save button is hidden for unauthenticated users                                                             |                         |                           |                   |          |
 
 <br>
 
 ### Keresés oldal
 
-| #   | Teszteset                                                                                | Első futtatás időpontja | Utolsó futtatás időpontja | Utoljára futtatta | Eredmény |
-| --- | ---------------------------------------------------------------------------------------- | ----------------------- | ------------------------- | ----------------- | -------- |
-| 1   | filter stage correctly narrows the recipe pool based on selected criteria                | 2026.04.26. 13:37       | 2026.04.26. 13:37         | Polyák Panna      | Sikeres  |
-| 2   | swipe stage allows dismissing and selecting recipes                                      | 2026.04.26. 13:37       | 2026.04.26. 13:37         | Polyák Panna      | Sikeres  |
-| 3   | tournament stage correctly determines the winning recipe                                 | 2026.04.26. 13:37       | 2026.04.26. 13:37         | Polyák Panna      | Sikeres  |
-| 4   | swipe and tournament stages are skipped when only one recipe matches the applied filters | 2026.04.26. 13:37       | 2026.04.26. 13:37         | Polyák Panna      | Sikeres  |
+| #   | Teszteset                                                                                                   | Első futtatás időpontja | Utolsó futtatás időpontja | Utoljára futtatta | Eredmény |
+| --- | ----------------------------------------------------------------------------------------------------------- | ----------------------- | ------------------------- | ----------------- | -------- |
+| 1   | filter stage correctly narrows the recipe pool based on selected criteria                                   | 2026.04.26. 13:37       | 2026.04.26. 13:37         | Polyák Panna      | Sikeres  |
+| 2   | swipe stage allows dismissing and selecting recipes                                                         | 2026.04.26. 13:37       | 2026.04.26. 13:37         | Polyák Panna      | Sikeres  |
+| 3   | tournament stage correctly determines the winning recipe                                                    | 2026.04.26. 13:37       | 2026.04.26. 13:37         | Polyák Panna      | Sikeres  |
+| 4   | swipe and tournament stages are skipped when only one recipe matches the applied filters                    | 2026.04.26. 13:37       | 2026.04.26. 13:37         | Polyák Panna      | Sikeres  |
+| 5   | when no recipes match the selected ingredients, an empty state is shown                                     |                         |                           |                   |          |
+| 6   | when all recipes are dismissed (swiped left), the tournament is skipped and an appropriate message is shown |                         |                           |                   |          |
+| 7   | navigating back to "/find" resets to filter stage                                                           |                         |                           |                   |          |
 
 <br>
 
@@ -616,3 +629,18 @@
 | --- | --------------------------------------------------------------------------------------------------------------------------- | ----------------------- | ------------------------- | ----------------- | -------- |
 | 1   | updating default ingredients saves the new selection correctly                                                              | 2026.04.26. 13:39       | 2026.04.26. 13:39         | Polyák Panna      | Sikeres  |
 | 2   | the "Feltöltés alapértelmezett hozzávalókkal" button is only shown in the filters when the user has default ingredients set | 2026.04.26. 13:40       | 2026.04.26. 13:40         | Polyák Panna      | Sikeres  |
+| 3   | "Feltöltés alapértelmezett hozzávalókkal" fills the ingredient combobox with the saved defaults                             |                         |                           |                   |          |
+
+<br>
+
+### UI / Általános
+
+| #   | Teszteset                                                                                                                               | Első futtatás időpontja | Utolsó futtatás időpontja | Utoljára futtatta | Eredmény |
+| --- | --------------------------------------------------------------------------------------------------------------------------------------- | ----------------------- | ------------------------- | ----------------- | -------- |
+| 1   | theme switcher updates the theme and the preference persists across navigation; pressing the theme toggle hotkey also updates the theme |                         |                           |                   |          |
+| 1   | all navigation links work in the header                                                                                                 |                         |                           |                   |          |
+| 1   | all navigation links work in the the dashboard sidebar                                                                                  |                         |                           |                   |          |
+| 1   | dashboard sidebar opens and closes correctly                                                                                            |                         |                           |                   |          |
+| 2   | mobile hamburger menu opens and closes correctly, and all navigation links work                                                         |                         |                           |                   |          |
+| 2   | mobile sidebar menu opens and closes correctly, and all navigation links work                                                           |                         |                           |                   |          |
+| 3   | pagination works correctly on every paginated page                                                                                      |                         |                           |                   |          |
