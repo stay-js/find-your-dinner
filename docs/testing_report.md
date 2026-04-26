@@ -594,7 +594,7 @@
 | 3   | creating, editing, and deleting a unit works end-to-end                                                                                    | 2026.04.26. 12:30       | 2026.04.26. 12:30         | K. Papp Benjámin  | Sikeres  |
 | 4   | search filter works correctly on the categories, ingredients, and units pages                                                              | 2026.04.26. 12:33       | 2026.04.26. 12:33         | K. Papp Benjámin  | Sikeres  |
 | 5   | approving a pending recipe marks it as verified and makes it publicly visible                                                              | 2026.04.26. 12:35       | 2026.04.26. 12:35         | K. Papp Benjámin  | Sikeres  |
-| 6   | delete button is disabled on category, ingredient, unit manage pages if the item is referenced by a recipe, or saved as default ingredient |                         |                           |                   |          |
+| 6   | delete button is disabled on category, ingredient, unit manage pages if the item is referenced by a recipe, or saved as default ingredient | 2026.04.26. 14:30       | 2026.04.26. 14:30         | K. Papp Benjámin  | Sikeres  |
 
 <br>
 
@@ -605,7 +605,7 @@
 | 1   | saving and unsaving a recipe updates the saved state correctly via recipe page and recipe card save buttons | 2026.04.26. 12:38       | 2026.04.26. 12:38         | K. Papp Benjámin  | Sikeres  |
 | 2   | saved recipes are displayed correctly on the user's dashboard                                               | 2026.04.26. 12:38       | 2026.04.26. 12:38         | K. Papp Benjámin  | Sikeres  |
 | 3   | saved recipes page only displays verified recipes                                                           | 2026.04.26. 12:38       | 2026.04.26. 12:38         | K. Papp Benjámin  | Sikeres  |
-| 5   | save button is hidden for unauthenticated users                                                             |                         |                           |                   |          |
+| 5   | save button is hidden for unauthenticated users                                                             | 2026.04.26. 14:31       | 2026.04.26. 14:31         | K. Papp Benjámin  | Sikeres  |
 
 <br>
 
@@ -637,10 +637,10 @@
 
 | #   | Teszteset                                                                                                                               | Első futtatás időpontja | Utolsó futtatás időpontja | Utoljára futtatta | Eredmény |
 | --- | --------------------------------------------------------------------------------------------------------------------------------------- | ----------------------- | ------------------------- | ----------------- | -------- |
-| 1   | theme switcher updates the theme and the preference persists across navigation; pressing the theme toggle hotkey also updates the theme |                         |                           |                   |          |
-| 1   | all navigation links work in the header                                                                                                 |                         |                           |                   |          |
-| 1   | all navigation links work in the the dashboard sidebar                                                                                  |                         |                           |                   |          |
-| 1   | dashboard sidebar opens and closes correctly                                                                                            |                         |                           |                   |          |
-| 2   | mobile hamburger menu opens and closes correctly, and all navigation links work                                                         |                         |                           |                   |          |
-| 2   | mobile sidebar menu opens and closes correctly, and all navigation links work                                                           |                         |                           |                   |          |
-| 3   | pagination works correctly on every paginated page                                                                                      |                         |                           |                   |          |
+| 1   | theme switcher updates the theme and the preference persists across navigation; pressing the theme toggle hotkey also updates the theme | 2026.04.26. 14:32       | 2026.04.26. 14:32         | K. Papp Benjámin  | Sikeres  |
+| 1   | all navigation links work in the header                                                                                                 | 2026.04.26. 14:33       | 2026.04.26. 14:33         | K. Papp Benjámin  | Sikeres  |
+| 1   | all navigation links work in the the dashboard sidebar                                                                                  | 2026.04.26. 14:33       | 2026.04.26. 14:33         | K. Papp Benjámin  | Sikeres  |
+| 1   | dashboard sidebar opens and closes correctly                                                                                            | 2026.04.26. 14:34       | 2026.04.26. 14:34         | K. Papp Benjámin  | Sikeres  |
+| 2   | mobile hamburger menu opens and closes correctly, and all navigation links work                                                         | 2026.04.26. 14:35       | 2026.04.26. 14:35         | K. Papp Benjámin  | Sikeres  |
+| 2   | mobile sidebar menu opens and closes correctly, and all navigation links work                                                           | 2026.04.26. 14:37       | 2026.04.26. 14:37         | K. Papp Benjámin  | Sikeres  |
+| 3   | pagination works correctly on every paginated page                                                                                      | 2026.04.26. 14:39       | 2026.04.26. 14:39         | K. Papp Benjámin  | Sikeres  |
