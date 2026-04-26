@@ -603,10 +603,10 @@
 
 | #   | Teszteset                                                                                | Első futtatás időpontja | Utolsó futtatás időpontja | Utoljára futtatta | Eredmény |
 | --- | ---------------------------------------------------------------------------------------- | ----------------------- | ------------------------- | ----------------- | -------- |
-| 1   | filter stage correctly narrows the recipe pool based on selected criteria                |                         |                           |                   |          |
-| 2   | swipe stage allows dismissing and selecting recipes                                      |                         |                           |                   |          |
-| 3   | tournament stage correctly determines the winning recipe                                 |                         |                           |                   |          |
-| 4   | swipe and tournament stages are skipped when only one recipe matches the applied filters |                         |                           |                   |          |
+| 1   | filter stage correctly narrows the recipe pool based on selected criteria                | 2026.04.26. 13:37       | 2026.04.26. 13:37         | Polyák Panna      | Sikeres  |
+| 2   | swipe stage allows dismissing and selecting recipes                                      | 2026.04.26. 13:37       | 2026.04.26. 13:37         | Polyák Panna      | Sikeres  |
+| 3   | tournament stage correctly determines the winning recipe                                 | 2026.04.26. 13:37       | 2026.04.26. 13:37         | Polyák Panna      | Sikeres  |
+| 4   | swipe and tournament stages are skipped when only one recipe matches the applied filters | 2026.04.26. 13:37       | 2026.04.26. 13:37         | Polyák Panna      | Sikeres  |
 
 <br>
 
@@ -614,5 +614,5 @@
 
 | #   | Teszteset                                                                                                                   | Első futtatás időpontja | Utolsó futtatás időpontja | Utoljára futtatta | Eredmény |
 | --- | --------------------------------------------------------------------------------------------------------------------------- | ----------------------- | ------------------------- | ----------------- | -------- |
-| 1   | updating default ingredients saves the new selection correctly                                                              |                         |                           |                   |          |
-| 2   | the "Feltöltés alapértelmezett hozzávalókkal" button is only shown in the filters when the user has default ingredients set |                         |                           |                   |          |
+| 1   | updating default ingredients saves the new selection correctly                                                              | 2026.04.26. 13:39       | 2026.04.26. 13:39         | Polyák Panna      | Sikeres  |
+| 2   | the "Feltöltés alapértelmezett hozzávalókkal" button is only shown in the filters when the user has default ingredients set | 2026.04.26. 13:40       | 2026.04.26. 13:40         | Polyák Panna      | Sikeres  |
