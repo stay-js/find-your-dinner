@@ -5,28 +5,24 @@ import { RecipeCard } from '~/components/recipe-card';
 import { Button } from '~/components/ui/button';
 import { type Recipe } from '~/lib/zod/schemas';
 
-import { type FindPageSetState } from './find';
-
 type TournamentProps = {
+  goToSwipe: () => void;
   likedRecipes: Recipe[];
-  setState: FindPageSetState;
 };
 
-export function Tournament({ likedRecipes, setState }: TournamentProps) {
+export function Tournament({ goToSwipe, likedRecipes }: TournamentProps) {
   const [remaining, setRemaining] = useState<Recipe[]>(likedRecipes);
 
   function handlePick(selectedId: number) {
     setRemaining((prev) => {
-      const rightSelected = prev[1]?.recipe.id === selectedId;
+      const winnerIdx = prev.at(0)?.recipe.id === selectedId ? 0 : 1;
+      const rest = prev.slice(2);
 
-      const loserIndex = rightSelected ? 0 : 1;
-      const next = prev.filter((_, index) => index !== loserIndex);
+      if (rest.length === 0) return [prev[winnerIdx]!];
 
-      if (rightSelected && next.length >= 2) {
-        return [next[1]!, next[0]!, ...next.slice(2)];
-      }
-
-      return next;
+      return winnerIdx === 0
+        ? [prev[0]!, rest[0]!, ...rest.slice(1)]
+        : [rest[0]!, prev[1]!, ...rest.slice(1)];
     });
   }
 
@@ -36,7 +32,7 @@ export function Tournament({ likedRecipes, setState }: TournamentProps) {
         <h1 className="text-center text-2xl font-bold">Úgy tűnik, egyetlen recept sem tetszett</h1>
 
         <NoContent
-          action={<Button onClick={() => setState('swipe')}>Vissza egy lépessel</Button>}
+          action={<Button onClick={goToSwipe}>Vissza egy lépessel</Button>}
           className="py-12"
           description="Úgy tűnik, egyetlen recept sem tetszett. Kattints a lenti gombra, és próbáld újra!"
           title="Nincsenek receptek"
@@ -45,14 +41,12 @@ export function Tournament({ likedRecipes, setState }: TournamentProps) {
     );
   }
 
-  const winner = remaining.length === 1 ? remaining[0] : null;
-
-  if (winner) {
+  if (remaining.length === 1) {
     return (
       <div className="flex w-full max-w-md flex-col gap-8">
         <h1 className="text-center text-2xl font-bold">És a győztes recept...</h1>
 
-        <RecipeCard pageType="search" recipe={winner} />
+        <RecipeCard pageType="search" recipe={remaining[0]!} />
       </div>
     );
   }

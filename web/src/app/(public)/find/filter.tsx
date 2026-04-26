@@ -8,14 +8,12 @@ import { Button } from '~/components/ui/button';
 import { useMergeQueryString } from '~/hooks/use-merge-query-string';
 import { getDefaultIngredients, getIngredients } from '~/lib/queries';
 
-import { type FindPageSetState } from './find';
-
 type FilterProps = {
+  goToSwipe: () => void;
   ingredientIds: number[];
-  setState: FindPageSetState;
 };
 
-export function Filter({ ingredientIds, setState }: FilterProps) {
+export function Filter({ goToSwipe, ingredientIds }: FilterProps) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -73,7 +71,7 @@ export function Filter({ ingredientIds, setState }: FilterProps) {
           </Button>
         )}
 
-        <Button disabled={ingredientIds.length === 0} onClick={() => setState('swipe')}>
+        <Button disabled={ingredientIds.length === 0} onClick={goToSwipe}>
           Receptek keresése
         </Button>
       </div>

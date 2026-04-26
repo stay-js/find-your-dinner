@@ -15,8 +15,6 @@ import { Filter } from './filter';
 import { Swipe } from './swipe';
 import { Tournament } from './tournament';
 
-export type FindPageSetState = (newState: FindPageState) => void;
-
 export function Find() {
   const router = useRouter();
   const pathname = usePathname();
@@ -35,6 +33,20 @@ export function Find() {
     [router, pathname, mergeQueryString],
   );
 
+  function goToSwipe() {
+    setState('swipe');
+    setLikedRecipes([]);
+  }
+
+  function goToTournament() {
+    setState('tournament');
+  }
+
+  function goToFilter() {
+    setState('filter');
+    setLikedRecipes([]);
+  }
+
   useEffect(() => {
     if (state !== 'filter' && ingredients.length === 0) {
       setState('filter');
@@ -43,13 +55,18 @@ export function Find() {
 
   return (
     <div className="container flex flex-col items-center gap-6 overflow-hidden py-16">
-      {state === 'filter' && <Filter ingredientIds={ingredients} setState={setState} />}
+      {state === 'filter' && <Filter goToSwipe={goToSwipe} ingredientIds={ingredients} />}
 
       {state === 'swipe' && (
-        <Swipe ingredientIds={ingredients} setLikedRecipes={setLikedRecipes} setState={setState} />
+        <Swipe
+          goToFilter={goToFilter}
+          goToTournament={goToTournament}
+          ingredientIds={ingredients}
+          setLikedRecipes={setLikedRecipes}
+        />
       )}
 
-      {state === 'tournament' && <Tournament likedRecipes={likedRecipes} setState={setState} />}
+      {state === 'tournament' && <Tournament goToSwipe={goToSwipe} likedRecipes={likedRecipes} />}
     </div>
   );
 }

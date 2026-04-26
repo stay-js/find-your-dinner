@@ -10,8 +10,6 @@ import { Button } from '~/components/ui/button';
 import { GET } from '~/lib/api';
 import { paginatedRecipesSchema, type Recipe } from '~/lib/zod';
 
-import { type FindPageSetState } from './find';
-
 const RECIPE_LIMIT = 30;
 
 const SWIPE_THRESHOLD = 100;
@@ -24,12 +22,13 @@ type AnimatedCardProps = {
 };
 
 type SwipeProps = {
+  goToFilter: () => void;
+  goToTournament: () => void;
   ingredientIds: number[];
   setLikedRecipes: React.Dispatch<React.SetStateAction<Recipe[]>>;
-  setState: FindPageSetState;
 };
 
-export function Swipe({ ingredientIds, setLikedRecipes, setState }: SwipeProps) {
+export function Swipe({ goToFilter, goToTournament, ingredientIds, setLikedRecipes }: SwipeProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const { data: recipes, isLoading } = useQuery({
@@ -47,7 +46,7 @@ export function Swipe({ ingredientIds, setLikedRecipes, setState }: SwipeProps) 
 
   const allRecipes = useMemo(() => recipes?.data ?? [], [recipes]);
 
-  const noRecipes = allRecipes.length < 1;
+  const noRecipes = allRecipes.length === 0;
   const isOutOfRecipes = currentIndex >= allRecipes.length;
   const currentRecipe = allRecipes.at(currentIndex);
 
@@ -60,22 +59,16 @@ export function Swipe({ ingredientIds, setLikedRecipes, setState }: SwipeProps) 
     handleNext();
   }
 
-  function handleReset() {
-    setLikedRecipes([]);
-    setCurrentIndex(0);
-    setState('filter');
-  }
-
   useEffect(() => {
     if (isLoading) return;
 
-    if (!noRecipes && isOutOfRecipes) setState('tournament');
+    if (!noRecipes && isOutOfRecipes) goToTournament();
 
     if (allRecipes.length === 1) {
       setLikedRecipes(allRecipes);
-      setState('tournament');
+      goToTournament();
     }
-  }, [isLoading, isOutOfRecipes, noRecipes, setState, setLikedRecipes, allRecipes]);
+  }, [isLoading, isOutOfRecipes, noRecipes, goToTournament, setLikedRecipes, allRecipes]);
 
   return (
     <div className="flex w-full max-w-md flex-col gap-8">
@@ -87,7 +80,7 @@ export function Swipe({ ingredientIds, setLikedRecipes, setState }: SwipeProps) 
 
       {!isLoading && noRecipes && (
         <NoContent
-          action={<Button onClick={handleReset}>Vissza a hozzávalókhoz</Button>}
+          action={<Button onClick={goToFilter}>Vissza a hozzávalókhoz</Button>}
           className="py-12"
           description="Úgy tűnik, nincs egyetlen recept sem, ami megfelelne a keresési feltételeidnek. Próbáld meg módosítani a keresési feltételeidet."
           title="Nincsenek receptek"
