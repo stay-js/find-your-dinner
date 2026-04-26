@@ -581,11 +581,11 @@
 
 | #   | Teszteset                                                                     | Első futtatás időpontja | Utolsó futtatás időpontja | Utoljára futtatta | Eredmény |
 | --- | ----------------------------------------------------------------------------- | ----------------------- | ------------------------- | ----------------- | -------- |
-| 1   | creating, editing, and deleting a category works end-to-end                   |                         |                           |                   |          |
-| 2   | creating, editing, and deleting an ingredient works end-to-end                |                         |                           |                   |          |
-| 3   | creating, editing, and deleting a unit works end-to-end                       |                         |                           |                   |          |
-| 4   | search filter works correctly on the categories, ingredients, and units pages |                         |                           |                   |          |
-| 5   | approving a pending recipe marks it as verified and makes it publicly visible |                         |                           |                   |          |
+| 1   | creating, editing, and deleting a category works end-to-end                   | 2026.04.26. 12:25       | 2026.04.26. 12:25         | K. Papp Benjámin  | Sikeres  |
+| 2   | creating, editing, and deleting an ingredient works end-to-end                | 2026.04.26. 12:28       | 2026.04.26. 12:28         | K. Papp Benjámin  | Sikeres  |
+| 3   | creating, editing, and deleting a unit works end-to-end                       | 2026.04.26. 12:30       | 2026.04.26. 12:30         | K. Papp Benjámin  | Sikeres  |
+| 4   | search filter works correctly on the categories, ingredients, and units pages | 2026.04.26. 12:33       | 2026.04.26. 12:33         | K. Papp Benjámin  | Sikeres  |
+| 5   | approving a pending recipe marks it as verified and makes it publicly visible | 2026.04.26. 12:35       | 2026.04.26. 12:35         | K. Papp Benjámin  | Sikeres  |
 
 <br>
 
@@ -593,9 +593,9 @@
 
 | #   | Teszteset                                                      | Első futtatás időpontja | Utolsó futtatás időpontja | Utoljára futtatta | Eredmény |
 | --- | -------------------------------------------------------------- | ----------------------- | ------------------------- | ----------------- | -------- |
-| 1   | saving and unsaving a recipe updates the saved state correctly |                         |                           |                   |          |
-| 2   | saved recipes are displayed correctly on the user's dashboard  |                         |                           |                   |          |
-| 3   | saved recipes page only displays verified recipes              |                         |                           |                   |          |
+| 1   | saving and unsaving a recipe updates the saved state correctly | 2026.04.26. 12:38       | 2026.04.26. 12:38         | K. Papp Benjámin  | Sikeres  |
+| 2   | saved recipes are displayed correctly on the user's dashboard  | 2026.04.26. 12:38       | 2026.04.26. 12:38         | K. Papp Benjámin  | Sikeres  |
+| 3   | saved recipes page only displays verified recipes              | 2026.04.26. 12:38       | 2026.04.26. 12:38         | K. Papp Benjámin  | Sikeres  |
 
 <br>
 
