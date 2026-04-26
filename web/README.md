@@ -1,6 +1,6 @@
 # Find Your Dinner. - Full-stack web app dokumentációja
 
-Előfeltételek: [Find Your Dinner. - Dokumentáció, Előfeltételek](../README.md#előfeltételek)
+Előfeltételek: [Find Your Dinner. - Vizsgaremek dokumentáció, Előfeltételek](../README.md#előfeltételek)
 
 <br>
 

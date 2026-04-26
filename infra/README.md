@@ -1,6 +1,6 @@
 # Find Your Dinner. - Infrastruktúra / Fejlesztői környezet
 
-Előfeltételek: [Find Your Dinner. - Dokumentáció, Előfeltételek](../README.md#előfeltételek)
+Előfeltételek: [Find Your Dinner. - Vizsgaremek dokumentáció, Előfeltételek](../README.md#előfeltételek)
 
 <br>
 

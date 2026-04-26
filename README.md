@@ -1,4 +1,19 @@
-# Find Your Dinner. - Dokumentáció
+# Find Your Dinner. - Vizsgaremek dokumentáció
+
+Budapesti Műszaki Szakképzési Centrum\
+Neumann János Informatikai Technikum
+
+Szoftverfejlesztő és -tesztelő (**5-0613-12-03**)
+
+K. Papp Benjámin 13.A\
+Nagy Zétény 13.A\
+Polyák Panna Dorka 13.D
+
+Budapest, 2026
+
+<br>
+
+## Bevezetés
 
 Üdvözlünk a **Find Your Dinner.** dokumentációs oldalán!
 Itt megtalálod az alkalmazás különböző komponenseinek leírását, telepítési útmutatókat és fejlesztői információkat.
