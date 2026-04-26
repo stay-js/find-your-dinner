@@ -580,8 +580,8 @@
 | 14  | public recipe page returns 404 for unverified recipes                                                                                                      | 2026.04.25. 23:09       | 2026.04.25. 23:09         | Nagy Zétény       | Sikeres  |
 | 15  | filters work correctly on the public, user, user saved and admin recipe pages                                                                              | 2026.04.25. 23:14       | 2026.04.25. 23:14         | Nagy Zétény       | Sikeres  |
 | 16  | recipe detail page displays all fields correctly: image, categories, prep/cook time, servings, ingredients with quantities and units, instructions, author | 2026.04.26. 14:14       | 2026.04.26. 14:14         | Nagy Zétény       | Sikeres  |
-| 18  | recipe form shows validation errors for invalid inputs (e.g. empty title, missing category, etc...)                                                        | 2026.04.26. 14:13       | 2026.04.26. 14:13         | Nagy Zétény       | Sikeres  |
-| 19  | adding and removing ingredient in the recipe form works correctly                                                                                          | 2026.04.26. 14:13       | 2026.04.26. 14:13         | Nagy Zétény       | Sikeres  |
+| 17  | recipe form shows validation errors for invalid inputs (e.g. empty title, missing category, etc...)                                                        | 2026.04.26. 14:13       | 2026.04.26. 14:13         | Nagy Zétény       | Sikeres  |
+| 18  | adding and removing ingredient in the recipe form works correctly                                                                                          | 2026.04.26. 14:13       | 2026.04.26. 14:13         | Nagy Zétény       | Sikeres  |
 
 <br>
 
@@ -605,7 +605,7 @@
 | 1   | saving and unsaving a recipe updates the saved state correctly via recipe page and recipe card save buttons | 2026.04.26. 12:38       | 2026.04.26. 12:38         | K. Papp Benjámin  | Sikeres  |
 | 2   | saved recipes are displayed correctly on the user's dashboard                                               | 2026.04.26. 12:38       | 2026.04.26. 12:38         | K. Papp Benjámin  | Sikeres  |
 | 3   | saved recipes page only displays verified recipes                                                           | 2026.04.26. 12:38       | 2026.04.26. 12:38         | K. Papp Benjámin  | Sikeres  |
-| 5   | save button is hidden for unauthenticated users                                                             | 2026.04.26. 14:31       | 2026.04.26. 14:31         | K. Papp Benjámin  | Sikeres  |
+| 4   | save button is hidden for unauthenticated users                                                             | 2026.04.26. 14:31       | 2026.04.26. 14:31         | K. Papp Benjámin  | Sikeres  |
 
 <br>
 
@@ -638,9 +638,9 @@
 | #   | Teszteset                                                                                                                               | Első futtatás időpontja | Utolsó futtatás időpontja | Utoljára futtatta | Eredmény |
 | --- | --------------------------------------------------------------------------------------------------------------------------------------- | ----------------------- | ------------------------- | ----------------- | -------- |
 | 1   | theme switcher updates the theme and the preference persists across navigation; pressing the theme toggle hotkey also updates the theme | 2026.04.26. 14:32       | 2026.04.26. 14:32         | K. Papp Benjámin  | Sikeres  |
-| 1   | all navigation links work in the header                                                                                                 | 2026.04.26. 14:33       | 2026.04.26. 14:33         | K. Papp Benjámin  | Sikeres  |
-| 1   | all navigation links work in the the dashboard sidebar                                                                                  | 2026.04.26. 14:33       | 2026.04.26. 14:33         | K. Papp Benjámin  | Sikeres  |
-| 1   | dashboard sidebar opens and closes correctly                                                                                            | 2026.04.26. 14:34       | 2026.04.26. 14:34         | K. Papp Benjámin  | Sikeres  |
-| 2   | mobile hamburger menu opens and closes correctly, and all navigation links work                                                         | 2026.04.26. 14:35       | 2026.04.26. 14:35         | K. Papp Benjámin  | Sikeres  |
-| 2   | mobile sidebar menu opens and closes correctly, and all navigation links work                                                           | 2026.04.26. 14:37       | 2026.04.26. 14:37         | K. Papp Benjámin  | Sikeres  |
-| 3   | pagination works correctly on every paginated page                                                                                      | 2026.04.26. 14:39       | 2026.04.26. 14:39         | K. Papp Benjámin  | Sikeres  |
+| 2   | all navigation links work in the header                                                                                                 | 2026.04.26. 14:33       | 2026.04.26. 14:33         | K. Papp Benjámin  | Sikeres  |
+| 3   | all navigation links work in the the dashboard sidebar                                                                                  | 2026.04.26. 14:33       | 2026.04.26. 14:33         | K. Papp Benjámin  | Sikeres  |
+| 4   | dashboard sidebar opens and closes correctly                                                                                            | 2026.04.26. 14:34       | 2026.04.26. 14:34         | K. Papp Benjámin  | Sikeres  |
+| 5   | mobile hamburger menu opens and closes correctly, and all navigation links work                                                         | 2026.04.26. 14:35       | 2026.04.26. 14:35         | K. Papp Benjámin  | Sikeres  |
+| 6   | mobile sidebar menu opens and closes correctly, and all navigation links work                                                           | 2026.04.26. 14:37       | 2026.04.26. 14:37         | K. Papp Benjámin  | Sikeres  |
+| 7   | pagination works correctly on every paginated page                                                                                      | 2026.04.26. 14:39       | 2026.04.26. 14:39         | K. Papp Benjámin  | Sikeres  |
