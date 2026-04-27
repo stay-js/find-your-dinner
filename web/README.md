@@ -2,6 +2,8 @@
 
 Előfeltételek: [Find Your Dinner. - Vizsgaremek dokumentáció, Előfeltételek](../README.md#előfeltételek)
 
+A web app használatával kapcsolatos információk, használati útmutató: [Felhasználói dokumentáció](../docs/user-documentation.md)
+
 <br>
 
 ## Tartalomjegyzék
@@ -390,7 +392,7 @@ A receptek lekérdezéséhez használt további segédfüggvények a `web/src/se
 
 ## 8. Tesztelés
 
-A tesztek futtatásának eredményei a [Find Your Dinner. - Tesztelési jegyzőkönyv](../docs/testing_report.md) dokumentumban találhatóak.
+A tesztek futtatásának eredményei a [Find Your Dinner. - Tesztelési jegyzőkönyv](../docs/testing-report.md) dokumentumban találhatóak.
 
 Az összes tesztet a `test` recepttel futtathatod:
 
@@ -402,7 +404,7 @@ just test
 
 ### 8.1. API tesztek (Vitest)
 
-Az API tesztek [Vitest](https://vitest.dev/) segítségével készültek, a tesztfájlok a `web/tests/api/` könyvtárban találhatóak. A tesztek részletes leírását, valamint az eredményeket a [Find Your Dinner. - Tesztelési jegyzőkönyv](../docs/testing_report.md) dokumentumban, az [API tesztek](../docs/testing_report.md#api-tesztek) szakaszban találod.
+Az API tesztek [Vitest](https://vitest.dev/) segítségével készültek, a tesztfájlok a `web/tests/api/` könyvtárban találhatóak. A tesztek részletes leírását, valamint az eredményeket a [Find Your Dinner. - Tesztelési jegyzőkönyv](../docs/testing-report.md) dokumentumban, az [API tesztek](../docs/testing-report.md#api-tesztek) szakaszban találod.
 
 ‼️ A tesztek futtatásához szükséges a `TEST_DATABASE_URL` környezeti változó beállítása. (lsd.: [3. Környezeti változók](#3-környezeti-változók))
 
@@ -471,7 +473,7 @@ Az elkészült jelentést a `web/coverage/index.html` fájl megnyitásával teki
 
 ### 8.2. Unit tesztek (Vitest)
 
-Az Unit tesztek szintén [Vitest](https://vitest.dev/) segítségével készültek, a tesztfájlok a `web/tests/unit/` könyvtárban találhatóak. A tesztek részletes leírását, valamint az eredményeket a [Find Your Dinner. - Tesztelési jegyzőkönyv](../docs/testing_report.md) dokumentumban, a [Unit tesztek](../docs/testing_report.md#unit-tesztek) szakaszban találod.
+Az Unit tesztek szintén [Vitest](https://vitest.dev/) segítségével készültek, a tesztfájlok a `web/tests/unit/` könyvtárban találhatóak. A tesztek részletes leírását, valamint az eredményeket a [Find Your Dinner. - Tesztelési jegyzőkönyv](../docs/testing-report.md) dokumentumban, a [Unit tesztek](../docs/testing-report.md#unit-tesztek) szakaszban találod.
 
 #### 8.2.1. Tesztek futtatása
 
@@ -497,7 +499,7 @@ just test-watch
 
 ### 8.3. E2E tesztek (Playwright)
 
-Az E2E tesztek [Playwright](https://playwright.dev/) segítségével készültek, a tesztfájlok a `web/tests/e2e/` könyvtárban találhatóak. A tesztek részletes leírását, valamint az eredményeket a [Find Your Dinner. - Tesztelési jegyzőkönyv](../docs/testing_report.md) dokumentumban, az [E2E tesztek](../docs/testing_report.md#e2e-tesztek) szakaszban találod.
+Az E2E tesztek [Playwright](https://playwright.dev/) segítségével készültek, a tesztfájlok a `web/tests/e2e/` könyvtárban találhatóak. A tesztek részletes leírását, valamint az eredményeket a [Find Your Dinner. - Tesztelési jegyzőkönyv](../docs/testing-report.md) dokumentumban, az [E2E tesztek](../docs/testing-report.md#e2e-tesztek) szakaszban találod.
 
 ‼️ A tesztek futtatásához szükséges a `TEST_E2E_CLERK_USER_USERNAME`, `TEST_E2E_CLERK_USER_PASSWORD`, `TEST_E2E_CLERK_ADMIN_USERNAME` és `TEST_E2E_CLERK_ADMIN_PASSWORD` környezeti változók beállítása. (lsd.: [3. Környezeti változók](#3-környezeti-változók))
 
@@ -539,7 +541,7 @@ Az elkészült riportot a futtatás után a terminálban megjelenő parancs futt
 
 ### 8.4. Manuális tesztek
 
-A manuális teszteket fejlesztői valamint éles környezetben is egyaránt elvégeztük. A tesztek részletes leírását, valamint az eredményeket a [Find Your Dinner. - Tesztelési jegyzőkönyv](../docs/testing_report.md) dokumentumban, a [Manuális tesztek](../docs/testing_report.md#manuális-tesztek) szakaszban találod.
+A manuális teszteket fejlesztői valamint éles környezetben is egyaránt elvégeztük. A tesztek részletes leírását, valamint az eredményeket a [Find Your Dinner. - Tesztelési jegyzőkönyv](../docs/testing-report.md) dokumentumban, a [Manuális tesztek](../docs/testing-report.md#manuális-tesztek) szakaszban találod.
 
 ## 9. Jogi nyilatkozat
 

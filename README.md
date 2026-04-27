@@ -21,6 +21,8 @@ Itt megtalálod az alkalmazás különböző komponenseinek leírását, telepí
 ## 📋 Linkek
 
 - [Find Your Dinner.](https://find-your-dinner.znagy.hu) - Élő alkalmazás
+- [GitHub repository](https://github.com/stay-js/find-your-dinner) - Forráskód és dokumentáció
+- [Felhasználói dokumentáció](docs/user-documentation.md) - A web app használatával kapcsolatos információk, használati útmutató
 - [Trello](https://trello.com/b/8IluY86i/vizsgaremek) - Projektmenedzsment és feladatkövetés
 - [Figma](https://www.figma.com/design/zaDlDEk8JzH6Fh6TtaQZbu/Find-Your-Dinner.) - UI/UX design tervezés
 
@@ -28,7 +30,7 @@ Itt megtalálod az alkalmazás különböző komponenseinek leírását, telepí
 
 - [Infrastruktúra / Fejlesztői környezet dokumentációja](infra/README.md)
 - [Full-stack web app dokumentációja](web/README.md)
-- [Tesztelési jegyzőkönyv](docs/testing_report.md)
+- [Tesztelési jegyzőkönyv](docs/testing-report.md)
 
 ## Előfeltételek
 
