@@ -25,40 +25,6 @@ const data = [
     userId: 'user_3CPE4WILkIU2vrqElJNKDPZ2GsH',
 
     data: {
-      title: 'Extra Rákóczi Túrós',
-
-      description:
-        'Mutatósabb egyfalatos rákóczi túrós ha kicsit mutatósabb sütit készítenétek\n\nKép forrása: Dobos Bea blogspot',
-      instructions:
-        'A tésztához a lisztet és a porcukrot elmorzsoljuk a vajjal majd egy tojás sárgájával összegyúrjuk. Hűtőben pihentetjük 30 percet.\nKinyújtjuk, köralakúra szaggatjuk, majd 180 C°-os sütőben 8-10 perc alatt készre sütjük.\nA túrókrémet jól kikeverjük (túró, 30 g porcukor, fél citrom leve és héja) majd a kisült linzer közepére kis halmokat teszünk belőle. \nA tojások fehérjét egy csipet sóval és a porcukorralv(210g) elkezdjük felverni majd vízgőz felett addig verjük, amíg fényes, sűrű habot kapunk. \nHabzsákba töltjük és a túró köré koszorúba nyomjuk, 150 C°-on  8-10 percig visszatesszük a sütőbe száradni.\nBaracklekvárt nyomunk a közepébe.',
-
-      previewImageUrl:
-        'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiMSJHlCWFfubwILkjX9OehkuMC-lhazNTA0usf-_LiH1PHlpjNo81hhpwCVq-KUMyoXq1WIKAMAso9fD6R7iFJ8zI3K4nFNv-3osDOOMuHH6MhC5_r-l4w_GxmNtn9iPLySa3kV8FAz8E/s1600/R%25C3%25A1k%25C3%25B3czi+t%25C3%25BAr%25C3%25B3s+kos%25C3%25A1rka+%25284%2529.JPG',
-
-      cookTimeMinutes: 20,
-      prepTimeMinutes: 40,
-
-      servings: 2,
-
-      verified: true,
-    },
-
-    categories: ['Desszert'],
-
-    ingredients: [
-      { name: 'Búzaliszt', quantity: 300, unit: 'g' },
-      { name: 'Vaj', quantity: 200, unit: 'g' },
-      { name: 'Porcukor', quantity: 340, unit: 'g' },
-      { name: 'Tojás', quantity: 3, unit: 'db' },
-      { name: 'Túró', quantity: 250, unit: 'g' },
-      { name: 'Citrom', quantity: 1, unit: 'db' },
-      { name: 'Só', quantity: 1, unit: 'csipet' },
-    ],
-  },
-  {
-    userId: 'user_3CPE4WILkIU2vrqElJNKDPZ2GsH',
-
-    data: {
       title: 'Sajtos-köményes ropi',
 
       description:
@@ -385,6 +351,39 @@ const data = [
       { name: 'Olívaolaj', quantity: 1, unit: 'ek' },
       { name: 'Só', quantity: 1, unit: 'tk' },
       { name: 'Fekete bors', quantity: 0.5, unit: 'tk' },
+    ],
+  },
+  {
+    userId: 'user_3CPCdO9xP7lG2xuj7xsd466sLdd',
+
+    data: {
+      title: 'Paradicsomsaláta',
+
+      description: 'Egyszerű és gyors paradicsomsaláta, nem lehet nem szeretni.',
+      instructions:
+        'Szeleteljük fel vékony szeletekre a paradicsomot és a mozzarellát, majd egy szép tányéron felváltva rétegezzük a szeleteket.\nLocsoljuk meg olívaolajjal és balzsamecettel, fűszerezzük majd a végén szórjuk rá a kapribogyókat.',
+
+      previewImageUrl: 'https://images.pexels.com/photos/9873742/pexels-photo-9873742.jpeg',
+
+      cookTimeMinutes: 0,
+      prepTimeMinutes: 15,
+
+      servings: 1,
+
+      verified: true,
+    },
+
+    categories: ['Előétel', 'Köret', 'Saláta'],
+
+    ingredients: [
+      { name: 'Paradicsom', quantity: 3, unit: 'db' },
+      { name: 'Mozzarella', quantity: 1, unit: 'db' },
+      { name: 'Balzsamecet', quantity: 1, unit: 'ek' },
+      { name: 'Kapribogyó', quantity: 1, unit: 'ek' },
+      { name: 'Só', quantity: 1, unit: 'csipet' },
+      { name: 'Fekete bors', quantity: 0.5, unit: 'csipet' },
+      { name: 'Oregánó', quantity: 1, unit: 'tk' },
+      { name: 'Bazsalikom', quantity: 0.5, unit: 'csokor' },
     ],
   },
 ] satisfies Recipe[];
