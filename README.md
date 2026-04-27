@@ -35,7 +35,7 @@ Itt megtalálod az alkalmazás különböző komponenseinek leírását, telepí
 ## Előfeltételek
 
 - [Docker](https://www.docker.com/) - Az infra konténerek futtatásához.
-- [Node.js](https://nodejs.org/) (LTS) + [pnpm](https://pnpm.io/) vagy npm - A full-stack web app függőségeinek kezeléséhez és futtatásához.
+- [Node.js](https://nodejs.org/) (LTS) + [pnpm](https://pnpm.io/) - A full-stack web app függőségeinek kezeléséhez és futtatásához.
 - [Just](https://github.com/casey/just) - A receptek futtatásához. (Vagy manuálisan a `justfile`-ból kimásolva is végrehajthatóak a receptek.)
 
 ## Justfile (~ Makefile alternatíva)

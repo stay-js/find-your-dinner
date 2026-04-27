@@ -1,5 +1,3 @@
-runner := if `command -v pnpm` != "" { "pnpm" } else { "npm" }
-
 # Runs infra-setup, infra-start, setup, migrate and dev recipes in sequence
 default: infra-setup infra-start setup migrate dev
 
@@ -49,7 +47,7 @@ setup:
         echo "node_modules already exists. Skipping dependency installation..."
     else
         echo "Installing dependencies..."
-        {{runner}} install
+        pnpm install
     fi
 
     if [ -f ".env" ]; then
@@ -63,73 +61,73 @@ setup:
 [group('web')]
 [working-directory: 'web']
 dev:
-    -{{runner}} run dev
+    -pnpm run dev
 
 # Builds web project
 [group('web')]
 [working-directory: 'web']
 build:
-    {{runner}} run build
+    pnpm run build
 
 # Starts the production web server
 [group('web')]
 [working-directory: 'web']
 start:
-    -{{runner}} run start
+    -pnpm run start
 
 # Lints web project
 [group('web')]
 [working-directory: 'web']
 lint *FLAGS:
-    {{runner}} run lint {{FLAGS}}
+    pnpm run lint {{FLAGS}}
 
 # Executes a command inside web directory with current npm runner. Usage: just exec <command>
 [group('web')]
 [working-directory: 'web']
 exec *ARGS:
-    {{runner}} {{ARGS}}
+    pnpm {{ARGS}}
 
 # Generates migration from schema changes
 [group('drizzle')]
 [working-directory: 'web']
 generate *FLAGS:
-    {{runner}} run db:generate {{FLAGS}}
+    pnpm run db:generate {{FLAGS}}
 
 # Push schema to database
 [group('drizzle')]
 [working-directory: 'web']
 push:
-    {{runner}} run db:push
+    pnpm run db:push
 
 # Runs pending database migrations
 [group('drizzle')]
 [working-directory: 'web']
 migrate:
-    {{runner}} run db:migrate
+    pnpm run db:migrate
 
 # Resets database and runs all migrations
 [group('drizzle')]
 [working-directory: 'web']
 migrate-fresh:
-    {{runner}} run db:migrate:fresh
+    pnpm run db:migrate:fresh
 
 # Start drizzle studio
 [group('drizzle')]
 [working-directory: 'web']
 studio:
-    -{{runner}} run db:studio
+    -pnpm run db:studio
 
 # Seeds the database with initial data
 [group('drizzle')]
 [working-directory: 'web']
 seed:
-    {{runner}} run db:seed
+    pnpm run db:seed
 
 # Generates DBML schema file from Drizzle schema
 [group('drizzle')]
 [working-directory: 'web']
 dbml:
-    {{runner}} run db:generate:dbml
+    pnpm run db:generate:dbml
 
 # Runs unit tests, API tests and E2E tests
 [group('tests')]
@@ -140,40 +138,40 @@ test: test-unit test-api test-e2e
 [group('tests')]
 [working-directory: 'web']
 test-unit +ARGS="tests/unit":
-    {{runner}} run test {{ARGS}}
+    pnpm run test {{ARGS}}
 
 # Runs API tests with Vitest
 [group('tests')]
 [working-directory: 'web']
 test-api +ARGS="tests/api":
-    {{runner}} run test {{ARGS}}
+    pnpm run test {{ARGS}}
 
 # Runs API tests with Vitest and generates coverage report
 [group('tests')]
 [working-directory: 'web']
 test-api-coverage +ARGS="tests/api":
-    {{runner}} run test:coverage {{ARGS}}
+    pnpm run test:coverage {{ARGS}}
 
 # Runs API and unit tests with Vitest in watch mode
 [group('tests')]
 [working-directory: 'web']
 test-watch:
-    -{{runner}} run test:watch
+    -pnpm run test:watch
 
 # Runs E2E tests with Playwright
 [group('tests')]
 [working-directory: 'web']
 test-e2e:
-    -{{runner}} run test:e2e
+    -pnpm run test:e2e
 
 # Runs E2E tests with Playwright in headed mode
 [group('tests')]
 [working-directory: 'web']
 test-e2e-headed:
-    -{{runner}} run test:e2e:headed
+    -pnpm run test:e2e:headed
 
 # Runs E2E tests with Playwright UI mode
 [group('tests')]
 [working-directory: 'web']
 test-e2e-ui:
-    {{runner}} run test:e2e:ui
+    pnpm run test:e2e:ui
