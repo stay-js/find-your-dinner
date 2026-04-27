@@ -100,17 +100,25 @@ export function Swipe({ goToFilter, goToTournament, ingredientIds, setLikedRecip
 }
 
 function AnimatedCard({ onDislike, onLike, recipe }: AnimatedCardProps) {
+  const [isAnimating, setIsAnimating] = useState(true);
+
   const x = useMotionValue(0);
   const opacity = useMotionValue(0);
   const scale = useMotionValue(0.95);
   const rotate = useTransform(x, [-250, 250], [-18, 18]);
 
   useEffect(() => {
-    animate(opacity, 1, { duration: 0.2, ease: 'easeOut' });
-    animate(scale, 1, { duration: 0.2, ease: 'easeOut' });
+    Promise.all([
+      animate(opacity, 1, { duration: 0.2, ease: 'easeOut' }),
+      animate(scale, 1, { duration: 0.2, ease: 'easeOut' }),
+    ]).then(() => setIsAnimating(false));
   }, [opacity, scale]);
 
   async function swipe(direction: 'left' | 'right') {
+    if (isAnimating) return;
+
+    setIsAnimating(true);
+
     const target = direction === 'right' ? 700 : -700;
 
     await Promise.all([
@@ -135,11 +143,11 @@ function AnimatedCard({ onDislike, onLike, recipe }: AnimatedCardProps) {
   return (
     <motion.div
       className="relative cursor-grab select-none active:cursor-grabbing"
-      drag="x"
+      drag={isAnimating ? false : 'x'}
       dragConstraints={{ left: 0, right: 0 }}
       dragElastic={1}
       onDragEnd={handleDragEnd}
-      style={{ opacity, rotate, scale, x }}
+      style={{ opacity, pointerEvents: isAnimating ? 'none' : 'auto', rotate, scale, x }}
     >
       <RecipeCard
         onDislike={() => swipe('left')}
