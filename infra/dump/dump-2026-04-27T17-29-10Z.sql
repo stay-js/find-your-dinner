@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict uHoqnIZwb0Bmx5i6PavS3y1WkO2kCJE10eMBZcqvODdNE5yd3UjwbveAk7dmKvb
+\restrict cuHGjCHfeDAMGvdob4nE8KSaoyPzD44T77fbt3v4yChOxCcGSrikOG8H0a9YvMr
 
 -- Dumped from database version 18.2
 -- Dumped by pg_dump version 18.2
@@ -380,6 +380,11 @@ COPY public.category_recipe (category_id, recipe_id) FROM stdin;
 4	11
 7	11
 6	11
+5	12
+8	13
+3	14
+4	14
+3	15
 \.
 
 
@@ -997,6 +1002,40 @@ COPY public.ingredient_recipe_data (ingredient_id, recipe_data_id, unit_id, quan
 184	11	11	0.5
 188	11	9	1
 189	11	18	0.5
+91	12	17	2
+123	12	1	350
+3	12	15	2
+44	12	8	0.5
+183	12	11	2
+184	12	9	0.5
+188	12	9	1
+145	12	10	1
+170	12	1	100
+51	12	8	0.25
+190	12	18	1
+4	12	8	2
+189	12	9	1
+119	13	1	200
+105	13	1	200
+177	13	1	30
+118	13	1	220
+180	13	8	2
+141	13	9	1
+183	13	11	1
+4	14	8	4
+44	14	8	1
+5	14	8	2
+3	14	15	4
+145	14	10	2
+208	14	11	1
+188	14	11	1
+189	14	11	1
+183	14	11	2
+184	14	11	1
+106	14	6	1
+176	14	2	2
+1	15	7	1
+183	15	11	1
 \.
 
 
@@ -1243,17 +1282,21 @@ COPY public.ingredients (id, name) FROM stdin;
 --
 
 COPY public.recipe_data (id, recipe_id, title, description, instructions, preview_image_url, cook_time_minutes, prep_time_minutes, servings, verified, created_at, updated_at) FROM stdin;
-1	1	Sajtos-köményes ropi	Sós aprósütemény bármilyen alkalomra, akár nagy adagban elkészítve, majd fagyasztóban tárolva váratlan vendégek esetén.	A sajtot lereszeljük és kettéosztjuk.\nA sajt egyik részén egy tojáson és a köménymagon kívül mindent összegyúrunk, majd ha egységes tésztát kaptunk legalább 30 percet fagyasztóban pihentetjük.\n3-4mm vastagra nyújtjuk a tésztát, majd a maradék egy tojást felverjük és lekenjük vele a tésztát.\nEzután megszórjuk sajttal és köménymaggal, majd ízlés szerinti vastagságú rudakat vágunk belőle.\n\n200C°-os előmelegített sütőben 10-15 perc alatt aranybarnára sütjük.	https://uploads.znagy.hu/sajtos_komenyes_ropi.jpg	20	30	1	t	2026-04-27 15:30:13.326885	2026-04-27 15:30:13.326885
-2	2	Alap nudli és gombóctészta	Családi recept, több generáció dolgozta tökéletesre.	A krumplit puhára főzzük, majd meghámozzuk (ha főzés előtt még nem tettük) ezután összetörjük. Hozzáadjuk a lisztet, ha még ragacsosnak érezzük a tésztát tegyünk annyi lisztet bele amennyit felvesz.\nA morzsához megpirítjuk a morzsát a cukorral folyamatos kevergetés mellett, csak a végén adjuk hozzá a fahéjat.\nA nudlihoz kis rudakat vágunk a tésztából, lobogó vízben főzzük amíg a felszínre nem jönnek. Ezután megforgathatjuk a morzsában.\n\nA gombócokhoz köralakúra szaggatjuk a tésztát, tölthetjük szilvával, sárgabarackkal, akár lekvárral. Gombócozás után ezt is lobogó vízben kell főzni amíg a felszínre nem úsznak, utána ezt is forgassuk meg a morzsában és kész is.	https://images.pexels.com/photos/34938281/pexels-photo-34938281.jpeg	5	30	2	t	2026-04-27 15:30:13.335479	2026-04-27 15:30:13.335479
-3	3	Császármorzsa	Egyszerű és gyors császármorzsa.	A vajat megolvasztjuk, tojást a cukorral kikeverjük, majd hozzáadjuk a vajat citromhéjat és a tejet. Ha ezeket összekevertük 2-3 részletben keverjük hozzá a lisztet. Zománcolt tepsiben, előmelegített sütőben sütjük 180 C°-on amíg kérgesedik az alja. Ezután kivesszük, kisebb darabokra törjük a tésztát és készre sütjük.	https://images.pexels.com/photos/19772138/pexels-photo-19772138.jpeg	45	15	3	t	2026-04-27 15:30:13.340917	2026-04-27 15:30:13.340917
-4	4	Görög saláta	Könnyed saláta, ha elegünk lenne a húsokból.	A zöldségeket ízlés szerinti méretre vágjuk, majd egy nagy tálba tesszük.\nRámorzsoljuk a feta sajtot és állni hagyjuk míg előkészítjük a friss fűszereket.\nA petrezselymet és a mentát apróra vágjuk, kifacsarjuk a fél citrom levét.\nHozzáadjuk a salátához a mentát, petrezselymet és a citrom levét, illetve a sót, borsot, olajat.\nAlaposan összekeverjük és tálalhatjuk is.	https://images.pexels.com/photos/14016727/pexels-photo-14016727.jpeg	0	15	2	t	2026-04-27 15:30:13.345921	2026-04-27 15:30:13.345921
-5	5	Shakshuka	Török lecsó reggelire.	Első lépésként a paradicsomokat felkockázzuk, majd serpenyőben, alacsony lángon pirítani kezdjük.\nKözben felaprítjuk a hagymát és a többi zöldséget is. A fokhagymát össze is zúzhatjuk, viszont így megbontjuk azokat a rostokat amelyeket, ha késsel vágnánk fel, nem bántanánk. (Zúzás hatására kellemetlenebb lehet a leheltünk.)\nHa már engedett egy kevés levet a paradicsom hozzáadjuk a vöröshagymát, majd üvegesre pároljuk. Ezután mehet bele a fokhagyma, végül a paprika.\nHa az összes zöldség összeesett, fűszerezzük, és keverjük hozzá a paradicsompürét is. Hagyjuk rotyogni (továbbra is alacsony lángon) néhány percig vagy amíg szimpatikus állagú nem lesz.\nHa elértük a kívánt állagot, fakanállal csináljunk helyet a tojásoknak majd üssük bele őket és fedjük le egy fedővel. Folyósabb tojásért amint látjuk hogy a tojás a tetején már fehér, zárjuk el a gázt, pirítsunk hozzá kenyeret, szórjuk meg petrezselyemmel és kaporral, esetleg egy kevés chili olajjal. Máris fogyaszthatjuk, egészségünkre!	https://images.pexels.com/photos/9027325/pexels-photo-9027325.jpeg	10	10	2	t	2026-04-27 15:30:13.35244	2026-04-27 15:30:13.35244
-6	6	Görög spenótos pite	Autentikus görög recept a mindennapokra.	Először kevés olajon megpirítjuk az összezúzott fokhagymákat, majd ráöntjük a spenótot sózzuk, borsozzuk és hagyjuk, hogy megfonnyadjon, majd a karikázott póréhagymát is hozzátesszük.\nKözben előkészítünk egy piteformát amibe egyenként beletesszük a réteslapok felét, laponként olajjal vagy vízzel (attól függően hogy diétázunk-e éppen :D) megkenjük.\nHa a lapok fele elfogyott, beletesszük a fokhagymás spenótos-hagymás keveréket, felverjük a tojásokat és azt is ráöntjük.\nVégül ahogy korábban is rátesszük a maradék réteslapot, laponként megkenjük, a tetejét is, majd 180 C°-os sütőben kb. 45 perc alatt készre sütjük	https://images.pexels.com/photos/30674035/pexels-photo-30674035.jpeg	45	20	3	t	2026-04-27 15:30:13.356865	2026-04-27 15:30:13.356865
-7	7	Nokedli	Egy jól bevált nokedli alaprecept, elengedhetetlen egy magyar ember életében!	Egy nagy fazékba felteszünk nagyon sós vizet forrni!\n\nA nokedlihez mindent egy tálba teszünk és összekeverjük.\nÉrdemes fakanállal keverni, vagy legalábbis nem kézi géppel, mert így könnyen túl tudjuk keverni a tésztát.\nA tésztát pihentetni sem érdemes, ezért jobb már mielőtt belekezdünk a tésztába feltenni forrni a vizet.\nAmint forr a víz, keverünk rajta egyet, hogy majd ne tapadjon le a fazék aljára a tészta, és máris szaggathatjuk bele a nokedlit. Néhány perc alatt feljön a víz tetejére, ekkor főtt meg.\n\nNagymamámnál ilyenkor a nokedliből az első étel sajtos nokedli volt, amihez szalonnát is sütött, ennek kisült zsírjába forgatta bele a nokedlit hogy ne ragadjon össze, majd sajttal, tejföllel, korábban sült szalonnával tálalta. Persze ha éppen nem szeretnénk ezzel bajlódni vajjal, vagy bármilyen zsiradékkal működik ez a trükk, az összeragadás ellen.	https://images.pexels.com/photos/116721/pexels-photo-116721.jpeg	5	15	4	t	2026-04-27 15:30:13.362669	2026-04-27 15:30:13.362669
-8	8	Tonhalkrém (Panna-féle)	Tonhalkrém tésztához, salátához akár pirítósra.	A hagymát apró kockákra vágjuk.\nEgy tálba beletesszük a tejfölt, majonézt, fél citrom levét és a tonhalkonzervet (előtte öntsük le a levét, hogy ne áztassa el a krémet).\nHozzáadjuk a hagymát és felaprítjuk a petrezselymet is, végül ezt is a krémhez keverjük.\nSózzuk, borsozzuk és kész is. Ha áll egy kicsit jobban összeérnek az ízek, de azonnal is fogyaszthatjuk.\n\nPetrezselyem helyett használhatunk koriandert is különlegesebb ízélményért. Lilahagyma helyett használhatunk újhagymát vagy salottahagymát is.	https://images.pexels.com/photos/30910213/pexels-photo-30910213.jpeg	0	15	1	t	2026-04-27 15:30:13.367635	2026-04-27 15:30:13.367635
-9	9	Tonhalkrém (Zétény-féle)	Tonhalkrém mascarponéval és paradicsomszósszal, a mediteránabb ízekért.	Először apró kockákra vágjuk a hagymát, majd egy tálba tesszük.\nTálba mérjük a paradicsomszószt, és hozzátesszük a többi hozzávalót is.\nAlaposan összekeverjük és ehetjük is.	https://images.pexels.com/photos/5640048/pexels-photo-5640048.jpeg	0	15	1	t	2026-04-27 15:30:13.372493	2026-04-27 15:30:13.372493
-10	10	Bolognai ragu	A legjobb bolognai recept!	A hagymát apróra vágjuk, vagy aprítóban összeaprítjuk.\nNagy edényben hevített olajra dobjuk a hagymát, hagyjuk amíg üveges nem lesz.\nA szárzellert és a répát is a kívánt módon aprítjuk és a hagymához adjuk a fokhagymával együtt. Folyamatosan kevergessük a zöldségeket (mirepoix), hogy ne piruljanak túl.\nNéhány perc után hozzáadjuk a paradicsompürét hagyjuk kicsit pirulni, keverjük át majd a darált húsokat. Ahogy a lábasba tesszük, ne kevergessük sűrűn, hagyjuk, hogy piruljon a hús.\n\nHa színt kapott a hús, hozzáadjuk a fűszereket (kivéve a babérlevelet és a bazsalikomot, ha friss bazsalikomot használunk) és a vörösbort. Mindenképpen száraz bort használjunk, és testesebb bort, hiszen ezekből kapjuk meg a megfelelő aromákat. A szép savszerkezeteket hagyjuk meg a nyári estékre, most válasszuk inkább a tanninokat. Cabernet Sauvignon, Shiraz. Utóbbiból inkább déli borvidékről válasszunk. Amennyiben 5 évnél idősebb a bor, érdemes kitölteni és állni hagyni mielőtt felhasználjuk egy széles szájú üvegben hogy kapjon elég oxigént.\n\nAlacsony lángon hagyjuk rotyogni a ragút, majd ha elforrt az alkohol, adjuk hozzá az alaplevet. Majd a babérlevelet a száránál gyújtsuk meg néhány pillanatra, így sokkal kellemesebb és erősebb lesz az íze. A friss bazsalikomot csak az utolsó néhány percben adjuk hozzá a raguhoz, ne vágjuk apróra, csak tépkedjük el kissé, majd csapjuk össze kezünkkel, így több ízt fog adni a ragunak.\n\nFedjük le a ragut, és hagyjuk rotyogni amíg időnk engedi.\n\nMikor főzzük a tésztát az ételhez, egy merőkanállal adjuk a raguhoz a főzővízből, hogy a tésztából kifőtt keményítőtől besűrűsödjön a ragu, így jobban odatapadjon a tésztához.\n\nExtra tipp: Ha van otthon valamilyen kérges keménysajtunk (Parmezán, pecorino, grana padano) a kérgét amit egyébként kidobnánk, tegyük bele a raguba főni, ezzel egyrészt kevesebb ételt pazarolunk, másrészt kitűnő ízt ad a ragunak.	https://images.pexels.com/photos/6287523/pexels-photo-6287523.jpeg	40	30	3	t	2026-04-27 15:30:13.377083	2026-04-27 15:30:13.377083
-11	11	Paradicsomsaláta	Egyszerű és gyors paradicsomsaláta, nem lehet nem szeretni.	Szeleteljük fel vékony szeletekre a paradicsomot és a mozzarellát, majd egy szép tányéron felváltva rétegezzük a szeleteket.\nLocsoljuk meg olívaolajjal és balzsamecettel, fűszerezzük majd a végén szórjuk rá a kapribogyókat.	https://images.pexels.com/photos/9873742/pexels-photo-9873742.jpeg	0	15	1	t	2026-04-27 15:30:13.383327	2026-04-27 15:30:13.383327
+1	1	Sajtos-köményes ropi	Sós aprósütemény bármilyen alkalomra, akár nagy adagban elkészítve, majd fagyasztóban tárolva váratlan vendégek esetén.	A sajtot lereszeljük és kettéosztjuk.\nA sajt egyik részén egy tojáson és a köménymagon kívül mindent összegyúrunk, majd ha egységes tésztát kaptunk legalább 30 percet fagyasztóban pihentetjük.\n3-4mm vastagra nyújtjuk a tésztát, majd a maradék egy tojást felverjük és lekenjük vele a tésztát.\nEzután megszórjuk sajttal és köménymaggal, majd ízlés szerinti vastagságú rudakat vágunk belőle.\n\n200C°-os előmelegített sütőben 10-15 perc alatt aranybarnára sütjük.	https://uploads.znagy.hu/sajtos_komenyes_ropi.jpg	20	30	1	t	2026-04-27 17:26:16.701783	2026-04-27 17:26:16.701783
+2	2	Alap nudli és gombóctészta	Családi recept, több generáció dolgozta tökéletesre.	A krumplit puhára főzzük, majd meghámozzuk (ha főzés előtt még nem tettük) ezután összetörjük. Hozzáadjuk a lisztet, ha még ragacsosnak érezzük a tésztát tegyünk annyi lisztet bele amennyit felvesz.\nA morzsához megpirítjuk a morzsát a cukorral folyamatos kevergetés mellett, csak a végén adjuk hozzá a fahéjat.\nA nudlihoz kis rudakat vágunk a tésztából, lobogó vízben főzzük amíg a felszínre nem jönnek. Ezután megforgathatjuk a morzsában.\n\nA gombócokhoz köralakúra szaggatjuk a tésztát, tölthetjük szilvával, sárgabarackkal, akár lekvárral. Gombócozás után ezt is lobogó vízben kell főzni amíg a felszínre nem úsznak, utána ezt is forgassuk meg a morzsában és kész is.	https://images.pexels.com/photos/34938281/pexels-photo-34938281.jpeg	5	30	2	t	2026-04-27 17:26:16.709028	2026-04-27 17:26:16.709028
+3	3	Császármorzsa	Egyszerű és gyors császármorzsa.	A vajat megolvasztjuk, tojást a cukorral kikeverjük, majd hozzáadjuk a vajat citromhéjat és a tejet. Ha ezeket összekevertük 2-3 részletben keverjük hozzá a lisztet. Zománcolt tepsiben, előmelegített sütőben sütjük 180 C°-on amíg kérgesedik az alja. Ezután kivesszük, kisebb darabokra törjük a tésztát és készre sütjük.	https://images.pexels.com/photos/19772138/pexels-photo-19772138.jpeg	45	15	3	t	2026-04-27 17:26:16.713925	2026-04-27 17:26:16.713925
+4	4	Görög saláta	Könnyed saláta, ha elegünk lenne a húsokból.	A zöldségeket ízlés szerinti méretre vágjuk, majd egy nagy tálba tesszük.\nRámorzsoljuk a feta sajtot és állni hagyjuk míg előkészítjük a friss fűszereket.\nA petrezselymet és a mentát apróra vágjuk, kifacsarjuk a fél citrom levét.\nHozzáadjuk a salátához a mentát, petrezselymet és a citrom levét, illetve a sót, borsot, olajat.\nAlaposan összekeverjük és tálalhatjuk is.	https://images.pexels.com/photos/14016727/pexels-photo-14016727.jpeg	0	15	2	t	2026-04-27 17:26:16.719861	2026-04-27 17:26:16.719861
+5	5	Shakshuka	Török lecsó reggelire.	Első lépésként a paradicsomokat felkockázzuk, majd serpenyőben, alacsony lángon pirítani kezdjük.\nKözben felaprítjuk a hagymát és a többi zöldséget is. A fokhagymát össze is zúzhatjuk, viszont így megbontjuk azokat a rostokat amelyeket, ha késsel vágnánk fel, nem bántanánk. (Zúzás hatására kellemetlenebb lehet a leheltünk.)\nHa már engedett egy kevés levet a paradicsom hozzáadjuk a vöröshagymát, majd üvegesre pároljuk. Ezután mehet bele a fokhagyma, végül a paprika.\nHa az összes zöldség összeesett, fűszerezzük, és keverjük hozzá a paradicsompürét is. Hagyjuk rotyogni (továbbra is alacsony lángon) néhány percig vagy amíg szimpatikus állagú nem lesz.\nHa elértük a kívánt állagot, fakanállal csináljunk helyet a tojásoknak majd üssük bele őket és fedjük le egy fedővel. Folyósabb tojásért amint látjuk hogy a tojás a tetején már fehér, zárjuk el a gázt, pirítsunk hozzá kenyeret, szórjuk meg petrezselyemmel és kaporral, esetleg egy kevés chili olajjal. Máris fogyaszthatjuk, egészségünkre!	https://images.pexels.com/photos/9027325/pexels-photo-9027325.jpeg	10	10	2	t	2026-04-27 17:26:16.72581	2026-04-27 17:26:16.72581
+6	6	Görög spenótos pite	Autentikus görög recept a mindennapokra.	Először kevés olajon megpirítjuk az összezúzott fokhagymákat, majd ráöntjük a spenótot sózzuk, borsozzuk és hagyjuk, hogy megfonnyadjon, majd a karikázott póréhagymát is hozzátesszük.\nKözben előkészítünk egy piteformát amibe egyenként beletesszük a réteslapok felét, laponként olajjal vagy vízzel (attól függően hogy diétázunk-e éppen :D) megkenjük.\nHa a lapok fele elfogyott, beletesszük a fokhagymás spenótos-hagymás keveréket, felverjük a tojásokat és azt is ráöntjük.\nVégül ahogy korábban is rátesszük a maradék réteslapot, laponként megkenjük, a tetejét is, majd 180 C°-os sütőben kb. 45 perc alatt készre sütjük	https://images.pexels.com/photos/30674035/pexels-photo-30674035.jpeg	45	20	3	t	2026-04-27 17:26:16.73021	2026-04-27 17:26:16.73021
+7	7	Nokedli	Egy jól bevált nokedli alaprecept, elengedhetetlen egy magyar ember életében!	Egy nagy fazékba felteszünk nagyon sós vizet forrni!\n\nA nokedlihez mindent egy tálba teszünk és összekeverjük.\nÉrdemes fakanállal keverni, vagy legalábbis nem kézi géppel, mert így könnyen túl tudjuk keverni a tésztát.\nA tésztát pihentetni sem érdemes, ezért jobb már mielőtt belekezdünk a tésztába feltenni forrni a vizet.\nAmint forr a víz, keverünk rajta egyet, hogy majd ne tapadjon le a fazék aljára a tészta, és máris szaggathatjuk bele a nokedlit. Néhány perc alatt feljön a víz tetejére, ekkor főtt meg.\n\nNagymamámnál ilyenkor a nokedliből az első étel sajtos nokedli volt, amihez szalonnát is sütött, ennek kisült zsírjába forgatta bele a nokedlit hogy ne ragadjon össze, majd sajttal, tejföllel, korábban sült szalonnával tálalta. Persze ha éppen nem szeretnénk ezzel bajlódni vajjal, vagy bármilyen zsiradékkal működik ez a trükk, az összeragadás ellen.	https://images.pexels.com/photos/116721/pexels-photo-116721.jpeg	5	15	4	t	2026-04-27 17:26:16.735245	2026-04-27 17:26:16.735245
+8	8	Tonhalkrém (Panna-féle)	Tonhalkrém tésztához, salátához akár pirítósra.	A hagymát apró kockákra vágjuk.\nEgy tálba beletesszük a tejfölt, majonézt, fél citrom levét és a tonhalkonzervet (előtte öntsük le a levét, hogy ne áztassa el a krémet).\nHozzáadjuk a hagymát és felaprítjuk a petrezselymet is, végül ezt is a krémhez keverjük.\nSózzuk, borsozzuk és kész is. Ha áll egy kicsit jobban összeérnek az ízek, de azonnal is fogyaszthatjuk.\n\nPetrezselyem helyett használhatunk koriandert is különlegesebb ízélményért. Lilahagyma helyett használhatunk újhagymát vagy salottahagymát is.	https://images.pexels.com/photos/30910213/pexels-photo-30910213.jpeg	0	15	1	t	2026-04-27 17:26:16.739022	2026-04-27 17:26:16.739022
+9	9	Tonhalkrém (Zétény-féle)	Tonhalkrém mascarponéval és paradicsomszósszal, a mediteránabb ízekért.	Először apró kockákra vágjuk a hagymát, majd egy tálba tesszük.\nTálba mérjük a paradicsomszószt, és hozzátesszük a többi hozzávalót is.\nAlaposan összekeverjük és ehetjük is.	https://images.pexels.com/photos/5640048/pexels-photo-5640048.jpeg	0	15	1	t	2026-04-27 17:26:16.743722	2026-04-27 17:26:16.743722
+10	10	Bolognai ragu	A legjobb bolognai recept!	A hagymát apróra vágjuk, vagy aprítóban összeaprítjuk.\nNagy edényben hevített olajra dobjuk a hagymát, hagyjuk amíg üveges nem lesz.\nA szárzellert és a répát is a kívánt módon aprítjuk és a hagymához adjuk a fokhagymával együtt. Folyamatosan kevergessük a zöldségeket (mirepoix), hogy ne piruljanak túl.\nNéhány perc után hozzáadjuk a paradicsompürét hagyjuk kicsit pirulni, keverjük át majd a darált húsokat. Ahogy a lábasba tesszük, ne kevergessük sűrűn, hagyjuk, hogy piruljon a hús.\n\nHa színt kapott a hús, hozzáadjuk a fűszereket (kivéve a babérlevelet és a bazsalikomot, ha friss bazsalikomot használunk) és a vörösbort. Mindenképpen száraz bort használjunk, és testesebb bort, hiszen ezekből kapjuk meg a megfelelő aromákat. A szép savszerkezeteket hagyjuk meg a nyári estékre, most válasszuk inkább a tanninokat. Cabernet Sauvignon, Shiraz. Utóbbiból inkább déli borvidékről válasszunk. Amennyiben 5 évnél idősebb a bor, érdemes kitölteni és állni hagyni mielőtt felhasználjuk egy széles szájú üvegben hogy kapjon elég oxigént.\n\nAlacsony lángon hagyjuk rotyogni a ragút, majd ha elforrt az alkohol, adjuk hozzá az alaplevet. Majd a babérlevelet a száránál gyújtsuk meg néhány pillanatra, így sokkal kellemesebb és erősebb lesz az íze. A friss bazsalikomot csak az utolsó néhány percben adjuk hozzá a raguhoz, ne vágjuk apróra, csak tépkedjük el kissé, majd csapjuk össze kezünkkel, így több ízt fog adni a ragunak.\n\nFedjük le a ragut, és hagyjuk rotyogni amíg időnk engedi.\n\nMikor főzzük a tésztát az ételhez, egy merőkanállal adjuk a raguhoz a főzővízből, hogy a tésztából kifőtt keményítőtől besűrűsödjön a ragu, így jobban odatapadjon a tésztához.\n\nExtra tipp: Ha van otthon valamilyen kérges keménysajtunk (Parmezán, pecorino, grana padano) a kérgét amit egyébként kidobnánk, tegyük bele a raguba főni, ezzel egyrészt kevesebb ételt pazarolunk, másrészt kitűnő ízt ad a ragunak.	https://images.pexels.com/photos/6287523/pexels-photo-6287523.jpeg	40	30	3	t	2026-04-27 17:26:16.748763	2026-04-27 17:26:16.748763
+11	11	Paradicsomsaláta	Egyszerű és gyors paradicsomsaláta, nem lehet nem szeretni.	Szeleteljük fel vékony szeletekre a paradicsomot és a mozzarellát, majd egy szép tányéron felváltva rétegezzük a szeleteket.\nLocsoljuk meg olívaolajjal és balzsamecettel, fűszerezzük majd a végén szórjuk rá a kapribogyókat.	https://images.pexels.com/photos/9873742/pexels-photo-9873742.jpeg	0	15	1	t	2026-04-27 17:26:16.75403	2026-04-27 17:26:16.75403
+12	12	Tonhalas-olivás tészta	Egyszerű tésztaétel rohanós napokra.	Tegyünk fel egy lábasban vizet forrni a tésztának. Ha felforrt, tegyük bele a tésztát.\n\nEgy magas falú serpenyőbe öntsünk egy kevés olajat, majd tegyük rá a felkockázott lilahagymát, és kezdjük el pirítani.\nAmikor a hagyma már kapott egy kis színt, adjuk hozzá a fokhagymát, amit vékony szeletekre vágunk, vagy fokhagymanyomóval összezúzunk.\n\nA paradicsomokat kockázzuk fel, a zöld részeket távolítsuk el. Ha a fokhagyma megpirult, adjuk a serpenyőhöz a paradicsomot is (a vágás során keletkezett paradicsomlevet is öntsük hozzá).\nKarikázzuk fel az olívabogyókat, és tegyük a serpenyőbe, majd fűszerezzük.\n\nHa a paradicsom megpuhult, adjuk hozzá a megfőtt tésztát és néhány kanállal a főzővízből. Végül keverjük bele a tonhalkonzerveket.\n\nAlaposan forgassuk össze a szószt a tésztával, hogy mindenhol bevonja.\n\nHa elkészült, vegyük le a tűzről, szórjuk meg frissen vágott petrezselyemmel, locsoljuk meg egy kevés citromlével, és már tálalhatjuk is.	https://images.pexels.com/photos/6412475/pexels-photo-6412475.jpeg	15	10	2	f	2026-04-27 17:26:16.759818	2026-04-27 17:26:16.759818
+13	13	Kladdkaka	Kladdkaka avagy a svédek brownie-ja	Melegítsük elő a sütőt 170 °C-ra.\n\nOlvasszuk meg a vajat, majd egy tálban keverjük ki a cukorral. Adjuk hozzá a tojásokat, és dolgozzuk össze a masszát.\nSzitáljuk át a lisztet, és keverjük össze a száraz hozzávalókat.\n\nA száraz hozzávalókat 2-3 részletben adjuk a tésztához, és óvatosan forgassuk össze.\n\nÖntsük a tésztát egy piteformába, majd süssük 170 °C-on kb. 45 percig.	https://images.pexels.com/photos/30350314/pexels-photo-30350314.jpeg	45	15	4	f	2026-04-27 17:26:16.765962	2026-04-27 17:26:16.765962
+14	14	Paradicsomleves	Kicsit jobb, mint az átlagos paradicsomleves.	Melegítsük elő a sütőt 180 °C-ra.\n\nA zöldségeket vágjuk félbe, a hagymákat pucoljuk meg, majd daraboljuk kisebb részekre, és helyezzük őket egy tepsibe.\nLocsoljuk meg olajjal, majd fűszerezzük ízlés szerint.\n\nSüssük 45 percig, majd tegyünk mindent egy lábasba, és öntsük fel az alaplével. Botmixerrel turmixoljuk simára.\nHagyjuk, hogy egyet forrjon, majd tejszínnel lágyítsuk a levest.\n\nKóstoljuk meg, szükség esetén ízesítsük tovább, és már tálalhatjuk is.	https://images.pexels.com/photos/17302314/pexels-photo-17302314.jpeg	60	10	1	t	2026-04-27 17:26:16.770058	2026-04-27 17:26:16.770058
+15	15	Sós víz	Sós víz	Sós víz	https://images.pexels.com/photos/13466248/pexels-photo-13466248.jpeg	0	1	4	f	2026-04-27 17:26:16.775139	2026-04-27 17:26:16.775139
 \.
 
 
@@ -1262,17 +1305,21 @@ COPY public.recipe_data (id, recipe_id, title, description, instructions, previe
 --
 
 COPY public.recipes (id, user_id, created_at) FROM stdin;
-1	user_3CPE4WILkIU2vrqElJNKDPZ2GsH	2026-04-27 15:30:13.326885
-2	user_3CPE4WILkIU2vrqElJNKDPZ2GsH	2026-04-27 15:30:13.335479
-3	user_3CPE4WILkIU2vrqElJNKDPZ2GsH	2026-04-27 15:30:13.340917
-4	user_3CPE4WILkIU2vrqElJNKDPZ2GsH	2026-04-27 15:30:13.345921
-5	user_3CPE4WILkIU2vrqElJNKDPZ2GsH	2026-04-27 15:30:13.35244
-6	user_3CPE4WILkIU2vrqElJNKDPZ2GsH	2026-04-27 15:30:13.356865
-7	user_3CPE4WILkIU2vrqElJNKDPZ2GsH	2026-04-27 15:30:13.362669
-8	user_3CPE4WILkIU2vrqElJNKDPZ2GsH	2026-04-27 15:30:13.367635
-9	user_3CPE4WILkIU2vrqElJNKDPZ2GsH	2026-04-27 15:30:13.372493
-10	user_3CPE4WILkIU2vrqElJNKDPZ2GsH	2026-04-27 15:30:13.377083
-11	user_3CPCdO9xP7lG2xuj7xsd466sLdd	2026-04-27 15:30:13.383327
+1	user_3CPE4WILkIU2vrqElJNKDPZ2GsH	2026-04-27 17:26:16.701783
+2	user_3CPE4WILkIU2vrqElJNKDPZ2GsH	2026-04-27 17:26:16.709028
+3	user_3CPE4WILkIU2vrqElJNKDPZ2GsH	2026-04-27 17:26:16.713925
+4	user_3CPE4WILkIU2vrqElJNKDPZ2GsH	2026-04-27 17:26:16.719861
+5	user_3CPE4WILkIU2vrqElJNKDPZ2GsH	2026-04-27 17:26:16.72581
+6	user_3CPE4WILkIU2vrqElJNKDPZ2GsH	2026-04-27 17:26:16.73021
+7	user_3CPE4WILkIU2vrqElJNKDPZ2GsH	2026-04-27 17:26:16.735245
+8	user_3CPE4WILkIU2vrqElJNKDPZ2GsH	2026-04-27 17:26:16.739022
+9	user_3CPE4WILkIU2vrqElJNKDPZ2GsH	2026-04-27 17:26:16.743722
+10	user_3CPE4WILkIU2vrqElJNKDPZ2GsH	2026-04-27 17:26:16.748763
+11	user_3CPCdO9xP7lG2xuj7xsd466sLdd	2026-04-27 17:26:16.75403
+12	user_3CPCdO9xP7lG2xuj7xsd466sLdd	2026-04-27 17:26:16.759818
+13	user_3CPE4WILkIU2vrqElJNKDPZ2GsH	2026-04-27 17:26:16.765962
+14	user_3CPE4WILkIU2vrqElJNKDPZ2GsH	2026-04-27 17:26:16.770058
+15	user_3CkzswbYbPXoT2B5OufMVDWwCOK	2026-04-27 17:26:16.775139
 \.
 
 
@@ -1335,14 +1382,14 @@ SELECT pg_catalog.setval('public.ingredients_id_seq', 230, true);
 -- Name: recipe_data_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.recipe_data_id_seq', 11, true);
+SELECT pg_catalog.setval('public.recipe_data_id_seq', 15, true);
 
 
 --
 -- Name: recipes_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.recipes_id_seq', 11, true);
+SELECT pg_catalog.setval('public.recipes_id_seq', 15, true);
 
 
 --
@@ -1609,5 +1656,5 @@ REVOKE USAGE ON SCHEMA public FROM PUBLIC;
 -- PostgreSQL database dump complete
 --
 
-\unrestrict uHoqnIZwb0Bmx5i6PavS3y1WkO2kCJE10eMBZcqvODdNE5yd3UjwbveAk7dmKvb
+\unrestrict cuHGjCHfeDAMGvdob4nE8KSaoyPzD44T77fbt3v4yChOxCcGSrikOG8H0a9YvMr
 
