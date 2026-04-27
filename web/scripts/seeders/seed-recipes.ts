@@ -30,9 +30,9 @@ const data = [
       description:
         'Sós aprósütemény bármilyen alkalomra, akár nagy adagban elkészítve, majd fagyasztóban tárolva váratlan vendégek esetén.',
       instructions:
-        'A sajtot lereszeljük és kettéosztjuk. \nA sajt egyik részén egy tojáson és a köménymagon kívül mindent összegyúrunk, majd ha egységes tésztát kaptunk legalább 30 percet fagyasztóban pihentetjük. \n3-4mm vastagra nyújtjuk a tésztát majd a maradék egy tojást felverjük és lekenjük vele a tésztát.\nEzután megszórjuk sajttal és köménymaggal, majd ízlés szerinti vastagságú rudakat vágunk belőle.\n\n200C°-os előmelegített sütőben 10-15 perc alatt aranybarnára sütjük.',
+        'A sajtot lereszeljük és kettéosztjuk.\nA sajt egyik részén egy tojáson és a köménymagon kívül mindent összegyúrunk, majd ha egységes tésztát kaptunk legalább 30 percet fagyasztóban pihentetjük.\n3-4mm vastagra nyújtjuk a tésztát, majd a maradék egy tojást felverjük és lekenjük vele a tésztát.\nEzután megszórjuk sajttal és köménymaggal, majd ízlés szerinti vastagságú rudakat vágunk belőle.\n\n200C°-os előmelegített sütőben 10-15 perc alatt aranybarnára sütjük.',
 
-      previewImageUrl: 'https://www.facebook.com/24658824-28b9-4ce3-91fa-0732fde567ba',
+      previewImageUrl: 'https://uploads.znagy.hu/sajtos_komenyes_ropi.jpg',
 
       cookTimeMinutes: 20,
       prepTimeMinutes: 30,
@@ -62,7 +62,7 @@ const data = [
 
       description: 'Családi recept, több generáció dolgozta tökéletesre.',
       instructions:
-        'A krumplit puhára főzzük, majd meghámozzuk (ha főzés előtt még nem tettük) majd összetörjük. Hozzáadjuk a lisztet, ha még ragacsosnak érezzük a tésztát tegyünk annyi lisztet bele amennyit felvesz.\nA morzsához megpirítjuk a morzsát a cukorral folyamatos kevergetés mellett, csak a végén adjuk hozzá a fahéjat.\nA nudlihoz kis rudakat vágunk a tésztából, lobogó vízben főzzük amíg a felszínre nem jönnek. Ezután megforgathatjuk a morzsában.\n\nA gombócokhoz köralakúra szaggatjuk a tésztát, tölthetjük szilvával, sárgabarackkal, akár lekvárral. Gombócozás után ezt is lobogó vízben kell főzni amíg a felszínre nem úsznak, utána ezt is forgassuk meg a morzsában és kész is.',
+        'A krumplit puhára főzzük, majd meghámozzuk (ha főzés előtt még nem tettük) ezután összetörjük. Hozzáadjuk a lisztet, ha még ragacsosnak érezzük a tésztát tegyünk annyi lisztet bele amennyit felvesz.\nA morzsához megpirítjuk a morzsát a cukorral folyamatos kevergetés mellett, csak a végén adjuk hozzá a fahéjat.\nA nudlihoz kis rudakat vágunk a tésztából, lobogó vízben főzzük amíg a felszínre nem jönnek. Ezután megforgathatjuk a morzsában.\n\nA gombócokhoz köralakúra szaggatjuk a tésztát, tölthetjük szilvával, sárgabarackkal, akár lekvárral. Gombócozás után ezt is lobogó vízben kell főzni amíg a felszínre nem úsznak, utána ezt is forgassuk meg a morzsában és kész is.',
 
       previewImageUrl: 'https://images.pexels.com/photos/34938281/pexels-photo-34938281.jpeg',
 
@@ -90,9 +90,9 @@ const data = [
     data: {
       title: 'Császármorzsa',
 
-      description: 'Egyszerű és gyors császármorzsa',
+      description: 'Egyszerű és gyors császármorzsa.',
       instructions:
-        'A vajat megolvasztjuk, tojást a cukorral kikeverjük majd hozzáadjuk a vajat citromhéjat és a tejet. Ha ezeket összekevertük 2-3 részletben keverjük hozzá a lisztet. Zománcolt tepsiben, előmelegített sütőben sütjük 180 C°-on amíg kérgesedik az alja. Ezután kivesszük, kisebb darabokra törjük a tésztát és készre sütjük.',
+        'A vajat megolvasztjuk, tojást a cukorral kikeverjük, majd hozzáadjuk a vajat citromhéjat és a tejet. Ha ezeket összekevertük 2-3 részletben keverjük hozzá a lisztet. Zománcolt tepsiben, előmelegített sütőben sütjük 180 C°-on amíg kérgesedik az alja. Ezután kivesszük, kisebb darabokra törjük a tésztát és készre sütjük.',
 
       previewImageUrl: 'https://images.pexels.com/photos/19772138/pexels-photo-19772138.jpeg',
 
@@ -120,9 +120,9 @@ const data = [
     data: {
       title: 'Görög saláta',
 
-      description: 'Könnyed saláta ha elegünk lenne a húsokból.',
+      description: 'Könnyed saláta, ha elegünk lenne a húsokból.',
       instructions:
-        'A zöldségeket ízlés szerinti méretre vágjuk majd egy nagy tálba tesszük.\nRámorzsoljuk a feta sajtot és állni hagyjuk míg előkészítjük a friss fűszereket.\nA petrezselymet és a mentát apróra vágjuk, kifacsarjuk a fél citrom levét.\nHozzáadjuk a salátához a mentát, petrezselymet és a citrom levét, illetve a sót, borsot, olajat. \nAlaposan összekeverjük és tálalhatjuk is.',
+        'A zöldségeket ízlés szerinti méretre vágjuk, majd egy nagy tálba tesszük.\nRámorzsoljuk a feta sajtot és állni hagyjuk míg előkészítjük a friss fűszereket.\nA petrezselymet és a mentát apróra vágjuk, kifacsarjuk a fél citrom levét.\nHozzáadjuk a salátához a mentát, petrezselymet és a citrom levét, illetve a sót, borsot, olajat.\nAlaposan összekeverjük és tálalhatjuk is.',
 
       previewImageUrl: 'https://images.pexels.com/photos/14016727/pexels-photo-14016727.jpeg',
 
@@ -155,9 +155,9 @@ const data = [
     data: {
       title: 'Shakshuka',
 
-      description: 'Török lecsó reggelire',
+      description: 'Török lecsó reggelire.',
       instructions:
-        'Első lépésként a paradicsomokat felkockázzuk majd serpenyőben, alacsony lángon pirítani kezdjük. \nKözben felaprítjuk a hagymát és a többi zöldséget is. A fokhagymát össze is zúzhatjuk, viszont így megbontjuk azokat a rostokat amelyeket ha késsel vágnánk fel, nem bántanánk. (Zúzás hatására kellemetlenebb lehet a leheltünk.)\nHa már engedett egy kevés levet a paradicsom hozzáadjuk a vöröshagymát, majd üvegesre pároljuk. Ezután mehet bele a fokhagyma, végül a paprika.\nHa az összes zöldség összeesett, fűszerezzük, és keverjük hozzá a paradicsompürét is. Hagyjuk rotyogni (továbbra is alacsony lángon) néhány percig vagy amíg szimpatikus állagú nem lesz. \nHa elértük a kívánt állagot, fakanállal csináljunk helyet a tojásoknak majd üssük bele őket és fedjük le egy fedővel. Folyósabb tojásért amint látjuk hogy a tojás a tetején már fehér, zárjuk el a gázt, pirítsunk hozzá kenyeret, szórjuk meg petrezselyemmel és kaporral, esetleg egy kevés chili olajjal. Máris fogyaszthatjuk, egészségünkre!',
+        'Első lépésként a paradicsomokat felkockázzuk, majd serpenyőben, alacsony lángon pirítani kezdjük.\nKözben felaprítjuk a hagymát és a többi zöldséget is. A fokhagymát össze is zúzhatjuk, viszont így megbontjuk azokat a rostokat amelyeket, ha késsel vágnánk fel, nem bántanánk. (Zúzás hatására kellemetlenebb lehet a leheltünk.)\nHa már engedett egy kevés levet a paradicsom hozzáadjuk a vöröshagymát, majd üvegesre pároljuk. Ezután mehet bele a fokhagyma, végül a paprika.\nHa az összes zöldség összeesett, fűszerezzük, és keverjük hozzá a paradicsompürét is. Hagyjuk rotyogni (továbbra is alacsony lángon) néhány percig vagy amíg szimpatikus állagú nem lesz.\nHa elértük a kívánt állagot, fakanállal csináljunk helyet a tojásoknak majd üssük bele őket és fedjük le egy fedővel. Folyósabb tojásért amint látjuk hogy a tojás a tetején már fehér, zárjuk el a gázt, pirítsunk hozzá kenyeret, szórjuk meg petrezselyemmel és kaporral, esetleg egy kevés chili olajjal. Máris fogyaszthatjuk, egészségünkre!',
 
       previewImageUrl: 'https://images.pexels.com/photos/9027325/pexels-photo-9027325.jpeg',
 
@@ -189,9 +189,9 @@ const data = [
     data: {
       title: 'Görög spenótos pite',
 
-      description: 'Autentikus görög recept a mindennapokra',
+      description: 'Autentikus görög recept a mindennapokra.',
       instructions:
-        'Először kevés olajon megpirítjuk az összezúzott fokhagymákat majd ráöntjük a spenótot sózzuk, borsozzuk és hagyjuk hogy megfonnyadjon majd a karikázott póréhagymát is hozzátesszük. \nKözben előkészítünk egy piteformát amibe egyenként beletesszük a réteslapok felét, laponként olajjal vagy vízzel (attól függően hogy diétázunk-e éppen :D) megkenjük.\nHa a lapok fele elfogyott, beletesszük a fokhagymás spenótos-hagymás keveréket, felverjük a tojásokat és azt is ráöntjük. \nVégül ahogy korábban is rátesszük a maradék réteslapot, laponként megkenjük, a tetejét is, majd 180 C°-os sütőben kb. 45 perc alatt készre sütjük',
+        'Először kevés olajon megpirítjuk az összezúzott fokhagymákat, majd ráöntjük a spenótot sózzuk, borsozzuk és hagyjuk, hogy megfonnyadjon, majd a karikázott póréhagymát is hozzátesszük.\nKözben előkészítünk egy piteformát amibe egyenként beletesszük a réteslapok felét, laponként olajjal vagy vízzel (attól függően hogy diétázunk-e éppen :D) megkenjük.\nHa a lapok fele elfogyott, beletesszük a fokhagymás spenótos-hagymás keveréket, felverjük a tojásokat és azt is ráöntjük.\nVégül ahogy korábban is rátesszük a maradék réteslapot, laponként megkenjük, a tetejét is, majd 180 C°-os sütőben kb. 45 perc alatt készre sütjük',
 
       previewImageUrl: 'https://images.pexels.com/photos/30674035/pexels-photo-30674035.jpeg',
 
@@ -222,9 +222,9 @@ const data = [
     data: {
       title: 'Nokedli',
 
-      description: 'Egy jól bevált nokedli alaprecept elengedhetetlen egy magyar ember életében!',
+      description: 'Egy jól bevált nokedli alaprecept, elengedhetetlen egy magyar ember életében!',
       instructions:
-        'Egy nagy fazékba felteszünk nagyon sós vizet forrni!\n\nA nokedlihez mindent egy tálba teszünk és összekeverjük. \nÉrdemes fakanállal keverni, vagy legalábbis nem kézi géppel, mert így könnyen túl tudjuk keverni a tésztát.\nA tésztát pihentetni sem érdemes, ezért jobb már mielőtt belekezdünk a tésztába feltenni forrni a vizet. \nAmint forr a víz, keverünk rajta egyet hogy majd ne tapadjon le a fazék aljára a tészta, és máris szaggathatjuk bele a nokedlit. Néhány perc alatt feljön a víz tetejére, ekkor főtt meg. \n\nNagymamámnál ilyenkor a nokedliből az első étel sajtos nokedli volt, amihez szalonnát is sütött, ennek kisült zsírjába forgatta bele a nokedlit hogy ne ragadjon össze, majd sajttal, tejföllel, korábban sült szalonnával tálalta. Persze ha éppen nem szeretnénk ezzel bajlódni vajjal, vagy bármilyen zsiradékkal működik ez a trükk, az összeragadás ellen.',
+        'Egy nagy fazékba felteszünk nagyon sós vizet forrni!\n\nA nokedlihez mindent egy tálba teszünk és összekeverjük.\nÉrdemes fakanállal keverni, vagy legalábbis nem kézi géppel, mert így könnyen túl tudjuk keverni a tésztát.\nA tésztát pihentetni sem érdemes, ezért jobb már mielőtt belekezdünk a tésztába feltenni forrni a vizet.\nAmint forr a víz, keverünk rajta egyet, hogy majd ne tapadjon le a fazék aljára a tészta, és máris szaggathatjuk bele a nokedlit. Néhány perc alatt feljön a víz tetejére, ekkor főtt meg.\n\nNagymamámnál ilyenkor a nokedliből az első étel sajtos nokedli volt, amihez szalonnát is sütött, ennek kisült zsírjába forgatta bele a nokedlit hogy ne ragadjon össze, majd sajttal, tejföllel, korábban sült szalonnával tálalta. Persze ha éppen nem szeretnénk ezzel bajlódni vajjal, vagy bármilyen zsiradékkal működik ez a trükk, az összeragadás ellen.',
 
       previewImageUrl: 'https://images.pexels.com/photos/116721/pexels-photo-116721.jpeg',
 
@@ -254,7 +254,7 @@ const data = [
 
       description: 'Tonhalkrém tésztához, salátához akár pirítósra.',
       instructions:
-        'A hagymát apró kockákra vágjuk.\nEgy tálba beletesszük a tejfölt, majonézt, fél citrom levét és a tonhalkonzervet (előtte öntsük le a levét, hogy ne áztassa el a krémet).\nHozzáadjuk a hagymát és felaprítjuk a petrezselymet is, végül ezt is a krémhez keverjük. \nSózzuk, borsozzuk és kész is. Ha áll egy kicsit jobban összeérnek az ízek, de azonnal is fogyaszthatjuk.\n\nPetrezselyem helyett használhatunk koriandert is különlegesebb ízélményért. Lilahagyma helyett használhatunk újhagymát vagy salottahagymát is.',
+        'A hagymát apró kockákra vágjuk.\nEgy tálba beletesszük a tejfölt, majonézt, fél citrom levét és a tonhalkonzervet (előtte öntsük le a levét, hogy ne áztassa el a krémet).\nHozzáadjuk a hagymát és felaprítjuk a petrezselymet is, végül ezt is a krémhez keverjük.\nSózzuk, borsozzuk és kész is. Ha áll egy kicsit jobban összeérnek az ízek, de azonnal is fogyaszthatjuk.\n\nPetrezselyem helyett használhatunk koriandert is különlegesebb ízélményért. Lilahagyma helyett használhatunk újhagymát vagy salottahagymát is.',
 
       previewImageUrl: 'https://images.pexels.com/photos/30910213/pexels-photo-30910213.jpeg',
 
@@ -287,7 +287,7 @@ const data = [
 
       description: 'Tonhalkrém mascarponéval és paradicsomszósszal, a mediteránabb ízekért.',
       instructions:
-        'Először apró kockákra vágjuk a hagymát, majd egy tálba tesszük.\nTálba mérjük a paradicsomszószt, és hozzátesszük a többi hozzávalót is. \nAlaposan összekeverjük és ehetjük is.',
+        'Először apró kockákra vágjuk a hagymát, majd egy tálba tesszük.\nTálba mérjük a paradicsomszószt, és hozzátesszük a többi hozzávalót is.\nAlaposan összekeverjük és ehetjük is.',
 
       previewImageUrl: 'https://images.pexels.com/photos/5640048/pexels-photo-5640048.jpeg',
 
@@ -317,9 +317,9 @@ const data = [
     data: {
       title: 'Bolognai ragu',
 
-      description: 'Legjobb bolognai recept!',
+      description: 'A legjobb bolognai recept!',
       instructions:
-        'A hagymát apróra vágjuk, vagy aprítóban összeaprítjuk. \nNagy edényben hevített olajra dobjuk a hagymát, hagyjuk amíg üveges nem lesz.\nA szárzellert és a répát is a kívánt módon aprítjuk és a hagymához adjuk a fokhagymával együtt. Folyamatosan kevergessük a zöldségeket (mirepoix) hogy ne piruljanak túl. \nNéhány perc után hozzáadjuk a paradicsompürét hagyjuk kicsit pirulni, keverjük át majd a darált húsokat. Ahogy a lábasba tesszük, ne kevergessük sűrűn, hagyjuk hogy piruljon a hús. \n\nHa színt kapott a hús, hozzáadjuk a fűszereket (kivéve a babérlevelet és a bazsalikomot ha friss bazsalikomot használunk) és a vörösbort. Mindenképpen száraz bort használjunk, és testesebb, bort hiszen ezekből kapjuk meg a megfelelő aromákat. A szép savszerkezeteket hagyjuk meg a nyári estékre, most válasszuk inkább a tanninokat.  Cabernet Sauvignon, Shiraz. Utóbbiból inkább déli borvidékről válasszunk. Amennyiben 5 évnél idősebb a bor, érdemes kitölteni és állni hagyni mielőtt felhasználjuk egy széles szájú üvegben hogy kapjon elég oxigént.\n\nAlacsony lángon hagyjuk rotyogni a ragút, majd ha elforrt az alkohol, adjuk hozzá az alaplevet. Majd a babérlevelet a száránál gyújtsuk meg néhány pillanatra, így sokkal kellemesebb és erősebb lesz az íze. A friss bazsalikomot csak az utolsó néhány percbe adjuk hozzá a raguhoz, ne vágjuk apróra, csak tépkedjük el kissé, majd csapjuk össze kezünkkel, így több ízt fog adni a ragunak. \n\nFedjük le a ragut, és hagyjuk rotyogni amíg időnk engedi. \n\nMikor főzzük a tésztát az ételhez, egy merőkanállal adjuk a raguhoz a főzővízből hogy a tésztából kifőtt keményítőtől besűrüsödjön a ragu, így jobban odatapadjon a tésztához. \n\nExtra tipp: Ha van otthon valamilyen kérges keménysajtunk (Parmezán, pecorino, grana padano) a kérgét amit egyébként kidobnánk, tegyük bele a raguba főni, ezzel egyrészt kevesebb ételt pazarolunk, másrészt kitűnő ízt ad a ragunak.',
+        'A hagymát apróra vágjuk, vagy aprítóban összeaprítjuk.\nNagy edényben hevített olajra dobjuk a hagymát, hagyjuk amíg üveges nem lesz.\nA szárzellert és a répát is a kívánt módon aprítjuk és a hagymához adjuk a fokhagymával együtt. Folyamatosan kevergessük a zöldségeket (mirepoix), hogy ne piruljanak túl.\nNéhány perc után hozzáadjuk a paradicsompürét hagyjuk kicsit pirulni, keverjük át majd a darált húsokat. Ahogy a lábasba tesszük, ne kevergessük sűrűn, hagyjuk, hogy piruljon a hús.\n\nHa színt kapott a hús, hozzáadjuk a fűszereket (kivéve a babérlevelet és a bazsalikomot, ha friss bazsalikomot használunk) és a vörösbort. Mindenképpen száraz bort használjunk, és testesebb bort, hiszen ezekből kapjuk meg a megfelelő aromákat. A szép savszerkezeteket hagyjuk meg a nyári estékre, most válasszuk inkább a tanninokat. Cabernet Sauvignon, Shiraz. Utóbbiból inkább déli borvidékről válasszunk. Amennyiben 5 évnél idősebb a bor, érdemes kitölteni és állni hagyni mielőtt felhasználjuk egy széles szájú üvegben hogy kapjon elég oxigént.\n\nAlacsony lángon hagyjuk rotyogni a ragút, majd ha elforrt az alkohol, adjuk hozzá az alaplevet. Majd a babérlevelet a száránál gyújtsuk meg néhány pillanatra, így sokkal kellemesebb és erősebb lesz az íze. A friss bazsalikomot csak az utolsó néhány percben adjuk hozzá a raguhoz, ne vágjuk apróra, csak tépkedjük el kissé, majd csapjuk össze kezünkkel, így több ízt fog adni a ragunak.\n\nFedjük le a ragut, és hagyjuk rotyogni amíg időnk engedi.\n\nMikor főzzük a tésztát az ételhez, egy merőkanállal adjuk a raguhoz a főzővízből, hogy a tésztából kifőtt keményítőtől besűrűsödjön a ragu, így jobban odatapadjon a tésztához.\n\nExtra tipp: Ha van otthon valamilyen kérges keménysajtunk (Parmezán, pecorino, grana padano) a kérgét amit egyébként kidobnánk, tegyük bele a raguba főni, ezzel egyrészt kevesebb ételt pazarolunk, másrészt kitűnő ízt ad a ragunak.',
 
       previewImageUrl: 'https://images.pexels.com/photos/6287523/pexels-photo-6287523.jpeg',
 
