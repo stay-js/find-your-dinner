@@ -36,7 +36,7 @@ Itt megtalálod az alkalmazás különböző komponenseinek leírását, telepí
 
 - [Docker](https://www.docker.com/) - Az infra konténerek futtatásához.
 - [Node.js](https://nodejs.org/) (LTS) + [pnpm](https://pnpm.io/) - A full-stack web app függőségeinek kezeléséhez és futtatásához.
-- [Just](https://github.com/casey/just) - A receptek futtatásához. (Vagy manuálisan a `justfile`-ból kimásolva is végrehajthatóak a receptek.)
+- [Just](https://github.com/casey/just) (>1.46.0, Ubuntu (NeuDockerBase2025) esetén az `apt install just` régebbi, nem támogatott verziót telepít) - A receptek futtatásához. (Vagy manuálisan a `justfile`-ból kimásolva is végrehajthatóak a receptek.)
 
 ## Justfile (~ Makefile alternatíva)
 
