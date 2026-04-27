@@ -22,7 +22,7 @@ type Recipe = {
 
 const data = [
   {
-    userId: 'user_3CPE4WILkIU2vrqElJNKDPZ2GsH',
+    userId: 'user_3CPE4WILkIU2vrqElJNKDPZ2GsH', // clerk prod environment, ppanna
 
     data: {
       title: 'Sajtos-köményes ropi',
@@ -55,7 +55,7 @@ const data = [
     ],
   },
   {
-    userId: 'user_3CPE4WILkIU2vrqElJNKDPZ2GsH',
+    userId: 'user_3CPE4WILkIU2vrqElJNKDPZ2GsH', // clerk prod environment, ppanna
 
     data: {
       title: 'Alap nudli és gombóctészta',
@@ -85,7 +85,7 @@ const data = [
     ],
   },
   {
-    userId: 'user_3CPE4WILkIU2vrqElJNKDPZ2GsH',
+    userId: 'user_3CPE4WILkIU2vrqElJNKDPZ2GsH', // clerk prod environment, ppanna
 
     data: {
       title: 'Császármorzsa',
@@ -115,7 +115,7 @@ const data = [
     ],
   },
   {
-    userId: 'user_3CPE4WILkIU2vrqElJNKDPZ2GsH',
+    userId: 'user_3CPE4WILkIU2vrqElJNKDPZ2GsH', // clerk prod environment, ppanna
 
     data: {
       title: 'Görög saláta',
@@ -150,7 +150,7 @@ const data = [
     ],
   },
   {
-    userId: 'user_3CPE4WILkIU2vrqElJNKDPZ2GsH',
+    userId: 'user_3CPE4WILkIU2vrqElJNKDPZ2GsH', // clerk prod environment, ppanna
 
     data: {
       title: 'Shakshuka',
@@ -184,7 +184,7 @@ const data = [
     ],
   },
   {
-    userId: 'user_3CPE4WILkIU2vrqElJNKDPZ2GsH',
+    userId: 'user_3CPE4WILkIU2vrqElJNKDPZ2GsH', // clerk prod environment, ppanna
 
     data: {
       title: 'Görög spenótos pite',
@@ -217,7 +217,7 @@ const data = [
     ],
   },
   {
-    userId: 'user_3CPE4WILkIU2vrqElJNKDPZ2GsH',
+    userId: 'user_3CPE4WILkIU2vrqElJNKDPZ2GsH', // clerk prod environment, ppanna
 
     data: {
       title: 'Nokedli',
@@ -247,7 +247,7 @@ const data = [
     ],
   },
   {
-    userId: 'user_3CPE4WILkIU2vrqElJNKDPZ2GsH',
+    userId: 'user_3CPE4WILkIU2vrqElJNKDPZ2GsH', // clerk prod environment, ppanna
 
     data: {
       title: 'Tonhalkrém (Panna-féle)',
@@ -280,7 +280,7 @@ const data = [
     ],
   },
   {
-    userId: 'user_3CPE4WILkIU2vrqElJNKDPZ2GsH',
+    userId: 'user_3CPE4WILkIU2vrqElJNKDPZ2GsH', // clerk prod environment, ppanna
 
     data: {
       title: 'Tonhalkrém (Zétény-féle)',
@@ -312,7 +312,7 @@ const data = [
     ],
   },
   {
-    userId: 'user_3CPE4WILkIU2vrqElJNKDPZ2GsH',
+    userId: 'user_3CPE4WILkIU2vrqElJNKDPZ2GsH', // clerk prod environment, ppanna
 
     data: {
       title: 'Bolognai ragu',
@@ -354,7 +354,7 @@ const data = [
     ],
   },
   {
-    userId: 'user_3CPCdO9xP7lG2xuj7xsd466sLdd',
+    userId: 'user_3CPCdO9xP7lG2xuj7xsd466sLdd', // clerk prod environment, znagy
 
     data: {
       title: 'Paradicsomsaláta',
@@ -384,6 +384,139 @@ const data = [
       { name: 'Fekete bors', quantity: 0.5, unit: 'csipet' },
       { name: 'Oregánó', quantity: 1, unit: 'tk' },
       { name: 'Bazsalikom', quantity: 0.5, unit: 'csokor' },
+    ],
+  },
+  {
+    userId: 'user_3CPCdO9xP7lG2xuj7xsd466sLdd', // clerk prod environment, znagy
+
+    data: {
+      title: 'Tonhalas-olivás tészta',
+
+      description: 'Egyszerű tésztaétel rohanós napokra.',
+      instructions:
+        'Tegyünk fel egy lábasban vizet forrni a tésztának. Ha felforrt, tegyük bele a tésztát.\n\nEgy magas falú serpenyőbe öntsünk egy kevés olajat, majd tegyük rá a felkockázott lilahagymát, és kezdjük el pirítani.\nAmikor a hagyma már kapott egy kis színt, adjuk hozzá a fokhagymát, amit vékony szeletekre vágunk, vagy fokhagymanyomóval összezúzunk.\n\nA paradicsomokat kockázzuk fel, a zöld részeket távolítsuk el. Ha a fokhagyma megpirult, adjuk a serpenyőhöz a paradicsomot is (a vágás során keletkezett paradicsomlevet is öntsük hozzá).\nKarikázzuk fel az olívabogyókat, és tegyük a serpenyőbe, majd fűszerezzük.\n\nHa a paradicsom megpuhult, adjuk hozzá a megfőtt tésztát és néhány kanállal a főzővízből. Végül keverjük bele a tonhalkonzerveket.\n\nAlaposan forgassuk össze a szószt a tésztával, hogy mindenhol bevonja.\n\nHa elkészült, vegyük le a tűzről, szórjuk meg frissen vágott petrezselyemmel, locsoljuk meg egy kevés citromlével, és már tálalhatjuk is.',
+
+      previewImageUrl: 'https://images.pexels.com/photos/6412475/pexels-photo-6412475.jpeg',
+
+      cookTimeMinutes: 15,
+      prepTimeMinutes: 10,
+
+      servings: 2,
+
+      verified: false,
+    },
+
+    categories: ['Főétel'],
+
+    ingredients: [
+      { name: 'Tonhal', quantity: 2, unit: 'konzerv' },
+      { name: 'Tészta', quantity: 350, unit: 'g' },
+      { name: 'Fokhagyma', quantity: 2, unit: 'gerezd' },
+      { name: 'Lilahagyma', quantity: 0.5, unit: 'db' },
+      { name: 'Só', quantity: 2, unit: 'csipet' },
+      { name: 'Fekete bors', quantity: 0.5, unit: 'tk' },
+      { name: 'Oregánó', quantity: 1, unit: 'tk' },
+      { name: 'Olívaolaj', quantity: 1, unit: 'ek' },
+      { name: 'Olajbogyó', quantity: 100, unit: 'g' },
+      { name: 'Citrom', quantity: 0.25, unit: 'db' },
+      { name: 'Petrezselyem', quantity: 1, unit: 'csokor' },
+      { name: 'Paradicsom', quantity: 2, unit: 'db' },
+      { name: 'Bazsalikom', quantity: 1, unit: 'tk' },
+    ],
+  },
+  {
+    userId: 'user_3CPE4WILkIU2vrqElJNKDPZ2GsH', // clerk prod environment, ppanna
+
+    data: {
+      title: 'Kladdkaka',
+
+      description: 'Kladdkaka avagy a svédek brownie-ja',
+      instructions:
+        'Melegítsük elő a sütőt 170 °C-ra.\n\nOlvasszuk meg a vajat, majd egy tálban keverjük ki a cukorral. Adjuk hozzá a tojásokat, és dolgozzuk össze a masszát.\nSzitáljuk át a lisztet, és keverjük össze a száraz hozzávalókat.\n\nA száraz hozzávalókat 2-3 részletben adjuk a tésztához, és óvatosan forgassuk össze.\n\nÖntsük a tésztát egy piteformába, majd süssük 170 °C-on kb. 45 percig.',
+
+      previewImageUrl: 'https://images.pexels.com/photos/30350314/pexels-photo-30350314.jpeg',
+
+      cookTimeMinutes: 45,
+      prepTimeMinutes: 15,
+
+      servings: 4,
+
+      verified: false,
+    },
+
+    categories: ['Desszert'],
+
+    ingredients: [
+      { name: 'Cukor', quantity: 200, unit: 'g' },
+      { name: 'Vaj', quantity: 200, unit: 'g' },
+      { name: 'Kakaópor', quantity: 30, unit: 'g' },
+      { name: 'Búzaliszt', quantity: 220, unit: 'g' },
+      { name: 'Tojás', quantity: 2, unit: 'db' },
+      { name: 'Sütőpor', quantity: 1, unit: 'tk' },
+      { name: 'Só', quantity: 1, unit: 'csipet' },
+    ],
+  },
+  {
+    userId: 'user_3CPE4WILkIU2vrqElJNKDPZ2GsH', // clerk prod environment, ppanna
+
+    data: {
+      title: 'Paradicsomleves',
+
+      description: 'Kicsit jobb, mint az átlagos paradicsomleves.',
+      instructions:
+        'Melegítsük elő a sütőt 180 °C-ra.\n\nA zöldségeket vágjuk félbe, a hagymákat pucoljuk meg, majd daraboljuk kisebb részekre, és helyezzük őket egy tepsibe.\nLocsoljuk meg olajjal, majd fűszerezzük ízlés szerint.\n\nSüssük 45 percig, majd tegyünk mindent egy lábasba, és öntsük fel az alaplével. Botmixerrel turmixoljuk simára.\nHagyjuk, hogy egyet forrjon, majd tejszínnel lágyítsuk a levest.\n\nKóstoljuk meg, szükség esetén ízesítsük tovább, és már tálalhatjuk is.',
+
+      previewImageUrl: 'https://images.pexels.com/photos/17302314/pexels-photo-17302314.jpeg',
+
+      cookTimeMinutes: 60,
+      prepTimeMinutes: 10,
+
+      servings: 1,
+
+      verified: true,
+    },
+
+    categories: ['Leves', 'Előétel'],
+
+    ingredients: [
+      { name: 'Paradicsom', quantity: 4, unit: 'db' },
+      { name: 'Lilahagyma', quantity: 1, unit: 'db' },
+      { name: 'Paprika', quantity: 2, unit: 'db' },
+      { name: 'Fokhagyma', quantity: 4, unit: 'gerezd' },
+      { name: 'Olívaolaj', quantity: 2, unit: 'ek' },
+      { name: 'Rozmaring', quantity: 1, unit: 'csipet' },
+      { name: 'Oregánó', quantity: 1, unit: 'csipet' },
+      { name: 'Bazsalikom', quantity: 1, unit: 'csipet' },
+      { name: 'Só', quantity: 2, unit: 'csipet' },
+      { name: 'Fekete bors', quantity: 1, unit: 'csipet' },
+      { name: 'Tejszín', quantity: 1, unit: 'dl' },
+      { name: 'Zöldségalaplé', quantity: 2, unit: 'dkg' },
+    ],
+  },
+  {
+    userId: 'user_3CkzswbYbPXoT2B5OufMVDWwCOK', // clerk prod environment, znagy 2
+
+    data: {
+      title: 'Sós víz',
+
+      description: 'Sós víz',
+      instructions: 'Sós víz',
+
+      previewImageUrl: 'https://images.pexels.com/photos/13466248/pexels-photo-13466248.jpeg',
+
+      cookTimeMinutes: 0,
+      prepTimeMinutes: 1,
+
+      servings: 4,
+
+      verified: false,
+    },
+
+    categories: ['Leves'],
+
+    ingredients: [
+      { name: 'Víz', quantity: 1, unit: 'l' },
+      { name: 'Só', quantity: 1, unit: 'csipet' },
     ],
   },
 ] satisfies Recipe[];
