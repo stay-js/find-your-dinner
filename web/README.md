@@ -53,6 +53,7 @@ Előfeltételek: [Find Your Dinner. - Vizsgaremek dokumentáció, Előfeltétele
     - [8.3.2. Tesztek futtatása](#832-tesztek-futtatása)
     - [8.3.3. Teszt riport](#833-teszt-riport)
   - [8.4. Manuális tesztek](#84-manuális-tesztek)
+- [9. Jogi nyilatkozat](#9-jogi-nyilatkozat)
 
 <br>
 <br>
@@ -539,3 +540,7 @@ Az elkészült riportot a futtatás után a terminálban megjelenő parancs futt
 ### 8.4. Manuális tesztek
 
 A manuális teszteket fejlesztői valamint éles környezetben is egyaránt elvégeztük. A tesztek részletes leírását, valamint az eredményeket a [Find Your Dinner. - Tesztelési jegyzőkönyv](../docs/testing_report.md) dokumentumban, a [Manuális tesztek](../docs/testing_report.md#manuális-tesztek) szakaszban találod.
+
+## 9. Jogi nyilatkozat
+
+A seederben megtalálható receptek **Polyák Panna Dorka** saját receptei. A képek forrása: [Pexels](https://www.pexels.com/), valamint Panna saját fotói.
