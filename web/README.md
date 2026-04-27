@@ -18,6 +18,7 @@ A web app használatával kapcsolatos információk, használati útmutató: [Fe
     - [4.2.2. Séma közvetlen alkalmazása (push)](#422-séma-közvetlen-alkalmazása-push)
   - [4.3. Seedelés](#43-seedelés)
   - [4.4. Drizzle Studio](#44-drizzle-studio)
+  - [4.5. Adatbázis dumpolása](#45-adatbázis-dumpolása)
 - [5. API dokumentáció (Swagger)](#5-api-dokumentáció-swagger)
   - [5.1. API dokumentáció generálása](#51-api-dokumentáció-generálása)
     - [5.1.1. Első generáláshoz használt prompt](#511-első-generáláshoz-használt-prompt)
@@ -182,6 +183,14 @@ just studio
 ```
 
 Természetesen erre a célra a CloudBeaver is használható. (lsd.: [Infrastruktúra / Fejlesztői környezet dokumentációja, 6.2. CloudBeaver](../infra/README.md#62-cloudbeaver))
+
+### 4.5. Adatbázis dumpolása
+
+Az adatbázis dumpolásához futtasd a `db-dump` receptet, ami létrehoz egy SQL dump fájlt az `infra/dump/` könyvtárban.
+
+```bash
+just db-dump
+```
 
 <br>
 <br>

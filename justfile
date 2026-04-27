@@ -21,7 +21,7 @@ infra-stop:
 infra-remove *FLAGS:
     docker compose down {{FLAGS}}
 
-# Creates infra configuration (.env file)
+# Creates infra configuration (`.env` file)
 [working-directory: 'infra']
 [group('infra')]
 infra-setup:
@@ -33,7 +33,14 @@ infra-setup:
         cp .env.example .env
     fi
 
-# Installs dependencies and creates web app configuration (.env file)
+# Dumps the database to `infra/dump/` directory
+[working-directory: 'infra']
+[group('infra')]
+[group('drizzle')]
+db-dump:
+    bash dump-db.sh
+
+# Installs dependencies and creates web app configuration (`.env` file)
 [group('web')]
 [working-directory: 'web']
 setup:
