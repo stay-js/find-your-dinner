@@ -84,7 +84,7 @@ just migrate
 just dev
 ```
 
-7. Hozz létre egy új fiókot, majd a [Clerk dashboard](https://dashboard.clerk.com/)-on keresd meg a létrehozott fiókhoz tartozó azonosítót.
+7. Hozz létre egy új fiókot (lsd.: [Find Your Dinner. - Felhasználói dokumentáció, Fiók létrehozása](docs/user-documentation.md#11-fiók-létrehozása)), majd a [Clerk dashboard](https://dashboard.clerk.com/)-on keresd meg a létrehozott fiókhoz tartozó azonosítót.
 8. Ezután egészítsd ki a `web/scripts/seeders/seed-admins.ts` fájl `data` tömbjét a felhasználó azonosítójával.
 9. Végezetül futtasd a `seed` receptet, az adatbázis feltöltéséhez.
 
