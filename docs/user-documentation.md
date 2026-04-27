@@ -108,7 +108,7 @@ Első lépésként válaszd ki a hozzávalókat, amik jelenleg rendelkezésedre 
 
 ### 2.2. Receptek szelektálása
 
-A következő lépésben pörgessd végig a megadott hozzávalókból elkészíthető recepteket (legfeljebb 30 recept kerül megjelenítésre).
+A következő lépésben pörgesd végig a megadott hozzávalókból elkészíthető recepteket (legfeljebb 30 recept kerül megjelenítésre).
 
 Receptek értékelése:
 

@@ -61,7 +61,7 @@ export function About() {
                 <span className="text-base">02</span>
               </div>
 
-              <CardTitle className="text-lg">Pörgessd végig a recepteket</CardTitle>
+              <CardTitle className="text-lg">Pörgesd végig a recepteket</CardTitle>
             </CardHeader>
 
             <CardContent>
