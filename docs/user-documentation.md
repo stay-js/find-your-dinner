@@ -10,6 +10,7 @@
     - [1.2.1. Bejelentkezés Google fiókkal](#121-bejelentkezés-google-fiókkal)
     - [1.2.2. Bejelentkezés e-mail címmel és jelszóval](#122-bejelentkezés-e-mail-címmel-és-jelszóval)
   - [1.3. Fiók kezelése](#13-fiók-kezelése)
+  - [1.4. Alapértelmezett hozzávalók](#14-alapértelmezett-hozzávalók)
 - [2. Recept keresés](#2-recept-keresés)
   - [2.1. Hozzávalók kiválasztása](#21-hozzávalók-kiválasztása)
   - [2.2. Receptek szelektálása](#22-receptek-szelektálása)
@@ -87,6 +88,22 @@ Itt tudod megváltoztatni a profilképedet, a nevedet, hozzáadhatsz, valamint e
 A "Security" (biztonság) fülön tudsz jelszót változtatni, kijelentkezni az összes eszközből, illetve itt törölheted a felhasználói fiókodat, amennyiben szükséges lenne.
 
 <br>
+
+### 1.4. Alapértelmezett hozzávalók
+
+Alapértelmezett hozzávalóként elmentheted azokat a hozzávalókat, amelyek mindig rendelkezésedre állnak.
+
+Az alapértelmezett hozzávalóidat a fejléc jobb felső sarkában (az irányítópulton pedig az oldalsáv bal alsó sarkában) található profil ikonra kattintva, a lenyíló menüből érheted el az "Alapértelmezett hozzávalók" menüpont segítségével.
+
+**Hozzávalók módosítása:**
+
+1. A megjelenő ablakban kattints a "Hozzávalók..." mezőre, majd kezdd el begépelni a hozzávaló nevét.
+2. A megjelenő listából válaszd ki a kívánt hozzávalókat.
+3. A változtatásokat a "Mentés" gombra kattintva mentheted el.
+
+Az elmentett hozzávalókat a recept keresésénél, valamint a receptes oldalakon a "Feltöltés alapértelmezett hozzávalókkal" gombra kattintva töltheted be a "Hozzávalók" keresőmezőbe.
+
+<br>
 <br>
 
 ## 2. Recept keresés
@@ -101,7 +118,7 @@ Első lépésként válaszd ki a hozzávalókat, amik jelenleg rendelkezésedre 
 
 1. Kattints a "Hozzávalók kiválasztása..." mezőre, majd kezdd el begépelni a hozzávaló nevét.
 2. A megjelenő listából válaszd ki a kívánt hozzávalókat.
-3. Ha korábban elmentetted az alapértelmezett hozzávalóidat, a "Feltöltés alapértelmezett hozzávalókkal" gombra kattintva feltöltheted velük a keresőmezőt.
+3. Ha korábban elmentetted az alapértelmezett hozzávalóidat, a "Feltöltés alapértelmezett hozzávalókkal" gombra kattintva feltöltheted velük a keresőmezőt. (Alapértelmezett hozzávalók módosítása, lsd.: [1.4. Alapértelmezett hozzávalók](#14-alapértelmezett-hozzávalók))
 4. A hozzávalók kiválasztása után, kattints a "Receptek keresése" gombra.
 
 <br>
@@ -161,7 +178,7 @@ A keresőmező mellett található "Szűrők" gombra kattintva megjelennek az el
 
 1. Kattints a "Szűrés hozzávalók szerint..." mezőre, majd kezdd el gépelni a hozzávaló nevét.
 2. A megjelenő listából válaszd ki a kívánt hozzávalókat.
-3. Ha korábban elmentetted az alapértelmezett hozzávalóidat, a "Feltöltés alapértelmezett hozzávalókkal" gombra kattintva feltöltheted velük a keresőmezőt.
+3. Ha korábban elmentetted az alapértelmezett hozzávalóidat, a "Feltöltés alapértelmezett hozzávalókkal" gombra kattintva feltöltheted velük a keresőmezőt. (Alapértelmezett hozzávalók módosítása, lsd.: [1.4. Alapértelmezett hozzávalók](#14-alapértelmezett-hozzávalók))
 4. A szűrő csak azokat a recepteket jeleníti meg, amelyek elkészíthetőek a kiválasztott hozzávalókból.
 
 **Szűrés kategóriák szerint:**
