@@ -1,5 +1,7 @@
 # Find Your Dinner. - Felhasználói dokumentáció
 
+<br>
+
 ## Tartalomjegyzék
 
 - [1. Felhasználói fiók kezelése](#1-felhasználói-fiók-kezelése)
