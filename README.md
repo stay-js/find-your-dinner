@@ -15,8 +15,11 @@ Budapest, 2026
 
 ## Bevezetés
 
-Üdvözlünk a **Find Your Dinner.** dokumentációs oldalán!
-Itt megtalálod az alkalmazás különböző komponenseinek leírását, telepítési útmutatókat és fejlesztői információkat.
+Üdvözlünk a **Find Your Dinner.** dokumentációs oldalán! Itt megtalálod az alkalmazás különböző komponenseinek leírását, telepítési útmutatókat, fejlesztői információkat, valamit az alkalmazáshoz tartozó részletes felhasználói dokumentációt (használati útmutató).
+
+A **Find Your Dinner.** egy receptes alkalmazás, amely lehetővé teszi a felhasználók számára, hogy a rendelkezésükre álló hozzávalók alapján keressenek recepteket, ezzel elkerülve a felesleges bevásárlást. A keresési oldalon pedig a szelektálási és verseny funkciók segítenek leegyszerűsíteni a nap legnehezebb döntését.
+
+<br>
 
 ## 📋 Linkek
 
@@ -26,11 +29,15 @@ Itt megtalálod az alkalmazás különböző komponenseinek leírását, telepí
 - [Trello](https://trello.com/b/8IluY86i/vizsgaremek) - Projektmenedzsment és feladatkövetés
 - [Figma](https://www.figma.com/design/zaDlDEk8JzH6Fh6TtaQZbu/Find-Your-Dinner.) - UI/UX design tervezés
 
+<br>
+
 ## ⚙️ Fejlesztői dokumentáció
 
 - [Infrastruktúra / Fejlesztői környezet dokumentációja](infra/README.md)
 - [Full-stack web app dokumentációja](web/README.md)
 - [Tesztelési jegyzőkönyv](docs/testing-report.md)
+
+<br>
 
 ## Előfeltételek
 
@@ -40,12 +47,16 @@ Itt megtalálod az alkalmazás különböző komponenseinek leírását, telepí
 
 [NeuDockerBase2025 előkészítése](docs/neu-docker-base-2025-prep.md) - Ha a NeuDockerBase2025 környezetet használod, kövesd ezt az útmutatót a szükséges eszközök telepítéséhez.
 
+<br>
+
 ## Justfile (~ Makefile alternatíva)
 
 [Just](https://github.com/casey/just) telepítése után:
 
 - Elérhető receptek listázása: `just --list`
 - Alapértelmezett recept futtatása: `just` vagy `just default`
+
+<br>
 
 ## Első indítás
 
@@ -93,3 +104,13 @@ just dev
 ```bash
 just seed
 ```
+
+<br>
+
+## Teszteléssel kapcsolatos információk
+
+- [Tesztelési jegyzőkönyv](docs/testing-report.md)
+- [API tesztek](web/README.md#81-api-tesztek-vitest)
+- [Unit tesztek](web/README.md#82-unit-tesztek-vitest)
+- [E2E tesztek](web/README.md#83-e2e-tesztek-playwright)
+- [Manuális tesztek](web/README.md#84-manuális-tesztek)

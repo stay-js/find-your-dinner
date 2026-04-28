@@ -1,5 +1,7 @@
 # Find Your Dinner. - Felhasználói dokumentáció
 
+A **Find Your Dinner.** egy receptes alkalmazás, amely lehetővé teszi a felhasználók számára, hogy a rendelkezésükre álló hozzávalók alapján keressenek recepteket, ezzel elkerülve a felesleges bevásárlást. A keresési oldalon pedig a szelektálási és verseny funkciók segítenek leegyszerűsíteni a nap legnehezebb döntését.
+
 <br>
 
 ## Tartalomjegyzék
