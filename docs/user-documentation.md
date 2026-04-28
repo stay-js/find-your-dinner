@@ -24,6 +24,9 @@
   - [4.1. Recept létrehozása](#41-recept-létrehozása)
     - [4.1.1 Recept létrehozásához szükséges adatok](#411-recept-létrehozásához-szükséges-adatok)
     - [4.1.2 Recept mentése](#412-recept-mentése)
+  - [4.2. Recepteim kezelése](#42-recepteim-kezelése)
+  - [4.3. Recept szerkesztése](#43-recept-szerkesztése)
+    - [4.3.1 Recept törlése](#431-recept-törlése)
 
 <br>
 <br>
@@ -250,3 +253,29 @@ A "Hozzávaló hozzáadása" (mobilon "+") gombra kattintva adhatsz hozzá új h
 Az űrlap kitöltése után kattints a "Mentés" gombra. Sikeres mentés után a rendszer a "Recepteim kezelése" oldalra irányít át.
 
 > A létrehozott recept nem jelenik meg a nyilvános felületeken, amíg egy adminisztrátor jóvá nem hagyja.
+
+<br>
+
+### 4.2. Recepteim kezelése
+
+A saját recepteidet az irányítópulton az oldalsávban a "Recepteim kezelése" menüpontra, vagy a főoldalon a "Recepteim kezelése" kártyára kattintva tekintheted meg.
+
+Az oldal megjelenése és működése azonos a publikus receptes oldallal, azonban itt csak a saját recepteid jelennek meg, és lehetőséged van azok szerkesztésére, valamint új receptek létrehozására.
+
+Új recept létrehozásához kattints az "Új recept" gombra. Recept szerkesztéséhez pedig kattints a "Szerkesztés" gombra a szerkeszteni kívánt recept kártyáján.
+
+Oldal működése: lsd.: [3. Összes recept (Receptes oldal)](#3-összes-recept-receptes-oldal)
+
+<br>
+
+### 4.3. Recept szerkesztése
+
+A recept szerkesztő űrlap megegyezik a létrehozás űrlappal. (lsd.: [4.1. Recept létrehozása](#41-recept-létrehozása))
+
+A módosítások elvégzése után kattints a "Mentés" gombra a változtatások mentéséhez. Sikeres módosítás után a rendszer a "Recepteim kezelése" oldalra irányít át.
+
+> A módosított recept nem jelenik meg a nyilvános felületeken, amíg egy adminisztrátor jóvá nem hagyja a módosított verziót. Amennyiben volt előző jóváhagyott verzió, az továbbra is megjelenik a nyilvános felületeken, az új verzió jóváhagyásáig.
+
+#### 4.3.1 Recept törlése
+
+Recept törléséhez a szerkesztő űrlapon a "Törlés" gombra kattintva van lehetőséged. A gombra kattintva egy megerősítő ablak jelenik meg. A **törlés végleges és nem visszafordítható**, ezért csak akkor erősítsd meg, ha valóban törölni szeretnéd a receptet.
