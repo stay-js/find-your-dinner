@@ -76,7 +76,7 @@ A web app használatával kapcsolatos információk, használati útmutató: [Fe
 - **Adatbázis**: [PostgreSQL](https://www.postgresql.org/)
 - **ORM**: [Drizzle](https://orm.drizzle.team/)
 - **Felhasználókezelés**: [Clerk](https://clerk.com/)
-- **API tesztelés**: [Vitest](https://vitest.dev/)
+- **API, Unit tesztelés**: [Vitest](https://vitest.dev/)
 - **E2E tesztelés**: [Playwright](https://playwright.dev/)
 
 <br>
@@ -347,15 +347,16 @@ Globális általános adatok (kategóriák, hozzávalók, mértékegységek, ala
 - **`schemas.ts`** - Az alkalmazásban használt Zod sémák és belőlük származó típusok.
 - **`helpers.ts`** - Általános validációs segédfüggvények:
 
-| Függvény / Séma                        | Leírás                                                                             |
-| -------------------------------------- | ---------------------------------------------------------------------------------- |
-| `createPaginatedSchema<T>(dataSchema)` | Paginált séma elkészítése                                                          |
-| `paginationMetaSchema`                 | Paginációs metaadatok sémája (currentPage, pageCount, perPage, total)              |
-| `parseCultureInvariantFloat(value)`    | Lebegőpontos szám string értelmezése (vesszőt és pontot is elfogad tizedesjelként) |
-| `isCultureInvariantFloatString(val)`   | Ellenőrzi, hogy a string lebegőpontos szám-e                                       |
-| `isIntegerString(val)`                 | Ellenőrzi, hogy a string egész szám-e                                              |
-| `isNonNegativeIntegerString(val)`      | Ellenőrzi, hogy a string nem-negatív egész szám-e                                  |
-| `isPositiveIntegerString(val)`         | Ellenőrzi, hogy a string pozitív egész szám-e                                      |
+| Függvény / Séma                              | Leírás                                                                             |
+| -------------------------------------------- | ---------------------------------------------------------------------------------- |
+| `paginationMetaSchema`                       | Paginációs metaadatok sémája (currentPage, pageCount, perPage, total)              |
+| `createPaginatedSchema<T>(dataSchema)`       | Paginált séma elkészítése                                                          |
+| `isCultureInvariantFloatString(val)`         | Ellenőrzi, hogy a string lebegőpontos szám-e                                       |
+| `isIntegerString(val)`                       | Ellenőrzi, hogy a string egész szám-e                                              |
+| `isNonNegativeIntegerString(val)`            | Ellenőrzi, hogy a string nem-negatív egész szám-e                                  |
+| `isPositiveCultureInvariantFloatString(val)` | Ellenőrzi, hogy a string pozitív lebegőpontos szám-e                               |
+| `isPositiveIntegerString(val)`               | Ellenőrzi, hogy a string pozitív egész szám-e                                      |
+| `parseCultureInvariantFloat(value)`          | Lebegőpontos szám string értelmezése (vesszőt és pontot is elfogad tizedesjelként) |
 
 #### 7.1.4. Egyéb segédfüggvények (`web/src/lib/`)
 
