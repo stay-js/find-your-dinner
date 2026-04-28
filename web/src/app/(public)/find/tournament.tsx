@@ -1,9 +1,10 @@
 import { useState } from 'react';
 
+import type { Recipe } from '~/lib/zod/schemas';
+
 import { NoContent } from '~/components/no-content';
 import { RecipeCard } from '~/components/recipe-card';
 import { Button } from '~/components/ui/button';
-import { type Recipe } from '~/lib/zod/schemas';
 
 type TournamentProps = {
   goToSwipe: () => void;

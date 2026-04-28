@@ -1,9 +1,13 @@
+import type { NextRequest } from 'next/server';
+
 import { auth } from '@clerk/nextjs/server';
 import { and, countDistinct, desc, eq, inArray, notExists, notInArray } from 'drizzle-orm';
-import { type NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import { z } from 'zod';
 
-import { createSavedRecipeSchema, idArraySearchSchema, type PaginationMeta } from '~/lib/zod';
+import type { PaginationMeta } from '~/lib/zod';
+
+import { createSavedRecipeSchema, idArraySearchSchema } from '~/lib/zod';
 import { db } from '~/server/db';
 import {
   categoryRecipe,

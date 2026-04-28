@@ -1,4 +1,6 @@
-import { z, type ZodType } from 'zod';
+import type { ZodType } from 'zod';
+
+import { z } from 'zod';
 
 export const paginationMetaSchema = z.object({
   currentPage: z.number().int().positive(),

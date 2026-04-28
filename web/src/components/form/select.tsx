@@ -1,10 +1,6 @@
-import {
-  type Control,
-  Controller,
-  type FieldPath,
-  type FieldValues,
-  type PathValue,
-} from 'react-hook-form';
+import type { Control, FieldPath, FieldValues, PathValue } from 'react-hook-form';
+
+import { Controller } from 'react-hook-form';
 
 import { Field, FieldError, FieldGroup, FieldLabel } from '~/components/ui/field';
 import { Select, SelectContent, SelectTrigger, SelectValue } from '~/components/ui/select';

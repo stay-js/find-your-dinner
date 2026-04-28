@@ -5,17 +5,15 @@ import { Plus } from 'lucide-react';
 import { useState } from 'react';
 import { toast } from 'sonner';
 
+import type { CreateUpdateIngredientSchema, Ingredient as IngredientType } from '~/lib/zod';
+
 import { Info } from '~/components/info';
 import { NoContent } from '~/components/no-content';
 import { Button } from '~/components/ui/button';
 import { Input } from '~/components/ui/input';
 import { useSearch } from '~/hooks/filter/use-search';
 import { DELETE, GET, POST, PUT } from '~/lib/api';
-import {
-  type CreateUpdateIngredientSchema,
-  ingredientsSchema,
-  type Ingredient as IngredientType,
-} from '~/lib/zod';
+import { ingredientsSchema } from '~/lib/zod';
 
 import { Ingredient, IngredientSkeleton } from './ingredient';
 import { IngredientForm } from './ingredient-form';

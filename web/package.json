@@ -8,6 +8,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
+    "format": "prettier --write .",
     "db:generate": "drizzle-kit generate",
     "db:generate:dbml": "tsx scripts/dbml.ts",
     "db:migrate": "drizzle-kit migrate",

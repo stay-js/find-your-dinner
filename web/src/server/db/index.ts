@@ -1,5 +1,7 @@
+import type { Pool as PgPool } from 'pg';
+
 import { drizzle } from 'drizzle-orm/node-postgres';
-import { type Pool as PgPool, Pool } from 'pg';
+import { Pool } from 'pg';
 
 import { env } from '~/env';
 import * as schema from '~/server/db/schema';

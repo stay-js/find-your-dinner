@@ -5,13 +5,15 @@ import { Plus } from 'lucide-react';
 import { useState } from 'react';
 import { toast } from 'sonner';
 
+import type { CreateUpdateUnitSchema, Unit as UnitType } from '~/lib/zod';
+
 import { Info } from '~/components/info';
 import { NoContent } from '~/components/no-content';
 import { Button } from '~/components/ui/button';
 import { Input } from '~/components/ui/input';
 import { useSearch } from '~/hooks/filter/use-search';
 import { DELETE, GET, POST, PUT } from '~/lib/api';
-import { type CreateUpdateUnitSchema, unitsSchema, type Unit as UnitType } from '~/lib/zod';
+import { unitsSchema } from '~/lib/zod';
 
 import { Unit, UnitSkeleton } from './unit';
 import { UnitForm } from './unit-form';

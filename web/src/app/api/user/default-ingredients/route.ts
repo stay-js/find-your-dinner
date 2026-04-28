@@ -1,6 +1,8 @@
+import type { NextRequest } from 'next/server';
+
 import { auth } from '@clerk/nextjs/server';
 import { eq } from 'drizzle-orm';
-import { type NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import { z } from 'zod';
 
 import { db } from '~/server/db';

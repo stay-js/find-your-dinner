@@ -1,4 +1,5 @@
-import { type ReadonlyURLSearchParams } from 'next/navigation';
+import type { ReadonlyURLSearchParams } from 'next/navigation';
+
 import { useCallback } from 'react';
 
 export function useMergeQueryString(searchParams: ReadonlyURLSearchParams) {

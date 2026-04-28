@@ -1,4 +1,5 @@
-import { type Metadata } from 'next';
+import type { Metadata } from 'next';
+
 import { notFound } from 'next/navigation';
 
 import { EditPage as DashboardEditRecipePage } from '~/app/_edit-page';

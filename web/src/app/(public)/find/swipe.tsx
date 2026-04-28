@@ -1,14 +1,17 @@
+import type { PanInfo } from 'motion/react';
+
 import { useQuery } from '@tanstack/react-query';
-import { type PanInfo } from 'motion/react';
 import { animate, motion, useMotionValue, useTransform } from 'motion/react';
 import { useEffect, useMemo, useState } from 'react';
+
+import type { Recipe } from '~/lib/zod';
 
 import { NoContent } from '~/components/no-content';
 import { RecipeCard } from '~/components/recipe-card';
 import { RecipeCardSkeleton } from '~/components/recipe-card-skeleton';
 import { Button } from '~/components/ui/button';
 import { GET } from '~/lib/api';
-import { paginatedRecipesSchema, type Recipe } from '~/lib/zod';
+import { paginatedRecipesSchema } from '~/lib/zod';
 
 const RECIPE_LIMIT = 30;
 

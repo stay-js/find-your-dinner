@@ -1,5 +1,6 @@
+import type { Category } from '~/lib/zod';
+
 import { Badge } from '~/components/ui/badge';
-import { type Category } from '~/lib/zod';
 
 export function Categories({ categories }: { categories: Omit<Category, 'canBeDeleted'>[] }) {
   return (

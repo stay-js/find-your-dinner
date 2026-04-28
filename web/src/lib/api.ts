@@ -1,4 +1,4 @@
-import { type ZodType } from 'zod';
+import type { ZodType } from 'zod';
 
 class ApiError extends Error {
   constructor(

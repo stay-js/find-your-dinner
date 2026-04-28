@@ -1,5 +1,7 @@
+import type { ComponentProps } from 'react';
+
 import { Trash2 } from 'lucide-react';
-import { type ComponentProps, useState } from 'react';
+import { useState } from 'react';
 
 import { Button } from '~/components/ui/button';
 import {

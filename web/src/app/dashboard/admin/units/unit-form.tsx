@@ -3,6 +3,8 @@ import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
+import type { CreateUpdateUnitSchema, Unit } from '~/lib/zod/schemas';
+
 import { FormInput } from '~/components/form';
 import { Button } from '~/components/ui/button';
 import {
@@ -15,7 +17,6 @@ import {
   SheetTitle,
 } from '~/components/ui/sheet';
 import { Spinner } from '~/components/ui/spinner';
-import { type CreateUpdateUnitSchema, type Unit } from '~/lib/zod/schemas';
 
 const formSchema = z.object({
   abbreviation: z

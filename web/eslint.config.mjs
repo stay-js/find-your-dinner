@@ -35,7 +35,7 @@ const eslintConfig = defineConfig([
         'error',
         { fixStyle: 'inline-type-imports', prefer: 'type-imports' },
       ],
-      'import/consistent-type-specifier-style': ['error', 'prefer-inline'],
+      'import/consistent-type-specifier-style': ['error', 'prefer-top-level'],
     },
   },
   globalIgnores(['.next/**', 'out/**', 'build/**', 'next-env.d.ts']),

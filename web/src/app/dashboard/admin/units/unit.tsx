@@ -1,10 +1,11 @@
 import { Pencil } from 'lucide-react';
 
+import type { Unit } from '~/lib/zod';
+
 import { DeletePopover } from '~/components/delete-popover';
 import { Button } from '~/components/ui/button';
 import { Card, CardContent } from '~/components/ui/card';
 import { Skeleton } from '~/components/ui/skeleton';
-import { type Unit } from '~/lib/zod';
 
 type UnitProps = {
   isDestroyPending: boolean;

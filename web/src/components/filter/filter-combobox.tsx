@@ -1,5 +1,7 @@
 import { useId, useMemo } from 'react';
 
+import type { ComboboxPortalContainer } from '~/components/ui/combobox';
+
 import {
   Combobox,
   ComboboxChip,
@@ -9,7 +11,6 @@ import {
   ComboboxEmpty,
   ComboboxItem,
   ComboboxList,
-  type ComboboxPortalContainer,
   ComboboxValue,
   useComboboxAnchor,
 } from '~/components/ui/combobox';

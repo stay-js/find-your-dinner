@@ -5,17 +5,15 @@ import { Plus } from 'lucide-react';
 import { useState } from 'react';
 import { toast } from 'sonner';
 
+import type { Category as CategoryType, CreateUpdateCategorySchema } from '~/lib/zod';
+
 import { Info } from '~/components/info';
 import { NoContent } from '~/components/no-content';
 import { Button } from '~/components/ui/button';
 import { Input } from '~/components/ui/input';
 import { useSearch } from '~/hooks/filter/use-search';
 import { DELETE, GET, POST, PUT } from '~/lib/api';
-import {
-  categoriesSchema,
-  type Category as CategoryType,
-  type CreateUpdateCategorySchema,
-} from '~/lib/zod';
+import { categoriesSchema } from '~/lib/zod';
 
 import { Category, CategorySkeleton } from './category';
 import { CategoryForm } from './category-form';

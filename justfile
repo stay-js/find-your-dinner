@@ -75,11 +75,17 @@ build:
 start:
     -pnpm run start
 
-# Lints web project
+# Lints web project via ESLint
 [group('web')]
 [working-directory: 'web']
 lint *FLAGS:
     pnpm run lint {{FLAGS}}
+
+# Formats web project via Prettier
+[group('web')]
+[working-directory: 'web']
+format:
+    pnpm run format
 
 # Executes a command inside web directory with current npm runner. Usage: just exec <command>
 [group('web')]

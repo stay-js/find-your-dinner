@@ -1,5 +1,6 @@
+import type { Metadata } from 'next';
+
 import { auth } from '@clerk/nextjs/server';
-import { type Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
 import { RecipePage } from '~/components/recipe-page';

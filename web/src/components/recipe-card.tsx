@@ -2,6 +2,8 @@ import { useSession } from '@clerk/nextjs';
 import { CheckCircle2, Clock, Users } from 'lucide-react';
 import Link from 'next/link';
 
+import type { Recipe } from '~/lib/zod';
+
 import { SafeImage } from '~/components/safe-image';
 import { SaveButton } from '~/components/save-button';
 import { Badge } from '~/components/ui/badge';
@@ -15,7 +17,6 @@ import {
   CardTitle,
 } from '~/components/ui/card';
 import { cn } from '~/lib/utils';
-import { type Recipe } from '~/lib/zod';
 
 type RecipeCardProps = {
   pageType: 'admin' | 'manage' | 'saved' | 'search' | 'tinder' | 'tournament';

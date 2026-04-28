@@ -1,8 +1,9 @@
 import '~/styles/globals.css';
 
+import type { Viewport } from 'next';
+
 import { ClerkProvider } from '@clerk/nextjs';
 import { shadcn } from '@clerk/ui/themes';
-import { type Viewport } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import { Suspense } from 'react';
 

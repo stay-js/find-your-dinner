@@ -1,7 +1,9 @@
 import { and, desc, eq, max, sql } from 'drizzle-orm';
 
+import type { recipes } from '~/server/db/schema';
+
 import { db } from '~/server/db';
-import { recipeData, type recipes } from '~/server/db/schema';
+import { recipeData } from '~/server/db/schema';
 
 import { getHasVerifiedVersion } from './get-has-verified-version';
 import { getRecipeCategories } from './get-recipe-categories';

@@ -3,13 +3,10 @@
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useCallback, useEffect, useState } from 'react';
 
+import type { FindPageState, Recipe } from '~/lib/zod';
+
 import { useMergeQueryString } from '~/hooks/use-merge-query-string';
-import {
-  type FindPageState,
-  findPageStateSchema,
-  idArraySearchSchema,
-  type Recipe,
-} from '~/lib/zod';
+import { findPageStateSchema, idArraySearchSchema } from '~/lib/zod';
 
 import { Filter } from './filter';
 import { Swipe } from './swipe';
