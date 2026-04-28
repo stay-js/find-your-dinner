@@ -32,6 +32,7 @@ components:
       allOf:
         - $ref: '#/components/schemas/CategoryBase'
         - type: object
+          required: [canBeDeleted]
           properties:
             canBeDeleted:
               type: boolean
@@ -52,6 +53,7 @@ components:
       allOf:
         - $ref: '#/components/schemas/IngredientBase'
         - type: object
+          required: [canBeDeleted]
           properties:
             canBeDeleted:
               type: boolean
@@ -76,6 +78,7 @@ components:
       allOf:
         - $ref: '#/components/schemas/UnitBase'
         - type: object
+          required: [canBeDeleted]
           properties:
             canBeDeleted:
               type: boolean
@@ -1361,6 +1364,12 @@ paths:
                           format: date-time
                   - description: Paginated saved recipes with savedAt (when include=recipe)
                     $ref: '#/components/schemas/PaginatedSavedRecipes'
+        '400':
+          description: Invalid query parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
         '401':
           description: Unauthorized
           content:
