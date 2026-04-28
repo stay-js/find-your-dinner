@@ -231,7 +231,7 @@ A recept oldal egy adott recept részletes adatait jeleníti meg. A recept kárt
 
 Az oldal megjelenése és működése minden felületen megegyezik (publikus recept oldal, irányítópult recept oldal, irányítópult adminisztátor felület recept oldal).
 
-Az oldalon a recept neve/címe, előnézeti képe, leírása, kategóriái, elkészítési ideje (előkészítés, főzés/sütés), adagok száma, hozzávalói elkészítési utasításai, létrehozás ideje, valamint az utolsó módosítás ideje, és a recept szerzője jelenik meg.
+Az oldalon a recept neve/címe, előnézeti képe, leírása, kategóriái, elkészítési ideje (előkészítés, főzés/sütés), adagok száma, hozzávalói, elkészítési utasításai, létrehozás ideje, valamint az utolsó módosítás ideje, és a recept szerzője jelenik meg.
 
 A hozzávalók mennyisége az elkészíteni kívánt adagok számához igazítható, az adag mező melletti "+" és "-" gombok segítségével.
 
@@ -245,7 +245,7 @@ A recept kedvencek közé mentéséhez kattints a "Recept mentése" gombra. (lsd
 
 ### 4.2. Recept szerkesztése
 
-Amennyiben a recept szerzője vagy adminisztrátor vagy, a "Szerkesztés" gombra kattintva szerkesztheted a receptet. (lsd.: [5.3. Recept szerkesztése](#53-recept-szerkesztése))
+Amennyiben a recept szerzője, vagy adminisztrátor vagy, a "Szerkesztés" gombra kattintva szerkesztheted a receptet. (lsd.: [5.3. Recept szerkesztése](#53-recept-szerkesztése))
 
 <br>
 
@@ -355,13 +355,13 @@ Bármelyik receptet hozzáadhatsz a kedvenceidhez a recept kártyájának jobb f
 
 ## 6. Adminisztrátori felület
 
-Az adminisztrátori felület kizárólag adminisztrátor jogosultságú felhasználók számára érhető el. Az irányítópulton az oldalsáv tetején, az "Adminisztráció" szekció alatt találhatóak az adminisztrátori menüpontok: "Receptek kezelése", "Kategóriák kezelése", "Hozzávalók kezelése" és "Mértékegységek kezelése". Az előbbi menüpontok az irányítópult főoldaláról is elérhetőek.
+Az adminisztrátori felület kizárólag adminisztrátor jogosultsággal rendelkező felhasználók számára érhető el. Az irányítópulton az oldalsáv tetején, az "Adminisztráció" szekció alatt találhatóak az adminisztrátori menüpontok: "Receptek kezelése", "Kategóriák kezelése", "Hozzávalók kezelése" és "Mértékegységek kezelése". Az előbbi menüpontok az irányítópult főoldaláról is elérhetőek.
 
 <br>
 
 ### 6.1. Receptek kezelése
 
-Az adminisztrátori "Receptek kezelése" oldal megjelenése és működése megegyezik a felhasználói "Recepteim kezelése" oldallal, azonban itt az összes megjelenik, beleértve a jóváhagyásra váró recepteket is. A jóváhagyott receptek kártyájánank bal felső sarkában egy "Jóváhagyva" címke látható.
+Az adminisztrátori "Receptek kezelése" oldal megjelenése és működése megegyezik a publikus receptes oldallal, azonban itt az összes recept megjelenik, beleértve a jóváhagyásra váró recepteket is. A jóváhagyott receptek kártyájánank bal felső sarkában egy "Jóváhagyva" címke látható.
 
 Oldal működése: lsd.: [3. Összes recept (Receptes oldal)](#3-összes-recept-receptes-oldal)
 
