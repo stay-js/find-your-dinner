@@ -524,6 +524,12 @@ A tesztek futtatásához szükséges Next.js dev szervert a Playwright automatik
 
 #### 8.3.2. Tesztek futtatása
 
+Az E2E tesztek első futtatása előtt fel kell telepíteni a Playwright függőségeit (A parancsot a `web` könyvtárban futtasd!):
+
+```bash
+pnpm playwright install --with-deps
+```
+
 Az összes E2E tesztet a `test-e2e` recepttel futtathatod (headless módban):
 
 ```bash
