@@ -20,6 +20,10 @@
   - [3.2. Keresés név és leírás alapján](#32-keresés-név-és-leírás-alapján)
   - [3.3. Szűrők használata](#33-szűrők-használata)
   - [3.4. Navigáció](#34-navigáció)
+- [4. Irányítópult](#4-irányítópult)
+  - [4.1. Recept létrehozása](#41-recept-létrehozása)
+    - [4.1.1 Recept létrehozásához szükséges adatok](#411-recept-létrehozásához-szükséges-adatok)
+    - [4.1.2 Recept mentése](#412-recept-mentése)
 
 <br>
 <br>
@@ -193,3 +197,56 @@ A keresés és a szűrők egyszerre is használhatók!
 ### 3.4. Navigáció
 
 Ha az eredmények több oldalra terjednek ki, az oldal alján megjelenő navigációs menüvel navigálhatsz az oldalak között. A navigációs menü megjeleníti az aktuális oldalt, valamint lehetőséget biztosít az előző, következő, első és utolsó oldalra való ugrásra.
+
+<br>
+<br>
+
+## 4. Irányítópult
+
+Az irányítópultra a fejléc jobb felső sarkában található "Irányítópult" gombra kattintva juthatsz el. Az irányítópulton hozhatsz létre új recepteket. Valamint itt kezelheted az általad létrehozott, illetve mentett recepteidet.
+
+<br>
+
+### 4.1. Recept létrehozása
+
+Új receptet az irányítópult főoldalán a "Recept létrehozása" kártyára, vagy az oldalsávban a "Recept létrehozása" menüpontra, vagy akár a "Recepteim kezelése" oldalon az "Új recept" gombra kattintva hozhatsz létre.
+
+#### 4.1.1 Recept létrehozásához szükséges adatok
+
+A megjelenő űrlapon az alábbi adatokat kell megadni:
+
+**Alapvető információk:**
+
+- **Recept neve**: A recept neve/címe (kötelező, max. 512 karakter).
+- **Leírás**: A recept rövid leírása (kötelező).
+- **Előnézeti kép URL**: A recepthez tartozó előnézeti kép URL (kötelező, csak `https://` előtaggal kezdődhet).
+
+**Elkészítési idő és adagok:**
+
+- **Előkészítési idő (perc)**: Az előkészítéshez szükséges idő percben (kötelező, egész szám, min. 0).
+- **Főzési/Sütési idő (perc)**: A főzéshez/sütéshez szükséges idő percben (kötelező, egész szám, min. 0).
+- **Adagok száma**: Hány fő számára készült a recept (kötelező, egész szám, min. 1).
+
+**Kategóriák:**
+
+Kattints a kívánt kategóriákra a kijelölésükhöz. Legalább egy kategória megadása kötelező! A kijelölt kategóriára ismételt kattintással eltávolíthatod a kijelölést.
+
+**Hozzávalók:**
+
+Minden hozzávaló esetén a következő adatokat kell megadni:
+
+- A hozzávaló nevét.
+- A szükséges mennyiséget (valós szám, min. 0).
+- A mértékegységet.
+
+A "Hozzávaló hozzáadása" (mobilon "+") gombra kattintva adhatsz hozzá új hozzávalót. Hozzávalót a sorszáma melletti törlés ikonra kattintva távolíthatsz el. Legalább egy hozzávaló megadása kötelező!
+
+**Elkészítési utasítások:**
+
+Írd le a recept elkészítésének lépéseit (kötelező). Az áttekinthetőség érdekében érdemes lehet számozott lépéseket használni.
+
+#### 4.1.2 Recept mentése
+
+Az űrlap kitöltése után kattints a "Mentés" gombra. Sikeres mentés után a rendszer a "Recepteim kezelése" oldalra irányít át.
+
+> A létrehozott recept nem jelenik meg a nyilvános felületeken, amíg egy adminisztrátor jóvá nem hagyja.
