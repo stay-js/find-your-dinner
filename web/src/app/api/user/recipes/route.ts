@@ -19,7 +19,7 @@ import {
   enrichRecipes,
 } from '~/server/utils/recipe-helpers';
 
-const PAGE_SIZE = 9;
+const PAGE_SIZE = 6;
 
 const getUserRecipesSchema = z.object({
   categories: idArraySearchSchema,

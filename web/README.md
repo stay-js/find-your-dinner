@@ -242,7 +242,7 @@ A receptek lekérdezésekor (`/api/recipes`, `/api/user/recipes`, `/api/user/sav
   "meta": {
     "currentPage": 1,
     "pageCount": 5,
-    "perPage": 9,
+    "perPage": 6,
     "total": 42
   }
 }
