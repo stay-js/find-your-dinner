@@ -20,15 +20,19 @@
   - [3.2. Keresés név és leírás alapján](#32-keresés-név-és-leírás-alapján)
   - [3.3. Szűrők használata](#33-szűrők-használata)
   - [3.4. Navigáció](#34-navigáció)
-- [4. Irányítópult](#4-irányítópult)
-  - [4.1. Recept létrehozása](#41-recept-létrehozása)
-    - [4.1.1 Recept létrehozásához szükséges adatok](#411-recept-létrehozásához-szükséges-adatok)
-    - [4.1.2 Recept mentése](#412-recept-mentése)
-  - [4.2. Recepteim kezelése](#42-recepteim-kezelése)
-  - [4.3. Recept szerkesztése](#43-recept-szerkesztése)
-    - [4.3.1 Recept törlése](#431-recept-törlése)
-  - [4.4. Mentett recepteim](#44-mentett-recepteim)
-    - [4.4.1. Recept mentése](#441-recept-mentése)
+- [4. Recept oldal](#4-recept-oldal)
+  - [4.1. Recept mentése](#41-recept-mentése)
+  - [4.2. Recept szerkesztése](#42-recept-szerkesztése)
+  - [4.3. Recept jóváhagyása](#43-recept-jóváhagyása)
+- [5. Irányítópult](#5-irányítópult)
+  - [5.1. Recept létrehozása](#51-recept-létrehozása)
+    - [5.1.1 Recept létrehozásához szükséges adatok](#511-recept-létrehozásához-szükséges-adatok)
+    - [5.1.2 Recept mentése](#512-recept-mentése)
+  - [5.2. Recepteim kezelése](#52-recepteim-kezelése)
+  - [5.3. Recept szerkesztése](#53-recept-szerkesztése)
+    - [5.3.1 Recept törlése](#531-recept-törlése)
+  - [5.4. Mentett recepteim](#54-mentett-recepteim)
+    - [5.4.1. Recept mentése](#541-recept-mentése)
 
 <br>
 <br>
@@ -169,7 +173,7 @@ Az oldalon az összes recept rácsszerű elrendezésben jelenik meg. Minden kár
 
 A receptek megtekintéséhez kattints a kártyán lévő "Megtekintés" gombra.
 
-Bejelentkezett felhasználóként a kártya jobb felső sarkában található könyvjelző ikonra kattintva elmentheted a receptet a kedvenceidhez. (lsd.: [4.4.1. Recept mentése](#441-recept-mentése))
+Bejelentkezett felhasználóként a kártya jobb felső sarkában található könyvjelző ikonra kattintva elmentheted a receptet a kedvenceidhez. (lsd.: [5.4.1. Recept mentése](#541-recept-mentése))
 
 <br>
 
@@ -185,7 +189,7 @@ A keresőmező mellett található "Szűrők" gombra kattintva megjelennek az el
 
 **Szűrés hozzávalók szerint:**
 
-1. Kattints a "Szűrés hozzávalók szerint..." mezőre, majd kezdd el gépelni a hozzávaló nevét.
+1. Kattints a "Szűrés hozzávalók szerint..." mezőre, majd kezdd el begépelni a hozzávaló nevét.
 2. A megjelenő listából válaszd ki a kívánt hozzávalókat.
 3. Ha korábban elmentetted az alapértelmezett hozzávalóidat, a "Feltöltés alapértelmezett hozzávalókkal" gombra kattintva feltöltheted velük a keresőmezőt. (Alapértelmezett hozzávalók módosítása, lsd.: [1.4. Alapértelmezett hozzávalók](#14-alapértelmezett-hozzávalók))
 4. A szűrő csak azokat a recepteket jeleníti meg, amelyek elkészíthetőek a kiválasztott hozzávalókból.
@@ -206,17 +210,48 @@ Ha az eredmények több oldalra terjednek ki, az oldal alján megjelenő navigá
 <br>
 <br>
 
-## 4. Irányítópult
+## 4. Recept oldal
+
+A recept oldal egy adott recept részletes adatait jeleníti meg. A recept kártyákon a "Megtekintés" gombra kattintva érheted el a megtekinteni kívánt recept oldalát.
+
+Az oldal megjelenése és működése minden felületen megegyezik (publikus recept oldal, irányítópult recept oldal, irányítópult adminisztátor felület recept oldal).
+
+Az oldalon a recept neve/címe, előnézeti képe, leírása, kategóriái, elkészítési ideje (előkészítés, főzés/sütés), adagok száma, hozzávalói elkészítési utasításai, létrehozás ideje, valamint az utolsó módosítás ideje, és a recept szerzője jelenik meg.
+
+A hozzávalók mennyisége az elkészíteni kívánt adagok számához igazítható, az adag mező melletti "+" és "-" gombok segítségével.
+
+<br>
+
+### 4.1. Recept mentése
+
+A recept kedvencek közé mentéséhez kattints a "Recept mentése" gombra. (lsd.: [5.4.1. Recept mentése](#541-recept-mentése))
+
+<br>
+
+### 4.2. Recept szerkesztése
+
+Amennyiben a recept szerzője vagy adminisztrátor vagy, a "Szerkesztés" gombra kattintva szerkesztheted a receptet. (lsd.: [5.3. Recept szerkesztése](#53-recept-szerkesztése))
+
+<br>
+
+### 4.3. Recept jóváhagyása
+
+Amennyiben adminisztrátor vagy, és a recept még nem került jóváhagyásra, az oldal tetején megjelenik egy "Ez a recept még nincs jóváhagyva" című kártya, a recept jóváhagyásához kattints a "Recept jóváhagyása" gombra, így az megjelenik a nyilvános felületeken.
+
+<br>
+<br>
+
+## 5. Irányítópult
 
 Az irányítópultra a fejléc jobb felső sarkában található "Irányítópult" gombra kattintva juthatsz el. Az irányítópulton hozhatsz létre új recepteket. Valamint itt kezelheted az általad létrehozott, illetve mentett recepteidet.
 
 <br>
 
-### 4.1. Recept létrehozása
+### 5.1. Recept létrehozása
 
 Új receptet az irányítópult főoldalán a "Recept létrehozása" kártyára, vagy az oldalsávban a "Recept létrehozása" menüpontra, vagy akár a "Recepteim kezelése" oldalon az "Új recept" gombra kattintva hozhatsz létre.
 
-#### 4.1.1 Recept létrehozásához szükséges adatok
+#### 5.1.1 Recept létrehozásához szükséges adatok
 
 A megjelenő űrlapon az alábbi adatokat kell megadni:
 
@@ -250,7 +285,7 @@ A "Hozzávaló hozzáadása" (mobilon "+") gombra kattintva adhatsz hozzá új h
 
 Írd le a recept elkészítésének lépéseit (kötelező). Az áttekinthetőség érdekében érdemes lehet számozott lépéseket használni.
 
-#### 4.1.2 Recept mentése
+#### 5.1.2 Recept mentése
 
 Az űrlap kitöltése után kattints a "Mentés" gombra. Sikeres mentés után a rendszer a "Recepteim kezelése" oldalra irányít át.
 
@@ -258,7 +293,7 @@ Az űrlap kitöltése után kattints a "Mentés" gombra. Sikeres mentés után a
 
 <br>
 
-### 4.2. Recepteim kezelése
+### 5.2. Recepteim kezelése
 
 A saját recepteidet az irányítópulton az oldalsávban a "Recepteim kezelése" menüpontra, vagy a főoldalon a "Recepteim kezelése" kártyára kattintva tekintheted meg.
 
@@ -272,21 +307,21 @@ Amennyiben még nem hoztál létre receptet, az oldal egy "Recept létrehozása"
 
 <br>
 
-### 4.3. Recept szerkesztése
+### 5.3. Recept szerkesztése
 
-A recept szerkesztő űrlap megegyezik a létrehozás űrlappal. (lsd.: [4.1. Recept létrehozása](#41-recept-létrehozása))
+A recept szerkesztő űrlap megegyezik a létrehozás űrlappal. (lsd.: [5.1. Recept létrehozása](#51-recept-létrehozása))
 
 A módosítások elvégzése után kattints a "Mentés" gombra a változtatások mentéséhez. Sikeres módosítás után a rendszer a "Recepteim kezelése" oldalra irányít át.
 
 > A módosított recept nem jelenik meg a nyilvános felületeken, amíg egy adminisztrátor jóvá nem hagyja a módosított verziót. Amennyiben volt előző jóváhagyott verzió, az továbbra is megjelenik a nyilvános felületeken, az új verzió jóváhagyásáig.
 
-#### 4.3.1 Recept törlése
+#### 5.3.1 Recept törlése
 
 Recept törléséhez a szerkesztő űrlapon a "Törlés" gombra kattintva van lehetőséged. A gombra kattintva egy megerősítő ablak jelenik meg. A **törlés végleges és nem visszafordítható**, ezért csak akkor erősítsd meg, ha valóban törölni szeretnéd a receptet.
 
 <br>
 
-### 4.4. Mentett recepteim
+### 5.4. Mentett recepteim
 
 A mentett recepteidet az irányítópulton az oldalsávban a "Mentett recepteim" menüpontra, vagy a főoldalon a "Mentett recepteim" kártyára kattintva tekintheted meg.
 
@@ -296,6 +331,6 @@ Oldal működése: lsd.: [3. Összes recept (Receptes oldal)](#3-összes-recept-
 
 Amennyiben még nincs mentett recepted, az oldal egy "Tovább a receptekhez" gombot jelenít meg, amellyel az összes recept oldalra navigálhatsz.
 
-#### 4.4.1. Recept mentése
+#### 5.4.1. Recept mentése
 
 Bármelyik receptet hozzáadhatsz a kedvenceidhez a recept kártyájának jobb felső sarkában található könyvjelző ikonra kattintva, valamint a recept oldalán a "Recept mentése" gombra kattintva. A kitöltött könyvjelző ikon azt jelzi, hogy a recept már el van mentve. A gomb ismételt megnyomásával eltávolíthatod a receptet a mentett recepteid közül.
