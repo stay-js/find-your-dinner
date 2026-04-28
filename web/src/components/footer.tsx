@@ -1,5 +1,5 @@
 import { SiGithub } from '@icons-pack/react-simple-icons';
-import { Globe, UtensilsCrossed } from 'lucide-react';
+import { Globe, NotepadText, UtensilsCrossed } from 'lucide-react';
 import Link from 'next/link';
 
 import { Logo } from '~/components/logo';
@@ -85,6 +85,12 @@ export function Footer() {
                     href: '/dashboard/recipes/create',
                     icon: UtensilsCrossed,
                     title: 'Recept létrehozása',
+                  },
+                  {
+                    external: true,
+                    href: 'https://github.com/stay-js/find-your-dinner/blob/main/docs/user-documentation.md',
+                    icon: NotepadText,
+                    title: 'Felhasználói dokumentáció',
                   },
                 ].map((item) => (
                   <Link
