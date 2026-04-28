@@ -1252,7 +1252,14 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorMessage'
+                type: object
+                required: [isAdmin, message]
+                properties:
+                  isAdmin:
+                    type: boolean
+                    const: false
+                  message:
+                    type: string
 
   /user/recipes:
     get:
