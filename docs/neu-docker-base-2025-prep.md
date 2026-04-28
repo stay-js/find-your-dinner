@@ -14,7 +14,7 @@
 ## 1. Node.js és pnpm telepítése
 
 1. [Node.js](https://nodejs.org/en/) és [pnpm](https://pnpm.io/) telepítéséhez látogass el a Node.js hivatalos oldalán a [Telepítés](https://nodejs.org/en/download) szekcióra.
-2. Válaszd ki az **LTS** (`Long Term Support`) verziót, **Linux**-ra **fnm** segítségével, **pnpm**-mel.
+2. Válaszd ki a **v24.x LTS** (`Long Term Support`) verziót, **Linux**-ra **fnm** segítségével, **pnpm**-mel.
 3. Majd kövessd az oldalon megjelenő utasításokat.
 
 <br>
@@ -22,7 +22,7 @@
 
 ## 2. Just telepítése
 
-> Mivel `Ubuntu 24.04`-en az `apt install just` régebbi (`1.21.0`), nem támogatott verziót telepít, ezért manuálisan kell telepíteni a Just-ot.
+> Mivel `Ubuntu 24.04` esetén az `apt install just` régebbi (`1.21.0`), nem támogatott verziót telepít, ezért manuálisan kell telepíteni a Just-ot.
 
 1. [Just](https://github.com/casey/just) telepítéséhez látogass el a Just hivatalos GitHub oldalára.
 2. Kövesd a [Pre-Built Binaries](https://github.com/casey/just#pre-built-binaries) szekcióban található utasításokat, vagy telepítsd **Cargo** segítségével, ehhez kövesd a lenti lépéseket [2.1. Just telepítése Cargo segítségével](#21-just-telepítése-cargo-segítségével).
