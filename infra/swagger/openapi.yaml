@@ -402,6 +402,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorMessage'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
 
   /units/{id}:
     parameters:
@@ -468,6 +474,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorMessage'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
 
     delete:
       operationId: units.delete
@@ -499,6 +511,12 @@ paths:
                 $ref: '#/components/schemas/ErrorMessage'
         '404':
           description: Unit not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+        '500':
+          description: Internal server error
           content:
             application/json:
               schema:
@@ -582,6 +600,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorMessage'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
 
   /categories/{id}:
     parameters:
@@ -644,6 +668,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorMessage'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
 
     delete:
       operationId: categories.delete
@@ -675,6 +705,12 @@ paths:
                 $ref: '#/components/schemas/ErrorMessage'
         '404':
           description: Category not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+        '500':
+          description: Internal server error
           content:
             application/json:
               schema:
@@ -758,6 +794,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorMessage'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
 
   /ingredients/{id}:
     parameters:
@@ -820,6 +862,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorMessage'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
 
     delete:
       operationId: ingredients.delete
@@ -851,6 +899,12 @@ paths:
                 $ref: '#/components/schemas/ErrorMessage'
         '404':
           description: Ingredient not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+        '500':
+          description: Internal server error
           content:
             application/json:
               schema:
@@ -1061,6 +1115,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorMessage'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
 
     put:
       operationId: recipes.update
@@ -1098,6 +1158,12 @@ paths:
                 $ref: '#/components/schemas/ErrorMessage'
         '404':
           description: Recipe not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+        '500':
+          description: Internal server error
           content:
             application/json:
               schema:
@@ -1149,6 +1215,12 @@ paths:
                 $ref: '#/components/schemas/ErrorMessage'
         '409':
           description: Recipe data already verified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+        '500':
+          description: Internal server error
           content:
             application/json:
               schema:
@@ -1383,6 +1455,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorMessage'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
 
   /user/default-ingredients:
     get:
@@ -1438,6 +1516,12 @@ paths:
                 $ref: '#/components/schemas/ErrorMessage'
         '401':
           description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+        '500':
+          description: Internal server error
           content:
             application/json:
               schema:
