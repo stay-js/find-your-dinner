@@ -52,6 +52,7 @@ A **Find Your Dinner.** egy receptes alkalmazás, amely lehetővé teszi a felha
     - [6.4.1. Mértékegység létrehozása](#641-mértékegység-létrehozása)
     - [6.4.2. Mértékegység szerkesztése](#642-mértékegység-szerkesztése)
     - [6.4.3. Mértékegység törlése](#643-mértékegység-törlése)
+- [7. Megjelenés](#7-megjelenés)
 
 <br>
 <br>
@@ -456,3 +457,17 @@ Az oldal tetején a keresőmező segítségével név és rövidítés szerint s
 #### 6.4.3. Mértékegység törlése
 
 1. Kattints a törölni kívánt mértékegység sorában a kuka (törlés) ikonra. A gombra kattintva egy megerősítő ablak jelenik meg. A **törlés végleges és nem visszafordítható**, ezért csak akkor erősítsd meg, ha valóban törölni szeretnéd a mértékegységet.
+
+<br>
+<br>
+
+## 7. Megjelenés
+
+Az alkalmazás színsémáját a láblécben található "Megjelenés" legördülő menüre kattintva választhatod ki.
+A következő módok közül választhatsz:
+
+- **Rendszer (alapértelmezett)**: Az alkalmazás követi a készülékeden beállított színsémát.
+- **Világos**: Az alkalmazás világos színsémával jelenik meg.
+- **Sötét**: Az alkalmazás sötét színsémával jelenik meg.
+
+A `D` billentyű lenyomásával gyorsan válthatsz világos és sötét módok között.
