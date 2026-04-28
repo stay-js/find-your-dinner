@@ -39,15 +39,20 @@ export async function PUT(request: NextRequest) {
 
   const { ingredientIds } = result.data;
 
-  await db.transaction(async (tx) => {
-    await tx.delete(defaultIngredients).where(eq(defaultIngredients.userId, userId));
+  try {
+    await db.transaction(async (tx) => {
+      await tx.delete(defaultIngredients).where(eq(defaultIngredients.userId, userId));
 
-    if (ingredientIds.length > 0) {
-      await tx
-        .insert(defaultIngredients)
-        .values(ingredientIds.map((ingredientId) => ({ ingredientId, userId })));
-    }
-  });
+      if (ingredientIds.length > 0) {
+        await tx
+          .insert(defaultIngredients)
+          .values(ingredientIds.map((ingredientId) => ({ ingredientId, userId })));
+      }
+    });
 
-  return new NextResponse(null, { status: 204 });
+    return new NextResponse(null, { status: 204 });
+  } catch (err) {
+    console.error(err);
+    return NextResponse.json({ message: 'Failed to update default ingredients' }, { status: 500 });
+  }
 }

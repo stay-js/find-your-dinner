@@ -22,9 +22,14 @@ export async function DELETE(_: NextRequest, { params }: { params: Promise<{ id:
 
   const { id } = result.data;
 
-  await db
-    .delete(savedRecipes)
-    .where(and(eq(savedRecipes.userId, userId), eq(savedRecipes.recipeId, id)));
+  try {
+    await db
+      .delete(savedRecipes)
+      .where(and(eq(savedRecipes.userId, userId), eq(savedRecipes.recipeId, id)));
 
-  return new Response(null, { status: 204 });
+    return new Response(null, { status: 204 });
+  } catch (err) {
+    console.error(err);
+    return NextResponse.json({ message: 'Failed to unsave recipe' }, { status: 500 });
+  }
 }
