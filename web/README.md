@@ -1,6 +1,7 @@
 # Find Your Dinner. - Full-stack web app dokumentációja
 
-Előfeltételek: [Find Your Dinner. - Vizsgaremek dokumentáció, Előfeltételek](../README.md#előfeltételek)
+Előfeltételek: [Find Your Dinner. - Vizsgaremek dokumentáció, Előfeltételek](../README.md#előfeltételek)\
+Első indítás: [Find Your Dinner. - Vizsgaremek dokumentáció, Első indítás](../README.md#első-indítás)
 
 A web app használatával kapcsolatos információk, használati útmutató: [Felhasználói dokumentáció](../docs/user-documentation.md)
 
@@ -557,6 +558,9 @@ Az elkészült riportot a futtatás után a terminálban megjelenő parancs futt
 ### 8.4. Manuális tesztek
 
 A manuális teszteket fejlesztői valamint éles környezetben is egyaránt elvégeztük. A tesztek részletes leírását, valamint az eredményeket a [Find Your Dinner. - Tesztelési jegyzőkönyv](../docs/testing-report.md) dokumentumban, a [Manuális tesztek](../docs/testing-report.md#manuális-tesztek) szakaszban találod.
+
+<br>
+<br>
 
 ## 9. Jogi nyilatkozat
 
