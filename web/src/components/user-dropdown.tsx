@@ -70,11 +70,7 @@ export function UserDropdown({ location, onClose, onOpenDefaultIngredients }: Us
             className="flex items-center gap-2"
             onClick={() => {
               onClose?.();
-
-              utils.clear();
-              utils.setQueryData(['currentUser', 'defaultIngredients'], []);
-
-              signOut({ redirectUrl: '/' });
+              signOut({ redirectUrl: '/' }).finally(() => utils.clear());
             }}
           >
             <LogOut />
