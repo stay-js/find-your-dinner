@@ -293,6 +293,27 @@ describe('GET /api/recipes', () => {
     expect(body.meta.pageCount).toBe(2);
     expect(body.meta.perPage).toBe(2);
   });
+
+  it('paginates results correctly with default page size', async () => {
+    for (let i = 0; i < 10; i++) {
+      await seedRecipe({
+        categoryIds: [],
+        data: { ...SAMPLE_RECIPE_DATA, title: `Recipe ${i}` },
+        ingredientEntries: [],
+        userId: USER_ID,
+      });
+    }
+
+    const res = await GET(new NextRequest('http://localhost/api/recipes?page=2'));
+    expect(res.status).toBe(200);
+
+    const body = paginatedRecipesSchema.parse(await res.json());
+
+    expect(body.meta.total).toBe(10);
+    expect(body.meta.currentPage).toBe(2);
+    expect(body.meta.pageCount).toBe(2);
+    expect(body.data).toHaveLength(10 - 6);
+  });
 });
 
 describe('POST /api/recipes', () => {

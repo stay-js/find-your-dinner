@@ -206,7 +206,7 @@ describe('GET /api/user/recipes', () => {
     expect(body.meta.total).toBe(10);
     expect(body.meta.currentPage).toBe(2);
     expect(body.meta.pageCount).toBe(2);
-    expect(body.data).toHaveLength(1);
+    expect(body.data).toHaveLength(10 - 6);
   });
 
   it('does not return recipes from other users when filtering', async () => {

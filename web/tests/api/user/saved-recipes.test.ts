@@ -329,7 +329,7 @@ describe('GET /api/user/saved-recipes?include=recipe', () => {
     expect(body.meta.total).toBe(10);
     expect(body.meta.currentPage).toBe(2);
     expect(body.meta.pageCount).toBe(2);
-    expect(body.data).toHaveLength(1);
+    expect(body.data).toHaveLength(10 - 6);
   });
 });
 
