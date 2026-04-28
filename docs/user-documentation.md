@@ -1,6 +1,6 @@
 # Find Your Dinner. - Felhasználói dokumentáció
 
-A **Find Your Dinner.** egy receptes alkalmazás, amely lehetővé teszi a felhasználók számára, hogy a rendelkezésükre álló hozzávalók alapján keressenek recepteket, ezzel elkerülve a felesleges bevásárlást. A keresési oldalon pedig a szelektálási és verseny funkciók segítenek leegyszerűsíteni a nap legnehezebb döntését.
+A **Find Your Dinner.** egy receptes alkalmazás, amely lehetővé teszi a felhasználók számára, hogy a rendelkezésükre álló hozzávalók alapján keressenek recepteket, ezzel elkerülve a felesleges bevásárlást. A keresés oldalon pedig a szelektálás és verseny funkciók segítenek leegyszerűsíteni a nap legnehezebb döntését.
 
 <br>
 
@@ -238,6 +238,8 @@ Az oldal megjelenése és működése minden felületen megegyezik (publikus rec
 Az oldalon a recept neve/címe, előnézeti képe, leírása, kategóriái, elkészítési ideje (előkészítés, főzés/sütés), adagok száma, hozzávalói, elkészítési utasításai, létrehozás ideje, valamint az utolsó módosítás ideje, és a recept szerzője jelenik meg.
 
 A hozzávalók mennyisége az elkészíteni kívánt adagok számához igazítható, az adag mező melletti "+" és "-" gombok segítségével.
+
+A hozzávalók listájában minden hozzávaló mellett található egy jelölőnégyzet. A hozzávaló nevére vagy a mellette lévő jelölőnégyzetre kattintva megjelölheted az adott hozzávalót, ezzel nyomon követheted, hogy mely hozzávalókat használtad már fel a főzés során. A jelölést ismételt kattintással távolíthatod el.
 
 <br>
 
