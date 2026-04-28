@@ -33,6 +33,21 @@
     - [5.3.1 Recept törlése](#531-recept-törlése)
   - [5.4. Mentett recepteim](#54-mentett-recepteim)
     - [5.4.1. Recept mentése](#541-recept-mentése)
+- [6. Adminisztrátori felület](#6-adminisztrátori-felület)
+  - [6.1. Receptek kezelése](#61-receptek-kezelése)
+    - [6.1.1. Jóváhagyásra váró receptek szűrése](#611-jóváhagyásra-váró-receptek-szűrése)
+  - [6.2. Kategóriák kezelése](#62-kategóriák-kezelése)
+    - [6.2.1. Kategória létrehozása](#621-kategória-létrehozása)
+    - [6.2.2. Kategória szerkesztése](#622-kategória-szerkesztése)
+    - [6.2.3. Kategória törlése](#623-kategória-törlése)
+  - [6.3. Hozzávalók kezelése](#63-hozzávalók-kezelése)
+    - [6.3.1. Hozzávaló létrehozása](#631-hozzávaló-létrehozása)
+    - [6.3.2. Hozzávaló szerkesztése](#632-hozzávaló-szerkesztése)
+    - [6.3.3. Hozzávaló törlése](#633-hozzávaló-törlése)
+  - [6.4. Mértékegységek kezelése](#64-mértékegységek-kezelése)
+    - [6.4.1. Mértékegység létrehozása](#641-mértékegység-létrehozása)
+    - [6.4.2. Mértékegység szerkesztése](#642-mértékegység-szerkesztése)
+    - [6.4.3. Mértékegység törlése](#643-mértékegység-törlése)
 
 <br>
 <br>
@@ -334,3 +349,104 @@ Amennyiben még nincs mentett recepted, az oldal egy "Tovább a receptekhez" gom
 #### 5.4.1. Recept mentése
 
 Bármelyik receptet hozzáadhatsz a kedvenceidhez a recept kártyájának jobb felső sarkában található könyvjelző ikonra kattintva, valamint a recept oldalán a "Recept mentése" gombra kattintva. A kitöltött könyvjelző ikon azt jelzi, hogy a recept már el van mentve. A gomb ismételt megnyomásával eltávolíthatod a receptet a mentett recepteid közül.
+
+<br>
+<br>
+
+## 6. Adminisztrátori felület
+
+Az adminisztrátori felület kizárólag adminisztrátor jogosultságú felhasználók számára érhető el. Az irányítópulton az oldalsáv tetején, az "Adminisztráció" szekció alatt találhatóak az adminisztrátori menüpontok: "Receptek kezelése", "Kategóriák kezelése", "Hozzávalók kezelése" és "Mértékegységek kezelése". Az előbbi menüpontok az irányítópult főoldaláról is elérhetőek.
+
+<br>
+
+### 6.1. Receptek kezelése
+
+Az adminisztrátori "Receptek kezelése" oldal megjelenése és működése megegyezik a felhasználói "Recepteim kezelése" oldallal, azonban itt az összes megjelenik, beleértve a jóváhagyásra váró recepteket is. A jóváhagyott receptek kártyájánank bal felső sarkában egy "Jóváhagyva" címke látható.
+
+Oldal működése: lsd.: [3. Összes recept (Receptes oldal)](#3-összes-recept-receptes-oldal)
+
+#### 6.1.1. Jóváhagyásra váró receptek szűrése
+
+Az adminisztrátori receptek oldalon elérhető egy extra szűrő: "Csak jóváhagyásra váró receptek". Ennek aktiválásával csak azok a receptek jelennek meg, amelyek még nem kerültek jóváhagyásra.
+
+A szűrő aktiválásához kattints a "Szűrők" gombra, majd pipáld be a "Csak jóváhagyásra váró receptek" opciót.
+
+<br>
+
+### 6.2. Kategóriák kezelése
+
+A "Kategóriák kezelése" oldalon megtekintheted, létrehozhatod, szerkesztheted és törölheted az alkalmazásban elérhető kategóriákat.
+
+Az oldal tetején a keresőmező segítségével név szerint szűrheted a kategóriákat. A találatok gépelés közben automatikusan frissülnek.
+
+> Csak azok a kategóriák törölhetőek, amelyek egy recepthez sincsenek hozzárendelve.
+
+#### 6.2.1. Kategória létrehozása
+
+1. Kattints az "Új kategória" gombra az oldal jobb felső sarkában.
+2. A megjelenő panelen add meg a kategória nevét (kötelező, max. 128 karakter).
+3. A kategória létrehozásához kattints a "Mentés" gombra.
+
+#### 6.2.2. Kategória szerkesztése
+
+1. Kattints a szerkeszteni kívánt kategória sorában a ceruza (szerkesztés) ikonra.
+2. A megjelenő panelen módosítsd a kategória nevét.
+3. A változtatások mentéséhez kattints a "Mentés" gombra.
+
+#### 6.2.3. Kategória törlése
+
+Kattints a törölni kívánt kategória sorában a kuka (törlés) ikonra. A gombra kattintva egy megerősítő ablak jelenik meg. A **törlés végleges és nem visszafordítható**, ezért csak akkor erősítsd meg, ha valóban törölni szeretnéd a kategóriát.
+
+<br>
+
+### 6.3. Hozzávalók kezelése
+
+A "Hozzávalók kezelése" oldalon megtekintheted, létrehozhatod, szerkesztheted és törölheted az alkalmazásban elérhető hozzávalókat.
+
+Az oldal tetején a keresőmező segítségével név szerint szűrheted a hozzávalókat. A találatok gépelés közben automatikusan frissülnek.
+
+> Csak azok a hozzávalók törölhetőek, amelyek egy recepthez sincsenek hozzárendelve és alapértelmezett hozzávalóként sincsenek rögzítve.
+
+#### 6.3.1. Hozzávaló létrehozása
+
+1. Kattints az "Új hozzávaló" gombra az oldal jobb felső sarkában.
+2. A megjelenő panelen add meg a hozzávaló nevét (kötelező, max. 256 karakter).
+3. A hozzávaló létrehozásához kattints a "Mentés" gombra.
+
+#### 6.3.2. Hozzávaló szerkesztése
+
+1. Kattints a szerkeszteni kívánt hozzávaló sorában a ceruza (szerkesztés) ikonra.
+2. A megjelenő panelen módosítsd a hozzávaló nevét.
+3. A változtatások mentéséhez kattints a "Mentés" gombra.
+
+#### 6.3.3. Hozzávaló törlése
+
+Kattints a törölni kívánt hozzávaló sorában a kuka (törlés) ikonra. A gombra kattintva egy megerősítő ablak jelenik meg. A **törlés végleges és nem visszafordítható**, ezért csak akkor erősítsd meg, ha valóban törölni szeretnéd a hozzávalót.
+
+<br>
+
+### 6.4. Mértékegységek kezelése
+
+A "Mértékegységek kezelése" oldalon megtekintheted, létrehozhatod, szerkesztheted és törölheted az alkalmazásban elérhető mértékegységeket.
+
+Az oldal tetején a keresőmező segítségével név és rövidítés szerint szűrheted a mértékegységeket. A találatok gépelés közben automatikusan frissülnek.
+
+> Csak azok a mértékegységek törölhetőek, amelyek egy recepthez sincsenek hozzárendelve.
+
+#### 6.4.1. Mértékegység létrehozása
+
+1. Kattints az "Új mértékegység" gombra az oldal jobb felső sarkában.
+2. A megjelenő panelen add meg a mértékegység adatait:
+   - **Név**: A mértékegység teljes neve (kötelező, max. 64 karakter), pl. "Gramm".
+   - **Rövidítés**: A mértékegység rövidítése (kötelező, max. 16 karakter), pl. "g".
+3. A mértékegység létrehozásához kattints a "Mentés" gombra.
+
+#### 6.4.2. Mértékegység szerkesztése
+
+1. Kattints a szerkeszteni kívánt mértékegység sorában a ceruza (szerkesztés) ikonra.
+2. A megjelenő panelen módosítsd a mértékegység nevét és/vagy rövidítését.
+3. A változtatások mentéséhez kattints a "Mentés" gombra.
+
+#### 6.4.3. Mértékegység törlése
+
+1. Kattints a törölni kívánt mértékegység sorában a kuka (törlés) ikonra. A gombra kattintva egy megerősítő ablak jelenik meg. A **törlés végleges és nem visszafordítható**, ezért csak akkor erősítsd meg, ha valóban törölni szeretnéd a mértékegységet.
