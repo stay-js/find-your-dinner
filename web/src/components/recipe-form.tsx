@@ -25,8 +25,8 @@ import { getCategories, getIngredients, getUnits } from '~/lib/queries';
 import { cn } from '~/lib/utils';
 import {
   type CreateUpdateRecipeSchema,
-  isCultureInvariantFloatString,
   isNonNegativeIntegerString,
+  isPositiveCultureInvariantFloatString,
   isPositiveIntegerString,
   parseCultureInvariantFloat,
 } from '~/lib/zod';
@@ -73,10 +73,9 @@ const formSchema = z.object({
           .string()
           .trim()
           .refine(isPositiveIntegerString, { error: 'Válassz hozzávalót!' }),
-        quantity: z
-          .string()
-          .trim()
-          .refine(isCultureInvariantFloatString, { error: 'A mennyiség csak pozitív szám lehet!' }),
+        quantity: z.string().trim().refine(isPositiveCultureInvariantFloatString, {
+          error: 'A mennyiség csak pozitív szám lehet!',
+        }),
         unitId: z
           .string()
           .trim()

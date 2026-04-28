@@ -35,6 +35,13 @@ export function isNonNegativeIntegerString(val: string) {
   return Number.isInteger(num) && num >= 0;
 }
 
+export function isPositiveCultureInvariantFloatString(val: string) {
+  const num = parseCultureInvariantFloat(val);
+  if (num === null) return false;
+
+  return !isNaN(num) && num > 0;
+}
+
 export function isPositiveIntegerString(val: string) {
   if (!val || val === '') return false;
 

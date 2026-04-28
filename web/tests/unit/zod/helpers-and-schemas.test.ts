@@ -4,6 +4,7 @@ import {
   isCultureInvariantFloatString,
   isIntegerString,
   isNonNegativeIntegerString,
+  isPositiveCultureInvariantFloatString,
   isPositiveIntegerString,
   parseCultureInvariantFloat,
 } from '~/lib/zod/helpers';
@@ -78,6 +79,44 @@ describe('isCultureInvariantFloatString', () => {
 
   it('returns false for whitespace-only string', () => {
     expect(isCultureInvariantFloatString('   ')).toBe(false);
+  });
+});
+
+describe('isPositiveCultureInvariantFloatString', () => {
+  it('returns true for dot-separated positive float', () => {
+    expect(isPositiveCultureInvariantFloatString('3.14')).toBe(true);
+  });
+
+  it('returns true for comma-separated positive float', () => {
+    expect(isPositiveCultureInvariantFloatString('3,14')).toBe(true);
+  });
+
+  it('returns true for positive integer string', () => {
+    expect(isPositiveCultureInvariantFloatString('1')).toBe(true);
+  });
+
+  it('returns false for zero', () => {
+    expect(isPositiveCultureInvariantFloatString('0')).toBe(false);
+  });
+
+  it('returns false for negative float string', () => {
+    expect(isPositiveCultureInvariantFloatString('-1.5')).toBe(false);
+  });
+
+  it('returns false for negative comma-separated float string', () => {
+    expect(isPositiveCultureInvariantFloatString('-1,5')).toBe(false);
+  });
+
+  it('returns false for non-numeric string', () => {
+    expect(isPositiveCultureInvariantFloatString('abc')).toBe(false);
+  });
+
+  it('returns false for empty string', () => {
+    expect(isPositiveCultureInvariantFloatString('')).toBe(false);
+  });
+
+  it('returns false for whitespace-only string', () => {
+    expect(isPositiveCultureInvariantFloatString('   ')).toBe(false);
   });
 });
 
